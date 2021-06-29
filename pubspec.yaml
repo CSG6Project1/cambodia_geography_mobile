@@ -15,4 +15,4 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/tb_commune.json
+    - assets/

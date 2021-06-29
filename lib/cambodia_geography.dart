@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 import './models/tb_commune_model.dart';
 import './models/tb_district_model.dart';
 import './models/tb_province_model.dart';
 import './models/tb_village_model.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class CambodiaGeography {
   List<TbCommuneModel> tbCommunes = [];
@@ -24,7 +24,7 @@ class CambodiaGeography {
   }
 
   Future<void> initilize() async {
-    tbCommunes = await File('assets/tb_commune.json').readAsString().then((value) {
+    tbCommunes = await rootBundle.loadString('assets/tb_commune.json').then((value) {
       List<dynamic> json = jsonDecode(value);
       return json.map((e) {
         final data = TbCommuneModel.fromJson(e);
@@ -32,7 +32,7 @@ class CambodiaGeography {
       }).toList();
     });
 
-    tbDistricts = await File('assets/tb_district.json').readAsString().then((value) {
+    tbDistricts = await rootBundle.loadString('assets/tb_district.json').then((value) {
       List<dynamic> json = jsonDecode(value);
       return json.map((e) {
         final data = TbDistrictModel.fromJson(e);
@@ -40,7 +40,7 @@ class CambodiaGeography {
       }).toList();
     });
 
-    tbProvinces = await File('assets/tb_province.json').readAsString().then((value) {
+    tbProvinces = await rootBundle.loadString('assets/tb_province.json').then((value) {
       List<dynamic> json = jsonDecode(value);
       return json.map((e) {
         final data = TbProvinceModel.fromJson(e);
@@ -48,7 +48,7 @@ class CambodiaGeography {
       }).toList();
     });
 
-    tbVillages = await File('assets/tb_village.json').readAsString().then((value) {
+    tbVillages = await rootBundle.loadString('assets/tb_village.json').then((value) {
       List<dynamic> json = jsonDecode(value);
       return json.map((e) {
         final data = TbVillageModel.fromJson(e);
