@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'models/tb_commune_model.dart';
-import 'models/tb_district_model.dart';
-import 'models/tb_province_model.dart';
-import 'models/tb_village_model.dart';
+import './models/tb_commune_model.dart';
+import './models/tb_district_model.dart';
+import './models/tb_province_model.dart';
+import './models/tb_village_model.dart';
 
 void main() async {
   List<TbCommuneModel> tbCommunes = await File('tb_commune.json').readAsString().then((value) {
