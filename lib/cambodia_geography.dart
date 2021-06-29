@@ -11,12 +11,20 @@ class CambodiaGeography {
   List<TbProvinceModel> tbProvinces = [];
   List<TbVillageModel> tbVillages = [];
 
-  CambodiaGeography() {
-    _initilize();
+  List<TbDistrictModel> districtsSearch({required String provinceCode}) {
+    return this.tbDistricts.where((e) => e.provinceCode == provinceCode).toList();
   }
 
-  Future<void> _initilize() async {
-    tbCommunes = await File('tb_commune.json').readAsString().then((value) {
+  List<TbCommuneModel> communesSearch({required String districtCode}) {
+    return this.tbCommunes.where((e) => e.districtCode == districtCode).toList();
+  }
+
+  List<TbVillageModel> villagesSearch({required String communeCode}) {
+    return this.tbVillages.where((e) => e.communeCode == communeCode).toList();
+  }
+
+  Future<void> initilize() async {
+    tbCommunes = await File('assets/tb_commune.json').readAsString().then((value) {
       List<dynamic> json = jsonDecode(value);
       return json.map((e) {
         final data = TbCommuneModel.fromJson(e);
@@ -24,7 +32,7 @@ class CambodiaGeography {
       }).toList();
     });
 
-    tbDistricts = await File('tb_district.json').readAsString().then((value) {
+    tbDistricts = await File('assets/tb_district.json').readAsString().then((value) {
       List<dynamic> json = jsonDecode(value);
       return json.map((e) {
         final data = TbDistrictModel.fromJson(e);
@@ -32,7 +40,7 @@ class CambodiaGeography {
       }).toList();
     });
 
-    tbProvinces = await File('tb_province.json').readAsString().then((value) {
+    tbProvinces = await File('assets/tb_province.json').readAsString().then((value) {
       List<dynamic> json = jsonDecode(value);
       return json.map((e) {
         final data = TbProvinceModel.fromJson(e);
@@ -40,7 +48,7 @@ class CambodiaGeography {
       }).toList();
     });
 
-    tbVillages = await File('tb_village.json').readAsString().then((value) {
+    tbVillages = await File('assets/tb_village.json').readAsString().then((value) {
       List<dynamic> json = jsonDecode(value);
       return json.map((e) {
         final data = TbVillageModel.fromJson(e);
