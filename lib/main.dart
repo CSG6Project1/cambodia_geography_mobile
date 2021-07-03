@@ -1,26 +1,33 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
+import 'package:cambodia_geography/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   final geo = CambodiaGeography();
   await geo.initilize();
-  final list = geo.villagesSearch(communeCode: "080412");
-  print(list);
 
   runApp(
     MaterialApp(
-      home: App(),
+      home: App(geo: geo),
     ),
   );
 }
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({
+    Key? key,
+    required this.geo,
+  }) : super(key: key);
 
+  final CambodiaGeography geo;
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Color(0xFFCE2B30),
+      ),
+      home: HomeScreen(geo: geo),
+    );
   }
 }

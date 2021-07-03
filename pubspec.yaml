@@ -7,6 +7,7 @@ environment:
 dependencies: 
   flutter:
     sdk: flutter
+  flutter_sticky_header: ^0.6.0
   fuzzy: ^0.3.0
 
 dev_dependencies:
