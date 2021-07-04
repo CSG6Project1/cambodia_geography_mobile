@@ -8,6 +8,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "black_hole_flutter",
+      "rootUri": "file:///Users/theachoem/Tools/flutter/.pub-cache/hosted/pub.dartlang.org/black_hole_flutter-0.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///Users/theachoem/Tools/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0",
       "packageUri": "lib/",
@@ -74,6 +80,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "list_diff",
+      "rootUri": "file:///Users/theachoem/Tools/flutter/.pub-cache/hosted/pub.dartlang.org/list_diff-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///Users/theachoem/Tools/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.10",
       "packageUri": "lib/",
@@ -122,6 +134,24 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "supercharged",
+      "rootUri": "file:///Users/theachoem/Tools/flutter/.pub-cache/hosted/pub.dartlang.org/supercharged-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "supercharged_dart",
+      "rootUri": "file:///Users/theachoem/Tools/flutter/.pub-cache/hosted/pub.dartlang.org/supercharged_dart-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "swipeable_page_route",
+      "rootUri": "file:///Users/theachoem/Tools/flutter/.pub-cache/hosted/pub.dartlang.org/swipeable_page_route-0.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "term_glyph",
       "rootUri": "file:///Users/theachoem/Tools/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.0",
       "packageUri": "lib/",
@@ -158,7 +188,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-06-29T14:40:41.861371Z",
+  "generated": "2021-07-03T16:32:47.164713Z",
   "generator": "pub",
   "generatorVersion": "2.12.3"
 }

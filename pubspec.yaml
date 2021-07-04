@@ -9,7 +9,6 @@ dependencies:
     sdk: flutter
   flutter_sticky_header: ^0.6.0
   fuzzy: ^0.3.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -17,3 +16,18 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+  fonts:
+    - family: Lora
+      fonts:
+        - asset: assets/fonts/Lora/Lora-Bold.ttf
+        - asset: assets/fonts/Lora/Lora-BoldItalic.ttf
+        - asset: assets/fonts/Lora/Lora-Italic.ttf
+        - asset: assets/fonts/Lora/Lora-Medium.ttf
+        - asset: assets/fonts/Lora/Lora-MediumItalic.ttf
+        - asset: assets/fonts/Lora/Lora-Regular.ttf
+        - asset: assets/fonts/Lora/Lora-SemiBold.ttf
+        - asset: assets/fonts/Lora/Lora-SemiBoldItalic.ttf
+    - family: Battambang
+      fonts:
+        - asset: assets/fonts/Battambang/Battambang-Bold.ttf
+        - asset: assets/fonts/Battambang/Battambang-Regular.ttf

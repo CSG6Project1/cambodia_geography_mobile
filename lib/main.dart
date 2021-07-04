@@ -1,4 +1,5 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
+import 'package:cambodia_geography/constants/theme_constant.dart';
 import 'package:cambodia_geography/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -21,13 +22,13 @@ class App extends StatelessWidget {
   }) : super(key: key);
 
   final CambodiaGeography geo;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Color(0xFFCE2B30),
-      ),
+      theme: ThemeConstant().themeData,
       home: HomeScreen(geo: geo),
+      navigatorObservers: [HeroController()],
     );
   }
 }
