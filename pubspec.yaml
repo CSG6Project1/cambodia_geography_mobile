@@ -9,6 +9,8 @@ dependencies:
     sdk: flutter
   flutter_sticky_header: ^0.6.0
   fuzzy: ^0.3.0
+  swipeable_page_route: ^0.2.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
