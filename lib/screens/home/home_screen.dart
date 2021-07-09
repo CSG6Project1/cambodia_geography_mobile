@@ -4,13 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    Key? key,
-    required this.geo,
-  }) : super(key: key);
-
-  final CambodiaGeography geo;
-
+  const HomeScreen({Key? key}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -18,12 +12,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   String? currentProvinceCode;
   late TabController controller;
+  late CambodiaGeography geo;
 
   @override
   void initState() {
     super.initState();
-    currentProvinceCode = widget.geo.tbProvinces[0].code;
-    controller = TabController(length: widget.geo.tbProvinces.length, vsync: this);
+    geo = CambodiaGeography.instance;
+
+    currentProvinceCode = geo.tbProvinces[0].code;
+    controller = TabController(length: geo.tbProvinces.length, vsync: this);
   }
 
   @override
@@ -47,8 +44,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         List.generate(
           controller.length,
           (index) {
-            final province = widget.geo.tbProvinces[index];
-            final districts = widget.geo.districtsSearch(provinceCode: province.code ?? "");
+            final province = geo.tbProvinces[index];
+            final districts = geo.districtsSearch(provinceCode: province.code ?? "");
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -101,11 +98,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         controller: controller,
         isScrollable: true,
         tabs: List.generate(
-          widget.geo.tbProvinces.length,
+          geo.tbProvinces.length,
           (index) => Tab(
             key: Key("HomeTabItem$index"),
             child: Text(
-              widget.geo.tbProvinces[index].khmer.toString(),
+              geo.tbProvinces[index].khmer.toString(),
             ),
           ),
         ),

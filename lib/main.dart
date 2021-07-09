@@ -5,29 +5,23 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final geo = CambodiaGeography();
-  await geo.initilize();
+  await CambodiaGeography.instance.initilize();
 
   runApp(
     MaterialApp(
-      home: App(geo: geo),
+      home: App(),
     ),
   );
 }
 
 class App extends StatelessWidget {
-  const App({
-    Key? key,
-    required this.geo,
-  }) : super(key: key);
-
-  final CambodiaGeography geo;
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeConfig().themeData,
-      home: HomeScreen(geo: geo),
+      home: HomeScreen(),
       navigatorObservers: [HeroController()],
     );
   }
