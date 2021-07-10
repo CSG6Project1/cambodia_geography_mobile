@@ -219,6 +219,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
             labelText: "Apply",
             iconData: Icons.map,
             backgroundColor: colorScheme.onBackground,
+            foregroundColor: colorScheme.background,
             onPressed: currentLatLng != null
                 ? () {
                     LatLng? latLng = getLatLngFromCurrentTextFields();
@@ -235,6 +236,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
             labelText: "Done",
             iconData: Icons.check,
             backgroundColor: colorScheme.primary,
+            foregroundColor: colorScheme.onPrimary,
             onPressed: currentLatLng != null ? () => Navigator.of(context).pop(currentLatLng) : null,
           ),
         ),

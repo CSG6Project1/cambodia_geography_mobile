@@ -30,9 +30,9 @@ class CgButton extends StatelessWidget {
   Widget build(BuildContext context) {
     if (iconData != null) {
       return TextButton.icon(
-        icon: Icon(iconData, size: iconSize),
+        icon: Icon(iconData, size: iconSize, color: foregroundColor),
         style: buildButtonStyle(context),
-        label: Text(labelText),
+        label: buildLabel(context),
         onPressed: onPressed,
         onLongPress: onLongPress,
         clipBehavior: clipBehavior,
@@ -42,12 +42,22 @@ class CgButton extends StatelessWidget {
     }
     return TextButton(
       style: buildButtonStyle(context),
-      child: Text(labelText),
+      child: buildLabel(context),
       onPressed: onPressed,
       onLongPress: onLongPress,
       clipBehavior: clipBehavior,
       autofocus: autofocus,
       focusNode: focusNode,
+    );
+  }
+
+  Text buildLabel(BuildContext context) {
+    return Text(
+      labelText,
+      style: Theme.of(context)
+          .textTheme
+          .bodyText1
+          ?.copyWith(color: onPressed == null ? Theme.of(context).colorScheme.onBackground : foregroundColor),
     );
   }
 

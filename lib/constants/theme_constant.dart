@@ -20,7 +20,7 @@ class ThemeConstant {
   );
 
   static const ColorScheme darkScheme = ColorScheme(
-    surface: Color(0xFF000000),
+    surface: Color(0xFF1F1F1F),
     background: Color(0xFF000000),
     primary: Color(0xFFCE2B30),
     primaryVariant: Color(0xFF950009),
