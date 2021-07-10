@@ -82,7 +82,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       floating: true,
       pinned: true,
       forceElevated: true,
-      centerTitle: true,
       actions: [
         IconButton(
           onPressed: () => App.of(context)?.toggleDarkMode(),
