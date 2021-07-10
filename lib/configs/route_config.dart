@@ -6,6 +6,7 @@ import 'package:cambodia_geography/screens/auth/login_screen.dart';
 import 'package:cambodia_geography/screens/auth/signup_screen.dart';
 import 'package:cambodia_geography/screens/district/district_screen.dart';
 import 'package:cambodia_geography/screens/home/home_screen.dart';
+import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/screens/place_detail/place_detail_screen.dart';
 import 'package:cambodia_geography/screens/places/places_screen.dart';
 import 'package:cambodia_geography/screens/search/search_filter_screen.dart';
@@ -45,12 +46,14 @@ class RouteConfig {
   static const String EDIT_PLACE = '/admin/edit_place';
   static const String BOOKMARK = '/user/bookmark';
   static const String USER = '/user';
+  static const String MAP = '/map';
   static const String NOTFOUND = '/404';
 
   Route<dynamic> generate() {
     String? name = settings?.name;
     if (!routes.containsKey(name) || name == null) name = NOTFOUND;
     return SwipeablePageRoute(
+      canSwipe: name == RouteConfig.MAP ? false : true,
       settings: settings?.copyWith(arguments: routes[name]!),
       builder: routes[name]!.route,
     );
@@ -122,9 +125,18 @@ class RouteConfig {
         title: "USER",
         route: (context) => UserScreen(),
       ),
+      MAP: CgRouteSetting(
+        isRoot: false,
+        title: "MAP",
+        route: (context) {
+          Object? arguments = settings?.arguments;
+          if (arguments is MapScreenSetting) return MapScreen(settings: arguments);
+          return NotFoundScreen();
+        },
+      ),
       NOTFOUND: CgRouteSetting(
         isRoot: false,
-        title: "USER",
+        title: "NOT FOUND",
         route: (context) => NotFoundScreen(),
       ),
     };
