@@ -1,6 +1,6 @@
 import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
-import 'package:cambodia_geography/screens/district/district_screen.dart';
+import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -59,9 +59,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   children: districts.map((district) {
                     return ListTile(
                       onTap: () {
-                        Navigator.of(context).push(SwipeablePageRoute(
-                          builder: (BuildContext context) => DistrictScreen(district: district),
-                        ));
+                        Navigator.of(context).pushNamed(RouteConfig.DISTRICT, arguments: district);
                       },
                       tileColor: Theme.of(context).colorScheme.background,
                       title: Text(district.khmer.toString()),
