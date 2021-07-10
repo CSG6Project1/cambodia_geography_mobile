@@ -21,10 +21,10 @@ class CgRouteSetting {
   final bool isRoot;
   final String title;
 
-  CgRouteSetting(
-    this.route, {
+  CgRouteSetting({
     required this.isRoot,
     required this.title,
+    required this.route,
   });
 }
 
@@ -59,73 +59,73 @@ class RouteConfig {
   Map<String, CgRouteSetting> get routes {
     return {
       HOME: CgRouteSetting(
-        (context) => HomeScreen(),
         isRoot: true,
         title: "HOME",
+        route: (context) => HomeScreen(),
       ),
       DISTRICT: CgRouteSetting(
-        (context) {
+        isRoot: false,
+        title: "DISTRICT",
+        route: (context) {
           Object? arguments = settings?.arguments;
           if (arguments is TbDistrictModel) return DistrictScreen(district: arguments);
           return NotFoundScreen();
         },
-        isRoot: false,
-        title: "DISTRICT",
       ),
       LOGIN: CgRouteSetting(
-        (context) => LoginScreen(),
         isRoot: false,
         title: "LOGIN",
+        route: (context) => LoginScreen(),
       ),
       SIGNUP: CgRouteSetting(
-        (context) => SignUpScreen(),
         isRoot: false,
         title: "SIGNUP",
+        route: (context) => SignUpScreen(),
       ),
       PLACES: CgRouteSetting(
-        (context) => PlacesScreen(),
         isRoot: false,
         title: "PLACES",
+        route: (context) => PlacesScreen(),
       ),
       PLACEDETAIL: CgRouteSetting(
-        (context) => PlaceDetailScreen(),
         isRoot: false,
         title: "PLACEDETAIL",
+        route: (context) => PlaceDetailScreen(),
       ),
       SEARCH: CgRouteSetting(
-        (context) => SearchScreen(),
         isRoot: false,
         title: "SEARCH",
+        route: (context) => SearchScreen(),
       ),
       SEARCHFILTER: CgRouteSetting(
-        (context) => SearchFilterScreen(),
         isRoot: false,
         title: "SEARCHFILTER",
+        route: (context) => SearchFilterScreen(),
       ),
       ADMIN: CgRouteSetting(
-        (context) => AdminScreen(),
         isRoot: true,
         title: "ADMIN",
+        route: (context) => AdminScreen(),
       ),
       EDIT_PLACE: CgRouteSetting(
-        (context) => EditPlaceScreen(),
         isRoot: false,
         title: "EDIT_PLACE",
+        route: (context) => EditPlaceScreen(),
       ),
       BOOKMARK: CgRouteSetting(
-        (context) => BookmarkScreen(),
         isRoot: false,
         title: "BOOKMARK",
+        route: (context) => BookmarkScreen(),
       ),
       USER: CgRouteSetting(
-        (context) => UserScreen(),
         isRoot: false,
         title: "USER",
+        route: (context) => UserScreen(),
       ),
       NOTFOUND: CgRouteSetting(
-        (context) => NotFoundScreen(),
         isRoot: false,
         title: "USER",
+        route: (context) => NotFoundScreen(),
       ),
     };
   }
