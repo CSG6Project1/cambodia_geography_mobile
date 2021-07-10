@@ -4,6 +4,7 @@ import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:cambodia_geography/widgets/cg_button.dart';
 import 'package:cambodia_geography/widgets/cg_dropdown_field.dart';
 import 'package:cambodia_geography/widgets/cg_text_field.dart';
 import 'package:flutter/material.dart';
@@ -214,9 +215,10 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
     return Row(
       children: [
         Expanded(
-          child: TextButton.icon(
-            label: Text("Apply"),
-            icon: const Icon(Icons.map, size: 20.0),
+          child: CgButton(
+            labelText: "Apply",
+            iconData: Icons.map,
+            backgroundColor: colorScheme.onBackground,
             onPressed: currentLatLng != null
                 ? () {
                     LatLng? latLng = getLatLngFromCurrentTextFields();
@@ -225,22 +227,15 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
                     setAMarker(latLng);
                   }
                 : null,
-            style: TextButton.styleFrom(
-              backgroundColor: currentLatLng != null ? colorScheme.onBackground : colorScheme.background,
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            ),
           ),
         ),
         const SizedBox(width: 8.0),
         Expanded(
-          child: TextButton.icon(
-            label: Text("Done"),
-            icon: const Icon(Icons.done, size: 20.0),
+          child: CgButton(
+            labelText: "Done",
+            iconData: Icons.check,
+            backgroundColor: colorScheme.primary,
             onPressed: currentLatLng != null ? () => Navigator.of(context).pop(currentLatLng) : null,
-            style: TextButton.styleFrom(
-              backgroundColor: currentLatLng != null ? colorScheme.primary : colorScheme.background,
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            ),
           ),
         ),
       ],
