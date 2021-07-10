@@ -1,28 +1,25 @@
+import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
-import 'package:cambodia_geography/configs/theme_config.dart';
-import 'package:cambodia_geography/screens/home/home_screen.dart';
+import 'package:cambodia_geography/services/storages/theme_mode_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CambodiaGeography.instance.initilize();
+  bool isDarkMode = await getInitialDarkMode();
 
   runApp(
-    MaterialApp(
-      home: App(),
-    ),
+    App(initialIsDarkMode: isDarkMode),
   );
 }
 
-class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeConfig().themeData,
-      home: HomeScreen(),
-      navigatorObservers: [HeroController()],
-    );
+Future<bool> getInitialDarkMode() async {
+  ThemeModeStorage storage = ThemeModeStorage();
+  bool? isDarkMode = await storage.readBool();
+  if (isDarkMode == null) {
+    Brightness? platformBrightness = SchedulerBinding.instance?.window.platformBrightness;
+    isDarkMode = platformBrightness == Brightness.dark;
   }
+  return isDarkMode;
 }

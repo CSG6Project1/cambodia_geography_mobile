@@ -1,5 +1,7 @@
+import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/screens/district/district_screen.dart';
+import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -25,15 +27,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            buildAppbar(),
-            buildBody(),
-          ],
-        ),
+    return Scaffold(
+      drawer: AppDrawer(),
+      body: CustomScrollView(
+        slivers: [
+          buildAppbar(),
+          buildBody(),
+        ],
       ),
     );
   }
@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
-                  tileColor: Colors.white,
+                  tileColor: Theme.of(context).colorScheme.background,
                   title: Text(province.khmer.toString()),
                   subtitle: Text(province.code.toString()),
                 ),
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           builder: (BuildContext context) => DistrictScreen(district: district),
                         ));
                       },
-                      tileColor: Theme.of(context).backgroundColor,
+                      tileColor: Theme.of(context).colorScheme.background,
                       title: Text(district.khmer.toString()),
                       subtitle: Text(district.code.toString()),
                     );
@@ -78,14 +78,30 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   MorphingSliverAppBar buildAppbar() {
+    final scheme = Theme.of(context).colorScheme;
     return MorphingSliverAppBar(
       floating: true,
       pinned: true,
+      leading: Builder(builder: (context) {
+        return IconButton(
+          icon: Icon(Icons.menu, color: scheme.onPrimary),
+          onPressed: () => Scaffold.of(context).openDrawer(),
+        );
+      }),
+      actions: [
+        IconButton(
+          onPressed: () => App.of(context)?.toggleDarkMode(),
+          icon: Icon(
+            Icons.nights_stay,
+            color: scheme.onPrimary,
+          ),
+        )
+      ],
       title: Row(
-        key: Key("HomeTitle"),
+        key: const Key("HomeTitle"),
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Icon(Icons.map),
+          Icon(Icons.map, color: scheme.onPrimary),
           const SizedBox(width: 4.0),
           Text(
             "ប្រទេសកម្ពុធា",
@@ -94,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         ],
       ),
       bottom: TabBar(
-        key: Key("HomeTabBar"),
+        key: const Key("HomeTabBar"),
         controller: controller,
         isScrollable: true,
         tabs: List.generate(

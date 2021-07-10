@@ -3,6 +3,38 @@ import 'package:flutter/material.dart';
 class ThemeConstant {
   static const List<String> fontFamilyFallback = ["Battambang", "Lora"];
 
+  static const ColorScheme lightScheme = ColorScheme(
+    surface: Color(0xFFFFFFFF),
+    background: Color(0xFFF4F4F4),
+    primary: Color(0xFFCE2B30),
+    primaryVariant: Color(0xFF950009),
+    secondary: Color(0xFF7fa65a),
+    secondaryVariant: Color(0xFF51772e),
+    brightness: Brightness.light,
+    error: Color(0xFFA22027),
+    onSurface: Color(0xFF000000),
+    onBackground: Color(0xFF000000),
+    onPrimary: Color(0xFFFFFFFF),
+    onSecondary: Color(0xFFFFFFFF),
+    onError: Color(0xFFFFFFFF),
+  );
+
+  static const ColorScheme darkScheme = ColorScheme(
+    surface: Color(0xFF000000),
+    background: Color(0xFF000000),
+    primary: Color(0xFFCE2B30),
+    primaryVariant: Color(0xFF950009),
+    secondary: Color(0xFF7fa65a),
+    secondaryVariant: Color(0xFF51772e),
+    brightness: Brightness.dark,
+    error: Color(0xFFA22027),
+    onSurface: Color(0xFFFFFFFF),
+    onBackground: Color(0xFFF4F4F4),
+    onPrimary: Color(0xFFFFFFFF),
+    onSecondary: Color(0xFFFFFFFF),
+    onError: Color(0xFFFFFFFF),
+  );
+
   static const TextTheme textTheme = TextTheme(
     headline1: TextStyle(
       fontSize: 98,
