@@ -2,11 +2,13 @@ import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
+import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -20,7 +22,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     geo = CambodiaGeography.instance;
-
     currentProvinceCode = geo.tbProvinces[0].code;
     controller = TabController(length: geo.tbProvinces.length, vsync: this);
   }
@@ -80,12 +81,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     return MorphingSliverAppBar(
       floating: true,
       pinned: true,
-      leading: Builder(builder: (context) {
-        return IconButton(
-          icon: Icon(Icons.menu, color: scheme.onPrimary),
-          onPressed: () => Scaffold.of(context).openDrawer(),
-        );
-      }),
+      forceElevated: true,
+      centerTitle: true,
       actions: [
         IconButton(
           onPressed: () => App.of(context)?.toggleDarkMode(),
@@ -95,17 +92,24 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           ),
         )
       ],
-      title: Row(
-        key: const Key("HomeTitle"),
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(Icons.map, color: scheme.onPrimary),
-          const SizedBox(width: 4.0),
-          Text(
-            "ប្រទេសកម្ពុធា",
-            style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-          ),
-        ],
+      leading: Builder(builder: (context) {
+        return IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        );
+      }),
+      title: Container(
+        child: Wrap(
+          key: const Key("HomeTitle"),
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Icon(Icons.map, color: scheme.onPrimary),
+            const SizedBox(width: 4.0),
+            CGAppBarTitle(title: "ប្រទេសកម្ពុធា")
+          ],
+        ),
       ),
       bottom: TabBar(
         key: const Key("HomeTabBar"),

@@ -13,10 +13,11 @@ class ThemeConfig {
       scaffoldBackgroundColor: scheme.background,
       appBarTheme: AppBarTheme(
         backgroundColor: scheme.primary,
-        elevation: 10,
-        iconTheme: IconThemeData(
-          color: scheme.onPrimary,
-        ),
+        centerTitle: false,
+        elevation: 10.0,
+        iconTheme: IconThemeData(color: scheme.onPrimary),
+        textTheme: ThemeConstant.textTheme,
+        titleTextStyle: ThemeConstant.textTheme.headline6,
       ),
       splashFactory: InkRipple.splashFactory, // InkSplash.splashFactory,
       indicatorColor: scheme.onPrimary,

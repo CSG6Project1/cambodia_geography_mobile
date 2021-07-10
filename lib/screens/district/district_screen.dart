@@ -1,4 +1,5 @@
 import 'package:cambodia_geography/models/tb_district_model.dart';
+import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -17,12 +18,8 @@ class DistrictScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           MorphingSliverAppBar(
-            centerTitle: false,
-            title: Text(
-              district.khmer.toString(),
-              key: Key("DistrictTitle"),
-              style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-            ),
+            forceElevated: true,
+            title: CGAppBarTitle(title: district.khmer.toString()),
           ),
         ],
       ),

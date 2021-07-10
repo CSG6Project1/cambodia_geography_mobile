@@ -1,11 +1,8 @@
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/configs/theme_config.dart';
-import 'package:cambodia_geography/models/tb_district_model.dart';
-import 'package:cambodia_geography/screens/district/district_screen.dart';
 import 'package:cambodia_geography/screens/home/home_screen.dart';
 import 'package:cambodia_geography/services/storages/theme_mode_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class App extends StatefulWidget {
   const App({
@@ -52,15 +49,9 @@ class _AppState extends State<App> {
     return MaterialApp(
       theme: ThemeConfig(isDarkMode).themeData,
       home: HomeScreen(),
+      initialRoute: RouteConfig.HOME,
       navigatorObservers: [HeroController()],
-      onGenerateRoute: (settings) {
-        if (settings.name == RouteConfig.DISTRICT) {
-          final district = settings.arguments as TbDistrictModel;
-          return SwipeablePageRoute(
-            builder: (BuildContext context) => DistrictScreen(district: district),
-          );
-        }
-      },
+      onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
       builder: (context, child) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
