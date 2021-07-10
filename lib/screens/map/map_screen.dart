@@ -1,5 +1,11 @@
+import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/constants/theme_constant.dart';
+import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
+import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
+import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:cambodia_geography/widgets/cg_dropdown_field.dart';
+import 'package:cambodia_geography/widgets/cg_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -35,67 +41,79 @@ class MapScreen extends StatefulWidget {
   _MapScreenState createState() => _MapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMixin {
+  late ValueNotifier<bool> expandedFilterNotifier;
   late MapController controller;
-  late double initialZoom;
+  static const double initialZoom = 13.0; //max 19
+  static const double provinceLevelZoom = 8.0; //max 19
 
   List<Marker> markers = [];
+
+  LatLng? get currentLatLng {
+    if (markers.isEmpty) return null;
+    return markers.first.point;
+  }
+
+  late TextEditingController latitudeController;
+  late TextEditingController longitudeController;
 
   @override
   void initState() {
     controller = MapController();
-    initialZoom = 13.0; //max 19
+    expandedFilterNotifier = ValueNotifier(false);
     if (widget.settings.initialLatLng != null) {
-      markers = [buildMarker(widget.settings.initialLatLng!)];
+      markers = [
+        buildMarker(widget.settings.initialLatLng!),
+      ];
     }
+    latitudeController = TextEditingController(text: currentLatLng?.latitude.toString());
+    longitudeController = TextEditingController(text: currentLatLng?.longitude.toString());
     super.initState();
   }
 
   void setAMarker(LatLng? latLng) {
     setState(() {
       markers = latLng != null ? [buildMarker(latLng)] : [];
+      latitudeController.text = currentLatLng?.latitude.toString() ?? "";
+      longitudeController.text = currentLatLng?.longitude.toString() ?? "";
     });
   }
 
-  void moveToInitPosition() {
+  void _moveToInitPosition() {
     if (widget.settings.initialLatLng == null) return;
-    moveToAPosition(widget.settings.initialLatLng!);
+    _moveToAPosition(widget.settings.initialLatLng!);
   }
 
-  void moveToAPosition(LatLng latLng) {
-    controller.move(latLng, initialZoom);
+  void _moveToAPosition(LatLng? latLng, {double zoom = initialZoom}) {
+    controller.move(latLng ?? MapScreenSetting.defaultLatLng, zoom);
+    controller.rotate(0);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MorphingAppBar(
-        title: const CGAppBarTitle(title: "Map"),
-        actions: [
-          if (widget.settings.flowType == MapFlowType.pick)
-            TextButton(
-              onPressed: () {
-                controller.move(MapScreenSetting.defaultLatLng, initialZoom);
-                setAMarker(null);
-              },
-              child: Text("Reset"),
-            ),
-        ],
-      ),
+      appBar: buildAppBar(),
       body: FlutterMap(
         mapController: controller,
-        nonRotatedChildren: buildNonRotatedChildren(),
         layers: buildLayers(),
-        options: MapOptions(
-          center: widget.settings.initialLatLng ?? MapScreenSetting.defaultLatLng,
-          zoom: initialZoom,
-          onTap: (LatLng latLng) {
-            if (widget.settings.flowType == MapFlowType.pick) {
-              setAMarker(latLng);
-            }
-          },
-        ),
+        options: buildOptions(),
+        nonRotatedChildren: buildNonRotatedChildren(),
       ),
+    );
+  }
+
+  MorphingAppBar buildAppBar() {
+    return MorphingAppBar(
+      elevation: 0.0,
+      backgroundColor: colorScheme.secondary,
+      title: const CGAppBarTitle(title: "Map"),
+      actions: [
+        if (widget.settings.initialLatLng != null)
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => _moveToInitPosition(),
+          ),
+      ],
     );
   }
 
@@ -111,18 +129,170 @@ class _MapScreenState extends State<MapScreen> {
     ];
   }
 
+  MapOptions buildOptions() {
+    return MapOptions(
+      center: widget.settings.initialLatLng ?? MapScreenSetting.defaultLatLng,
+      zoom: initialZoom,
+      onTap: (LatLng latLng) {
+        if (widget.settings.flowType == MapFlowType.pick) {
+          setAMarker(latLng);
+        }
+      },
+    );
+  }
+
   List<Widget> buildNonRotatedChildren() {
     return [
-      if (widget.settings.initialLatLng != null)
-        Positioned(
-          top: 12,
-          right: 12,
-          child: buildMapButton(
-            icon: Icons.place,
-            onPressed: () => moveToInitPosition(),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          buildPlaceInfoFields(),
+          Container(
+            margin: const EdgeInsets.only(right: 8.0, top: 8.0),
+            alignment: Alignment.topRight,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                buildMapButton(
+                  icon: Icons.crop_rotate,
+                  onPressed: () {
+                    _moveToAPosition(currentLatLng, zoom: controller.zoom);
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ];
+  }
+
+  Widget buildPlaceInfoFields() {
+    if (widget.settings.flowType != MapFlowType.pick) return SizedBox();
+    return ValueListenableBuilder<bool>(
+      valueListenable: expandedFilterNotifier,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildProvinceDropDown(),
+          const SizedBox(height: 8.0),
+          buildLatLngField(),
+          const SizedBox(height: 16.0),
+          buildActionButtons()
+        ],
+      ),
+      builder: (context, value, child) {
+        return ExpansionTile(
+          initiallyExpanded: true,
+          backgroundColor: colorScheme.surface,
+          collapsedBackgroundColor: colorScheme.surface,
+          childrenPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          children: [child ?? const SizedBox()],
+          onExpansionChanged: (bool expanded) {
+            expandedFilterNotifier.value = expanded;
+          },
+          title: Text(
+            "Filter",
+            style: textTheme.bodyText1?.copyWith(
+              color: expandedFilterNotifier.value ? colorScheme.onSurface : null,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  LatLng? getLatLngFromCurrentTextFields() {
+    double? lat = double.tryParse(latitudeController.text);
+    double? lng = double.tryParse(longitudeController.text);
+    if (lat == null || lng == null) return null;
+    return LatLng(lat, lng);
+  }
+
+  Widget buildActionButtons() {
+    return Row(
+      children: [
+        Expanded(
+          child: TextButton.icon(
+            label: Text("Apply"),
+            icon: const Icon(Icons.map, size: 20.0),
+            onPressed: currentLatLng != null
+                ? () {
+                    LatLng? latLng = getLatLngFromCurrentTextFields();
+                    if (latLng == null) return;
+                    _moveToAPosition(latLng, zoom: provinceLevelZoom);
+                    setAMarker(latLng);
+                  }
+                : null,
+            style: TextButton.styleFrom(
+              backgroundColor: currentLatLng != null ? colorScheme.onBackground : colorScheme.background,
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            ),
           ),
         ),
-    ];
+        const SizedBox(width: 8.0),
+        Expanded(
+          child: TextButton.icon(
+            label: Text("Done"),
+            icon: const Icon(Icons.done, size: 20.0),
+            onPressed: currentLatLng != null ? () => Navigator.of(context).pop(currentLatLng) : null,
+            style: TextButton.styleFrom(
+              backgroundColor: currentLatLng != null ? colorScheme.primary : colorScheme.background,
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildProvinceDropDown() {
+    return CgDropDownField(
+      items: List.generate(
+        CambodiaGeography.instance.tbProvinces.length,
+        (index) {
+          return CambodiaGeography.instance.tbProvinces[index].khmer ?? "";
+        },
+      ),
+      onChanged: (String? value) {
+        List<Object> provinces = CambodiaGeography.instance.tbProvinces.where((e) => e.khmer == value).toList();
+        if (provinces.isEmpty) return;
+        final province = provinces.first;
+        if (province is TbProvinceModel) {
+          latitudeController.text = province.latitude.toString();
+          longitudeController.text = province.longitudes.toString();
+          LatLng? latLng = getLatLngFromCurrentTextFields();
+          if (latLng == null) return;
+          _moveToAPosition(latLng, zoom: provinceLevelZoom);
+          setAMarker(latLng);
+        }
+      },
+    );
+  }
+
+  Widget buildLatLngField() {
+    LatLng? latLng;
+    if (markers.isNotEmpty) latLng = markers.first.point;
+    return Row(
+      children: [
+        Expanded(
+          child: CgTextField(
+            labelText: "Latitude",
+            value: latLng?.latitude.toString(),
+            controller: latitudeController,
+          ),
+        ),
+        const SizedBox(width: 8.0),
+        Expanded(
+          child: CgTextField(
+            labelText: "Longtitude",
+            value: latLng?.longitude.toString(),
+            controller: longitudeController,
+          ),
+        ),
+      ],
+    );
   }
 
   Marker buildMarker(LatLng latLng) {
@@ -135,14 +305,10 @@ class _MapScreenState extends State<MapScreen> {
         opacity: markers.first.point == latLng ? 1 : 0,
         duration: const Duration(milliseconds: 350),
         child: Container(
+          child: Icon(Icons.place, size: 48, color: colorScheme.primary),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: ThemeConstant.darkScheme.primary.withOpacity(0.1),
-          ),
-          child: Icon(
-            Icons.place,
-            size: 48,
-            color: ThemeConstant.darkScheme.primary,
           ),
         ),
       ),

@@ -11,6 +11,7 @@ class ThemeConfig {
       primaryColor: scheme.primary,
       backgroundColor: scheme.background,
       scaffoldBackgroundColor: scheme.background,
+      colorScheme: scheme,
       appBarTheme: AppBarTheme(
         backgroundColor: scheme.primary,
         centerTitle: false,
@@ -19,6 +20,7 @@ class ThemeConfig {
         textTheme: ThemeConstant.textTheme,
         titleTextStyle: ThemeConstant.textTheme.headline6,
       ),
+      accentColor: scheme.secondary,
       splashFactory: InkRipple.splashFactory, // InkSplash.splashFactory,
       indicatorColor: scheme.onPrimary,
       textTheme: ThemeConstant.textTheme.apply(

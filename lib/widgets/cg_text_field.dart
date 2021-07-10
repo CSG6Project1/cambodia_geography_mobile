@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class CgTextField extends StatefulWidget {
   const CgTextField({
     Key? key,
+    this.controller,
+    this.value,
     this.labelText,
     this.hintText,
     this.prefix,
@@ -12,6 +14,8 @@ class CgTextField extends StatefulWidget {
     this.onSubmitted,
   }) : super(key: key);
 
+  final TextEditingController? controller;
+  final String? value;
   final String? labelText;
   final String? hintText;
   final Widget? suffix;
@@ -24,9 +28,18 @@ class CgTextField extends StatefulWidget {
 }
 
 class _CgTextFieldState extends State<CgTextField> with CgThemeMixin {
+  late TextEditingController controller;
+
+  @override
+  void initState() {
+    controller = widget.controller ?? TextEditingController(text: widget.value);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       onChanged: widget.onChanged,
       onSubmitted: widget.onSubmitted,
       decoration: buildInputDecoration(colorScheme),
