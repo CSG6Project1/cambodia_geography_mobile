@@ -5,6 +5,7 @@ class CgDropDownField extends StatefulWidget {
   const CgDropDownField({
     Key? key,
     this.initValue,
+    this.labelText,
     this.hintText,
     this.prefix,
     this.suffix,
@@ -14,6 +15,7 @@ class CgDropDownField extends StatefulWidget {
 
   final List<String> items;
   final String? initValue;
+  final String? labelText;
   final String? hintText;
   final Widget? suffix;
   final Widget? prefix;
@@ -63,7 +65,7 @@ class _CgDropDownFieldState extends State<CgDropDownField> with CgThemeMixin {
 
   InputDecoration buildInputDecoration(BuildContext context) {
     return InputDecoration(
-      labelText: currentValue,
+      labelText: widget.labelText,
       hintText: widget.hintText,
       fillColor: colorScheme.background,
       filled: true,
