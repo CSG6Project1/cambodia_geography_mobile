@@ -9,7 +9,7 @@ class PlaceDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MorphingAppBar(
-        title: CGAppBarTitle(title: "Place Detail"),
+        title: CgAppBarTitle(title: "Place Detail"),
       ),
     );
   }

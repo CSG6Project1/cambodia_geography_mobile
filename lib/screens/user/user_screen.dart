@@ -15,7 +15,7 @@ class _UserScreenState extends State<UserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MorphingAppBar(
-        title: CGAppBarTitle(title: AppLocalizations.of(context)!.helloWorld),
+        title: CgAppBarTitle(title: AppLocalizations.of(context)!.helloWorld),
       ),
       body: ListView(
         children: [

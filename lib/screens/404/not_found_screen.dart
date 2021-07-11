@@ -14,7 +14,7 @@ class _NotFoundScreenState extends State<NotFoundScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MorphingAppBar(
-        title: CGAppBarTitle(title: "404"),
+        title: CgAppBarTitle(title: "404"),
       ),
       body: Center(
         child: Text("404 Not Found"),

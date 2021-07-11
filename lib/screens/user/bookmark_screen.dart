@@ -9,7 +9,7 @@ class BookmarkScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MorphingAppBar(
-        title: CGAppBarTitle(title: "Bookmark"),
+        title: CgAppBarTitle(title: "Bookmark"),
       ),
     );
   }
