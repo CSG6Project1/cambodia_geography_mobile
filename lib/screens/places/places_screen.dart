@@ -19,6 +19,12 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(

@@ -26,9 +26,9 @@ class _AppState extends State<App> {
 
   @override
   void initState() {
-    super.initState();
     storage = ThemeModeStorage();
     isDarkMode = widget.initialIsDarkMode;
+    super.initState();
   }
 
   void turnDarkModeOn() {

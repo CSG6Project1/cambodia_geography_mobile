@@ -18,10 +18,16 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
 
   @override
   void initState() {
-    super.initState();
     geo = CambodiaGeography.instance;
     currentProvinceCode = geo.tbProvinces[0].code;
     controller = TabController(length: geo.tbProvinces.length, vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override

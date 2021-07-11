@@ -72,6 +72,14 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
     super.initState();
   }
 
+  @override
+  void dispose() {
+    expandedFilterNotifier.dispose();
+    latitudeController.dispose();
+    longitudeController.dispose();
+    super.dispose();
+  }
+
   void setAMarker(LatLng? latLng) {
     setState(() {
       markers = latLng != null ? [buildMarker(latLng)] : [];
