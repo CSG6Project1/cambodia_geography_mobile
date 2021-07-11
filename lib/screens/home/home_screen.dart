@@ -1,9 +1,9 @@
 import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
+import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
-import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           children: [
             Icon(Icons.map, color: scheme.onPrimary),
             const SizedBox(width: 4.0),
-            CGAppBarTitle(title: "ប្រទេសកម្ពុធា")
+            CGAppBarTitle(title: AppLocalizations.of(context)!.helloWorld)
           ],
         ),
       ),
