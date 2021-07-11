@@ -14,7 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MorphingAppBar(
-        title: CGAppBarTitle(title: "Log In"),
+        title: CgAppBarTitle(title: "Log In"),
       ),
     );
   }

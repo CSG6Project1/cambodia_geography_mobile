@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           children: [
             Icon(Icons.map, color: scheme.onPrimary),
             const SizedBox(width: 4.0),
-            CGAppBarTitle(title: AppLocalizations.of(context)!.helloWorld)
+            CgAppBarTitle(title: AppLocalizations.of(context)!.helloWorld)
           ],
         ),
       ),

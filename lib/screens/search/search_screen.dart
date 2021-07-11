@@ -14,7 +14,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MorphingAppBar(
-        title: CGAppBarTitle(title: "Search Screen"),
+        title: CgAppBarTitle(title: "Search Screen"),
       ),
     );
   }

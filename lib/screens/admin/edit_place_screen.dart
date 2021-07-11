@@ -9,7 +9,7 @@ class EditPlaceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MorphingAppBar(
-        title: CGAppBarTitle(title: "EditPlace"),
+        title: CgAppBarTitle(title: "EditPlace"),
       ),
     );
   }

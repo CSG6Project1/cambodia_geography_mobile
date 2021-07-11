@@ -40,7 +40,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
       floating: true,
       pinned: true,
       forceElevated: true,
-      title: CGAppBarTitle(title: "ខេត្តសៀមរៀប"),
+      title: CgAppBarTitle(title: "ខេត្តសៀមរៀប"),
       bottom: TabBar(
         controller: controller,
         tabs: List.generate(

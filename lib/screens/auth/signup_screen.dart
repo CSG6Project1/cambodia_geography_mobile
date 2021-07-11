@@ -14,7 +14,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MorphingAppBar(
-        title: CGAppBarTitle(title: "SignUp"),
+        title: CgAppBarTitle(title: "SignUp"),
       ),
     );
   }

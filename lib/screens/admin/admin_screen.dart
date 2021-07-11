@@ -47,7 +47,7 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
       floating: true,
       pinned: true,
       forceElevated: true,
-      title: CGAppBarTitle(title: "Admin"),
+      title: CgAppBarTitle(title: "Admin"),
       leading: Builder(builder: (context) {
         return IconButton(
           icon: Icon(Icons.menu),

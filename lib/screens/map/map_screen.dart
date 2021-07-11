@@ -115,7 +115,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
     return MorphingAppBar(
       elevation: 0.0,
       backgroundColor: colorScheme.secondary,
-      title: const CGAppBarTitle(title: "Map"),
+      title: const CgAppBarTitle(title: "Map"),
       actions: [
         if (widget.settings.initialLatLng != null)
           IconButton(

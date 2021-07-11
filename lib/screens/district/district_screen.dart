@@ -19,7 +19,7 @@ class DistrictScreen extends StatelessWidget {
         slivers: [
           MorphingSliverAppBar(
             forceElevated: true,
-            title: CGAppBarTitle(title: district.khmer.toString()),
+            title: CgAppBarTitle(title: district.khmer.toString()),
           ),
         ],
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CGAppBarTitle extends StatelessWidget {
-  const CGAppBarTitle({
+class CgAppBarTitle extends StatelessWidget {
+  const CgAppBarTitle({
     Key? key,
     this.textStyle,
     required this.title,
