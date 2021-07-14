@@ -186,10 +186,9 @@ class ProvinceCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2),
               image: DecorationImage(
-                  image: NetworkImage(
-                    'https://www.madmonkeyhostels.com/wp-content/uploads/2014/09/rsz_batts.jpg',
-                  ),
-                  fit: BoxFit.cover),
+                image: AssetImage(province.image.toString()),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Column(
