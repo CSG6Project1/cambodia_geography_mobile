@@ -4,6 +4,7 @@ import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
+import 'package:cambodia_geography/screens/search/cg_search_delegate.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -141,7 +142,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       centerTitle: true,
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            showSearch(context: context, delegate: CgSearchDelegate());
+          },
           icon: Icon(
             Icons.search,
             color: themeData.colorScheme.onPrimary,

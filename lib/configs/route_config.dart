@@ -10,7 +10,6 @@ import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/screens/place_detail/place_detail_screen.dart';
 import 'package:cambodia_geography/screens/places/places_screen.dart';
 import 'package:cambodia_geography/screens/search/search_filter_screen.dart';
-import 'package:cambodia_geography/screens/search/search_screen.dart';
 import 'package:cambodia_geography/screens/user/bookmark_screen.dart';
 import 'package:cambodia_geography/screens/user/user_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,7 +38,6 @@ class RouteConfig {
   static const String SIGNUP = '/auth/signup';
   static const String PLACES = '/places';
   static const String PLACEDETAIL = '/place/detail';
-  static const String SEARCH = '/search';
   static const String SEARCHFILTER = '/search/filter';
   static const String SEARCHRESULT = '/search/result';
   static const String ADMIN = '/admin';
@@ -94,11 +92,6 @@ class RouteConfig {
         isRoot: false,
         title: "PLACEDETAIL",
         route: (context) => PlaceDetailScreen(),
-      ),
-      SEARCH: CgRouteSetting(
-        isRoot: false,
-        title: "SEARCH",
-        route: (context) => SearchScreen(),
       ),
       SEARCHFILTER: CgRouteSetting(
         isRoot: false,
