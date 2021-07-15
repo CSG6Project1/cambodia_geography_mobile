@@ -1,8 +1,17 @@
-import 'package:cambodia_geography/screens/search/search_filter_screen.dart';
+import 'dart:io';
+import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:flutter/material.dart';
 
 class CgSearchDelegate extends SearchDelegate<String> {
-  static const DataPlaces = [
+  final AnimationController animationController;
+  final BuildContext context;
+
+  CgSearchDelegate({
+    required this.animationController,
+    required this.context,
+  });
+
+  static const dataPlaces = [
     "កំពង់ចាម",
     "បន្ទាយមានជ័យ",
     "បាត់ដំបង",
@@ -39,75 +48,91 @@ class CgSearchDelegate extends SearchDelegate<String> {
   ];
 
   @override
-  List<Widget>? buildActions(BuildContext context) {
+  ThemeData appBarTheme(BuildContext context) {
+    return Theme.of(context).copyWith(
+      appBarTheme: AppBarTheme(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        elevation: 0.5,
+      ),
+    );
+  }
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: const Icon(Icons.clear, color: Colors.red),
+        icon: Icon(Icons.clear, color: Theme.of(context).colorScheme.primary),
         onPressed: () {
           query = "";
         },
       ),
       IconButton(
-        icon: const Icon(Icons.tune, color: Colors.red),
+        icon: Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context)=>const SearchFilterScreen()));
+          Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER);
         },
       ),
     ];
   }
 
   @override
-  Widget? buildLeading(BuildContext context) {
-    return IconButton(
-      icon: AnimatedIcon(
-        color: Colors.red,
-        icon: AnimatedIcons.menu_arrow,
-        progress: transitionAnimation,
-      ),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
+  Widget buildLeading(BuildContext context) {
+    if (Platform.isAndroid) {
+      return IconButton(
+        icon: AnimatedIcon(
+          color: Theme.of(context).colorScheme.primary,
+          icon: AnimatedIcons.menu_arrow,
+          progress: animationController,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+          animationController.reverse();
+        },
+      );
+    } else {
+      return BackButton(
+        color: Theme.of(context).colorScheme.primary,
+      );
+    }
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    return Center(
-      child: Container(
-        color: Colors.white,
-        height: 50,
-        width: 50,
-        child: Card(
-          color: Colors.red,
-          shape: const StadiumBorder(),
-          child: Center(
-            child: Text(query),
+    return Container(
+      color: Theme.of(context).colorScheme.surface,
+      child: Center(
+        child: Container(
+          color: Colors.white,
+          height: 50,
+          width: 50,
+          child: Card(
+            color: Colors.red,
+            shape: const StadiumBorder(),
+            child: Center(
+              child: Text(query),
+            ),
           ),
         ),
-      )
+      ),
     );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestionList = query.isEmpty
-        ? searchHistory
-        : DataPlaces.where((p) => p.startsWith(query)).toList();
-
-    return ListView.builder(
-      itemBuilder: (context, index) => ListTile(
-        onTap: () {
-          showResults(context);
-        },
-        leading: const Icon(Icons.history),
-        title: Text(suggestionList[index]),
-        trailing: const Icon(
-          Icons.arrow_forward_ios,
-          size: 15,
+    final suggestionList = query.isEmpty ? searchHistory : dataPlaces.where((p) => p.startsWith(query)).toList();
+    return Container(
+      color: Theme.of(context).colorScheme.surface,
+      child: ListView.builder(
+        itemCount: suggestionList.length,
+        itemBuilder: (context, index) => ListTile(
+          leading: const Icon(Icons.history),
+          title: Text(suggestionList[index]),
+          trailing: const Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            showResults(context);
+          },
         ),
       ),
-      itemCount: suggestionList.length,
     );
   }
 }

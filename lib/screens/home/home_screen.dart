@@ -3,9 +3,12 @@ import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
+import 'package:cambodia_geography/models/tb_district_model.dart';
+import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
 import 'package:cambodia_geography/screens/search/cg_search_delegate.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:cambodia_geography/widgets/cg_menu_leading_button.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -18,10 +21,11 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin, CgThemeMixin, CgMediaQueryMixin {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, CgThemeMixin, CgMediaQueryMixin {
   String? currentProvinceCode;
   late TabController tabController;
   late AutoScrollController scrollController;
+  late AnimationController animationController;
   late CambodiaGeography geo;
 
   final listViewKey = RectGetter.createGlobalKey();
@@ -35,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     currentProvinceCode = geo.tbProvinces[0].code;
     tabController = TabController(length: geo.tbProvinces.length, vsync: this);
     scrollController = AutoScrollController();
+    animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
     super.initState();
   }
 
@@ -42,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void dispose() {
     tabController.dispose();
     scrollController.dispose();
+    animationController.dispose();
     super.dispose();
   }
 
@@ -97,78 +103,45 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-  CustomScrollView buildCustomScrollView() {
+  Widget buildCustomScrollView() {
     return CustomScrollView(
       controller: scrollController,
       slivers: [
         buildAppbar(),
-        SliverList(
-          delegate: SliverChildListDelegate(
-            List.generate(
-              tabController.length,
-              (index) {
-                itemKeys[index] = RectGetter.createGlobalKey();
-                final province = geo.tbProvinces[index];
-                final districts = geo.districtsSearch(provinceCode: province.code ?? '');
-                return RectGetter(
-                  key: itemKeys[index],
-                  child: AutoScrollTag(
-                    key: ValueKey(index),
-                    controller: scrollController,
-                    index: index,
-                    child: ProvinceCard(
-                      province: province,
-                      district: districts,
-                      margin: EdgeInsets.only(
-                        top: ConfigConstant.margin2,
-                        bottom: index == tabController.length - 1 ? mediaQueryPadding.bottom : 0,
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
+        buildBody(),
       ],
     );
   }
 
-  MorphingSliverAppBar buildAppbar() {
+  Widget buildAppbar() {
     return MorphingSliverAppBar(
       floating: true,
       pinned: true,
       forceElevated: true,
-      centerTitle: true,
+      leading: CgMenuLeadingButton(animationController: animationController),
       actions: [
         IconButton(
-          onPressed: () {
-            showSearch(context: context, delegate: CgSearchDelegate());
+          icon: const Icon(Icons.search),
+          onPressed: () async {
+            animationController.forward();
+            await showSearch(
+              context: context,
+              delegate: CgSearchDelegate(
+                animationController: animationController,
+                context: context,
+              ),
+            );
           },
-          icon: Icon(
-            Icons.search,
-            color: themeData.colorScheme.onPrimary,
-          ),
         )
       ],
-      leading: Builder(builder: (context) {
-        return IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-        );
-      }),
-      title: Container(
-        child: Wrap(
-          key: const Key("HomeTitle"),
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: [
-            Icon(Icons.map, color: themeData.colorScheme.onPrimary),
-            const SizedBox(width: 4.0),
-            const CgAppBarTitle(title: 'ប្រទេសកម្ពុជា')
-          ],
-        ),
+      title: Wrap(
+        key: const Key("HomeTitle"),
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          Icon(Icons.map, color: themeData.colorScheme.onPrimary),
+          const SizedBox(width: 4.0),
+          const CgAppBarTitle(title: 'ប្រទេសកម្ពុជា')
+        ],
       ),
       bottom: TabBar(
         key: const Key("HomeTabBar"),
@@ -184,6 +157,41 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             child: Text(
               geo.tbProvinces[index].khmer.toString(),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildBody() {
+    return SliverList(
+      delegate: SliverChildListDelegate(
+        List.generate(
+          tabController.length,
+          (index) {
+            itemKeys[index] = RectGetter.createGlobalKey();
+            final province = geo.tbProvinces[index];
+            final districts = geo.districtsSearch(provinceCode: province.code ?? '');
+            return buildProvinceCardItem(index, province, districts);
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget buildProvinceCardItem(int index, TbProvinceModel province, List<TbDistrictModel> districts) {
+    return RectGetter(
+      key: itemKeys[index],
+      child: AutoScrollTag(
+        key: ValueKey(index),
+        controller: scrollController,
+        index: index,
+        child: ProvinceCard(
+          province: province,
+          district: districts,
+          margin: EdgeInsets.only(
+            top: ConfigConstant.margin2,
+            bottom: index == tabController.length - 1 ? mediaQueryPadding.bottom : 0,
           ),
         ),
       ),
