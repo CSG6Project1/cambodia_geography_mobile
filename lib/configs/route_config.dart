@@ -20,11 +20,13 @@ class CgRouteSetting {
   final Widget Function(dynamic) route;
   final bool isRoot;
   final String title;
+  final bool fullscreenDialog;
 
   CgRouteSetting({
     required this.isRoot,
     required this.title,
     required this.route,
+    this.fullscreenDialog = false,
   });
 }
 
@@ -54,6 +56,7 @@ class RouteConfig {
       canSwipe: name == RouteConfig.MAP ? false : true,
       settings: settings?.copyWith(arguments: routes[name]!),
       builder: routes[name]!.route,
+      fullscreenDialog: routes[name]!.fullscreenDialog,
     );
   }
 
@@ -97,6 +100,7 @@ class RouteConfig {
         isRoot: false,
         title: "SEARCHFILTER",
         route: (context) => SearchFilterScreen(),
+        fullscreenDialog: true,
       ),
       ADMIN: CgRouteSetting(
         isRoot: true,
