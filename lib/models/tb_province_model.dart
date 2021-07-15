@@ -2,6 +2,7 @@ class TbProvinceModel {
   TbProvinceModel({
     this.id,
     this.code,
+    this.image,
     this.khmer,
     this.english,
     this.krong,
@@ -26,6 +27,7 @@ class TbProvinceModel {
 
   int? id;
   String? code;
+  String? image;
   String? khmer;
   String? english;
   int? krong;
@@ -51,6 +53,7 @@ class TbProvinceModel {
     return TbProvinceModel(
       id: json["id"],
       code: json["code"],
+      image: json["image"],
       khmer: json["khmer"],
       english: json["english"],
       krong: json["krong"],
@@ -78,6 +81,7 @@ class TbProvinceModel {
     return {
       "id": id,
       "code": code,
+      "image": image,
       "khmer": khmer,
       "english": english,
       "krong": krong,
