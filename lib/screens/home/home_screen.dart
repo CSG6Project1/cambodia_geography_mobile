@@ -1,12 +1,14 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
+import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
+import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
+import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
-
-import 'local_widget/province_card.dart';
+import 'local_widgets/province_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,7 +17,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin, CgThemeMixin, CgMediaQueryMixin {
   String? currentProvinceCode;
   late TabController tabController;
   late AutoScrollController scrollController;
@@ -83,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: RectGetter(
         key: listViewKey,
         child: NotificationListener<ScrollNotification>(
@@ -114,10 +116,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     controller: scrollController,
                     index: index,
                     child: ProvinceCard(
-                      isLastIndex: index == tabController.length - 1,
-                      tabController: tabController,
                       province: province,
                       district: districts,
+                      margin: EdgeInsets.only(
+                        top: ConfigConstant.margin2,
+                        bottom: index == tabController.length - 1 ? mediaQueryPadding.bottom : 0,
+                      ),
                     ),
                   ),
                 );
@@ -130,7 +134,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   MorphingSliverAppBar buildAppbar() {
-    final scheme = Theme.of(context).colorScheme;
     return MorphingSliverAppBar(
       floating: true,
       pinned: true,
@@ -141,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           onPressed: () {},
           icon: Icon(
             Icons.search,
-            color: scheme.onPrimary,
+            color: themeData.colorScheme.onPrimary,
           ),
         )
       ],
@@ -158,9 +161,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           key: const Key("HomeTitle"),
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            Icon(Icons.map, color: scheme.onPrimary),
+            Icon(Icons.map, color: themeData.colorScheme.onPrimary),
             const SizedBox(width: 4.0),
-            CgAppBarTitle(title: 'ប្រទេសកម្ពុជា')
+            const CgAppBarTitle(title: 'ប្រទេសកម្ពុជា')
           ],
         ),
       ),
