@@ -66,7 +66,6 @@ class _AppState extends State<App> {
     return MaterialApp(
       theme: ThemeConfig(isDarkMode).themeData,
       home: HomeScreen(),
-      initialRoute: RouteConfig.HOME,
       navigatorObservers: [HeroController()],
       onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
