@@ -29,7 +29,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/images/province_images/
+    - assets/images/provinces/
   fonts:
     - family: Lora
       fonts:
