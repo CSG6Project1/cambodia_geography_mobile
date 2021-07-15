@@ -25,7 +25,8 @@ class ProvinceCard extends StatelessWidget {
       child: Column(
         children: [
           buildProvinceHeader(context),
-          const Divider(height: ConfigConstant.margin1),
+          const Divider(height: ConfigConstant.margin0),
+          const SizedBox(height: ConfigConstant.margin1),
           Container(
             height: 56,
             child: buildInfoCount(context),
@@ -44,56 +45,58 @@ class ProvinceCard extends StatelessWidget {
     );
   }
 
-  ExpansionTile buildDistrictEpensionTile(BuildContext context) {
+  Widget buildDistrictEpensionTile(BuildContext context) {
     bool isKhan = province.khan != 0;
-    return ExpansionTile(
-      initiallyExpanded: false,
-      title: Text(
-        isKhan ? 'ខណ្ឌ' : 'ស្រុក',
-        style: Theme.of(context)
-            .textTheme
-            .headline6
-            ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
-      ),
-      subtitle: Text(
-        isKhan ? NumberHelper.toKhmer(province.khan) + ' ខណ្ឌ' : NumberHelper.toKhmer(province.srok) + ' ស្រុក',
-        style: Theme.of(context).textTheme.caption,
-      ),
-      trailing: const Icon(Icons.keyboard_arrow_right),
-      children: List.generate(
-        district.length,
-        (index) {
-          String sangkat = NumberHelper.toKhmer(district[index].sangkat) + 'សង្កាត់';
-          String commune = NumberHelper.toKhmer(district[index].commune) + 'ឃុំ';
-          String village = NumberHelper.toKhmer(district[index].village) + 'ភូមិ';
-          bool isKrong = district[index].type == 'KRONG';
+    return Theme(
+      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+      child: ExpansionTile(
+        initiallyExpanded: false,
+        title: Text(
+          isKhan ? 'ខណ្ឌ' : 'ស្រុក',
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
+        ),
+        subtitle: Text(
+          isKhan ? NumberHelper.toKhmer(province.khan) + ' ខណ្ឌ' : NumberHelper.toKhmer(province.srok) + ' ស្រុក',
+          style: Theme.of(context).textTheme.caption,
+        ),
+        children: List.generate(
+          district.length,
+          (index) {
+            String sangkat = NumberHelper.toKhmer(district[index].sangkat) + 'សង្កាត់';
+            String commune = NumberHelper.toKhmer(district[index].commune) + 'ឃុំ';
+            String village = NumberHelper.toKhmer(district[index].village) + 'ភូមិ';
+            bool isKrong = district[index].type == 'KRONG';
 
-          String title;
-          String subtitle;
-          if (isKrong || isKhan) {
-            title = isKrong ? 'ក្រុង' : 'ខណ្ឌ' + (district[index].khmer ?? '');
-            subtitle = '$sangkat និង $village';
-          } else {
-            title = 'ស្រុក' + (district[index].khmer ?? '');
-            subtitle = '$commune និង $villageភូមិ';
-          }
+            String title;
+            String subtitle;
+            if (isKrong || isKhan) {
+              title = isKrong ? 'ក្រុង' : 'ខណ្ឌ' + (district[index].khmer ?? '');
+              subtitle = '$sangkat និង $village';
+            } else {
+              title = 'ស្រុក' + (district[index].khmer ?? '');
+              subtitle = '$commune និង $villageភូមិ';
+            }
 
-          return Column(
-            children: [
-              const Divider(height: 0),
-              ListTile(
-                title: Text(title),
-                subtitle: Text(subtitle),
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    RouteConfig.DISTRICT,
-                    arguments: district[index],
-                  );
-                },
-              )
-            ],
-          );
-        },
+            return Column(
+              children: [
+                const Divider(height: 0),
+                ListTile(
+                  title: Text(title),
+                  subtitle: Text(subtitle),
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      RouteConfig.DISTRICT,
+                      arguments: district[index],
+                    );
+                  },
+                )
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -105,8 +108,8 @@ class ProvinceCard extends StatelessWidget {
     String? title,
   }) {
     return ListTile(
+      contentPadding: EdgeInsets.symmetric(vertical: ConfigConstant.margin1, horizontal: ConfigConstant.margin2),
       onTap: onTap,
-      trailing: const Icon(Icons.keyboard_arrow_right),
       subtitle: subtitle != null ? Text(subtitle, style: Theme.of(context).textTheme.caption) : null,
       title: Text(
         title ?? '',

@@ -15,95 +15,86 @@ class DistrictScreen extends StatelessWidget {
 
   final TbDistrictModel district;
 
+  String getPrefix() {
+    if (district.type == "KRONG") return 'ក្រុង';
+    if (district.type == "KHAN") return 'ខណ្ឌ';
+    return 'ស្រុក';
+  }
+
   @override
   Widget build(BuildContext context) {
     CambodiaGeography geo = CambodiaGeography.instance;
     List<TbCommuneModel> communes = geo.communesSearch(districtCode: district.code.toString());
-    String prefix;
-    if (district.type == "KRONG")
-      prefix = 'ក្រុង';
-    else if (district.type == "KHAN")
-      prefix = 'ខណ្ឌ';
-    else
-      prefix = 'ស្រុក';
+    String prefix = getPrefix();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: CustomScrollView(
-        slivers: [
-          MorphingSliverAppBar(
-            forceElevated: true,
-            title: CgAppBarTitle(title: prefix + district.khmer.toString()),
-          ),
-          buildCommuneList(
-            communes: communes,
-            geo: geo,
-            context: context,
-          ),
-        ],
+      appBar: MorphingAppBar(
+        title: CgAppBarTitle(title: prefix + district.khmer.toString()),
+      ),
+      body: buildCommuneList(
+        communes: communes,
+        geo: geo,
+        context: context,
       ),
     );
   }
 
-  SliverList buildCommuneList({
+  Widget buildCommuneList({
     required List<TbCommuneModel> communes,
     required CambodiaGeography geo,
     required BuildContext context,
   }) {
-    return SliverList(
-      delegate: SliverChildListDelegate(
-        List.generate(
-          communes.length,
-          (index) {
-            TbCommuneModel commune = communes[index];
-            List<TbVillageModel> villages = geo.villagesSearch(communeCode: commune.code.toString());
-            return Column(
-              children: [
-                if (index == 0) SizedBox(height: ConfigConstant.margin2),
-                buildCommuneTile(
-                  context: context,
-                  commune: commune,
-                  villages: villages,
-                ),
-
-                // if (showDivider)
-                Divider(
-                  height: 0,
-                  thickness: 1,
-                ),
-                if (index == communes.length - 1) SizedBox(height: ConfigConstant.margin2),
-              ],
-            );
-          },
-        ),
+    return ListView(
+      children: List.generate(
+        communes.length,
+        (index) {
+          TbCommuneModel commune = communes[index];
+          List<TbVillageModel> villages = geo.villagesSearch(communeCode: commune.code.toString());
+          return Column(
+            children: [
+              if (index == 0) SizedBox(height: ConfigConstant.margin2),
+              buildCommuneTile(
+                context: context,
+                commune: commune,
+                villages: villages,
+              ),
+              const Divider(height: 0),
+              if (index == communes.length - 1) const SizedBox(height: ConfigConstant.margin2),
+            ],
+          );
+        },
       ),
     );
   }
 
-  ExpansionTile buildCommuneTile({
+  Widget buildCommuneTile({
     required BuildContext context,
     required TbCommuneModel commune,
     required List<TbVillageModel> villages,
   }) {
     String communeTitle = (commune.type == "COMMUNE" ? 'ឃុំ' : 'សង្កាត់') + commune.khmer.toString();
-    return ExpansionTile(
-      tilePadding: EdgeInsets.symmetric(vertical: ConfigConstant.margin1, horizontal: ConfigConstant.margin2),
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      collapsedBackgroundColor: Theme.of(context).colorScheme.surface,
-      title: Text(
-        communeTitle,
-        style: Theme.of(context).textTheme.headline6?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.w700,
-            ),
-      ),
-      subtitle: Text(
-        'លេខកូដ៖ ' + commune.code.toString(),
-        style: Theme.of(context).textTheme.caption,
-      ),
-      children: buildVillageList(
-        commune: commune,
-        context: context,
-        villages: villages,
+    return Theme(
+      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+      child: ExpansionTile(
+        tilePadding: EdgeInsets.symmetric(vertical: ConfigConstant.margin1, horizontal: ConfigConstant.margin2),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        collapsedBackgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          communeTitle,
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              ?.copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.w700),
+        ),
+        subtitle: Text(
+          'លេខកូដ៖ ' + commune.code.toString(),
+          style: Theme.of(context).textTheme.caption,
+        ),
+        children: buildVillageList(
+          commune: commune,
+          context: context,
+          villages: villages,
+        ),
       ),
     );
   }
@@ -114,13 +105,10 @@ class DistrictScreen extends StatelessWidget {
     required List<TbVillageModel> villages,
   }) {
     return List.generate(commune.village ?? 0, (index) {
-      String prefix = (villages[index].khmer.toString().contains('ភូមិ')) ? '' : 'ភូមិ ';
+      String prefix = villages[index].khmer.toString().contains('ភូមិ') ? '' : 'ភូមិ ';
       return Container(
         alignment: Alignment.centerLeft,
-        padding: EdgeInsets.symmetric(
-          horizontal: ConfigConstant.margin2,
-          vertical: ConfigConstant.margin2,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2, vertical: ConfigConstant.margin2),
         color: index.isEven ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.surface,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
