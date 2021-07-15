@@ -44,26 +44,19 @@ class DistrictScreen extends StatelessWidget {
     required CambodiaGeography geo,
     required BuildContext context,
   }) {
-    return ListView(
-      children: List.generate(
-        communes.length,
-        (index) {
-          TbCommuneModel commune = communes[index];
-          List<TbVillageModel> villages = geo.villagesSearch(communeCode: commune.code.toString());
-          return Column(
-            children: [
-              if (index == 0) SizedBox(height: ConfigConstant.margin2),
-              buildCommuneTile(
-                context: context,
-                commune: commune,
-                villages: villages,
-              ),
-              const Divider(height: 0),
-              if (index == communes.length - 1) const SizedBox(height: ConfigConstant.margin2),
-            ],
-          );
-        },
-      ),
+    return ListView.separated(
+      padding: const EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
+      itemCount: communes.length,
+      separatorBuilder: (context, index) => Divider(height: 0, color: Theme.of(context).dividerColor),
+      itemBuilder: (context, index) {
+        TbCommuneModel commune = communes[index];
+        List<TbVillageModel> villages = geo.villagesSearch(communeCode: commune.code.toString());
+        return buildCommuneTile(
+          context: context,
+          commune: commune,
+          villages: villages,
+        );
+      },
     );
   }
 

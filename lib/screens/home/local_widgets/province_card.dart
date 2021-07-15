@@ -25,32 +25,34 @@ class ProvinceCard extends StatelessWidget {
       child: Column(
         children: [
           buildProvinceHeader(context),
-          const Divider(height: ConfigConstant.margin0),
+          Divider(height: 0, color: Theme.of(context).dividerColor),
           const SizedBox(height: ConfigConstant.margin1),
           Container(
             height: 56,
             child: buildInfoCount(context),
           ),
           const SizedBox(height: ConfigConstant.margin1),
-          const Divider(height: 0),
+          Divider(height: 0, color: Theme.of(context).dividerColor),
           buildTourPlaceListTile(
             context: context,
             title: 'តំបន់ទេសចរណ៍',
             onTap: () {},
           ),
-          const Divider(height: 0),
-          buildDistrictEpensionTile(context),
+          Divider(height: 0, color: Theme.of(context).dividerColor),
+          buildDistrictExpansionTile(context),
         ],
       ),
     );
   }
 
-  Widget buildDistrictEpensionTile(BuildContext context) {
+  Widget buildDistrictExpansionTile(BuildContext context) {
     bool isKhan = province.khan != 0;
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
         initiallyExpanded: false,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        collapsedBackgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
           isKhan ? 'ខណ្ឌ' : 'ស្រុក',
           style: Theme.of(context)
@@ -82,7 +84,7 @@ class ProvinceCard extends StatelessWidget {
 
             return Column(
               children: [
-                const Divider(height: 0),
+                Divider(height: 0, color: Theme.of(context).dividerColor),
                 ListTile(
                   title: Text(title),
                   subtitle: Text(subtitle),
@@ -111,6 +113,8 @@ class ProvinceCard extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: ConfigConstant.margin1, horizontal: ConfigConstant.margin2),
       onTap: onTap,
       subtitle: subtitle != null ? Text(subtitle, style: Theme.of(context).textTheme.caption) : null,
+      tileColor: Theme.of(context).colorScheme.surface,
+      selectedTileColor: Theme.of(context).colorScheme.surface,
       title: Text(
         title ?? '',
         style: Theme.of(context)
