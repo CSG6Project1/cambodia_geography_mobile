@@ -8,41 +8,36 @@ import 'package:flutter/material.dart';
 class ProvinceCard extends StatelessWidget {
   const ProvinceCard({
     Key? key,
-    required this.isLastIndex,
-    required this.tabController,
     required this.province,
     required this.district,
+    this.margin = const EdgeInsets.only(top: ConfigConstant.margin2),
   }) : super(key: key);
 
-  final bool isLastIndex;
-  final TabController tabController;
   final TbProvinceModel province;
   final List<TbDistrictModel> district;
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      margin: EdgeInsets.only(
-        top: ConfigConstant.margin2,
-        bottom: isLastIndex ? 24 : 0,
-      ),
+      margin: margin,
       child: Column(
         children: [
           buildProvinceHeader(context),
-          Divider(height: ConfigConstant.margin1),
+          const Divider(height: ConfigConstant.margin1),
           Container(
             height: 56,
             child: buildInfoCount(context),
           ),
-          SizedBox(height: ConfigConstant.margin1),
-          Divider(height: 0),
+          const SizedBox(height: ConfigConstant.margin1),
+          const Divider(height: 0),
           buildTourPlaceListTile(
             context: context,
             title: 'តំបន់ទេសចរណ៍',
             onTap: () {},
           ),
-          Divider(height: 0),
+          const Divider(height: 0),
           buildDistrictEpensionTile(context),
         ],
       ),
@@ -58,13 +53,13 @@ class ProvinceCard extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .headline6
-            ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),
+            ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
       ),
       subtitle: Text(
         isKhan ? NumberHelper.toKhmer(province.khan) + ' ខណ្ឌ' : NumberHelper.toKhmer(province.srok) + ' ស្រុក',
         style: Theme.of(context).textTheme.caption,
       ),
-      trailing: Icon(Icons.keyboard_arrow_right),
+      trailing: const Icon(Icons.keyboard_arrow_right),
       children: List.generate(
         district.length,
         (index) {
@@ -72,18 +67,28 @@ class ProvinceCard extends StatelessWidget {
           String commune = NumberHelper.toKhmer(district[index].commune) + 'ឃុំ';
           String village = NumberHelper.toKhmer(district[index].village) + 'ភូមិ';
           bool isKrong = district[index].type == 'KRONG';
-          String title = (isKrong || isKhan)
-              ? ((isKrong ? 'ក្រុង' : 'ខណ្ឌ') + (district[index].khmer ?? ''))
-              : ('ស្រុក' + (district[index].khmer ?? ''));
-          String subtitle = (isKrong || isKhan) ? ('$sangkat និង $village') : ('$commune និង $villageភូមិ');
+
+          String title;
+          String subtitle;
+          if (isKrong || isKhan) {
+            title = isKrong ? 'ក្រុង' : 'ខណ្ឌ' + (district[index].khmer ?? '');
+            subtitle = '$sangkat និង $village';
+          } else {
+            title = 'ស្រុក' + (district[index].khmer ?? '');
+            subtitle = '$commune និង $villageភូមិ';
+          }
+
           return Column(
             children: [
-              Divider(height: 0),
+              const Divider(height: 0),
               ListTile(
                 title: Text(title),
                 subtitle: Text(subtitle),
                 onTap: () {
-                  Navigator.pushNamed(context, RouteConfig.DISTRICT, arguments: district[index]);
+                  Navigator.of(context).pushNamed(
+                    RouteConfig.DISTRICT,
+                    arguments: district[index],
+                  );
                 },
               )
             ],
@@ -95,67 +100,61 @@ class ProvinceCard extends StatelessWidget {
 
   ListTile buildTourPlaceListTile({
     required BuildContext context,
-    String? title,
-    String? subtitle,
     void Function()? onTap,
+    String? subtitle,
+    String? title,
   }) {
     return ListTile(
+      onTap: onTap,
+      trailing: const Icon(Icons.keyboard_arrow_right),
+      subtitle: subtitle != null ? Text(subtitle, style: Theme.of(context).textTheme.caption) : null,
       title: Text(
         title ?? '',
         style: Theme.of(context)
             .textTheme
             .headline6
-            ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),
+            ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
       ),
-      subtitle: subtitle != null
-          ? Text(
-              subtitle,
-              style: Theme.of(context).textTheme.caption,
-            )
-          : null,
-      trailing: Icon(
-        Icons.keyboard_arrow_right,
-        color: Colors.black,
-      ),
-      onTap: onTap,
     );
   }
 
   ListView buildInfoCount(BuildContext context) {
     List<String> titles = [];
     List<String> subtitles = [];
-    if (province.srok != 0) {
+
+    if ((province.srok ?? 0) > 0) {
       titles.add('ស្រុក');
       subtitles.add(NumberHelper.toKhmer(province.srok));
     }
-    if (province.khan != 0) {
+    if ((province.khan ?? 0) > 0) {
       titles.add('ខណ្ឌ');
       subtitles.add(NumberHelper.toKhmer(province.khan));
     }
-    if (province.sangkat != 0) {
+    if ((province.sangkat ?? 0) > 0) {
       titles.add('សង្កាត់');
       subtitles.add(NumberHelper.toKhmer(province.sangkat));
     }
-    if (province.commune != 0) {
+    if ((province.commune ?? 0) > 0) {
       titles.add('ឃុំ');
       subtitles.add(NumberHelper.toKhmer(province.commune));
     }
-    if (province.village != 0) {
+    if ((province.village ?? 0) > 0) {
       titles.add('ភូមិ');
       subtitles.add(NumberHelper.toKhmer(province.village));
     }
+
     return ListView(
       scrollDirection: Axis.horizontal,
       children: List.generate(
         titles.length,
         (index) {
           return Container(
-            width: 97.5,
+            padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Column(
               children: [
                 Text(
                   titles[index],
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Theme.of(context).primaryColor),
+                  style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Theme.of(context).colorScheme.primary),
                 ),
                 Text('${subtitles[index]}'),
               ],
@@ -169,16 +168,15 @@ class ProvinceCard extends StatelessWidget {
   Container buildProvinceHeader(BuildContext context) {
     List<TbDistrictModel> krongs = district.where((dist) => dist.type == "KRONG").toList();
     String krongTitle = "ក្រុង" + krongs.map((krong) => krong.khmer).toList().join(" និង ក្រុង");
-
     return Container(
-      padding: EdgeInsets.all(ConfigConstant.margin2),
+      padding: const EdgeInsets.all(ConfigConstant.margin2),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             height: 100,
             width: 100,
-            margin: EdgeInsets.only(right: ConfigConstant.margin2),
+            margin: const EdgeInsets.only(right: ConfigConstant.margin2),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2),
               image: DecorationImage(
@@ -195,13 +193,9 @@ class ProvinceCard extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline6
-                    ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),
+                    ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
               ),
-              if (krongs.length > 0)
-                Text(
-                  krongTitle,
-                  style: Theme.of(context).textTheme.caption,
-                ),
+              if (krongs.length > 0) Text(krongTitle, style: Theme.of(context).textTheme.caption),
               Text(
                 'លេខកូដ៖ ' + NumberHelper.toKhmer(province.code),
                 style: Theme.of(context).textTheme.caption,
