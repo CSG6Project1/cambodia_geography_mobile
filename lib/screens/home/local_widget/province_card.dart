@@ -72,24 +72,20 @@ class ProvinceCard extends StatelessWidget {
           String commune = NumberHelper.toKhmer(district[index].commune) + 'ឃុំ';
           String village = NumberHelper.toKhmer(district[index].village) + 'ភូមិ';
           bool isKrong = district[index].type == 'KRONG';
+          String title = (isKrong || isKhan)
+              ? ((isKrong ? 'ក្រុង' : 'ខណ្ឌ') + (district[index].khmer ?? ''))
+              : ('ស្រុក' + (district[index].khmer ?? ''));
+          String subtitle = (isKrong || isKhan) ? ('$sangkat និង $village') : ('$commune និង $villageភូមិ');
           return Column(
             children: [
               Divider(height: 0),
-              (isKrong || isKhan)
-                  ? ListTile(
-                      title: Text((isKrong ? 'ក្រុង' : 'ខណ្ឌ') + (district[index].khmer ?? '')),
-                      subtitle: Text('$sangkat និង $village'),
-                      onTap: () {
-                        Navigator.pushNamed(context, RouteConfig.DISTRICT);
-                      },
-                    )
-                  : ListTile(
-                      title: Text('ស្រុក' + (district[index].khmer ?? '')),
-                      subtitle: Text('$commune និង $villageភូមិ'),
-                      onTap: () {
-                        Navigator.pushNamed(context, RouteConfig.DISTRICT);
-                      },
-                    ),
+              ListTile(
+                title: Text(title),
+                subtitle: Text(subtitle),
+                onTap: () {
+                  Navigator.pushNamed(context, RouteConfig.DISTRICT, arguments: district[index]);
+                },
+              )
             ],
           );
         },
@@ -172,7 +168,7 @@ class ProvinceCard extends StatelessWidget {
 
   Container buildProvinceHeader(BuildContext context) {
     List<TbDistrictModel> krongs = district.where((dist) => dist.type == "KRONG").toList();
-    String? krongTitle = "ក្រុង" + krongs.map((krong) => krong.khmer).toList().join(" និង ក្រុង");
+    String krongTitle = "ក្រុង" + krongs.map((krong) => krong.khmer).toList().join(" និង ក្រុង");
 
     return Container(
       padding: EdgeInsets.all(ConfigConstant.margin2),
@@ -202,7 +198,7 @@ class ProvinceCard extends StatelessWidget {
                     .headline6
                     ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),
               ),
-              if (krongTitle != null)
+              if (krongs.length > 0)
                 Text(
                   krongTitle,
                   style: Theme.of(context).textTheme.caption,

@@ -87,14 +87,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       body: RectGetter(
         key: listViewKey,
         child: NotificationListener<ScrollNotification>(
-          child: buildCustomerScrollView(),
+          child: buildCustomScrollView(),
           onNotification: onScrollNotification,
         ),
       ),
     );
   }
 
-  CustomScrollView buildCustomerScrollView() {
+  CustomScrollView buildCustomScrollView() {
     return CustomScrollView(
       controller: scrollController,
       slivers: [
@@ -169,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         controller: tabController,
         isScrollable: true,
         onTap: (int index) {
-          scrollController.scrollToIndex(index + 1);
+          animateAndScrollTo(index);
         },
         tabs: List.generate(
           geo.tbProvinces.length,
