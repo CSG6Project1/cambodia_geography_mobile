@@ -86,7 +86,6 @@ class CgSearchDelegate extends SearchDelegate<String> {
         ),
         onPressed: () {
           Navigator.pop(context);
-          animationController.reverse();
         },
       );
     } else {
