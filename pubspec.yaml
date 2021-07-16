@@ -19,6 +19,8 @@ dependencies:
   swipeable_page_route: ^0.2.2
   scroll_to_index: ^2.0.0
   rect_getter: ^1.0.0
+  http: ^0.13.3
+  http_interceptor: ^1.0.1
 
 dev_dependencies:
   build_runner: ^2.0.6

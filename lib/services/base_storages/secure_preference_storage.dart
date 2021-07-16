@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 abstract class SecurePreferenceStorage {
@@ -31,5 +33,16 @@ abstract class SecurePreferenceStorage {
     } catch (e) {
       error = e;
     }
+  }
+
+  Future<void> writeMap(Map<dynamic, dynamic> map) async {
+    await this.write(jsonEncode(map));
+  }
+
+  Future<Map<dynamic, dynamic>?> readMap() async {
+    final read = await this.read();
+    if (read == null) return null;
+    final json = jsonDecode(read);
+    if (json is Map) return json;
   }
 }
