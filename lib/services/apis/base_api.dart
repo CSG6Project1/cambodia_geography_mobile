@@ -1,14 +1,14 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:cambodia_geography/constants/api_constant.dart';
 import 'package:cambodia_geography/models/apis/links_model.dart';
 import 'package:cambodia_geography/models/apis/meta_model.dart';
 import 'package:cambodia_geography/models/apis/object_name_url_model.dart';
 import 'package:cambodia_geography/services/networks/base_network.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 abstract class BaseApi<T> {
-  http.Response? response;
+  Response? response;
   BaseNetwork? network;
   BaseNetwork buildNetwork();
 
@@ -25,23 +25,46 @@ abstract class BaseApi<T> {
     return response?.body;
   }
 
-  fetchOne({required String id}) async {
-    String endpoint = objectNameUrlModel.fetchOneUrl(id: id);
-    response = await network?.http?.get(Uri.parse(endpoint));
+  Future<dynamic> _beforeExec(Future<dynamic> Function() body) async {
+    this.response = null;
+    try {
+      return await body();
+    } on SocketException {
+      return Future.error('No Internet connection');
+    } on FormatException {
+      return Future.error('Bad response format');
+    } on Exception {
+      return Future.error('Unexpected error');
+    }
   }
 
-  fetchAll() async {
-    String endpoint = objectNameUrlModel.fetchAllUrl();
-    response = await network?.http?.get(Uri.parse(endpoint));
-    dynamic json = jsonDecode(response?.body.toString() ?? "");
-    return itemsTransformer(json);
+  Future<dynamic> fetchOne({required String id}) async {
+    return _beforeExec(() async {
+      String endpoint = objectNameUrlModel.fetchOneUrl(id: id);
+      response = await network?.http?.get(Uri.parse(endpoint));
+    });
   }
 
-  update() {}
+  Future<dynamic> fetchAll() async {
+    return _beforeExec(() async {
+      String endpoint = objectNameUrlModel.fetchAllUrl();
+      response = await network?.http?.get(Uri.parse(endpoint));
+      dynamic json = jsonDecode(response?.body.toString() ?? "");
+      return itemsTransformer(json);
+    });
+  }
 
-  create() {}
+  Future<dynamic> update() {
+    return _beforeExec(() async {});
+  }
 
-  delete() {}
+  Future<dynamic> create() {
+    return _beforeExec(() async {});
+  }
+
+  Future<dynamic> delete() {
+    return _beforeExec(() async {});
+  }
 
   T objectTransformer(Map<String, dynamic> json);
   itemsTransformer(Map<String, dynamic> json) {}
