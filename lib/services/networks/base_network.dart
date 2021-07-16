@@ -1,4 +1,3 @@
-import 'package:cambodia_geography/services/networks/interceptors/default_interceptor.dart';
 import 'package:http_interceptor/http/interceptor_contract.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http_interceptor.dart';
@@ -12,10 +11,6 @@ abstract class BaseNetwork {
       interceptors: _interceptors,
       retryPolicy: retryPolicy,
     );
-  }
-
-  BaseNetwork() {
-    addInterceptor(DefaultInterceptor());
   }
 
   void addInterceptor(InterceptorContract interceptor) {

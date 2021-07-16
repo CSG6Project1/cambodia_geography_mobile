@@ -1,35 +1,43 @@
 class ObjectNameUrlModel {
   final String nameInUrl;
   final String? path;
+  final String baseUrl;
 
   ObjectNameUrlModel({
     required this.nameInUrl,
     required this.path,
+    required this.baseUrl,
   });
 
+  String _withBaseUrl(String currentUrl) {
+    return baseUrl + currentUrl;
+  }
+
   String fetchOneUrl({required String? id}) {
-    if (id == null) return "$path/$nameInUrl";
-    return "$path/$nameInUrl/$id";
+    String url;
+    if (id == null) url = "$path/$nameInUrl";
+    url = "$path/$nameInUrl/$id";
+    return _withBaseUrl(url);
   }
 
   String fetchAllUrl() {
-    return "$path/$nameInUrl";
+    return _withBaseUrl("$path/$nameInUrl");
   }
 
   String updatelUrl({String? id}) {
     var url = "$path/$nameInUrl";
     if (id != null) url = "$url/$id";
-    return url;
+    return _withBaseUrl(url);
   }
 
   String deletelUrl({String? id}) {
     var url = "$path/$nameInUrl";
     if (id != null) url = "$url/$id";
-    return url;
+    return _withBaseUrl(url);
   }
 
   String createUrl() {
     var url = "$path/$nameInUrl";
-    return url;
+    return _withBaseUrl(url);
   }
 }
