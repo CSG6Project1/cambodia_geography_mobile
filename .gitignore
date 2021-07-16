@@ -47,3 +47,4 @@ app.*.map.json
 
 ./.dart_tool
 cambodia_geography_api
+api_constant.dart
