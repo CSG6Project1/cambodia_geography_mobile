@@ -1,4 +1,5 @@
 import 'package:cambodia_geography/models/tb_district_model.dart';
+import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/404/not_found_screen.dart';
 import 'package:cambodia_geography/screens/admin/admin_screen.dart';
 import 'package:cambodia_geography/screens/admin/edit_place_screen.dart';
@@ -9,6 +10,7 @@ import 'package:cambodia_geography/screens/home/home_screen.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/screens/place_detail/place_detail_screen.dart';
 import 'package:cambodia_geography/screens/places/places_screen.dart';
+import 'package:cambodia_geography/screens/province/province_detail_screen.dart';
 import 'package:cambodia_geography/screens/search/search_filter_screen.dart';
 import 'package:cambodia_geography/screens/user/bookmark_screen.dart';
 import 'package:cambodia_geography/screens/user/user_screen.dart';
@@ -40,6 +42,7 @@ class RouteConfig {
   static const String SIGNUP = '/auth/signup';
   static const String PLACES = '/places';
   static const String PLACEDETAIL = '/place/detail';
+  static const String PROVINCE_DETAIL = '/province_detail';
   static const String SEARCHFILTER = '/search/filter';
   static const String SEARCHRESULT = '/search/result';
   static const String ADMIN = '/admin';
@@ -95,6 +98,15 @@ class RouteConfig {
         isRoot: false,
         title: "PLACEDETAIL",
         route: (context) => PlaceDetailScreen(),
+      ),
+      PROVINCE_DETAIL: CgRouteSetting(
+        isRoot: false,
+        title: "PROVINCE_DETAIL",
+        route: (context) {
+          Object? arguments = settings?.arguments;
+          if (arguments is TbProvinceModel) return ProvinceDetailScreen(province: arguments);
+          return NotFoundScreen();
+        },
       ),
       SEARCHFILTER: CgRouteSetting(
         isRoot: false,
