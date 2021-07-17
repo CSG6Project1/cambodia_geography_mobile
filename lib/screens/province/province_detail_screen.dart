@@ -1,8 +1,10 @@
+import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/api_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
+import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 import 'package:weather/weather.dart';
@@ -22,6 +24,7 @@ class ProvinceDetailScreen extends StatefulWidget {
 class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThemeMixin, CgMediaQueryMixin {
   late WeatherFactory weatherFactory;
   Future<Weather>? weather;
+  LatLng? latLng;
 
   @override
   void initState() {
@@ -32,6 +35,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
     double? longitudes = double.tryParse(widget.province.longitudes ?? "");
 
     if (latitude != null && longitudes != null) {
+      latLng = LatLng(latitude, longitudes);
       weather = _setWeather(latitude, longitudes);
     }
   }
@@ -44,9 +48,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MorphingAppBar(
-        title: const Text(
-          "Province Detail Screen",
-        ),
+        title: Text(widget.province.khmer ?? "Province"),
       ),
       body: buildWeather(),
     );
@@ -98,14 +100,41 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
 
     children.insert(
       0,
-      ListTile(
-        leading: weatherImage != null ? Image.network(weatherImage) : null,
-        title: Text("Weather"),
-        subtitle: Text(celsius),
-        tileColor: colorScheme.surface,
-      ),
+      buildHeaderTile(celsius, weatherImage),
     );
 
     return children;
+  }
+
+  ListTile buildHeaderTile(String celsius, String? weatherImage) {
+    return ListTile(
+      title: const Text("Weather"),
+      subtitle: Text(celsius),
+      tileColor: colorScheme.surface,
+      leading: weatherImage != null
+          ? AspectRatio(
+              aspectRatio: 1,
+              child: Image.network(weatherImage),
+            )
+          : null,
+      trailing: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          Text("Map"),
+          Icon(Icons.keyboard_arrow_right),
+        ],
+      ),
+      onTap: () {
+        if (latLng != null) {
+          Navigator.of(context).pushNamed(
+            RouteConfig.MAP,
+            arguments: MapScreenSetting(
+              flowType: MapFlowType.view,
+              initialLatLng: latLng,
+            ),
+          );
+        }
+      },
+    );
   }
 }
