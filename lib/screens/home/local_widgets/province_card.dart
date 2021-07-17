@@ -172,44 +172,52 @@ class ProvinceCard extends StatelessWidget {
     );
   }
 
-  Container buildProvinceHeader(BuildContext context) {
+  Widget buildProvinceHeader(BuildContext context) {
     List<TbDistrictModel> krongs = district.where((dist) => dist.type == "KRONG").toList();
     String krongTitle = "ក្រុង" + krongs.map((krong) => krong.khmer).toList().join(" និង ក្រុង");
-    return Container(
-      padding: const EdgeInsets.all(ConfigConstant.margin2),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 100,
-            width: 100,
-            margin: const EdgeInsets.only(right: ConfigConstant.margin2),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2),
-              image: DecorationImage(
-                image: AssetImage(province.image.toString()),
-                fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          RouteConfig.PROVINCE_DETAIL,
+          arguments: province,
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(ConfigConstant.margin2),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              margin: const EdgeInsets.only(right: ConfigConstant.margin2),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(2),
+                image: DecorationImage(
+                  image: AssetImage(province.image.toString()),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                province.khmer ?? '',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
-              ),
-              if (krongs.length > 0) Text(krongTitle, style: Theme.of(context).textTheme.caption),
-              Text(
-                'លេខកូដ៖ ' + NumberHelper.toKhmer(province.code),
-                style: Theme.of(context).textTheme.caption,
-              ),
-            ],
-          ),
-        ],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  province.khmer ?? '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
+                ),
+                if (krongs.length > 0) Text(krongTitle, style: Theme.of(context).textTheme.caption),
+                Text(
+                  'លេខកូដ៖ ' + NumberHelper.toKhmer(province.code),
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
