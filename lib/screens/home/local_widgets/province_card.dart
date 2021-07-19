@@ -75,7 +75,7 @@ class ProvinceCard extends StatelessWidget {
             String title;
             String subtitle;
             if (isKrong || isKhan) {
-              title = isKrong ? 'ក្រុង' : 'ខណ្ឌ' + (district[index].khmer ?? '');
+              title = (isKrong ? 'ក្រុង' : 'ខណ្ឌ') + (district[index].khmer ?? '');
               subtitle = '$sangkat និង $village';
             } else {
               title = 'ស្រុក' + (district[index].khmer ?? '');
