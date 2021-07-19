@@ -65,6 +65,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeConfig(isDarkMode).themeData,
+      debugShowCheckedModeBanner: false,
       home: HomeScreen(),
       navigatorObservers: [HeroController()],
       onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
