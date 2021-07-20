@@ -1,10 +1,14 @@
+import 'package:cambodia_geography/services/networks/interceptors/default_interceptor.dart';
 import 'package:http_interceptor/http/interceptor_contract.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 
-abstract class BaseNetwork {
-  List<InterceptorContract> _interceptors = [];
-  RetryPolicy? get retryPolicy;
+class BaseNetwork {
+  List<InterceptorContract> _interceptors = [
+    DefaultInterceptor(),
+  ];
+
+  RetryPolicy? get retryPolicy => null;
 
   Client? get http {
     return InterceptedClient.build(
