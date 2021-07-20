@@ -1,4 +1,4 @@
-package com.example.cambodia_geography
+package com.cambodiageography.app
 
 import io.flutter.embedding.android.FlutterActivity
 
