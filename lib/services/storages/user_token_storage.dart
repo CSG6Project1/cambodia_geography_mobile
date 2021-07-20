@@ -1,6 +1,6 @@
 import 'package:cambodia_geography/services/base_storages/secure_preference_storage.dart';
 
-class HeadersStorage extends SecurePreferenceStorage {
+class UserTokenStorage extends SecurePreferenceStorage {
   @override
-  String get key => "HeadersStorage";
+  String get key => "UserTokenStorage";
 }
