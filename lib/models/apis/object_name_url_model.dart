@@ -11,7 +11,7 @@ class ObjectNameUrlModel {
 
   String _withBaseUrl(String currentUrl, {Map<String, dynamic>? queryParameters}) {
     String query = Uri(queryParameters: queryParameters).query;
-    return baseUrl + currentUrl + "&" + query;
+    return baseUrl + currentUrl + "?" + query;
   }
 
   String fetchOneUrl({required String? id}) {
