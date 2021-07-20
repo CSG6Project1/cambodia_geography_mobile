@@ -16,7 +16,7 @@ void main() {
           "province_id": "123",
         },
       );
-      expect(url, 'https://cambodia-geography.herokuapp.com/placestype=place&province_id=123');
+      expect(url, 'https://cambodia-geography.herokuapp.com/places&type=place&province_id=123');
     });
   });
 }
