@@ -9,8 +9,9 @@ class ObjectNameUrlModel {
     required this.baseUrl,
   });
 
-  String _withBaseUrl(String currentUrl) {
-    return baseUrl + currentUrl;
+  String _withBaseUrl(String currentUrl, {Map<String, dynamic>? queryParameters}) {
+    String query = Uri(queryParameters: queryParameters).query;
+    return baseUrl + currentUrl + query;
   }
 
   String fetchOneUrl({required String? id}) {
@@ -20,8 +21,8 @@ class ObjectNameUrlModel {
     return _withBaseUrl(url);
   }
 
-  String fetchAllUrl() {
-    return _withBaseUrl("$path/$nameInUrl");
+  String fetchAllUrl({Map<String, dynamic>? queryParameters}) {
+    return _withBaseUrl("$path/$nameInUrl", queryParameters: queryParameters);
   }
 
   String updatelUrl({String? id}) {

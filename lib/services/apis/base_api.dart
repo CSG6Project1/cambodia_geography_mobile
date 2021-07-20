@@ -45,9 +45,9 @@ abstract class BaseApi<T> {
     });
   }
 
-  Future<dynamic> fetchAll() async {
+  Future<dynamic> fetchAll({Map<String, dynamic>? queryParameters}) async {
     return _beforeExec(() async {
-      String endpoint = objectNameUrlModel.fetchAllUrl();
+      String endpoint = objectNameUrlModel.fetchAllUrl(queryParameters: queryParameters);
       response = await network?.http?.get(Uri.parse(endpoint));
       dynamic json = jsonDecode(response?.body.toString() ?? "");
       return itemsTransformer(json);
