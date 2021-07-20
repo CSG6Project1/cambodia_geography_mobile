@@ -22,7 +22,7 @@ dependencies:
   http: ^0.13.3
   http_interceptor: ^1.0.1
   weather: ^2.0.1
-
+  firebase_core: ^1.4.0
 
 dev_dependencies:
   build_runner: ^2.0.6
