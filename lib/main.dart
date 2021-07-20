@@ -4,10 +4,14 @@ import 'package:cambodia_geography/services/storages/locale_storage.dart';
 import 'package:cambodia_geography/services/storages/theme_mode_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
   await CambodiaGeography.instance.initilize();
+
   bool isDarkMode = await getInitialDarkMode();
   Locale? locale = await getInitialLocale();
 
