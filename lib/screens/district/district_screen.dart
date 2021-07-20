@@ -99,23 +99,10 @@ class DistrictScreen extends StatelessWidget {
   }) {
     return List.generate(commune.village ?? 0, (index) {
       String prefix = villages[index].khmer.toString().contains('ភូមិ') ? '' : 'ភូមិ ';
-      return Container(
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2, vertical: ConfigConstant.margin2),
-        color: index.isEven ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.surface,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              prefix + villages[index].khmer.toString(),
-              style: Theme.of(context).textTheme.bodyText2,
-            ),
-            Text(
-              'លេខកូដ៖ ' + villages[index].code.toString(),
-              style: Theme.of(context).textTheme.caption,
-            ),
-          ],
-        ),
+      return ListTile(
+        title: Text(prefix + villages[index].khmer.toString()),
+        subtitle: Text('លេខកូដ៖ ' + villages[index].code.toString()),
+        tileColor: index.isEven ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.surface,
       );
     });
   }
