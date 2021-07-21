@@ -92,7 +92,14 @@ class RouteConfig {
       PLACES: CgRouteSetting(
         isRoot: false,
         title: "PLACES",
-        route: (context) => PlacesScreen(),
+        route: (context) {
+          Object? arguments = settings?.arguments;
+          if (arguments is TbProvinceModel)
+            return PlacesScreen(
+              province: arguments,
+            );
+          return NotFoundScreen();
+        },
       ),
       PLACEDETAIL: CgRouteSetting(
         isRoot: false,

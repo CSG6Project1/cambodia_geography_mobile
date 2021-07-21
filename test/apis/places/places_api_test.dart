@@ -9,7 +9,7 @@ void main() {
   PlacesApi placesApi = PlacesApi();
   group('PlaceApi#fetchAll', () {
     test('return true if runtimeType is matched', () async {
-      dynamic result = await placesApi.fetchAll();
+      dynamic result = await placesApi.fetchAll(queryParameters: {'province_code': '01'});
       expect(result.runtimeType, PlaceListModel);
       expect(result.items.first.runtimeType, PlaceModel);
       expect(result.links.runtimeType, LinksModel);

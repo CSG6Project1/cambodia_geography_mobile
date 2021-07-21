@@ -36,7 +36,9 @@ class ProvinceCard extends StatelessWidget {
           buildTourPlaceListTile(
             context: context,
             title: 'តំបន់ទេសចរណ៍',
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(RouteConfig.PLACES, arguments: province);
+            },
           ),
           Divider(height: 0, color: Theme.of(context).dividerColor),
           buildDistrictExpansionTile(context),
@@ -51,8 +53,7 @@ class ProvinceCard extends StatelessWidget {
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
         initiallyExpanded: false,
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        collapsedBackgroundColor: Theme.of(context).colorScheme.surface,
+        // collapsedBackgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
           isKhan ? 'ខណ្ឌ' : 'ស្រុក',
           style: Theme.of(context)
