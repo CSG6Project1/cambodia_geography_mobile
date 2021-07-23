@@ -10,12 +10,16 @@ class ProvinceCard extends StatelessWidget {
     Key? key,
     required this.province,
     required this.district,
+    required this.initiallyDistrictExpanded,
+    required this.onDistrictExpansionChanged,
     this.margin = const EdgeInsets.only(top: ConfigConstant.margin2),
   }) : super(key: key);
 
   final TbProvinceModel province;
   final List<TbDistrictModel> district;
   final EdgeInsets margin;
+  final bool initiallyDistrictExpanded;
+  final void Function(bool) onDistrictExpansionChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +56,8 @@ class ProvinceCard extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
-        initiallyExpanded: false,
+        initiallyExpanded: initiallyDistrictExpanded,
+        onExpansionChanged: onDistrictExpansionChanged,
         // collapsedBackgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
           isKhan ? 'ខណ្ឌ' : 'ស្រុក',

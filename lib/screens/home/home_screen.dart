@@ -28,6 +28,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
   late AnimationController animationController;
   late CambodiaGeography geo;
 
+  /// store provinces info whether
+  /// it is expanded or not.
+  ///
+  /// example:
+  /// ```
+  /// {
+  ///   1: true,
+  ///   2: false
+  ///   3: true,
+  /// }
+  /// ```
+  Map<int, bool> provinceExpansionTileInfo = {};
+
   final listViewKey = RectGetter.createGlobalKey();
   Map<int, dynamic> itemKeys = {};
 
@@ -106,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
 
   Widget buildCustomScrollView() {
     return ListView.builder(
+      controller: scrollController,
       itemCount: tabController.length,
       itemBuilder: (context, index) {
         itemKeys[index] = RectGetter.createGlobalKey();
@@ -181,6 +195,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
             top: ConfigConstant.margin2,
             bottom: index == tabController.length - 1 ? mediaQueryPadding.bottom : 0,
           ),
+          initiallyDistrictExpanded:
+              provinceExpansionTileInfo.containsKey(index) ? provinceExpansionTileInfo[index] == true : false,
+          onDistrictExpansionChanged: (bool value) {
+            provinceExpansionTileInfo[index] = value;
+          },
         ),
       ),
     );
