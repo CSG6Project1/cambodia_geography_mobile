@@ -23,11 +23,13 @@ class CgRouteSetting {
   final bool isRoot;
   final String title;
   final bool fullscreenDialog;
+  final bool canSwap;
 
   CgRouteSetting({
     required this.isRoot,
     required this.title,
     required this.route,
+    this.canSwap = true,
     this.fullscreenDialog = false,
   });
 }
@@ -56,7 +58,7 @@ class RouteConfig {
     String? name = settings?.name;
     if (!routes.containsKey(name) || name == null) name = NOTFOUND;
     return SwipeablePageRoute(
-      canSwipe: name == RouteConfig.MAP ? false : true,
+      canSwipe: routes[name]?.canSwap == true,
       settings: settings?.copyWith(arguments: routes[name]!),
       builder: routes[name]!.route,
       fullscreenDialog: routes[name]!.fullscreenDialog,
@@ -92,6 +94,7 @@ class RouteConfig {
       PLACES: CgRouteSetting(
         isRoot: false,
         title: "PLACES",
+        canSwap: false,
         route: (context) {
           Object? arguments = settings?.arguments;
           if (arguments is TbProvinceModel)
@@ -144,6 +147,7 @@ class RouteConfig {
       MAP: CgRouteSetting(
         isRoot: false,
         title: "MAP",
+        canSwap: false,
         route: (context) {
           Object? arguments = settings?.arguments;
           if (arguments is MapScreenSetting) return MapScreen(settings: arguments);
