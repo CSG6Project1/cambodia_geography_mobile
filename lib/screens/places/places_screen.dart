@@ -139,11 +139,21 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
       bottom: TabBar(
         controller: controller,
         tabs: [
-          const Tab(
-            child: Text("តំបន់ទេសចរណ៍"),
+          Tab(
+            child: Text(
+              "តំបន់ទេសចរណ៍",
+              style: TextStyle(
+                fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
+              ),
+            ),
           ),
-          const Tab(
-            child: Text("ភោជនីយ៍ដ្ឆាន៍"),
+          Tab(
+            child: Text(
+              "ភោជនីយ៍ដ្ឆាន៍",
+              style: TextStyle(
+                fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
+              ),
+            ),
           ),
         ],
       ),

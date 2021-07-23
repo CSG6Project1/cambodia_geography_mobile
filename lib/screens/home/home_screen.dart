@@ -157,6 +157,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
             key: Key("HomeTabItem$index"),
             child: Text(
               geo.tbProvinces[index].khmer.toString(),
+              style: TextStyle(
+                fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
+              ),
             ),
           ),
         ),
