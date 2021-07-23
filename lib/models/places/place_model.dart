@@ -1,3 +1,5 @@
+import 'package:cambodia_geography/models/places/image_model.dart';
+
 class PlaceModel {
   PlaceModel({
     this.createdAt,
@@ -20,7 +22,7 @@ class PlaceModel {
 
   DateTime? createdAt;
   DateTime? updatedAt;
-  List<String>? images;
+  List<ImageModel>? images;
   List<String>? comments;
   String? type;
   String? khmer;
@@ -39,7 +41,7 @@ class PlaceModel {
     return PlaceModel(
       createdAt: DateTime.parse(json["created_at"]),
       updatedAt: DateTime.parse(json["updated_at"]),
-      images: List<String>.from(json["images"].map((x) => x)),
+      images: List<ImageModel>.from(json["images"].map((x) => ImageModel.fromJson(x))),
       comments: List<String>.from(json["comments"].map((x) => x)),
       type: json["type"],
       khmer: json["khmer"],
