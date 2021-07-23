@@ -59,6 +59,7 @@ class RouteConfig {
     if (!routes.containsKey(name) || name == null) name = NOTFOUND;
     return SwipeablePageRoute(
       canSwipe: routes[name]?.canSwap == true,
+      canOnlySwipeFromEdge: true,
       settings: settings?.copyWith(arguments: routes[name]!),
       builder: routes[name]!.route,
       fullscreenDialog: routes[name]!.fullscreenDialog,
@@ -94,7 +95,6 @@ class RouteConfig {
       PLACES: CgRouteSetting(
         isRoot: false,
         title: "PLACES",
-        canSwap: false,
         route: (context) {
           Object? arguments = settings?.arguments;
           if (arguments is TbProvinceModel)
