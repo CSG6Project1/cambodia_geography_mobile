@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class CgDropDownField extends StatefulWidget {
   const CgDropDownField({
     Key? key,
+    this.fillColor,
     this.initValue,
     this.labelText,
     this.hintText,
@@ -13,6 +14,7 @@ class CgDropDownField extends StatefulWidget {
     required this.items,
   }) : super(key: key);
 
+  final Color? fillColor;
   final List<String> items;
   final String? initValue;
   final String? labelText;
@@ -67,7 +69,7 @@ class _CgDropDownFieldState extends State<CgDropDownField> with CgThemeMixin {
     return InputDecoration(
       labelText: widget.labelText,
       hintText: widget.hintText,
-      fillColor: colorScheme.background,
+      fillColor: widget.fillColor ?? colorScheme.background,
       filled: true,
       labelStyle: Theme.of(context).textTheme.bodyText2,
       focusedBorder: UnderlineInputBorder(borderRadius: BorderRadius.circular(4.0), borderSide: BorderSide.none),
