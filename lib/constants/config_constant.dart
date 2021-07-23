@@ -82,22 +82,22 @@ class ConfigConstant {
   /// ```
   /// radius = 4.0;
   /// ```
-  static const double radius1 = 6.0;
+  static const double radius1 = 4.0;
 
   /// ```
   /// radius1 = 10.0
   /// ```
-  static const double radius2 = 10.0;
+  static const double radius2 = 8.0;
 
   /// ```
   /// circlarRadius1 = BorderRadius.circular(4.0)
   /// ```
-  static final BorderRadius circlarRadius1 = BorderRadius.circular(6.0);
+  static final BorderRadius circlarRadius1 = BorderRadius.circular(4.0);
 
   /// ```
-  /// circlarRadius2 = BorderRadius.circular(10.0)
+  /// circlarRadius2 = BorderRadius.circular(8.0)
   /// ```
-  static final BorderRadius circlarRadius2 = BorderRadius.circular(10.0);
+  static final BorderRadius circlarRadius2 = BorderRadius.circular(8.0);
 
   /// ```
   /// circlarRadiusTop1 = BorderRadius.vertical(
@@ -105,7 +105,7 @@ class ConfigConstant {
   /// );
   /// ```
   static final BorderRadius circlarRadiusTop1 = BorderRadius.vertical(
-    top: Radius.circular(6.0),
+    top: Radius.circular(4.0),
   );
 
   /// ```
@@ -114,7 +114,7 @@ class ConfigConstant {
   /// );
   /// ```
   static final BorderRadius circlarRadiusTop2 = BorderRadius.vertical(
-    top: Radius.circular(10.0),
+    top: Radius.circular(8.0),
   );
 
   /// ```
@@ -123,16 +123,16 @@ class ConfigConstant {
   /// );
   /// ```
   static final BorderRadius circlarRadiusBottom1 = BorderRadius.vertical(
-    top: Radius.circular(6.0),
+    top: Radius.circular(4.0),
   );
 
   /// ```
   /// circlarRadiusBottom2 = BorderRadius.vertical(
-  ///   top: Radius.circular(10.0),
+  ///   top: Radius.circular(8.0),
   /// );
   /// ```
   static final BorderRadius circlarRadiusBottom2 = BorderRadius.vertical(
-    bottom: Radius.circular(10.0),
+    bottom: Radius.circular(8.0),
   );
 
   /// ```
