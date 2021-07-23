@@ -93,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const AppDrawer(),
+      appBar: buildAppbar(),
       body: RectGetter(
         key: listViewKey,
         child: NotificationListener<ScrollNotification>(
@@ -104,20 +105,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
   }
 
   Widget buildCustomScrollView() {
-    return CustomScrollView(
-      controller: scrollController,
-      slivers: [
-        buildAppbar(),
-        buildBody(),
-      ],
+    return ListView.builder(
+      itemCount: tabController.length,
+      itemBuilder: (context, index) {
+        itemKeys[index] = RectGetter.createGlobalKey();
+        final province = geo.tbProvinces[index];
+        final districts = geo.districtsSearch(provinceCode: province.code ?? '');
+        return buildProvinceCardItem(index, province, districts);
+      },
     );
   }
 
-  Widget buildAppbar() {
-    return MorphingSliverAppBar(
-      floating: true,
-      pinned: true,
-      forceElevated: true,
+  MorphingAppBar buildAppbar() {
+    return MorphingAppBar(
       leading: CgMenuLeadingButton(animationController: animationController),
       actions: [
         IconButton(
@@ -159,22 +159,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
               geo.tbProvinces[index].khmer.toString(),
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildBody() {
-    return SliverList(
-      delegate: SliverChildListDelegate(
-        List.generate(
-          tabController.length,
-          (index) {
-            itemKeys[index] = RectGetter.createGlobalKey();
-            final province = geo.tbProvinces[index];
-            final districts = geo.districtsSearch(provinceCode: province.code ?? '');
-            return buildProvinceCardItem(index, province, districts);
-          },
         ),
       ),
     );

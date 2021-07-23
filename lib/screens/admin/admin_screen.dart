@@ -34,19 +34,25 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: AppDrawer(),
-      body: CustomScrollView(
-        slivers: [
-          buildAppbar(),
-        ],
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
+      ),
+      appBar: buildAppbar(),
+      body: TabBarView(
+        controller: controller,
+        children: List.generate(
+          controller.length,
+          (index) {
+            return SizedBox();
+          },
+        ),
       ),
     );
   }
 
-  MorphingSliverAppBar buildAppbar() {
-    return MorphingSliverAppBar(
-      floating: true,
-      pinned: true,
-      forceElevated: true,
+  MorphingAppBar buildAppbar() {
+    return MorphingAppBar(
       title: CgAppBarTitle(title: "Admin"),
       leading: Builder(builder: (context) {
         return IconButton(

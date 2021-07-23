@@ -25,6 +25,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
   late TabController controller;
   late PlacesApi placesApi;
   Future<PlaceListModel>? placeList;
+
   @override
   void initState() {
     placesApi = PlacesApi();
@@ -46,18 +47,12 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          buildAppbar(),
-          SliverFillRemaining(
-            child: TabBarView(
-              controller: controller,
-              children: [
-                buildBody(),
-                Text("Tab 2"),
-              ],
-            ),
-          ),
+      appBar: buildAppbar(),
+      body: TabBarView(
+        controller: controller,
+        children: [
+          buildBody(),
+          Text("Tab 2"),
         ],
       ),
     );
@@ -74,7 +69,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
             child: Text('No Data'),
           );
         return ListView(
-          padding: EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
+          padding: const EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
           children: List.generate(
             places.length,
             (index) {
@@ -89,7 +84,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
 
   Card buildPlaceCard(PlaceModel place) {
     return Card(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: ConfigConstant.margin2,
         vertical: ConfigConstant.margin1,
       ),
@@ -107,7 +102,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
                     ),
             ),
           ),
-          Divider(height: 0, thickness: 0.5),
+          const Divider(height: 0, thickness: 0.5),
           Container(
             color: colorScheme.surface,
             height: ConfigConstant.objectHeight1,
@@ -124,7 +119,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
                   (place.commentLength ?? 0).toString(),
                   style: textTheme.caption,
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Icon(
                   Icons.mode_comment,
                   size: ConfigConstant.iconSize1,
@@ -138,19 +133,16 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
     );
   }
 
-  MorphingSliverAppBar buildAppbar() {
-    return MorphingSliverAppBar(
-      floating: true,
-      pinned: true,
-      forceElevated: true,
+  MorphingAppBar buildAppbar() {
+    return MorphingAppBar(
       title: CgAppBarTitle(title: widget.province.khmer ?? ''),
       bottom: TabBar(
         controller: controller,
         tabs: [
-          Tab(
+          const Tab(
             child: Text("តំបន់ទេសចរណ៍"),
           ),
-          Tab(
+          const Tab(
             child: Text("ភោជនីយ៍ដ្ឆាន៍"),
           ),
         ],
@@ -160,12 +152,12 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
 
   Widget buildLoadingShimmer() {
     return ListView(
-      padding: EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
+      padding: const EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
       children: List.generate(
         5,
         (index) {
           return Card(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               horizontal: ConfigConstant.margin2,
               vertical: ConfigConstant.margin1,
             ),
@@ -179,11 +171,11 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
                     ),
                   ),
                 ),
-                Divider(height: 0),
+                const Divider(height: 0),
                 Container(
                   color: colorScheme.surface,
                   height: ConfigConstant.objectHeight1,
-                  padding: EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
+                  padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
