@@ -1,1880 +1,2326 @@
 [
   {
     "type": "place",
-    "khmer": "36ទឹកធ្លាក់ពពកវិល",
-    "english": "99Boko",
-    "province_code": "23",
-    "district_code": "2302",
-    "commune_code": "230202",
-    "village_code": "23020202",
-    "lat": 135.2039,
-    "lon": 104.01734762756038,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "80ឧទ្យានជាតិបូកគោ",
-    "english": "46Prek Jak",
+    "khmer": "79 ឧទ្យានព្រែកចាក",
+    "english": "47 Prek Jak",
     "province_code": "14",
-    "district_code": "1408",
-    "commune_code": "140805",
-    "village_code": "14080502",
-    "lat": 10.658770751039778,
-    "lon": 122.593,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "71វត្តសំពៅប្រាំ",
-    "english": "96Turen",
-    "province_code": "05",
-    "district_code": "0503",
-    "commune_code": "050309",
-    "village_code": "05030913",
+    "district_code": "1413",
+    "commune_code": "141310",
+    "village_code": "14131005",
     "lat": 10.668064871653021,
     "lon": 104.1578565502459,
-    "body": "",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "6វត្តសំពៅប្រាំ",
-    "english": "3Phsar Kandal",
-    "province_code": "05",
-    "district_code": "0504",
-    "commune_code": "050402",
-    "village_code": "05040205",
-    "lat": 10.49895392838263,
-    "lon": 104.1578565502459,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "57វត្តសំពៅប្រាំ",
-    "english": "99Turen",
-    "province_code": "05",
-    "district_code": "0502",
-    "commune_code": "050203",
-    "village_code": "05020309",
-    "lat": 10.658770751039778,
-    "lon": 104.1578565502459,
     "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
     "images": [
-      ""
+      {
+        "type": "image",
+        "id": "place0abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place0abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "21ផ្សារកណ្តាល",
-    "english": "25Phsar Kandal",
+    "khmer": "50 រង្វង់មូលធុរេន",
+    "english": "12 Turen",
+    "province_code": "19",
+    "district_code": "1905",
+    "commune_code": "190503",
+    "village_code": "19050302",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place1abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place1abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "63 ឧទ្យានជាតិបូកគោ",
+    "english": "80 Boko",
+    "province_code": "12",
+    "district_code": "1207",
+    "commune_code": "120712",
+    "village_code": "12071202",
+    "lat": 10.49895392838263,
+    "lon": 103.65155873315233,
+    "body": "",
+    "images": [
+      {
+        "type": "image",
+        "id": "place2og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place2rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "19 រង្វង់មូលធុរេន",
+    "english": "36 Turen",
+    "province_code": "11",
+    "district_code": "1105",
+    "commune_code": "110503",
+    "village_code": "11050302",
+    "lat": 10.49895392838263,
+    "lon": 103.65155873315233,
+    "body": "<b>This place is really good</b>",
+    "images": [
+      {
+        "type": "image",
+        "id": "place3abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place3abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "23 ទឹកធ្លាក់ពពកវិល",
+    "english": "6 Tek Vil",
+    "province_code": "04",
+    "district_code": "0408",
+    "commune_code": "040804",
+    "village_code": "04080404",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "<b>This place is really good</b>",
+    "images": [
+      {
+        "type": "image",
+        "id": "place4standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place4kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "33 រង្វង់មូលធុរេន",
+    "english": "33 Turen",
+    "province_code": "15",
+    "district_code": "1503",
+    "commune_code": "150311",
+    "village_code": "15031108",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place5standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place5kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "78 ឧទ្យានជាតិបូកគោ",
+    "english": "71 Boko",
+    "province_code": "03",
+    "district_code": "0303",
+    "commune_code": "030302",
+    "village_code": "03030203",
+    "lat": 10.49895392838263,
+    "lon": 103.65155873315233,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place6og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place6rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "12 ឧទ្យានព្រែកចាក",
+    "english": "95 Prek Jak",
     "province_code": "05",
     "district_code": "0508",
-    "commune_code": "050806",
-    "village_code": "05080605",
+    "commune_code": "050807",
+    "village_code": "05080712",
     "lat": 10.658770751039778,
-    "lon": 122.593,
-    "body": "",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
+    "lon": 104.051250835383,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [],
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "25ឧទ្យានព្រែកចាក",
-    "english": "62Turen",
-    "province_code": "06",
-    "district_code": "0608",
-    "commune_code": "060804",
-    "village_code": "06080402",
-    "lat": 135.2039,
-    "lon": 104.18149925024555,
-    "body": "",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "41ទឹកធ្លាក់ពពកវិល",
-    "english": "1Prek Jak",
-    "province_code": "11",
-    "district_code": "1104",
-    "commune_code": "110404",
-    "village_code": "11040402",
-    "lat": 10.630035094887255,
-    "lon": 122.593,
-    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "69ឧទ្យានព្រែកចាក",
-    "english": "26Tek Vil",
-    "province_code": "07",
-    "district_code": "0704",
-    "commune_code": "070404",
-    "village_code": "07040404",
+    "khmer": "86 រង្វង់មូលធុរេន",
+    "english": "80 Turen",
+    "province_code": "13",
+    "district_code": "1303",
+    "commune_code": "130307",
+    "village_code": "13030704",
     "lat": 135.2039,
     "lon": 122.593,
-    "body": "<b>This place is really good</b>",
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
     "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      {
+        "type": "image",
+        "id": "place8abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place8abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "93ផ្សារកណ្តាល",
-    "english": "33Boko",
-    "province_code": "08",
-    "district_code": "0802",
-    "commune_code": "080206",
-    "village_code": "08020608",
-    "lat": 135.2039,
-    "lon": 103.65155873315233,
+    "khmer": "11 រង្វង់មូលធុរេន",
+    "english": "34 Turen",
+    "province_code": "02",
+    "district_code": "0209",
+    "commune_code": "020907",
+    "village_code": "02090705",
+    "lat": 10.668064871653021,
+    "lon": 104.1578565502459,
     "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
     "images": [
-      ""
+      {
+        "type": "image",
+        "id": "place9standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place9kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "53រង្វង់មូលធុរេន",
-    "english": "36Turen",
-    "province_code": "22",
-    "district_code": "2202",
-    "commune_code": "220202",
-    "village_code": "22020202",
+    "khmer": "4 ឧទ្យានព្រែកចាក",
+    "english": "59 Prek Jak",
+    "province_code": "05",
+    "district_code": "0505",
+    "commune_code": "050515",
+    "village_code": "05051502",
     "lat": 10.610683946483933,
-    "lon": 104.18149925024555,
-    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "11ឧទ្យានព្រែកចាក",
-    "english": "27Turen",
-    "province_code": "23",
-    "district_code": "2302",
-    "commune_code": "230203",
-    "village_code": "23020302",
-    "lat": 10.610683946483933,
-    "lon": 104.18149925024555,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "2រង្វង់មូលធុរេន",
-    "english": "71Prek Jak",
-    "province_code": "18",
-    "district_code": "1803",
-    "commune_code": "180304",
-    "village_code": "18030402",
-    "lat": 10.49895392838263,
-    "lon": 103.65155873315233,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "52ឧទ្យានជាតិបូកគោ",
-    "english": "46Turen",
-    "province_code": "17",
-    "district_code": "1712",
-    "commune_code": "171203",
-    "village_code": "17120303",
-    "lat": 10.658770751039778,
     "lon": 104.18149925024555,
     "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
     "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      {
+        "type": "image",
+        "id": "place10abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place10abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "85ផ្សារកណ្តាល",
-    "english": "61Phsar Kandal",
-    "province_code": "17",
-    "district_code": "1704",
-    "commune_code": "170406",
-    "village_code": "17040607",
-    "lat": 10.610683946483933,
-    "lon": 104.051250835383,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "45ឧទ្យានព្រែកចាក",
-    "english": "7Boko",
-    "province_code": "21",
-    "district_code": "2106",
-    "commune_code": "210610",
-    "village_code": "21061002",
-    "lat": 10.668064871653021,
-    "lon": 104.18149925024555,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "82ឧទ្យានព្រែកចាក",
-    "english": "9Boko",
-    "province_code": "16",
-    "district_code": "1607",
-    "commune_code": "160706",
-    "village_code": "16070603",
-    "lat": 135.2039,
-    "lon": 104.051250835383,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "44ឧទ្យានព្រែកចាក",
-    "english": "93Turen",
+    "khmer": "2 រង្វង់មូលធុរេន",
+    "english": "97 Turen",
     "province_code": "23",
     "district_code": "2302",
     "commune_code": "230202",
-    "village_code": "23020202",
-    "lat": 10.610683946483933,
+    "village_code": "23020203",
+    "lat": 10.49895392838263,
     "lon": 103.65155873315233,
     "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
     "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      {
+        "type": "image",
+        "id": "place11og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place11rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "23ផ្សារកណ្តាល",
-    "english": "45Prek Jak",
-    "province_code": "14",
-    "district_code": "1413",
-    "commune_code": "141306",
-    "village_code": "14130615",
+    "khmer": "90 ទឹកធ្លាក់ពពកវិល",
+    "english": "23 Tek Vil",
+    "province_code": "09",
+    "district_code": "0902",
+    "commune_code": "090202",
+    "village_code": "09020202",
     "lat": 10.668064871653021,
-    "lon": 104.18149925024555,
-    "body": "",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "69ទឹកធ្លាក់ពពកវិល",
-    "english": "32Prek Jak",
-    "province_code": "14",
-    "district_code": "1408",
-    "commune_code": "140810",
-    "village_code": "14081004",
-    "lat": 10.49895392838263,
     "lon": 104.1578565502459,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "14វត្តសំពៅប្រាំ",
-    "english": "40Prek Jak",
-    "province_code": "10",
-    "district_code": "1004",
-    "commune_code": "100407",
-    "village_code": "10040706",
-    "lat": 10.658770751039778,
-    "lon": 104.1578565502459,
-    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "89ទឹកធ្លាក់ពពកវិល",
-    "english": "65Prek Jak",
-    "province_code": "18",
-    "district_code": "1805",
-    "commune_code": "180502",
-    "village_code": "18050202",
-    "lat": 10.610683946483933,
-    "lon": 104.1578565502459,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "9ផ្សារកណ្តាល",
-    "english": "61Turen",
-    "province_code": "01",
-    "district_code": "0103",
-    "commune_code": "010305",
-    "village_code": "01030505",
-    "lat": 10.668064871653021,
-    "lon": 104.01734762756038,
     "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
     "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      {
+        "type": "image",
+        "id": "place12abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place12abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "20ផ្សារកណ្តាល",
-    "english": "85Turen",
-    "province_code": "06",
-    "district_code": "0603",
-    "commune_code": "060309",
-    "village_code": "06030902",
-    "lat": 135.2039,
-    "lon": 104.01734762756038,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "78ទឹកធ្លាក់ពពកវិល",
-    "english": "85Tek Vil",
+    "khmer": "74 ផ្សារកណ្តាល",
+    "english": "50 Phsar Kandal",
     "province_code": "24",
     "district_code": "2402",
     "commune_code": "240204",
-    "village_code": "24020403",
-    "lat": 10.658770751039778,
-    "lon": 122.593,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "72ឧទ្យានជាតិបូកគោ",
-    "english": "95Prek Jak",
-    "province_code": "10",
-    "district_code": "1004",
-    "commune_code": "100403",
-    "village_code": "10040303",
-    "lat": 10.49895392838263,
-    "lon": 122.593,
-    "body": "",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "87ឧទ្យានព្រែកចាក",
-    "english": "65Boko",
-    "province_code": "21",
-    "district_code": "2104",
-    "commune_code": "210411",
-    "village_code": "21041110",
+    "village_code": "24020404",
     "lat": 135.2039,
-    "lon": 104.051250835383,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "45ឧទ្យានព្រែកចាក",
-    "english": "21Boko",
-    "province_code": "09",
-    "district_code": "0906",
-    "commune_code": "090604",
-    "village_code": "09060404",
-    "lat": 10.630035094887255,
-    "lon": 104.1578565502459,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "18ឧទ្យានជាតិបូកគោ",
-    "english": "4Boko",
-    "province_code": "03",
-    "district_code": "0313",
-    "commune_code": "031314",
-    "village_code": "03131409",
-    "lat": 10.630035094887255,
-    "lon": 122.593,
-    "body": "",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "26ឧទ្យានព្រែកចាក",
-    "english": "61Turen",
-    "province_code": "02",
-    "district_code": "0209",
-    "commune_code": "020906",
-    "village_code": "02090606",
-    "lat": 10.610683946483933,
-    "lon": 104.01734762756038,
-    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "84ឧទ្យានជាតិបូកគោ",
-    "english": "19Prek Jak",
-    "province_code": "22",
-    "district_code": "2204",
-    "commune_code": "220404",
-    "village_code": "22040403",
-    "lat": 10.610683946483933,
-    "lon": 103.65155873315233,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "59វត្តសំពៅប្រាំ",
-    "english": "93Boko",
-    "province_code": "21",
-    "district_code": "2104",
-    "commune_code": "210404",
-    "village_code": "21040403",
-    "lat": 10.610683946483933,
-    "lon": 122.593,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "66ឧទ្យានព្រែកចាក",
-    "english": "62Phsar Kandal",
-    "province_code": "19",
-    "district_code": "1905",
-    "commune_code": "190511",
-    "village_code": "19051103",
-    "lat": 10.658770751039778,
-    "lon": 122.593,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "87រង្វង់មូលធុរេន",
-    "english": "47Tek Vil",
-    "province_code": "15",
-    "district_code": "1502",
-    "commune_code": "150210",
-    "village_code": "15021007",
-    "lat": 10.630035094887255,
-    "lon": 103.65155873315233,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "76រង្វង់មូលធុរេន",
-    "english": "65Boko",
-    "province_code": "09",
-    "district_code": "0902",
-    "commune_code": "090203",
-    "village_code": "09020303",
-    "lat": 10.49895392838263,
-    "lon": 104.01734762756038,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "95ឧទ្យានព្រែកចាក",
-    "english": "78Prek Jak",
-    "province_code": "21",
-    "district_code": "2109",
-    "commune_code": "210904",
-    "village_code": "21090404",
-    "lat": 135.2039,
-    "lon": 103.65155873315233,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "32ឧទ្យានព្រែកចាក",
-    "english": "31Boko",
-    "province_code": "07",
-    "district_code": "0704",
-    "commune_code": "070407",
-    "village_code": "07040705",
-    "lat": 10.658770751039778,
-    "lon": 104.1578565502459,
-    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "48ផ្សារកណ្តាល",
-    "english": "44Prek Jak",
-    "province_code": "20",
-    "district_code": "2006",
-    "commune_code": "200602",
-    "village_code": "20060204",
-    "lat": 10.49895392838263,
-    "lon": 122.593,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "45រង្វង់មូលធុរេន",
-    "english": "12Tek Vil",
-    "province_code": "15",
-    "district_code": "1507",
-    "commune_code": "150702",
-    "village_code": "15070203",
-    "lat": 10.630035094887255,
-    "lon": 103.65155873315233,
-    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "95រង្វង់មូលធុរេន",
-    "english": "32Boko",
-    "province_code": "08",
-    "district_code": "0810",
-    "commune_code": "081007",
-    "village_code": "08100708",
-    "lat": 135.2039,
-    "lon": 122.593,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "23ឧទ្យានព្រែកចាក",
-    "english": "84Phsar Kandal",
-    "province_code": "20",
-    "district_code": "2008",
-    "commune_code": "200802",
-    "village_code": "20080202",
-    "lat": 10.49895392838263,
-    "lon": 104.051250835383,
-    "body": "",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "11វត្តសំពៅប្រាំ",
-    "english": "24Tek Vil",
-    "province_code": "02",
-    "district_code": "0206",
-    "commune_code": "020602",
-    "village_code": "02060212",
-    "lat": 135.2039,
-    "lon": 122.593,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "36វត្តសំពៅប្រាំ",
-    "english": "24Boko",
-    "province_code": "14",
-    "district_code": "1407",
-    "commune_code": "140707",
-    "village_code": "14070702",
-    "lat": 10.630035094887255,
-    "lon": 104.051250835383,
-    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "88ឧទ្យានព្រែកចាក",
-    "english": "35Boko",
-    "province_code": "16",
-    "district_code": "1608",
-    "commune_code": "160802",
-    "village_code": "16080204",
-    "lat": 135.2039,
-    "lon": 122.593,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "74ទឹកធ្លាក់ពពកវិល",
-    "english": "9Turen",
-    "province_code": "17",
-    "district_code": "1702",
-    "commune_code": "170202",
-    "village_code": "17020204",
-    "lat": 10.668064871653021,
-    "lon": 104.051250835383,
-    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "17ឧទ្យានជាតិបូកគោ",
-    "english": "24Boko",
-    "province_code": "07",
-    "district_code": "0704",
-    "commune_code": "070406",
-    "village_code": "07040604",
-    "lat": 10.630035094887255,
     "lon": 122.593,
     "body": "<b>This place is really good</b>",
     "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      {
+        "type": "image",
+        "id": "place13og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place13rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "38រង្វង់មូលធុរេន",
-    "english": "33Prek Jak",
-    "province_code": "08",
-    "district_code": "0805",
-    "commune_code": "080505",
-    "village_code": "08050502",
-    "lat": 135.2039,
-    "lon": 104.18149925024555,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "83ឧទ្យានព្រែកចាក",
-    "english": "79Tek Vil",
-    "province_code": "02",
-    "district_code": "0202",
-    "commune_code": "020208",
-    "village_code": "02020806",
-    "lat": 10.630035094887255,
-    "lon": 103.65155873315233,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "91ឧទ្យានព្រែកចាក",
-    "english": "80Tek Vil",
+    "khmer": "33 វត្តសំពៅប្រាំ",
+    "english": "57 Turen",
     "province_code": "19",
     "district_code": "1902",
-    "commune_code": "190203",
-    "village_code": "19020304",
-    "lat": 10.610683946483933,
-    "lon": 122.593,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "93ឧទ្យានព្រែកចាក",
-    "english": "32Turen",
-    "province_code": "12",
-    "district_code": "1214",
-    "commune_code": "121406",
-    "village_code": "12140614",
-    "lat": 10.610683946483933,
-    "lon": 104.051250835383,
-    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "35រង្វង់មូលធុរេន",
-    "english": "5Turen",
-    "province_code": "05",
-    "district_code": "0506",
-    "commune_code": "050602",
-    "village_code": "05060209",
-    "lat": 10.49895392838263,
-    "lon": 103.65155873315233,
+    "commune_code": "190204",
+    "village_code": "19020402",
+    "lat": 10.668064871653021,
+    "lon": 104.1578565502459,
     "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
     "images": [
-      ""
+      {
+        "type": "image",
+        "id": "place14og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place14rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "66ឧទ្យានព្រែកចាក",
-    "english": "29Prek Jak",
-    "province_code": "07",
-    "district_code": "0705",
-    "commune_code": "070509",
-    "village_code": "07050902",
-    "lat": 10.658770751039778,
-    "lon": 122.593,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "27វត្តសំពៅប្រាំ",
-    "english": "8Prek Jak",
-    "province_code": "07",
-    "district_code": "0702",
-    "commune_code": "070215",
-    "village_code": "07021503",
+    "khmer": "63 វត្តសំពៅប្រាំ",
+    "english": "55 Turen",
+    "province_code": "20",
+    "district_code": "2003",
+    "commune_code": "200307",
+    "village_code": "20030705",
     "lat": 135.2039,
-    "lon": 104.18149925024555,
-    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "47ឧទ្យានព្រែកចាក",
-    "english": "39Turen",
-    "province_code": "14",
-    "district_code": "1405",
-    "commune_code": "140502",
-    "village_code": "14050205",
-    "lat": 135.2039,
-    "lon": 104.01734762756038,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "82ផ្សារកណ្តាល",
-    "english": "46Turen",
-    "province_code": "03",
-    "district_code": "0303",
-    "commune_code": "030310",
-    "village_code": "03031007",
-    "lat": 10.49895392838263,
     "lon": 122.593,
     "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
     "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      {
+        "type": "image",
+        "id": "place15abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place15abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "58ឧទ្យានព្រែកចាក",
-    "english": "63Prek Jak",
-    "province_code": "13",
-    "district_code": "1304",
-    "commune_code": "130402",
-    "village_code": "13040202",
-    "lat": 10.49895392838263,
-    "lon": 122.593,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "81ផ្សារកណ្តាល",
-    "english": "4Phsar Kandal",
-    "province_code": "09",
-    "district_code": "0904",
-    "commune_code": "090402",
-    "village_code": "09040203",
-    "lat": 135.2039,
-    "lon": 104.051250835383,
-    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "28ឧទ្យានព្រែកចាក",
-    "english": "79Tek Vil",
-    "province_code": "12",
-    "district_code": "1205",
-    "commune_code": "120508",
-    "village_code": "12050808",
-    "lat": 10.658770751039778,
-    "lon": 104.01734762756038,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "39រង្វង់មូលធុរេន",
-    "english": "9Phsar Kandal",
-    "province_code": "16",
-    "district_code": "1605",
-    "commune_code": "160504",
-    "village_code": "16050402",
-    "lat": 10.658770751039778,
-    "lon": 103.65155873315233,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "98ផ្សារកណ្តាល",
-    "english": "35Prek Jak",
-    "province_code": "22",
-    "district_code": "2205",
-    "commune_code": "220505",
-    "village_code": "22050506",
-    "lat": 135.2039,
-    "lon": 104.01734762756038,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "58ផ្សារកណ្តាល",
-    "english": "29Turen",
-    "province_code": "03",
-    "district_code": "0302",
-    "commune_code": "030208",
-    "village_code": "03020805",
-    "lat": 135.2039,
-    "lon": 104.01734762756038,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "44ឧទ្យានព្រែកចាក",
-    "english": "53Boko",
-    "province_code": "08",
-    "district_code": "0802",
-    "commune_code": "080203",
-    "village_code": "08020310",
-    "lat": 10.630035094887255,
-    "lon": 104.051250835383,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "34ឧទ្យានព្រែកចាក",
-    "english": "65Boko",
+    "khmer": "48 ទឹកធ្លាក់ពពកវិល",
+    "english": "74 Tek Vil",
     "province_code": "22",
     "district_code": "2203",
-    "commune_code": "220303",
-    "village_code": "22030306",
+    "commune_code": "220304",
+    "village_code": "22030406",
     "lat": 10.668064871653021,
-    "lon": 104.01734762756038,
-    "body": "",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "93រង្វង់មូលធុរេន",
-    "english": "73Turen",
-    "province_code": "23",
-    "district_code": "2302",
-    "commune_code": "230203",
-    "village_code": "23020302",
-    "lat": 10.610683946483933,
-    "lon": 122.593,
-    "body": "",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "50ទឹកធ្លាក់ពពកវិល",
-    "english": "3Boko",
-    "province_code": "21",
-    "district_code": "2110",
-    "commune_code": "211002",
-    "village_code": "21100204",
-    "lat": 10.49895392838263,
-    "lon": 104.051250835383,
-    "body": "",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "83រង្វង់មូលធុរេន",
-    "english": "65Turen",
-    "province_code": "05",
-    "district_code": "0503",
-    "commune_code": "050303",
-    "village_code": "05030303",
-    "lat": 10.49895392838263,
-    "lon": 104.01734762756038,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "59ឧទ្យានព្រែកចាក",
-    "english": "29Prek Jak",
-    "province_code": "10",
-    "district_code": "1005",
-    "commune_code": "100503",
-    "village_code": "10050303",
-    "lat": 10.610683946483933,
     "lon": 104.1578565502459,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
+    "body": "",
     "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      {
+        "type": "image",
+        "id": "place16og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place16rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "16ទឹកធ្លាក់ពពកវិល",
-    "english": "81Boko",
-    "province_code": "13",
-    "district_code": "1308",
-    "commune_code": "130802",
-    "village_code": "13080206",
-    "lat": 10.658770751039778,
-    "lon": 104.1578565502459,
+    "khmer": "60 ឧទ្យានជាតិបូកគោ",
+    "english": "32 Boko",
+    "province_code": "07",
+    "district_code": "0708",
+    "commune_code": "070803",
+    "village_code": "07080302",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
     "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
+    "images": [],
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "84ឧទ្យានជាតិបូកគោ",
-    "english": "73Prek Jak",
-    "province_code": "12",
-    "district_code": "1210",
-    "commune_code": "121005",
-    "village_code": "12100502",
-    "lat": 10.610683946483933,
-    "lon": 122.593,
-    "body": "",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "75ឧទ្យានព្រែកចាក",
-    "english": "7Boko",
-    "province_code": "13",
-    "district_code": "1307",
-    "commune_code": "130705",
-    "village_code": "13070503",
-    "lat": 10.610683946483933,
-    "lon": 122.593,
-    "body": "",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "95វត្តសំពៅប្រាំ",
-    "english": "92Phsar Kandal",
-    "province_code": "19",
-    "district_code": "1904",
-    "commune_code": "190402",
-    "village_code": "19040203",
+    "khmer": "83 ផ្សារកណ្តាល",
+    "english": "91 Phsar Kandal",
+    "province_code": "02",
+    "district_code": "0210",
+    "commune_code": "021004",
+    "village_code": "02100403",
     "lat": 10.610683946483933,
     "lon": 104.18149925024555,
     "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
     "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      {
+        "type": "image",
+        "id": "place18standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place18kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "42ឧទ្យានជាតិបូកគោ",
-    "english": "60Tek Vil",
-    "province_code": "12",
-    "district_code": "1206",
-    "commune_code": "120611",
-    "village_code": "12061109",
-    "lat": 10.610683946483933,
-    "lon": 103.65155873315233,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "88ឧទ្យានព្រែកចាក",
-    "english": "93Boko",
-    "province_code": "15",
-    "district_code": "1506",
-    "commune_code": "150604",
-    "village_code": "15060405",
-    "lat": 10.658770751039778,
-    "lon": 104.051250835383,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "39ឧទ្យានព្រែកចាក",
-    "english": "7Turen",
-    "province_code": "21",
-    "district_code": "2105",
-    "commune_code": "210503",
-    "village_code": "21050305",
-    "lat": 10.49895392838263,
-    "lon": 103.65155873315233,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "31ផ្សារកណ្តាល",
-    "english": "80Turen",
-    "province_code": "22",
-    "district_code": "2205",
-    "commune_code": "220504",
-    "village_code": "22050405",
-    "lat": 10.658770751039778,
-    "lon": 104.1578565502459,
-    "body": "",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "88ឧទ្យានជាតិបូកគោ",
-    "english": "91Prek Jak",
+    "khmer": "13 ផ្សារកណ្តាល",
+    "english": "0 Phsar Kandal",
     "province_code": "02",
-    "district_code": "0208",
-    "commune_code": "020802",
-    "village_code": "02080204",
-    "lat": 135.2039,
-    "lon": 104.051250835383,
-    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "27ផ្សារកណ្តាល",
-    "english": "94Turen",
-    "province_code": "03",
-    "district_code": "0307",
-    "commune_code": "030704",
-    "village_code": "03070403",
+    "district_code": "0211",
+    "commune_code": "021104",
+    "village_code": "02110407",
     "lat": 10.49895392838263,
     "lon": 103.65155873315233,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [],
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "2ឧទ្យានជាតិបូកគោ",
-    "english": "96Tek Vil",
+    "khmer": "65 វត្តសំពៅប្រាំ",
+    "english": "41 Turen",
+    "province_code": "06",
+    "district_code": "0605",
+    "commune_code": "060504",
+    "village_code": "06050403",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place20og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place20rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "0 ទឹកធ្លាក់ពពកវិល",
+    "english": "6 Tek Vil",
+    "province_code": "14",
+    "district_code": "1410",
+    "commune_code": "141003",
+    "village_code": "14100304",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "<b>This place is really good</b>",
+    "images": [
+      {
+        "type": "image",
+        "id": "place21standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place21kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "48 ឧទ្យានជាតិបូកគោ",
+    "english": "79 Boko",
+    "province_code": "08",
+    "district_code": "0807",
+    "commune_code": "080707",
+    "village_code": "08070702",
+    "lat": 10.49895392838263,
+    "lon": 103.65155873315233,
+    "body": "",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "77 ឧទ្យានព្រែកចាក",
+    "english": "44 Prek Jak",
     "province_code": "11",
     "district_code": "1102",
     "commune_code": "110205",
     "village_code": "11020502",
-    "lat": 10.49895392838263,
-    "lon": 103.65155873315233,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "35ឧទ្យានព្រែកចាក",
-    "english": "70Tek Vil",
-    "province_code": "11",
-    "district_code": "1105",
-    "commune_code": "110502",
-    "village_code": "11050202",
-    "lat": 10.49895392838263,
-    "lon": 104.051250835383,
-    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "55ឧទ្យានព្រែកចាក",
-    "english": "44Turen",
-    "province_code": "12",
-    "district_code": "1204",
-    "commune_code": "120407",
-    "village_code": "12040710",
-    "lat": 10.610683946483933,
-    "lon": 122.593,
-    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "37ឧទ្យានព្រែកចាក",
-    "english": "13Tek Vil",
-    "province_code": "10",
-    "district_code": "1006",
-    "commune_code": "100608",
-    "village_code": "10060806",
-    "lat": 135.2039,
-    "lon": 104.051250835383,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "79ឧទ្យានព្រែកចាក",
-    "english": "79Turen",
-    "province_code": "09",
-    "district_code": "0907",
-    "commune_code": "090703",
-    "village_code": "09070302",
-    "lat": 135.2039,
-    "lon": 103.65155873315233,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "4ឧទ្យានជាតិបូកគោ",
-    "english": "23Boko",
-    "province_code": "16",
-    "district_code": "1602",
-    "commune_code": "160202",
-    "village_code": "16020203",
-    "lat": 10.49895392838263,
-    "lon": 103.65155873315233,
-    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "69រង្វង់មូលធុរេន",
-    "english": "20Prek Jak",
-    "province_code": "02",
-    "district_code": "0205",
-    "commune_code": "020506",
-    "village_code": "02050602",
-    "lat": 10.658770751039778,
-    "lon": 122.593,
-    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "91ទឹកធ្លាក់ពពកវិល",
-    "english": "85Prek Jak",
-    "province_code": "17",
-    "district_code": "1703",
-    "commune_code": "170304",
-    "village_code": "17030403",
-    "lat": 10.49895392838263,
-    "lon": 104.18149925024555,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "53ឧទ្យានព្រែកចាក",
-    "english": "81Prek Jak",
-    "province_code": "12",
-    "district_code": "1204",
-    "commune_code": "120402",
-    "village_code": "12040208",
-    "lat": 10.49895392838263,
-    "lon": 122.593,
-    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "23ឧទ្យានជាតិបូកគោ",
-    "english": "24Prek Jak",
-    "province_code": "03",
-    "district_code": "0303",
-    "commune_code": "030306",
-    "village_code": "03030604",
-    "lat": 10.49895392838263,
-    "lon": 122.593,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "35ឧទ្យានព្រែកចាក",
-    "english": "64Prek Jak",
-    "province_code": "08",
-    "district_code": "0804",
-    "commune_code": "080409",
-    "village_code": "08040903",
-    "lat": 10.630035094887255,
-    "lon": 104.01734762756038,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      ""
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "75វត្តសំពៅប្រាំ",
-    "english": "90Prek Jak",
-    "province_code": "08",
-    "district_code": "0807",
-    "commune_code": "080709",
-    "village_code": "08070904",
-    "lat": 10.49895392838263,
-    "lon": 104.01734762756038,
-    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "39ទឹកធ្លាក់ពពកវិល",
-    "english": "70Turen",
-    "province_code": "04",
-    "district_code": "0404",
-    "commune_code": "040404",
-    "village_code": "04040402",
-    "lat": 10.668064871653021,
-    "lon": 122.593,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "99ឧទ្យានជាតិបូកគោ",
-    "english": "93Phsar Kandal",
-    "province_code": "03",
-    "district_code": "0303",
-    "commune_code": "030306",
-    "village_code": "03030605",
-    "lat": 135.2039,
-    "lon": 104.1578565502459,
-    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "94ផ្សារកណ្តាល",
-    "english": "88Prek Jak",
-    "province_code": "05",
-    "district_code": "0504",
-    "commune_code": "050404",
-    "village_code": "05040412",
-    "lat": 135.2039,
-    "lon": 104.01734762756038,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "48ឧទ្យានព្រែកចាក",
-    "english": "7Turen",
-    "province_code": "01",
-    "district_code": "0108",
-    "commune_code": "010803",
-    "village_code": "01080303",
-    "lat": 10.610683946483933,
-    "lon": 104.051250835383,
-    "body": "<b>This place is really good</b>",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "92ទឹកធ្លាក់ពពកវិល",
-    "english": "25Turen",
-    "province_code": "22",
-    "district_code": "2202",
-    "commune_code": "220202",
-    "village_code": "22020216",
-    "lat": 10.610683946483933,
-    "lon": 104.01734762756038,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
-      "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "49ផ្សារកណ្តាល",
-    "english": "78Turen",
-    "province_code": "23",
-    "district_code": "2302",
-    "commune_code": "230202",
-    "village_code": "23020202",
-    "lat": 10.668064871653021,
-    "lon": 104.1578565502459,
-    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "48រង្វង់មូលធុរេន",
-    "english": "55Tek Vil",
-    "province_code": "22",
-    "district_code": "2203",
-    "commune_code": "220304",
-    "village_code": "22030408",
-    "lat": 135.2039,
-    "lon": 104.051250835383,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "78ឧទ្យានព្រែកចាក",
-    "english": "97Prek Jak",
-    "province_code": "09",
-    "district_code": "0903",
-    "commune_code": "090304",
-    "village_code": "09030403",
     "lat": 135.2039,
     "lon": 122.593,
     "body": "",
     "images": [
-      "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg",
-      "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      {
+        "type": "image",
+        "id": "place23og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place23rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "24ផ្សារកណ្តាល",
-    "english": "99Tek Vil",
-    "province_code": "08",
-    "district_code": "0807",
-    "commune_code": "080704",
-    "village_code": "08070405",
-    "lat": 10.49895392838263,
-    "lon": 122.593,
+    "khmer": "61 ឧទ្យានព្រែកចាក",
+    "english": "47 Prek Jak",
+    "province_code": "23",
+    "district_code": "2302",
+    "commune_code": "230202",
+    "village_code": "23020202",
+    "lat": 10.610683946483933,
+    "lon": 104.18149925024555,
     "body": "<b>This place is really good</b>",
     "images": [
-      ""
+      {
+        "type": "image",
+        "id": "place24abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place24abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
   },
   {
     "type": "place",
-    "khmer": "91រង្វង់មូលធុរេន",
-    "english": "77Turen",
-    "province_code": "16",
-    "district_code": "1604",
-    "commune_code": "160406",
-    "village_code": "16040603",
-    "lat": 10.668064871653021,
-    "lon": 122.593,
-    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
-    "images": [
-      "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg",
-      "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
-    ],
-    "comments": [
-      ""
-    ]
-  },
-  {
-    "type": "place",
-    "khmer": "98ឧទ្យានជាតិបូកគោ",
-    "english": "11Turen",
-    "province_code": "13",
-    "district_code": "1302",
-    "commune_code": "130203",
-    "village_code": "13020302",
-    "lat": 10.610683946483933,
+    "khmer": "45 ទឹកធ្លាក់ពពកវិល",
+    "english": "64 Tek Vil",
+    "province_code": "05",
+    "district_code": "0503",
+    "commune_code": "050306",
+    "village_code": "05030623",
+    "lat": 135.2039,
     "lon": 122.593,
     "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
     "images": [
-      ""
+      {
+        "type": "image",
+        "id": "place25standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place25kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
     ],
-    "comments": [
-      ""
-    ]
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "25 ឧទ្យានជាតិបូកគោ",
+    "english": "66 Boko",
+    "province_code": "02",
+    "district_code": "0214",
+    "commune_code": "021402",
+    "village_code": "02140207",
+    "lat": 10.610683946483933,
+    "lon": 104.18149925024555,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place26og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place26rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "13 វត្តសំពៅប្រាំ",
+    "english": "73 Turen",
+    "province_code": "13",
+    "district_code": "1305",
+    "commune_code": "130512",
+    "village_code": "13051202",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place27standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place27kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "1 ឧទ្យានព្រែកចាក",
+    "english": "85 Prek Jak",
+    "province_code": "03",
+    "district_code": "0314",
+    "commune_code": "031402",
+    "village_code": "03140202",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place28og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place28rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "4 វត្តសំពៅប្រាំ",
+    "english": "98 Turen",
+    "province_code": "20",
+    "district_code": "2008",
+    "commune_code": "200804",
+    "village_code": "20080402",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "<b>This place is really good</b>",
+    "images": [
+      {
+        "type": "image",
+        "id": "place29standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place29kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "81 ឧទ្យានជាតិបូកគោ",
+    "english": "40 Boko",
+    "province_code": "15",
+    "district_code": "1504",
+    "commune_code": "150407",
+    "village_code": "15040702",
+    "lat": 10.610683946483933,
+    "lon": 104.18149925024555,
+    "body": "<b>This place is really good</b>",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "60 ឧទ្យានព្រែកចាក",
+    "english": "37 Prek Jak",
+    "province_code": "02",
+    "district_code": "0203",
+    "commune_code": "020309",
+    "village_code": "02030904",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "0 ផ្សារកណ្តាល",
+    "english": "62 Phsar Kandal",
+    "province_code": "19",
+    "district_code": "1903",
+    "commune_code": "190305",
+    "village_code": "19030503",
+    "lat": 10.668064871653021,
+    "lon": 104.1578565502459,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place32standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place32kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "52 ទឹកធ្លាក់ពពកវិល",
+    "english": "33 Tek Vil",
+    "province_code": "02",
+    "district_code": "0207",
+    "commune_code": "020704",
+    "village_code": "02070409",
+    "lat": 10.49895392838263,
+    "lon": 103.65155873315233,
+    "body": "<b>This place is really good</b>",
+    "images": [
+      {
+        "type": "image",
+        "id": "place33standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place33kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "5 ឧទ្យានជាតិបូកគោ",
+    "english": "63 Boko",
+    "province_code": "10",
+    "district_code": "1005",
+    "commune_code": "100506",
+    "village_code": "10050603",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "",
+    "images": [
+      {
+        "type": "image",
+        "id": "place34standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place34kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "42 ឧទ្យានជាតិបូកគោ",
+    "english": "94 Boko",
+    "province_code": "12",
+    "district_code": "1204",
+    "commune_code": "120403",
+    "village_code": "12040303",
+    "lat": 10.610683946483933,
+    "lon": 104.18149925024555,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "83 ឧទ្យានព្រែកចាក",
+    "english": "14 Prek Jak",
+    "province_code": "21",
+    "district_code": "2110",
+    "commune_code": "211005",
+    "village_code": "21100510",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place36og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place36rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "9 វត្តសំពៅប្រាំ",
+    "english": "20 Turen",
+    "province_code": "01",
+    "district_code": "0107",
+    "commune_code": "010702",
+    "village_code": "01070219",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place37standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place37kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "11 ឧទ្យានព្រែកចាក",
+    "english": "52 Prek Jak",
+    "province_code": "20",
+    "district_code": "2005",
+    "commune_code": "200517",
+    "village_code": "20051708",
+    "lat": 10.49895392838263,
+    "lon": 103.65155873315233,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place38abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place38abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "13 វត្តសំពៅប្រាំ",
+    "english": "93 Turen",
+    "province_code": "23",
+    "district_code": "2302",
+    "commune_code": "230202",
+    "village_code": "23020202",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place39og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place39rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "42 ឧទ្យានព្រែកចាក",
+    "english": "0 Prek Jak",
+    "province_code": "18",
+    "district_code": "1802",
+    "commune_code": "180213",
+    "village_code": "18021302",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place40abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place40abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "52 ទឹកធ្លាក់ពពកវិល",
+    "english": "7 Tek Vil",
+    "province_code": "01",
+    "district_code": "0109",
+    "commune_code": "010906",
+    "village_code": "01090605",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place41standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place41kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "37 វត្តសំពៅប្រាំ",
+    "english": "68 Turen",
+    "province_code": "10",
+    "district_code": "1005",
+    "commune_code": "100505",
+    "village_code": "10050508",
+    "lat": 10.610683946483933,
+    "lon": 104.18149925024555,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place42standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place42kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "83 រង្វង់មូលធុរេន",
+    "english": "10 Turen",
+    "province_code": "07",
+    "district_code": "0702",
+    "commune_code": "070214",
+    "village_code": "07021404",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place43og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place43rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "10 ឧទ្យានព្រែកចាក",
+    "english": "62 Prek Jak",
+    "province_code": "12",
+    "district_code": "1212",
+    "commune_code": "121208",
+    "village_code": "12120802",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "<b>This place is really good</b>",
+    "images": [
+      {
+        "type": "image",
+        "id": "place44og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place44rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "5 ឧទ្យានព្រែកចាក",
+    "english": "95 Prek Jak",
+    "province_code": "05",
+    "district_code": "0506",
+    "commune_code": "050613",
+    "village_code": "05061314",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "<b>This place is really good</b>",
+    "images": [
+      {
+        "type": "image",
+        "id": "place45standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place45kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "59 រង្វង់មូលធុរេន",
+    "english": "8 Turen",
+    "province_code": "22",
+    "district_code": "2203",
+    "commune_code": "220304",
+    "village_code": "22030403",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "<b>This place is really good</b>",
+    "images": [
+      {
+        "type": "image",
+        "id": "place46abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place46abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "43 ឧទ្យានព្រែកចាក",
+    "english": "98 Prek Jak",
+    "province_code": "14",
+    "district_code": "1408",
+    "commune_code": "140809",
+    "village_code": "14080907",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place47og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place47rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "90 ឧទ្យានជាតិបូកគោ",
+    "english": "57 Boko",
+    "province_code": "06",
+    "district_code": "0607",
+    "commune_code": "060708",
+    "village_code": "06070804",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place48og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place48rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "0 ផ្សារកណ្តាល",
+    "english": "21 Phsar Kandal",
+    "province_code": "12",
+    "district_code": "1213",
+    "commune_code": "121304",
+    "village_code": "12130404",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place49og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place49rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "99 ឧទ្យានជាតិបូកគោ",
+    "english": "96 Boko",
+    "province_code": "03",
+    "district_code": "0302",
+    "commune_code": "030202",
+    "village_code": "03020209",
+    "lat": 10.668064871653021,
+    "lon": 104.1578565502459,
+    "body": "<b>This place is really good</b>",
+    "images": [
+      {
+        "type": "image",
+        "id": "place50abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place50abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "59 ផ្សារកណ្តាល",
+    "english": "82 Phsar Kandal",
+    "province_code": "21",
+    "district_code": "2105",
+    "commune_code": "210503",
+    "village_code": "21050312",
+    "lat": 10.49895392838263,
+    "lon": 103.65155873315233,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place51standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place51kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "98 ផ្សារកណ្តាល",
+    "english": "26 Phsar Kandal",
+    "province_code": "21",
+    "district_code": "2105",
+    "commune_code": "210502",
+    "village_code": "21050206",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place52og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place52rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "67 ផ្សារកណ្តាល",
+    "english": "44 Phsar Kandal",
+    "province_code": "07",
+    "district_code": "0704",
+    "commune_code": "070404",
+    "village_code": "07040403",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "<b>This place is really good</b>",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "30 ទឹកធ្លាក់ពពកវិល",
+    "english": "41 Tek Vil",
+    "province_code": "18",
+    "district_code": "1803",
+    "commune_code": "180303",
+    "village_code": "18030302",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place54og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place54rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "96 ផ្សារកណ្តាល",
+    "english": "67 Phsar Kandal",
+    "province_code": "04",
+    "district_code": "0404",
+    "commune_code": "040408",
+    "village_code": "04040802",
+    "lat": 10.668064871653021,
+    "lon": 104.1578565502459,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place55og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place55rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "54 រង្វង់មូលធុរេន",
+    "english": "32 Turen",
+    "province_code": "22",
+    "district_code": "2202",
+    "commune_code": "220204",
+    "village_code": "22020412",
+    "lat": 10.668064871653021,
+    "lon": 104.1578565502459,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place56og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place56rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "16 ឧទ្យានព្រែកចាក",
+    "english": "6 Prek Jak",
+    "province_code": "10",
+    "district_code": "1002",
+    "commune_code": "100209",
+    "village_code": "10020905",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place57standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place57kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "50 ឧទ្យានព្រែកចាក",
+    "english": "74 Prek Jak",
+    "province_code": "10",
+    "district_code": "1005",
+    "commune_code": "100506",
+    "village_code": "10050604",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place58og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place58rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "95 ទឹកធ្លាក់ពពកវិល",
+    "english": "5 Tek Vil",
+    "province_code": "04",
+    "district_code": "0404",
+    "commune_code": "040405",
+    "village_code": "04040503",
+    "lat": 10.610683946483933,
+    "lon": 104.18149925024555,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place59standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place59kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "76 ឧទ្យានព្រែកចាក",
+    "english": "1 Prek Jak",
+    "province_code": "24",
+    "district_code": "2402",
+    "commune_code": "240202",
+    "village_code": "24020220",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "",
+    "images": [
+      {
+        "type": "image",
+        "id": "place60standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place60kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "36 ផ្សារកណ្តាល",
+    "english": "23 Phsar Kandal",
+    "province_code": "23",
+    "district_code": "2302",
+    "commune_code": "230202",
+    "village_code": "23020202",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "",
+    "images": [
+      {
+        "type": "image",
+        "id": "place61standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place61kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "65 ផ្សារកណ្តាល",
+    "english": "42 Phsar Kandal",
+    "province_code": "04",
+    "district_code": "0403",
+    "commune_code": "040304",
+    "village_code": "04030402",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "<b>This place is really good</b>",
+    "images": [
+      {
+        "type": "image",
+        "id": "place62abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place62abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "58 ឧទ្យានជាតិបូកគោ",
+    "english": "71 Boko",
+    "province_code": "24",
+    "district_code": "2402",
+    "commune_code": "240202",
+    "village_code": "24020218",
+    "lat": 10.610683946483933,
+    "lon": 104.18149925024555,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place63standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place63kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "95 រង្វង់មូលធុរេន",
+    "english": "20 Turen",
+    "province_code": "12",
+    "district_code": "1211",
+    "commune_code": "121104",
+    "village_code": "12110416",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "<b>This place is really good</b>",
+    "images": [
+      {
+        "type": "image",
+        "id": "place64og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place64rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "14 ឧទ្យានជាតិបូកគោ",
+    "english": "48 Boko",
+    "province_code": "14",
+    "district_code": "1404",
+    "commune_code": "140403",
+    "village_code": "14040309",
+    "lat": 10.49895392838263,
+    "lon": 103.65155873315233,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place65standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place65kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "70 វត្តសំពៅប្រាំ",
+    "english": "33 Turen",
+    "province_code": "02",
+    "district_code": "0203",
+    "commune_code": "020309",
+    "village_code": "02030904",
+    "lat": 10.610683946483933,
+    "lon": 104.18149925024555,
+    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place66abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place66abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "47 ផ្សារកណ្តាល",
+    "english": "56 Phsar Kandal",
+    "province_code": "19",
+    "district_code": "1902",
+    "commune_code": "190206",
+    "village_code": "19020602",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "24 រង្វង់មូលធុរេន",
+    "english": "61 Turen",
+    "province_code": "21",
+    "district_code": "2104",
+    "commune_code": "210404",
+    "village_code": "21040409",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place68standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place68kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "87 ឧទ្យានព្រែកចាក",
+    "english": "3 Prek Jak",
+    "province_code": "09",
+    "district_code": "0904",
+    "commune_code": "090403",
+    "village_code": "09040302",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place69standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place69kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "7 វត្តសំពៅប្រាំ",
+    "english": "33 Turen",
+    "province_code": "08",
+    "district_code": "0802",
+    "commune_code": "080202",
+    "village_code": "08020203",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "<b>This place is really good</b>",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "19 ឧទ្យានព្រែកចាក",
+    "english": "14 Prek Jak",
+    "province_code": "01",
+    "district_code": "0107",
+    "commune_code": "010702",
+    "village_code": "01070202",
+    "lat": 10.610683946483933,
+    "lon": 104.18149925024555,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place71standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place71kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "33 វត្តសំពៅប្រាំ",
+    "english": "19 Turen",
+    "province_code": "23",
+    "district_code": "2302",
+    "commune_code": "230202",
+    "village_code": "23020202",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "38 ផ្សារកណ្តាល",
+    "english": "46 Phsar Kandal",
+    "province_code": "09",
+    "district_code": "0903",
+    "commune_code": "090302",
+    "village_code": "09030202",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place73og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place73rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "45 ឧទ្យានជាតិបូកគោ",
+    "english": "40 Boko",
+    "province_code": "03",
+    "district_code": "0313",
+    "commune_code": "031309",
+    "village_code": "03130903",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place74standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place74kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "90 ឧទ្យានជាតិបូកគោ",
+    "english": "85 Boko",
+    "province_code": "06",
+    "district_code": "0608",
+    "commune_code": "060810",
+    "village_code": "06081004",
+    "lat": 10.668064871653021,
+    "lon": 104.1578565502459,
+    "body": "",
+    "images": [
+      {
+        "type": "image",
+        "id": "place75standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place75kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "88 វត្តសំពៅប្រាំ",
+    "english": "88 Turen",
+    "province_code": "21",
+    "district_code": "2102",
+    "commune_code": "210206",
+    "village_code": "21020620",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place76standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place76kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "9 ឧទ្យានជាតិបូកគោ",
+    "english": "23 Boko",
+    "province_code": "09",
+    "district_code": "0902",
+    "commune_code": "090203",
+    "village_code": "09020302",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place77og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place77rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "29 វត្តសំពៅប្រាំ",
+    "english": "13 Turen",
+    "province_code": "11",
+    "district_code": "1103",
+    "commune_code": "110302",
+    "village_code": "11030203",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place78og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place78rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "27 ឧទ្យានជាតិបូកគោ",
+    "english": "75 Boko",
+    "province_code": "20",
+    "district_code": "2004",
+    "commune_code": "200402",
+    "village_code": "20040202",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place79standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place79kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "67 រង្វង់មូលធុរេន",
+    "english": "44 Turen",
+    "province_code": "18",
+    "district_code": "1805",
+    "commune_code": "180502",
+    "village_code": "18050202",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place80og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place80rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "19 ទឹកធ្លាក់ពពកវិល",
+    "english": "55 Tek Vil",
+    "province_code": "12",
+    "district_code": "1214",
+    "commune_code": "121402",
+    "village_code": "12140210",
+    "lat": 10.668064871653021,
+    "lon": 104.1578565502459,
+    "body": "<b>This place is really good</b>",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "68 ឧទ្យានព្រែកចាក",
+    "english": "26 Prek Jak",
+    "province_code": "18",
+    "district_code": "1803",
+    "commune_code": "180303",
+    "village_code": "18030302",
+    "lat": 10.610683946483933,
+    "lon": 104.18149925024555,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "44 វត្តសំពៅប្រាំ",
+    "english": "90 Turen",
+    "province_code": "05",
+    "district_code": "0507",
+    "commune_code": "050714",
+    "village_code": "05071406",
+    "lat": 10.49895392838263,
+    "lon": 103.65155873315233,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place83standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place83kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "59 ទឹកធ្លាក់ពពកវិល",
+    "english": "89 Tek Vil",
+    "province_code": "12",
+    "district_code": "1208",
+    "commune_code": "120808",
+    "village_code": "12080804",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place84abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place84abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "41 ទឹកធ្លាក់ពពកវិល",
+    "english": "33 Tek Vil",
+    "province_code": "04",
+    "district_code": "0406",
+    "commune_code": "040612",
+    "village_code": "04061212",
+    "lat": 10.610683946483933,
+    "lon": 104.18149925024555,
+    "body": "",
+    "images": [
+      {
+        "type": "image",
+        "id": "place85standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place85kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "9 ទឹកធ្លាក់ពពកវិល",
+    "english": "58 Tek Vil",
+    "province_code": "07",
+    "district_code": "0708",
+    "commune_code": "070803",
+    "village_code": "07080302",
+    "lat": 10.49895392838263,
+    "lon": 103.65155873315233,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place86abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71161752.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place86abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg",
+        "url": "https://thumbs.dreamstime.com/b/abandoned-christian-church-top-bokor-mountain-preah-monivong-national-park-kampot-cambodia-kep-71163269.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "76 ឧទ្យានជាតិបូកគោ",
+    "english": "33 Boko",
+    "province_code": "12",
+    "district_code": "1205",
+    "commune_code": "120515",
+    "village_code": "12051502",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "",
+    "images": [
+      {
+        "type": "image",
+        "id": "place87standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place87kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "10 ឧទ្យានជាតិបូកគោ",
+    "english": "67 Boko",
+    "province_code": "16",
+    "district_code": "1607",
+    "commune_code": "160706",
+    "village_code": "16070602",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "",
+    "images": [
+      {
+        "type": "image",
+        "id": "place88og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place88rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "59 វត្តសំពៅប្រាំ",
+    "english": "11 Turen",
+    "province_code": "24",
+    "district_code": "2402",
+    "commune_code": "240202",
+    "village_code": "24020217",
+    "lat": 10.668064871653021,
+    "lon": 104.1578565502459,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place89og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place89rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "63 ឧទ្យានព្រែកចាក",
+    "english": "59 Prek Jak",
+    "province_code": "04",
+    "district_code": "0402",
+    "commune_code": "040202",
+    "village_code": "04020207",
+    "lat": 10.49895392838263,
+    "lon": 103.65155873315233,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place90standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place90kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "22 ទឹកធ្លាក់ពពកវិល",
+    "english": "42 Tek Vil",
+    "province_code": "08",
+    "district_code": "0807",
+    "commune_code": "080707",
+    "village_code": "08070702",
+    "lat": 10.49895392838263,
+    "lon": 103.65155873315233,
+    "body": "",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "14 ឧទ្យានព្រែកចាក",
+    "english": "49 Prek Jak",
+    "province_code": "22",
+    "district_code": "2205",
+    "commune_code": "220504",
+    "village_code": "22050407",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "94 វត្តសំពៅប្រាំ",
+    "english": "76 Turen",
+    "province_code": "03",
+    "district_code": "0305",
+    "commune_code": "030503",
+    "village_code": "03050308",
+    "lat": 10.668064871653021,
+    "lon": 104.1578565502459,
+    "body": "ទឹកជ្រោះពពកវិលស្ថិតនៅលើភ្នំបូកគោដែលជាទិសដៅពេញនិយមសម្រាប់ភ្ញៀវទេសចរក្នុងខេត្តកំពតដោយសារអាកាសធាតុត្រជាក់និងភ្នំដែលមានទេសភាពដ៏ស្រស់ស្អាត។ វាពិតជារីករាយណាស់ក្នុងការធ្វើដំណើរទៅកាន់ទីនោះ មិនត្រឹមតែប៉ុណ្ណោះ អ្នកក៏អាចមើលឃើញពីជីវិតសត្វព្រៃគួរឱ្យចាប់អារម្មណ៍មួយចំនួនដូចជាសត្វកំប្រុកក្រហមឬសត្វស្វា។ ទោះបីពេលមកដល់ទឹកជ្រោះអាចនឹងមានការលំបាកបន្តិចប៉ុន្តែនៅពេលដែលអ្នកបានឃើញដោយផ្ទាល់នូវសម្រស់ធម្មជាតិនៃទឹកធ្លាក់បន្ទាប់មកអ្នកប្រាកដជាដឹងច្បាស់ហើយថាវាពិតជាសក្តិសមនឹងការខិតខំរបស់អ្នក។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place93og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place93rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "47 ផ្សារកណ្តាល",
+    "english": "67 Phsar Kandal",
+    "province_code": "08",
+    "district_code": "0810",
+    "commune_code": "081007",
+    "village_code": "08100705",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place94standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place94kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "85 ឧទ្យានជាតិបូកគោ",
+    "english": "16 Boko",
+    "province_code": "01",
+    "district_code": "0103",
+    "commune_code": "010302",
+    "village_code": "01030209",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "ឧទ្យានជាតិព្រះមុនីវង្សភ្នំបូកគោឬឧទ្យានជាតិភ្នំបូកគោមានទីតាំងស្ថិតនៅក្នុងស្រុកទឹកឈូខេត្តកំពត។ ភ្នំបូកគោមានកម្ពស់ ១០៧៥ម៉ែត្រធៀបទៅនឹងនីវ៉ូទឹកសមុទ្រនិងមានចម្ងាយប្រមាណ ១១គីឡូម៉ែត្រពីក្រុងកំពតទៅកាន់ជើងភ្នំនិងចម្ងាយ ៣២គីឡូម៉ែត្រពីជើងភ្នំដល់កំពូលភ្នំ។ ភ្នំបូកគោត្រូវបានរកឃើញនៅឆ្នាំ១៩១៧ ដោយជនជាតិបារាំងនិងត្រូវបានអភិវឌ្ឍឲ្យទៅជារមណីយដ្ឋាននៅឆ្នាំ១៩២១ ក្នុងរជ្ជកាលព្រះបាទស៊ីសុវត្ថិ។",
+    "images": [],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "22 រង្វង់មូលធុរេន",
+    "english": "19 Turen",
+    "province_code": "03",
+    "district_code": "0314",
+    "commune_code": "031411",
+    "village_code": "03141102",
+    "lat": 135.2039,
+    "lon": 122.593,
+    "body": "",
+    "images": [
+      {
+        "type": "image",
+        "id": "place96standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place96kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "48 វត្តសំពៅប្រាំ",
+    "english": "25 Turen",
+    "province_code": "15",
+    "district_code": "1502",
+    "commune_code": "150209",
+    "village_code": "15020904",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "វត្តសំពៅប្រាំដែលត្រូវបានគេចាត់ទុកថាជាវត្តព្រះពុទ្ធខ្ពស់ជាងគេនៅកម្ពុជាគឺជាទីកន្លែងបែបសាសនាដ៏មានភាពទាក់ទាញ។ ឈ្មោះវត្តសំពៅប្រាំនេះមានន័យថាប្រាសាទទូកប្រាំដែលជាឯកសារយោងសម្រាប់ទ្រង់ទ្រាយថ្មធំនិងរាបស្មើនៅក្បែរនោះមានបណ្តោយ ១០ ម៉ែត្រគុណនឹង ១០ ម៉ែត្រទ្រង់ទ្រាយធម្មជាតិទាំងនេះបង្ហាញពីរូបភាពនៃទូកដែលដាក់ឈ្មោះវត្តនោះ។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place97og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place97rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "86 ទឹកធ្លាក់ពពកវិល",
+    "english": "92 Tek Vil",
+    "province_code": "08",
+    "district_code": "0807",
+    "commune_code": "080707",
+    "village_code": "08070703",
+    "lat": 10.630035094887255,
+    "lon": 104.01734762756038,
+    "body": "<b>This place is really good</b>",
+    "images": [
+      {
+        "type": "image",
+        "id": "place98standard_kayak-park-cover.jpg",
+        "url": "https://tripsary.s3.amazonaws.com/uploads/sub_location/cover_photo/96/standard_kayak-park-cover.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place98kampot_20l.jpg",
+        "url": "https://avocado-app.s3.amazonaws.com/uploads/cms/image_gallery/image/1/kampot_20l.jpg"
+      }
+    ],
+    "comments": []
+  },
+  {
+    "type": "place",
+    "khmer": "87 ទឹកធ្លាក់ពពកវិល",
+    "english": "48 Tek Vil",
+    "province_code": "09",
+    "district_code": "0907",
+    "commune_code": "090704",
+    "village_code": "09070404",
+    "lat": 10.658770751039778,
+    "lon": 104.051250835383,
+    "body": "មានទីតាំងស្ថិតនៅជិតរមណីយដ្ឋានទឹកឈូតាមបណ្តោយដងទន្លេកំពង់បាយដែលមានចម្ងាយប្រហែល ៨.៥ គីឡូម៉ែត្រខាងជើងពីរង្វង់មូលធូរេន។ អ្នកប្រហែលជាគិតថាវាមិនមែនជាទីតាំងងាយស្រួលនោះទេប៉ុន្តែតាមពិតវាជាជំរើសដ៏ល្អឥតខ្ចោះសម្រាប់ភ្ញៀវទេសចរដែលចង់ទទួលបាននូវឱកាសពិសេសមួយ។ វាផ្តល់ជូននូវហ្សីបលីន, ដើមឈើរ៉ូប, បារអណ្តែតទូកលេងហ្គេមលើមេឃនិងបឹងជាច្រើនទៀត។ នៅពេលនិយាយអំពីសកម្មភាពនៅខេត្តកំពតអ្នកខ្លះប្រហែលជាគិតអំពីការឡើងភ្នំ។ ទោះយ៉ាងណាក៏ដោយសម្រាប់អ្នកដែលចង់បានបទពិសោធរំភើបរីករាយយើងសូមណែនាំអ្នកឱ្យទៅសួនឧទ្យាន។",
+    "images": [
+      {
+        "type": "image",
+        "id": "place99og-image-for-waterfall-attractions-in-cambodia.jpg",
+        "url": "https://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2018/10/og-image-for-waterfall-attractions-in-cambodia.jpg"
+      },
+      {
+        "type": "image",
+        "id": "place99rsz_popokvil_waterfall.jpg",
+        "url": "https://www.madmonkeyhostels.com/wp-content/uploads/2017/09/rsz_popokvil_waterfall.jpg"
+      }
+    ],
+    "comments": []
   }
 ]

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'cambodia_geography.dart';
+import 'package:path/path.dart';
 
 void main() async {
   File placesFile = File('scripts/places_random.json');
@@ -37,16 +38,17 @@ Future<void> random({
         ? CambodiaGeography.instance.villagesSearch(communeCode: randomCommuneCode).map((e) => e.code).toList()
         : null;
 
-    String? randomVillageCode =
-        villageList?.isNotEmpty == true ? villageList![Random().nextInt(villageList.length - 1)] : null;
+    String? randomVillageCode = villageList?.isNotEmpty == true
+        ? villageList![Random().nextInt(villageList.length - 1) % villageList.length]
+        : null;
 
-    String randomNameKh =
-        Random().nextInt(desireRandom).toString() + exampleDatas[Random().nextInt(exampleDatas.length - 1)]['khmer'];
-    String randomNameEn =
-        Random().nextInt(desireRandom).toString() + exampleDatas[Random().nextInt(exampleDatas.length - 1)]['english'];
+    int nameIndex = Random().nextInt(exampleDatas.length - 1 % exampleDatas.length);
+    String randomNameKh = Random().nextInt(desireRandom).toString() + " " + exampleDatas[nameIndex]['khmer'];
+    String randomNameEn = Random().nextInt(desireRandom).toString() + " " + exampleDatas[nameIndex]['english'];
 
-    num? randomLat = exampleDatas[Random().nextInt(exampleDatas.length - 1)]['lat'];
-    num? randomLon = exampleDatas[Random().nextInt(exampleDatas.length - 1)]['lon'];
+    int latLngIndex = Random().nextInt(exampleDatas.length - 1);
+    num? randomLat = exampleDatas[latLngIndex]['lat'];
+    num? randomLon = exampleDatas[latLngIndex]['lon'];
     String randomBody = exampleDatas[Random().nextInt(exampleDatas.length - 1)]['body'];
     List<String> randomImages = exampleDatas[Random().nextInt(exampleDatas.length - 1)]['images'];
 
@@ -61,8 +63,15 @@ Future<void> random({
       'lat': randomLat,
       'lon': randomLon,
       'body': randomBody,
-      'images': randomImages,
-      'comments': [''],
+      'images': randomImages.map((e) {
+        return {
+          "type": "image",
+          "id": "${type + list.length.toString() + basename(e)}",
+          "url": e,
+        };
+      }).toList()
+        ..removeWhere((e) => !(e['url']?.isNotEmpty == true)),
+      'comments': [],
     });
 
     file.writeAsString(jsonEncode(list));
