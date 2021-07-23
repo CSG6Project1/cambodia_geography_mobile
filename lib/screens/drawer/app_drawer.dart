@@ -21,6 +21,7 @@ class AppDrawer extends StatelessWidget {
                 selected: currentRoute == item,
                 onTap: () {
                   Navigator.of(context).pop();
+                  if (currentRoute == item) return;
                   if (value.isRoot) {
                     Navigator.of(context).pushReplacementNamed(item);
                   } else {
