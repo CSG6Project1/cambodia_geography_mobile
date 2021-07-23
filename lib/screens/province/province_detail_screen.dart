@@ -5,6 +5,7 @@ import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
+import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:flutter/foundation.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 import 'package:weather/weather.dart';
@@ -114,7 +115,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
       leading: weatherImage != null
           ? AspectRatio(
               aspectRatio: 1,
-              child: Image.network(weatherImage),
+              child: CgNetworkImageLoader(imageUrl: weatherImage),
             )
           : null,
       trailing: Wrap(

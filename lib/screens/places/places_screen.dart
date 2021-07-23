@@ -6,6 +6,7 @@ import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
+import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -95,8 +96,8 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
             child: Container(
               child: place.images == null || place.images?.length == 0
                   ? Image.asset('assets/images/helper_image/placeholder.png')
-                  : Image.network(
-                      place.images![0].url ?? '',
+                  : CgNetworkImageLoader(
+                      imageUrl: place.images![0].url ?? '',
                       fit: BoxFit.cover,
                       height: ConfigConstant.objectHeight1,
                     ),
