@@ -126,7 +126,7 @@ class ProvinceCard extends StatelessWidget {
     );
   }
 
-  ListView buildInfoCount(BuildContext context) {
+  Widget buildInfoCount(BuildContext context) {
     List<String> titles = [];
     List<String> subtitles = [];
 
@@ -151,14 +151,14 @@ class ProvinceCard extends StatelessWidget {
       subtitles.add(NumberHelper.toKhmer(province.village));
     }
 
-    return ListView(
-      scrollDirection: Axis.horizontal,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
         titles.length,
         (index) {
-          return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
+          return Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   titles[index],

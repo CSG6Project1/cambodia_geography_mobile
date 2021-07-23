@@ -5,6 +5,7 @@ import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -48,31 +49,41 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
       body: CustomScrollView(
         slivers: [
           buildAppbar(),
-          FutureBuilder<PlaceListModel>(
-            future: placeList,
-            builder: (context, snapshot) {
-              List<PlaceModel>? places = snapshot.data?.items;
-              if (places == null)
-                return SliverList(
-                  delegate: SliverChildListDelegate(
-                    [Text('')],
-                  ),
-                );
-              return SliverList(
-                delegate: SliverChildListDelegate(
-                  List.generate(
-                    places.length,
-                    (index) {
-                      PlaceModel place = places[index];
-                      return buildPlaceCard(place);
-                    },
-                  ),
-                ),
-              );
-            },
-          )
+          SliverFillRemaining(
+            child: TabBarView(
+              controller: controller,
+              children: [
+                buildBody(),
+                Text("Tab 2"),
+              ],
+            ),
+          ),
         ],
       ),
+    );
+  }
+
+  FutureBuilder<PlaceListModel> buildBody() {
+    return FutureBuilder<PlaceListModel>(
+      future: placeList,
+      builder: (context, snapshot) {
+        List<PlaceModel>? places = snapshot.data?.items;
+        if (places == null) return buildLoadingShimmer();
+        if (places.length == 0)
+          return Center(
+            child: Text('No Data'),
+          );
+        return ListView(
+          padding: EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
+          children: List.generate(
+            places.length,
+            (index) {
+              PlaceModel place = places[index];
+              return buildPlaceCard(place);
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -86,15 +97,21 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
         children: [
           AspectRatio(
             aspectRatio: 2 / 1,
-            child: Image.network(
-              place.images?[0] ?? '',
-              fit: BoxFit.cover,
+            child: Container(
+              child: place.images == null || place.images?.length == 0
+                  ? Image.asset('assets/images/helper_image/placeholder.png')
+                  : Image.network(
+                      place.images![0].url ?? '',
+                      fit: BoxFit.cover,
+                      height: ConfigConstant.objectHeight1,
+                    ),
             ),
           ),
+          Divider(height: 0, thickness: 0.5),
           Container(
-            color: Colors.white,
+            color: colorScheme.surface,
             height: ConfigConstant.objectHeight1,
-            padding: EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
+            padding: EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
             child: Row(
               children: [
                 Expanded(
@@ -104,7 +121,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
                   ),
                 ),
                 Text(
-                  place.commentLength.toString(),
+                  (place.commentLength ?? 0).toString(),
                   style: textTheme.caption,
                 ),
                 SizedBox(width: 5),
@@ -137,6 +154,52 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
             child: Text("ភោជនីយ៍ដ្ឆាន៍"),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget buildLoadingShimmer() {
+    return ListView(
+      padding: EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
+      children: List.generate(
+        5,
+        (index) {
+          return Card(
+            margin: EdgeInsets.symmetric(
+              horizontal: ConfigConstant.margin2,
+              vertical: ConfigConstant.margin1,
+            ),
+            child: Column(
+              children: [
+                CgCustomShimmer(
+                  child: AspectRatio(
+                    aspectRatio: 2 / 1,
+                    child: Container(
+                      color: colorScheme.surface,
+                    ),
+                  ),
+                ),
+                Divider(height: 0),
+                Container(
+                  color: colorScheme.surface,
+                  height: ConfigConstant.objectHeight1,
+                  padding: EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CgCustomShimmer(
+                        child: Container(height: 14, width: 200, color: colorScheme.surface),
+                      ),
+                      CgCustomShimmer(
+                        child: Container(height: 14, width: 20, color: colorScheme.surface),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
