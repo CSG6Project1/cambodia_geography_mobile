@@ -5,6 +5,7 @@ class CgButton extends StatelessWidget {
   const CgButton({
     Key? key,
     required this.labelText,
+    this.labelStyle,
     this.backgroundColor,
     this.foregroundColor,
     this.onPressed,
@@ -14,9 +15,12 @@ class CgButton extends StatelessWidget {
     this.focusNode,
     this.iconSize = 20,
     this.iconData,
+    this.side = BorderSide.none,
+    this.borderRadius = BorderRadius.zero,
   }) : super(key: key);
 
   final String labelText;
+  final TextStyle? labelStyle;
   final Color? backgroundColor;
   final Color? foregroundColor;
   final Clip clipBehavior;
@@ -26,6 +30,8 @@ class CgButton extends StatelessWidget {
   final bool autofocus;
   final IconData? iconData;
   final double? iconSize;
+  final BorderSide side;
+  final BorderRadiusGeometry borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -68,10 +74,11 @@ class CgButton extends StatelessWidget {
         labelText,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: Theme.of(context)
-            .textTheme
-            .bodyText1
-            ?.copyWith(color: onPressed == null ? Theme.of(context).colorScheme.onBackground : foregroundColor),
+        style: labelStyle ??
+            Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(color: onPressed == null ? Theme.of(context).colorScheme.onBackground : foregroundColor),
       ),
     );
   }
@@ -79,6 +86,14 @@ class CgButton extends StatelessWidget {
   ButtonStyle buildButtonStyle(BuildContext context) {
     return TextButton.styleFrom(
       backgroundColor: onPressed == null ? Theme.of(context).colorScheme.background : backgroundColor,
+    ).copyWith(
+      backgroundColor: MaterialStateProperty.all(backgroundColor),
+      shape: MaterialStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: borderRadius,
+          side: side,
+        ),
+      ),
     );
   }
 }
