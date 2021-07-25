@@ -6,11 +6,26 @@ import 'package:cambodia_geography/models/apis/meta_model.dart';
 import 'package:cambodia_geography/models/apis/object_name_url_model.dart';
 import 'package:cambodia_geography/services/networks/base_network.dart';
 import 'package:http/http.dart';
+import 'package:path/path.dart';
+import 'package:http_parser/http_parser.dart';
+
+class CgContentType {
+  String type;
+  CgContentType(this.type);
+
+  static const String png = 'image/png';
+  static const String jpg = 'image/jpg';
+  static const String jpeg = 'image/jpeg';
+  static const String gif = 'image/gif';
+}
 
 abstract class BaseApi<T> {
   Response? response;
+  StreamedResponse? streamedResponse;
   BaseNetwork? network;
   BaseNetwork buildNetwork();
+
+  MultipartRequest? _multipartRequest;
 
   BaseApi() {
     network = buildNetwork();
@@ -18,15 +33,29 @@ abstract class BaseApi<T> {
 
   bool success() {
     if (this.response == null) return false;
-    return this.response!.statusCode >= 200 && this.response!.statusCode < 300;
+    if (this.response != null) {
+      return this.response!.statusCode >= 200 && this.response!.statusCode < 300;
+    }
+    return false;
   }
 
-  String? errorMessage() {
-    return response?.body;
+  String? message() {
+    if (response?.body == null) return null;
+    dynamic json = jsonDecode(response!.body);
+    if (json is Map && json.containsKey('message')) {
+      return json['message'];
+    }
+  }
+
+  Future<MultipartRequest> multipartRequest({
+    required MultipartRequest request,
+  }) async {
+    return request;
   }
 
   Future<dynamic> _beforeExec(Future<dynamic> Function() body) async {
     this.response = null;
+    this.streamedResponse = null;
     try {
       return await body();
     } on SocketException {
@@ -36,6 +65,41 @@ abstract class BaseApi<T> {
     } on Exception {
       return Future.error('Unexpected error');
     }
+  }
+
+  Future<dynamic> send({
+    required String method,
+    required Map<String, String> fields,
+    required List<File> files,
+    required String fileField,
+    required CgContentType fileContentType,
+  }) async {
+    return _beforeExec(() async {
+      Uri postUri = Uri.parse(this.objectNameUrlModel.createUrl());
+      _multipartRequest = MultipartRequest(method, postUri);
+      _multipartRequest = await multipartRequest(request: _multipartRequest!);
+      _multipartRequest?.fields.addAll(fields);
+
+      files.forEach((file) async {
+        MultipartFile multipart = await MultipartFile.fromPath(
+          fileField,
+          file.path,
+          filename: basename(file.path),
+          contentType: MediaType.parse(fileContentType.type),
+        );
+        _multipartRequest?.files.add(multipart);
+      });
+
+      streamedResponse = await network?.http?.send(_multipartRequest!);
+      String? respStr = await streamedResponse?.stream.bytesToString();
+
+      if (respStr != null && streamedResponse?.statusCode != null) {
+        this.response = Response(
+          respStr,
+          streamedResponse!.statusCode,
+        );
+      }
+    });
   }
 
   Future<dynamic> fetchOne({required String id}) async {
