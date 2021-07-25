@@ -2,6 +2,7 @@ import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/404/not_found_screen.dart';
 import 'package:cambodia_geography/screens/admin/admin_screen.dart';
+import 'package:cambodia_geography/screens/admin/body_editor_screen.dart';
 import 'package:cambodia_geography/screens/admin/edit_place_screen.dart';
 import 'package:cambodia_geography/screens/auth/login_screen.dart';
 import 'package:cambodia_geography/screens/auth/signup_screen.dart';
@@ -49,6 +50,7 @@ class RouteConfig {
   static const String SEARCHRESULT = '/search/result';
   static const String ADMIN = '/admin';
   static const String EDIT_PLACE = '/admin/edit_place';
+  static const String BODY_EDITOR = '/admin/edit_place/editor';
   static const String BOOKMARK = '/user/bookmark';
   static const String USER = '/user';
   static const String MAP = '/map';
@@ -133,6 +135,15 @@ class RouteConfig {
         isRoot: false,
         title: "EDIT_PLACE",
         route: (context) => EditPlaceScreen(),
+      ),
+      BODY_EDITOR: CgRouteSetting(
+        isRoot: false,
+        title: "BODY_EDITOR",
+        route: (context) {
+          Object? arguments = settings?.arguments;
+          if (arguments is String?) return BodyEditorScreen(body: arguments ?? "");
+          return BodyEditorScreen(body: "");
+        },
       ),
       BOOKMARK: CgRouteSetting(
         isRoot: false,

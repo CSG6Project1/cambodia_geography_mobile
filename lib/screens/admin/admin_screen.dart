@@ -1,4 +1,5 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
+import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,9 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
       drawer: AppDrawer(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(RouteConfig.EDIT_PLACE);
+        },
       ),
       appBar: buildAppbar(),
       body: TabBarView(

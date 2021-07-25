@@ -37,6 +37,56 @@ class PlaceModel {
   String? body;
   String? id;
 
+  void clearCommuneCode() {
+    this.communeCode = null;
+  }
+
+  void clearDistrictCode() {
+    this.districtCode = null;
+  }
+
+  void clearVillageCode() {
+    this.villageCode = null;
+  }
+
+  PlaceModel copyWith({
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    List<ImageModel>? images,
+    List<String>? comments,
+    String? type,
+    String? khmer,
+    String? english,
+    String? provinceCode,
+    String? districtCode,
+    String? communeCode,
+    int? commentLength,
+    String? villageCode,
+    double? lat,
+    double? lon,
+    String? body,
+    String? id,
+  }) {
+    return PlaceModel(
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      images: images ?? this.images,
+      comments: comments ?? this.comments,
+      type: type ?? this.type,
+      khmer: khmer ?? this.khmer,
+      english: english ?? this.english,
+      provinceCode: provinceCode ?? this.provinceCode,
+      districtCode: districtCode ?? this.districtCode,
+      communeCode: communeCode ?? this.communeCode,
+      commentLength: commentLength ?? this.commentLength,
+      villageCode: villageCode ?? this.villageCode,
+      lat: lat ?? this.lat,
+      lon: lon ?? this.lon,
+      body: body ?? this.body,
+      id: id ?? this.id,
+    );
+  }
+
   factory PlaceModel.fromJson(Map<String, dynamic> json) {
     return PlaceModel(
       createdAt: DateTime.parse(json["created_at"]),
@@ -58,6 +108,21 @@ class PlaceModel {
     );
   }
 
+  List<String> paramNames() {
+    return [
+      "type",
+      "khmer",
+      "english",
+      "province_code",
+      "district_code",
+      "commune_code",
+      "village_code",
+      "lat",
+      "lon",
+      "body",
+    ];
+  }
+
   Map<String, dynamic> toJson() {
     return {
       "created_at": createdAt?.toIso8601String(),
@@ -77,5 +142,13 @@ class PlaceModel {
       "body": body,
       "id": id,
     };
+  }
+
+  Map<String, dynamic> sliceParams(Map<String, dynamic> values, List<String> names) {
+    Map<String, dynamic> result = {};
+    names.forEach((element) {
+      result[element] = values[element];
+    });
+    return result;
   }
 }

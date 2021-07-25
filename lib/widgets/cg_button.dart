@@ -1,3 +1,4 @@
+import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:flutter/material.dart';
 
 class CgButton extends StatelessWidget {
@@ -30,7 +31,7 @@ class CgButton extends StatelessWidget {
   Widget build(BuildContext context) {
     if (iconData != null) {
       return TextButton.icon(
-        icon: Icon(iconData, size: iconSize, color: foregroundColor),
+        icon: buildIcon(),
         style: buildButtonStyle(context),
         label: buildLabel(context),
         onPressed: onPressed,
@@ -51,13 +52,27 @@ class CgButton extends StatelessWidget {
     );
   }
 
-  Text buildLabel(BuildContext context) {
-    return Text(
-      labelText,
-      style: Theme.of(context)
-          .textTheme
-          .bodyText1
-          ?.copyWith(color: onPressed == null ? Theme.of(context).colorScheme.onBackground : foregroundColor),
+  Widget buildIcon() {
+    return Padding(
+      padding: const EdgeInsets.only(left: ConfigConstant.margin1),
+      child: Icon(iconData, size: iconSize, color: foregroundColor),
+    );
+  }
+
+  Widget buildLabel(BuildContext context) {
+    return Padding(
+      padding: iconData != null
+          ? const EdgeInsets.only(right: ConfigConstant.margin1)
+          : const EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
+      child: Text(
+        labelText,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: Theme.of(context)
+            .textTheme
+            .bodyText1
+            ?.copyWith(color: onPressed == null ? Theme.of(context).colorScheme.onBackground : foregroundColor),
+      ),
     );
   }
 
