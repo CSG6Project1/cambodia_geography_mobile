@@ -60,6 +60,7 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
             onChanged: (value) {
               setState(() {
                 _placeType = value;
+                print(_placeType);
               });
             },
           ),
@@ -125,6 +126,7 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
                 setState(() {
                   var selectedVillage = geo.tbVillages.where((e) => e.khmer == value).toList();
                   _villageCode = selectedVillage.first.code;
+                  print(_villageCode);
                 });
               },
             ),

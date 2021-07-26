@@ -14,7 +14,7 @@ void main() {
     test('return expected as str if it is set', () async {
       String expected = "value";
       await storage.write(expected);
-      dynamic? result = await storage.read();
+      dynamic result = await storage.read();
       expect(result, expected);
       expect(result.runtimeType, String);
     });
@@ -22,14 +22,14 @@ void main() {
     test('return expected as int if it is set', () async {
       int expected = 1;
       await storage.write(expected);
-      dynamic? result = await storage.read();
+      dynamic result = await storage.read();
       expect(result, expected);
       expect(result.runtimeType, int);
     });
 
     test('return null if it is cleared', () async {
       await storage.remove();
-      dynamic? result = await storage.read();
+      dynamic result = await storage.read();
       expect(result, null);
     });
   });

@@ -7,7 +7,6 @@ import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
-import 'package:cambodia_geography/screens/admin/body_editor_screen.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/services/apis/admins/crud_places_api.dart';
 import 'package:cambodia_geography/services/images/image_picker_service.dart';
