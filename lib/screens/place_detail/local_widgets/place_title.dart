@@ -48,16 +48,10 @@ class PlaceTitle extends StatelessWidget {
             children: [
               CgButton(
                 labelText: 'ទិសដៅ',
-                labelStyle: textTheme.bodyText2?.copyWith(color: colorScheme.secondary),
                 iconData: Icons.map,
                 foregroundColor: colorScheme.secondary,
                 backgroundColor: colorScheme.secondary.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(4.0),
-                side: BorderSide(
-                  color: colorScheme.secondary,
-                  width: 1,
-                  style: BorderStyle.solid,
-                ),
+                showBorder: true,
                 onPressed: () {
                   LatLng? latLng;
                   double? latitude = place.lat;
