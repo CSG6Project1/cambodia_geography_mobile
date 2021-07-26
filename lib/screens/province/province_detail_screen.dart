@@ -82,16 +82,6 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
     required Map<String, dynamic>? json,
     required Weather? weather,
   }) {
-    Text("text", strutStyle: StrutStyle());
-    Text("text", style: TextStyle(fontFamilyFallback: ["Arial", "Japanse Font"]));
-    ClipOval(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(48),
-          shape: BoxShape.circle,
-        ),
-      ),
-    );
     List<Widget> children = List.generate(
       json?.length ?? 0,
       (index) {
