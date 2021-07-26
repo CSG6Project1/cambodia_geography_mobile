@@ -31,6 +31,8 @@ dependencies:
   image_picker: ^0.8.2
   image_cropper: ^1.4.1
   delta_markdown: ^0.2.0
+  page_indicator: ^0.4.1
+  flutter_markdown: ^0.6.2
 
 dev_dependencies:
   build_runner: ^2.0.6

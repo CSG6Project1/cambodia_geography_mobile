@@ -1,3 +1,4 @@
+import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/404/not_found_screen.dart';
@@ -107,10 +108,13 @@ class RouteConfig {
         },
       ),
       PLACEDETAIL: CgRouteSetting(
-        isRoot: false,
-        title: "PLACEDETAIL",
-        route: (context) => PlaceDetailScreen(),
-      ),
+          isRoot: false,
+          title: "PLACEDETAIL",
+          route: (context) {
+            Object? arg = settings?.arguments;
+            if (arg is PlaceModel) return PlaceDetailScreen(place: arg);
+            return NotFoundScreen();
+          }),
       PROVINCE_DETAIL: CgRouteSetting(
         isRoot: false,
         title: "PROVINCE_DETAIL",
