@@ -1,16 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:page_indicator/page_indicator.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-class ImageViewer extends StatefulWidget {
+class ImagesViewer extends StatefulWidget {
   final List<String> images;
   final Function(int)? onPageChanged;
   final int currentImageIndex;
   final double statusBarHeight;
 
-  const ImageViewer({
+  const ImagesViewer({
     Key? key,
     required this.images,
     required this.statusBarHeight,
@@ -22,14 +23,21 @@ class ImageViewer extends StatefulWidget {
   _ImageViewerState createState() => _ImageViewerState();
 }
 
-class _ImageViewerState extends State<ImageViewer> {
+class _ImageViewerState extends State<ImagesViewer> {
   late PageController pageController;
   late int pageIndex;
+
   @override
   void initState() {
-    pageController = PageController();
-    pageIndex = 0;
+    pageController = PageController(initialPage: widget.currentImageIndex);
+    pageIndex = widget.currentImageIndex;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -57,12 +65,14 @@ class _ImageViewerState extends State<ImageViewer> {
               pageController: pageController,
               onPageChanged: (value) {
                 widget.onPageChanged!(value);
-                pageIndex = value;
+                setState(() {
+                  pageIndex = value;
+                });
               },
               backgroundDecoration: BoxDecoration(color: Colors.transparent),
               builder: (context, index) {
                 return PhotoViewGalleryPageOptions(
-                  imageProvider: NetworkImage(widget.images[index]),
+                  imageProvider: CachedNetworkImageProvider(widget.images[index]),
                   initialScale: PhotoViewComputedScale.contained * 1,
                   maxScale: PhotoViewComputedScale.contained * 2.5,
                   minScale: PhotoViewComputedScale.contained * 1,
@@ -81,6 +91,7 @@ class _ImageViewerState extends State<ImageViewer> {
                 automaticallyImplyLeading: true,
                 backgroundColor: Colors.transparent,
                 centerTitle: true,
+                leading: CloseButton(),
                 title: Text(
                   "${pageIndex + 1}/${widget.images.length}",
                   style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.white),

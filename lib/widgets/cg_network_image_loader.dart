@@ -10,15 +10,16 @@ class CgNetworkImageLoader extends StatelessWidget {
     this.fit,
   }) : super(key: key);
 
-  final String imageUrl;
+  final String? imageUrl;
   final double? width;
   final double? height;
   final BoxFit? fit;
 
   @override
   Widget build(BuildContext context) {
+    if (imageUrl == null) return Image.asset('assets/images/helper_image/placeholder.png');
     return CachedNetworkImage(
-      imageUrl: imageUrl,
+      imageUrl: imageUrl!,
       width: width,
       height: height,
       fit: fit,

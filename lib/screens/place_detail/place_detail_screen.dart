@@ -1,15 +1,17 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
-import 'package:cambodia_geography/helper/number_helper.dart';
+import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
+import 'package:cambodia_geography/screens/place_detail/local_widgets/images_presentor.dart';
 import 'package:cambodia_geography/screens/place_detail/local_widgets/place_title.dart';
-import 'package:cambodia_geography/widgets/cg_image_view.dart';
+import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:page_indicator/page_indicator.dart';
+import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class PlaceDetailScreen extends StatefulWidget {
   const PlaceDetailScreen({
@@ -26,75 +28,150 @@ class PlaceDetailScreen extends StatefulWidget {
 class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin, CgMediaQueryMixin {
   late ScrollController scrollController;
   late PageController pageController;
-  late bool isShow;
   late CambodiaGeography geo;
   late PlaceModel place;
 
+  late ValueNotifier<bool> initedFlexibleSpaceNotifier;
+  late ValueNotifier<double> headerOpacityNotifier;
+
+  double get expandedHeight => MediaQuery.of(context).size.width * 9 / 16 - kToolbarHeight;
+
   @override
   void initState() {
-    scrollController = ScrollController();
-    pageController = PageController();
     geo = CambodiaGeography.instance;
     place = widget.place;
-    isShow = false;
+
+    scrollController = ScrollController();
+    pageController = PageController();
+    initedFlexibleSpaceNotifier = ValueNotifier(false);
+    headerOpacityNotifier = ValueNotifier(0.0);
+    scrollController.addListener(_scrollListener);
     super.initState();
-    scrollController.addListener(_listener);
+
+    WidgetsBinding.instance?.addPostFrameCallback(
+      (timeStamp) async {
+        await Future.delayed(Duration(milliseconds: 500));
+        initedFlexibleSpaceNotifier.value = true;
+      },
+    );
+  }
+
+  void _scrollListener() {
+    double offset = scrollController.offset - kToolbarHeight * 2;
+    double maxHeight = expandedHeight;
+    if (offset >= maxHeight) offset = maxHeight;
+    if (offset <= 0) offset = 0;
+    headerOpacityNotifier.value = offset / maxHeight;
   }
 
   @override
   void dispose() {
-    scrollController.removeListener(_listener);
+    scrollController.removeListener(_scrollListener);
     scrollController.dispose();
     pageController.dispose();
     super.dispose();
-  }
 
-  void _listener() {
-    if (scrollController.offset >= mediaQueryData.size.width / 2) {
-      setState(() => isShow = true);
-    } else {
-      setState(() => isShow = false);
-    }
+    initedFlexibleSpaceNotifier.dispose();
+    headerOpacityNotifier.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: buildBottomNavigationBar(),
       body: CustomScrollView(
         controller: scrollController,
         slivers: [
-          buildAppBar(context: context, place: place),
-          buildBody(place),
+          buildAppBar(),
+          buildBody(),
         ],
       ),
-      bottomNavigationBar: buildBottomNav(place),
     );
   }
 
-  Container buildBottomNav(PlaceModel place) {
-    return Container(
-      height: ConfigConstant.objectHeight4,
-      padding: const EdgeInsets.only(
-        bottom: ConfigConstant.margin2,
-        left: 18,
-        right: 18,
-      ),
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            offset: const Offset(0, -2),
-            blurRadius: 8,
+  SliverList buildBody() {
+    return SliverList(
+      delegate: SliverChildListDelegate([
+        PlaceTitle(place: place),
+        Container(
+          color: colorScheme.surface,
+          margin: const EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: ConfigConstant.margin2),
+          child: MarkdownBody(
+            data: place.body.toString(),
+            selectable: true,
+            styleSheet: MarkdownStyleSheet.fromTheme(
+              themeData.copyWith(
+                textTheme: textTheme.apply(
+                  bodyColor: textTheme.caption?.color,
+                ),
+              ),
+            ),
+            onTapLink: (String text, String? href, String title) {
+              // TODO: handle on tap on link
+              print(href);
+            },
           ),
-        ],
+        ),
+        const SizedBox(height: ConfigConstant.objectHeight1)
+      ]),
+    );
+  }
+
+  MorphingSliverAppBar buildAppBar() {
+    return MorphingSliverAppBar(
+      elevation: 0,
+      expandedHeight: expandedHeight,
+      collapsedHeight: kToolbarHeight,
+      pinned: true,
+      floating: true,
+      stretch: true,
+      title: buildAppBarTitle(),
+      flexibleSpace: buildFlexibleSpace(),
+    );
+  }
+
+  Widget buildFlexibleSpace() {
+    List<String> images = place.images?.map((e) => e.url ?? '').toList() ?? [];
+    Widget child = FlexibleSpaceBar(
+      background: ImagesPresentor(
+        images: images,
+        controller: pageController,
       ),
+    );
+    return ValueListenableBuilder(
+      child: child,
+      valueListenable: initedFlexibleSpaceNotifier,
+      builder: (context, value, child) {
+        return AnimatedOpacity(
+          opacity: initedFlexibleSpaceNotifier.value ? 1 : 0,
+          duration: ConfigConstant.fadeDuration,
+          child: child,
+        );
+      },
+    );
+  }
+
+  Widget buildAppBarTitle() {
+    Widget child = CgAppBarTitle(title: place.khmer.toString());
+    return ValueListenableBuilder<double>(
+      child: child,
+      valueListenable: headerOpacityNotifier,
+      builder: (context, value, child) {
+        return Opacity(
+          opacity: headerOpacityNotifier.value,
+          child: child,
+        );
+      },
+    );
+  }
+
+  Widget buildBottomNavigationBar() {
+    return CgBottomNavWrapper(
       child: Row(
         children: [
           IconButton(
-            onPressed: () {
-              print('object');
-            },
+            onPressed: () {},
             icon: Icon(
               Icons.mode_comment,
               color: colorScheme.primary,
@@ -104,7 +181,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
             NumberHelper.toKhmer((place.commentLength ?? 0).toString()),
             style: textTheme.caption,
           ),
-          const Expanded(child: SizedBox()),
+          const Spacer(),
           IconButton(
             onPressed: () {},
             icon: Icon(
@@ -120,132 +197,6 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
             ),
           )
         ],
-      ),
-    );
-  }
-
-  SliverList buildBody(PlaceModel place) {
-    return SliverList(
-      delegate: SliverChildListDelegate(
-        [
-          PlaceTitle(place: place),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
-            padding: const EdgeInsets.all(ConfigConstant.margin2),
-            color: colorScheme.surface,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${place.khmer}',
-                  style: textTheme.headline6?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: colorScheme.onSurface,
-                  ),
-                ),
-                MarkdownBody(
-                  data: place.body.toString(),
-                  styleSheet: MarkdownStyleSheet.fromTheme(
-                    ThemeData(
-                      textTheme: TextTheme(
-                        bodyText2: TextStyle(
-                          fontSize: 12.0,
-                          color: colorScheme.onSurface,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> onViewImages(List<String> images) async {
-    return showModalBottomSheet(
-      context: context,
-      useRootNavigator: true,
-      isScrollControlled: true,
-      backgroundColor: Colors.black,
-      barrierColor: Colors.transparent,
-      builder: (context) {
-        return ImageViewer(
-          images: images,
-          statusBarHeight: MediaQuery.of(context).padding.top,
-          currentImageIndex: pageController.page!.toInt(),
-          onPageChanged: (index) {
-            pageController.animateToPage(
-              index,
-              duration: ConfigConstant.duration,
-              curve: Curves.easeIn,
-            );
-          },
-        );
-      },
-    );
-  }
-
-  SliverAppBar buildAppBar({
-    required BuildContext context,
-    required PlaceModel place,
-  }) {
-    final double expandedHeight = MediaQuery.of(context).size.width / 2;
-    List<String> images = place.images?.map((e) => e.url ?? '').toList() ?? [];
-
-    return SliverAppBar(
-      elevation: 0,
-      brightness: isShow ? Brightness.dark : Brightness.light,
-      backgroundColor: isShow ? colorScheme.primary : Colors.transparent,
-      expandedHeight: expandedHeight,
-      collapsedHeight: kToolbarHeight,
-      pinned: true,
-      floating: true,
-      leading: Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(left: ConfigConstant.margin2),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: isShow ? Colors.transparent : Colors.black26,
-        ),
-        child: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-      flexibleSpace: FlexibleSpaceBar(
-        title: CgAppBarTitle(
-          title: isShow ? place.khmer.toString() : '',
-        ),
-        background: GestureDetector(
-          onTap: () {
-            if (images.isNotEmpty) onViewImages(images);
-          },
-          child: PageIndicatorContainer(
-            padding: const EdgeInsets.only(bottom: ConfigConstant.margin2),
-            indicatorColor: Theme.of(context).colorScheme.surface,
-            indicatorSelectorColor: Theme.of(context).colorScheme.onSurface,
-            length: place.images?.length ?? 0,
-            shape: IndicatorShape.roundRectangleShape(
-              size: const Size(8, 8),
-              cornerSize: const Size.square(4),
-            ),
-            child: PageView(
-              controller: pageController,
-              onPageChanged: (index) {},
-              children: List.generate(place.images?.length ?? 0, (index) {
-                return Container(
-                  child: Image.network(
-                    place.images?[index].url ?? '',
-                    fit: BoxFit.cover,
-                  ),
-                );
-              }),
-            ),
-          ),
-        ),
       ),
     );
   }

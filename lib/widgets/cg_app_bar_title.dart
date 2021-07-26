@@ -15,7 +15,7 @@ class CgAppBarTitle extends StatelessWidget {
     return Text(
       title,
       key: Key(title),
-      style: textStyle?? Theme.of(context).appBarTheme.titleTextStyle,
+      style: textStyle ?? Theme.of(context).appBarTheme.titleTextStyle,
     );
   }
 }

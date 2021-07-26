@@ -1,6 +1,6 @@
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
-import 'package:cambodia_geography/helper/number_helper.dart';
+import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
@@ -18,115 +18,127 @@ class PlaceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-    if (isLoading) return buildLoadingCard(context);
-    if (place == null) return SizedBox();
-    return buildCard(
-      context,
-      colorScheme,
-      textTheme,
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2, vertical: ConfigConstant.margin1),
+      shape: RoundedRectangleBorder(borderRadius: ConfigConstant.circlarRadius1),
+      child: ClipRRect(
+        borderRadius: ConfigConstant.circlarRadius1,
+        child: CgOnTapEffect(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              RouteConfig.PLACEDETAIL,
+              arguments: place,
+            );
+          },
+          child: Stack(
+            clipBehavior: Clip.hardEdge,
+            children: [
+              buildCardImage(context),
+              buildCardInfo(colorScheme, textTheme),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
-  Widget buildCard(
-    BuildContext context,
+  Widget buildCardImage(BuildContext context) {
+    return AnimatedCrossFade(
+      crossFadeState: isLoading ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+      duration: ConfigConstant.fadeDuration,
+      sizeCurve: Curves.ease,
+      firstChild: CgCustomShimmer(
+        child: AspectRatio(
+          aspectRatio: 16 / 9,
+          child: Container(
+            color: Theme.of(context).colorScheme.surface,
+          ),
+        ),
+      ),
+      secondChild: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: CgNetworkImageLoader(
+          imageUrl: place?.images?.isNotEmpty == true ? place?.images?.first.url : null,
+          fit: BoxFit.cover,
+          height: ConfigConstant.objectHeight1,
+        ),
+      ),
+    );
+  }
+
+  Widget buildCardInfo(
     ColorScheme colorScheme,
     TextTheme textTheme,
   ) {
-    return Card(
-      margin: const EdgeInsets.symmetric(
+    return Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      child: Column(
+        children: [
+          const Divider(height: 0, thickness: 0.5),
+          isLoading ? buildLoadingTitle(colorScheme) : buildLoadedTitle(colorScheme, textTheme),
+        ],
+      ),
+    );
+  }
+
+  Widget buildLoadedTitle(
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+  ) {
+    return Container(
+      color: colorScheme.surface,
+      padding: const EdgeInsets.symmetric(
         horizontal: ConfigConstant.margin2,
         vertical: ConfigConstant.margin1,
       ),
-      shape: RoundedRectangleBorder(borderRadius: ConfigConstant.circlarRadius1),
-      child: Column(
+      child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(4),
-              topRight: Radius.circular(4),
-            ),
-            child: CgOnTapEffect(
-              onTap: () {
-                Navigator.of(context).pushNamed(RouteConfig.PLACEDETAIL, arguments: place);
-              },
-              child: AspectRatio(
-                aspectRatio: 2 / 1,
-                child: Container(
-                  child: place!.images == null || place!.images?.length == 0
-                      ? Image.asset('assets/images/helper_image/placeholder.png')
-                      : CgNetworkImageLoader(
-                          imageUrl: place!.images![0].url ?? '',
-                          fit: BoxFit.cover,
-                          height: ConfigConstant.objectHeight1,
-                        ),
-                ),
-              ),
+          Expanded(
+            child: Text(
+              place?.khmer ?? "",
+              maxLines: 1,
+              style: textTheme.bodyText1,
             ),
           ),
-          const Divider(height: 0, thickness: 0.5),
-          Container(
-            height: ConfigConstant.objectHeight1,
-            padding: EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    place!.khmer.toString(),
-                    style: textTheme.bodyText1,
-                  ),
-                ),
-                Text(
-                  NumberHelper.toKhmer((place!.commentLength ?? 0).toString()),
-                  style: textTheme.caption,
-                ),
-                const SizedBox(width: 5),
-                Icon(
-                  Icons.mode_comment,
-                  size: ConfigConstant.iconSize1,
-                  color: colorScheme.primary,
-                ),
-              ],
-            ),
+          Text(
+            NumberHelper.toKhmer((place?.commentLength ?? 0).toString()),
+            style: textTheme.caption,
+          ),
+          const SizedBox(width: ConfigConstant.margin0),
+          Icon(
+            Icons.mode_comment,
+            size: ConfigConstant.iconSize1,
+            color: colorScheme.primary,
           ),
         ],
       ),
     );
   }
 
-  buildLoadingCard(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: ConfigConstant.circlarRadius1),
-      margin: const EdgeInsets.symmetric(
-        horizontal: ConfigConstant.margin2,
-        vertical: ConfigConstant.margin1,
-      ),
-      child: Column(
+  Widget buildLoadingTitle(ColorScheme colorScheme) {
+    return Container(
+      color: colorScheme.surface,
+      height: ConfigConstant.objectHeight1,
+      padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CgCustomShimmer(
-            child: AspectRatio(
-              aspectRatio: 2 / 1,
-              child: Container(
-                color: Theme.of(context).colorScheme.surface,
-              ),
+            child: Container(
+              height: 14,
+              width: 200,
+              color: colorScheme.surface,
             ),
           ),
-          const Divider(height: 0),
-          Container(
-            color: Theme.of(context).colorScheme.surface,
-            height: ConfigConstant.objectHeight1,
-            padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CgCustomShimmer(
-                  child: Container(height: 14, width: 200, color: Theme.of(context).colorScheme.surface),
-                ),
-                CgCustomShimmer(
-                  child: Container(height: 14, width: 20, color: Theme.of(context).colorScheme.surface),
-                ),
-              ],
+          CgCustomShimmer(
+            child: Container(
+              height: 14,
+              width: 20,
+              color: colorScheme.surface,
             ),
           ),
         ],
