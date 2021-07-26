@@ -1,4 +1,3 @@
-import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/services/authentications/social_auth_service.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
@@ -39,20 +38,21 @@ class _UserScreenState extends State<UserScreen> {
 
     return Scaffold(
       appBar: MorphingAppBar(
-        title: CgAppBarTitle(title: AppLocalizations.of(context)!.helloWorld),
+        title: CgAppBarTitle(title: "User screen"),
       ),
       body: ListView(
         children: [
           ListTile(
             title: Text("Language"),
-            subtitle: Text(AppLocalizations.of(context)?.localeName ?? ""),
+            subtitle: Text("En"),
             onTap: () {
-              final supportedLocales = AppLocalizations.supportedLocales;
-              if (supportedLocales.first.languageCode == AppLocalizations.of(context)?.localeName) {
-                App.of(context)?.updateLocale(supportedLocales.last);
-              } else {
-                App.of(context)?.updateLocale(supportedLocales.first);
-              }
+              // TODO: change localize here
+              // final supportedLocales = AppLocalizations.supportedLocales;
+              // if (supportedLocales.first.languageCode == AppLocalizations.of(context)?.localeName) {
+              //   App.of(context)?.updateLocale(supportedLocales.last);
+              // } else {
+              //   App.of(context)?.updateLocale(supportedLocales.first);
+              // }
             },
           ),
           for (var item in socialTiles)

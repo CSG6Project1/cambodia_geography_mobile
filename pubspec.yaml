@@ -7,13 +7,10 @@ environment:
 dependencies: 
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
   flutter_map: ^0.13.1
   flutter_secure_storage: ^4.2.0
   flutter_sticky_header: ^0.6.0
   fuzzy: ^0.3.0
-  intl: ^0.17.0
   provider: ^5.0.0
   shared_preferences: ^2.0.6
   swipeable_page_route: ^0.2.2

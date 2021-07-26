@@ -69,8 +69,6 @@ class _AppState extends State<App> {
       home: HomeScreen(),
       navigatorObservers: [HeroController()],
       onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
       locale: locale,
       builder: (context, child) {
         return GestureDetector(
