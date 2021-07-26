@@ -102,20 +102,22 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     );
   }
 
-  Container buildDeleteButton() {
+  Widget buildDeleteButton() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
       alignment: Alignment.centerLeft,
       child: CgButton(
         labelText: "លុបទីតាំង",
-        foregroundColor: colorScheme.onPrimary,
         iconData: Icons.delete,
+        backgroundColor: colorScheme.error.withOpacity(0.1),
+        foregroundColor: colorScheme.error,
+        showBorder: true,
         onPressed: widget.onDeletePlace,
       ),
     );
   }
 
-  Container buildSectionWrapper({
+  Widget buildSectionWrapper({
     required List<Widget> children,
     EdgeInsets padding = const EdgeInsets.all(ConfigConstant.margin2),
     String? title,
@@ -140,7 +142,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     );
   }
 
-  Container buildEnglishField() {
+  Widget buildEnglishField() {
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgTextField(
@@ -153,7 +155,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     );
   }
 
-  Container buildKhmerField() {
+  Widget buildKhmerField() {
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgTextField(
@@ -175,10 +177,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
         borderRadius: ConfigConstant.circlarRadius1,
         child: ListTile(
           trailing: const Icon(Icons.keyboard_arrow_right),
-          shape: RoundedRectangleBorder(
-            borderRadius: ConfigConstant.circlarRadius1,
-            // side: BorderSide(color: colorScheme.primary),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: ConfigConstant.circlarRadius1),
           title: Text(
             "អំពីរទីតាំង",
             style: textTheme.bodyText1?.copyWith(color: colorScheme.onSurface),
@@ -216,8 +215,9 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
         CgButton(
           labelText: "ជ្រើសទីតាំង",
           iconData: Icons.map,
-          backgroundColor: colorScheme.secondary,
-          foregroundColor: colorScheme.onSecondary,
+          backgroundColor: colorScheme.secondary.withOpacity(0.1),
+          foregroundColor: colorScheme.secondary,
+          showBorder: true,
           onPressed: () async {
             LatLng? latLng;
             if (place.lat != null && place.lon != null) {
