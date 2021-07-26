@@ -1,6 +1,6 @@
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
-import 'package:cambodia_geography/helper/number_helper.dart';
+import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:flutter/material.dart';

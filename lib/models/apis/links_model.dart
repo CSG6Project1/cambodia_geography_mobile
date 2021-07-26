@@ -1,4 +1,4 @@
-import 'package:cambodia_geography/helper/app_helper.dart';
+import 'package:cambodia_geography/helpers/app_helper.dart';
 
 class LinksModel {
   LinksModel({

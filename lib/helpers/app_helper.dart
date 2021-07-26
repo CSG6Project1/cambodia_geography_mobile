@@ -1,4 +1,5 @@
 import 'package:cambodia_geography/configs/route_config.dart';
+import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppHelper<T> {
@@ -15,5 +16,11 @@ class AppHelper<T> {
 
   static String? queryParameters({required String url, required String param}) {
     return Uri.parse(url).queryParameters[param];
+  }
+
+  static bool isLatLngValdated(LatLng latLng) {
+    bool isLatitude = latLng.latitude.isFinite && latLng.latitude.abs() <= 90;
+    bool isLongtitude = latLng.longitude.isFinite && latLng.latitude.abs() <= 180;
+    return isLatitude && isLongtitude;
   }
 }
