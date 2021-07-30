@@ -23,6 +23,9 @@ class CgNetworkImageLoader extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
+      errorWidget: (context, url, error) {
+        return Image.asset('assets/images/helper_image/placeholder.png');
+      },
     );
   }
 }
