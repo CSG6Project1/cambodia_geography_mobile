@@ -6,6 +6,7 @@ import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/places/local_widgets/place_card.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -24,18 +25,35 @@ class PlacesScreen extends StatefulWidget {
 class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderStateMixin, CgThemeMixin {
   late TabController controller;
   late PlacesApi placesApi;
-  Future<PlaceListModel>? placeList;
+  String? provinceCode;
+  PlaceListModel? placeList;
 
   @override
   void initState() {
     placesApi = PlacesApi();
-    super.initState();
     controller = TabController(length: 2, vsync: this);
-    if (widget.province.code != null) placeList = load(widget.province.code!);
+    provinceCode = widget.province.code;
+    super.initState();
+    if (provinceCode != null) load();
   }
 
-  Future<PlaceListModel> load(String code) async {
-    return await placesApi.fetchAll(queryParameters: {'province_code': code});
+  Future<void> load({bool loadMore = false}) async {
+    if (loadMore && !(this.placeList?.hasLoadMore() == true)) return;
+
+    final result = await placesApi.fetchAll(queryParameters: {
+      'province_code': provinceCode,
+      'page': placeList?.links?.getPageNumber().next.toString(),
+    });
+
+    if (placesApi.success() && result != null) {
+      setState(() {
+        if (placeList != null) {
+          placeList?.add(result);
+        } else {
+          placeList = result;
+        }
+      });
+    }
   }
 
   @override
@@ -58,27 +76,27 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
     );
   }
 
-  FutureBuilder<PlaceListModel> buildBody() {
-    return FutureBuilder<PlaceListModel>(
-      future: placeList,
-      builder: (context, snapshot) {
-        List<PlaceModel>? places = snapshot.data?.items;
-        if (places == null) return buildLoadingShimmer();
-        if (places.length == 0)
-          return Center(
-            child: Text('No Data'),
-          );
-        return ListView(
-          padding: const EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
-          children: List.generate(
-            places.length,
-            (index) {
-              PlaceModel place = places[index];
-              return PlaceCard(place: place);
-            },
-          ),
-        );
-      },
+  Widget buildBody() {
+    List<PlaceModel>? places = placeList?.items;
+    if (places == null) return buildLoadingShimmer();
+    return CgLoadMoreList(
+      onEndScroll: () => load(loadMore: true),
+      child: ListView.builder(
+        itemCount: places.length + 1,
+        itemBuilder: (context, index) {
+          if (places.length == index) {
+            return Visibility(
+              visible: placeList?.hasLoadMore() == true,
+              child: Container(
+                alignment: Alignment.center,
+                padding: ConfigConstant.layoutPadding,
+                child: const CircularProgressIndicator(),
+              ),
+            );
+          }
+          return PlaceCard(place: places[index]);
+        },
+      ),
     );
   }
 
