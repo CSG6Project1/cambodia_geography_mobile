@@ -68,7 +68,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
         children: [
           const SizedBox(height: ConfigConstant.margin2),
           buildSectionWrapper(
-            title: "អំពីរទីតាំង",
+            title: "អំពីទីតាំង",
             children: [
               buildPlaceTypeDropDownField(),
               buildProvinceDropDownField(),
