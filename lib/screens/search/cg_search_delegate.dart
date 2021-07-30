@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cambodia_geography/configs/route_config.dart';
+import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:flutter/material.dart';
 
 class CgSearchDelegate extends SearchDelegate<String> {
@@ -69,7 +70,10 @@ class CgSearchDelegate extends SearchDelegate<String> {
       IconButton(
         icon: Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
         onPressed: () {
-          Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER);
+          Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER).then((value) {
+            if(value is PlaceModel)
+            print(value.toJson());
+          });
         },
       ),
     ];
@@ -124,7 +128,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
       child: ListView.builder(
         itemCount: suggestionList.length,
         itemBuilder: (context, index) => ListTile(
-          leading: const Icon(Icons.history),
+          leading: const Icon(Icons.search),
           title: Text(suggestionList[index]),
           trailing: const Icon(Icons.keyboard_arrow_right),
           onTap: () {
