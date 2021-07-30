@@ -1,4 +1,5 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
+import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/helpers/number_helper.dart';
@@ -171,7 +172,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
       child: Row(
         children: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, RouteConfig.COMMENT, arguments: place),
             icon: Icon(
               Icons.mode_comment,
               color: colorScheme.primary,

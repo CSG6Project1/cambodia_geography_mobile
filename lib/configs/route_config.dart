@@ -7,6 +7,7 @@ import 'package:cambodia_geography/screens/admin/body_editor_screen.dart';
 import 'package:cambodia_geography/screens/admin/edit_place_screen.dart';
 import 'package:cambodia_geography/screens/auth/login_screen.dart';
 import 'package:cambodia_geography/screens/auth/signup_screen.dart';
+import 'package:cambodia_geography/screens/comment/comment_screen.dart';
 import 'package:cambodia_geography/screens/district/district_screen.dart';
 import 'package:cambodia_geography/screens/home/home_screen.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
@@ -55,6 +56,7 @@ class RouteConfig {
   static const String BOOKMARK = '/user/bookmark';
   static const String USER = '/user';
   static const String MAP = '/map';
+  static const String COMMENT = '/comment';
   static const String NOTFOUND = '/404';
 
   Route<dynamic> generate() {
@@ -168,6 +170,16 @@ class RouteConfig {
           if (arguments is MapScreenSetting) return MapScreen(settings: arguments);
           return NotFoundScreen();
         },
+      ),
+      COMMENT: CgRouteSetting(
+        isRoot: false,
+        title: "COMMENT",
+        route: (context) {
+          Object? arguments = settings?.arguments;
+          if (arguments is PlaceModel) return CommentScreen(place: arguments);
+          return NotFoundScreen();
+        },
+        fullscreenDialog: true,
       ),
       NOTFOUND: CgRouteSetting(
         isRoot: false,

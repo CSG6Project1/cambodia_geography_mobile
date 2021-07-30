@@ -1,3 +1,4 @@
+import 'package:cambodia_geography/app_builder.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/configs/theme_config.dart';
 import 'package:cambodia_geography/exports/exports.dart';
@@ -70,12 +71,7 @@ class _AppState extends State<App> {
       navigatorObservers: [HeroController()],
       onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
       locale: locale,
-      builder: (context, child) {
-        return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: child ?? const SizedBox(),
-        );
-      },
+      builder: (context, child) => AppBuilder(child: child),
     );
   }
 }
