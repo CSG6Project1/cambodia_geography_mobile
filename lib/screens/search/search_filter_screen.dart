@@ -46,11 +46,10 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
           CgButton(
             onPressed: () {
               Navigator.of(context).pop(PlaceModel(
-                provinceCode: _provinceCode,
-                districtCode: _districtCode,
-                communeCode: _communeCode,
-                villageCode: _villageCode)
-              );
+                  provinceCode: _provinceCode,
+                  districtCode: _districtCode,
+                  communeCode: _communeCode,
+                  villageCode: _villageCode));
             },
             labelText: "កំណត់",
             backgroundColor: colorScheme.surface,
@@ -150,7 +149,7 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
               labelText: "ភូមិ",
               fillColor: colorScheme.background,
               key: Key(villages.join()),
-              items: ["ទទេ", ...communes],
+              items: ["ទទេ", ...villages],
               onChanged: (value) {
                 if (value == "ទទេ") {
                   _villageCode = null;
@@ -159,7 +158,6 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
                 setState(() {
                   var selectedVillage = geo.tbVillages.where((e) => e.khmer == value).toList();
                   _villageCode = selectedVillage.first.code;
-                  print(_villageCode);
                 });
               },
             ),
