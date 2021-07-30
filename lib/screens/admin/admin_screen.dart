@@ -1,5 +1,6 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
+import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,15 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.of(context).pushNamed(RouteConfig.EDIT_PLACE);
+          Navigator.of(context).pushNamed(RouteConfig.EDIT_PLACE).then((value) {
+            if (value is PlaceModel) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Success created place: ${value.khmer ?? value.english}"),
+                ),
+              );
+            }
+          });
         },
       ),
       appBar: buildAppbar(),

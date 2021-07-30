@@ -58,46 +58,66 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: colorScheme.background,
-      floatingActionButton: buildSaveButton(),
-      appBar: MorphingAppBar(
-        title: CgAppBarTitle(title: widget.place == null ? "បន្ថែម" : "ផ្លាស់ប្តូ"),
-      ),
-      body: ListView(
-        children: [
-          const SizedBox(height: ConfigConstant.margin2),
-          buildSectionWrapper(
-            title: "អំពីទីតាំង",
-            children: [
-              buildPlaceTypeDropDownField(),
-              buildProvinceDropDownField(),
-              if (districts.isNotEmpty) buildDistrictDropDownField(),
-              if (communes.isNotEmpty) buildCommunesDropDownField(),
-              if (villages.isNotEmpty) buildVillageDropDownField(),
-              buildKhmerField(),
-              buildEnglishField(),
-              buildBodyButton(),
-            ],
-          ),
-          const SizedBox(height: ConfigConstant.margin2),
-          buildSectionWrapper(
-            title: "ផែនទី",
-            children: [
-              buildMapButton(),
-            ],
-          ),
-          const SizedBox(height: ConfigConstant.margin2),
-          buildSectionWrapper(
-            padding: EdgeInsets.zero,
-            title: "រូបភាព",
-            children: [
-              buildImagePickerField(),
-            ],
-          ),
-          const SizedBox(height: ConfigConstant.margin2),
-          if (widget.onDeletePlace != null) buildDeleteButton(),
-        ],
+    return WillPopScope(
+      onWillPop: () async {
+        if (place.body?.isNotEmpty == true || place.khmer?.isNotEmpty == true || place.english?.isNotEmpty == true) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Are you sure to exit?"),
+              action: SnackBarAction(
+                label: "Exit",
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          );
+        } else {
+          Navigator.of(context).pop();
+        }
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: colorScheme.background,
+        floatingActionButton: buildSaveButton(),
+        appBar: MorphingAppBar(
+          title: CgAppBarTitle(title: widget.place == null ? "បន្ថែម" : "ផ្លាស់ប្តូ"),
+        ),
+        body: ListView(
+          children: [
+            const SizedBox(height: ConfigConstant.margin2),
+            buildSectionWrapper(
+              title: "អំពីរទីតាំង",
+              children: [
+                buildPlaceTypeDropDownField(),
+                buildProvinceDropDownField(),
+                if (districts.isNotEmpty) buildDistrictDropDownField(),
+                if (communes.isNotEmpty) buildCommunesDropDownField(),
+                if (villages.isNotEmpty) buildVillageDropDownField(),
+                buildKhmerField(),
+                buildEnglishField(),
+                buildBodyButton(),
+              ],
+            ),
+            const SizedBox(height: ConfigConstant.margin2),
+            buildSectionWrapper(
+              title: "ផែនទី",
+              children: [
+                buildMapButton(),
+              ],
+            ),
+            const SizedBox(height: ConfigConstant.margin2),
+            buildSectionWrapper(
+              padding: EdgeInsets.zero,
+              title: "រូបភាព",
+              children: [
+                buildImagePickerField(),
+              ],
+            ),
+            const SizedBox(height: ConfigConstant.margin2),
+            if (widget.onDeletePlace != null) buildDeleteButton(),
+          ],
+        ),
       ),
     );
   }
@@ -381,10 +401,15 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
         final api = CrudPlacesApi();
         await api.createAPlace(images: images, place: place);
 
-        // TODO: handle on error
-        // setState(() {
-        //   error = api.response?.body.toString() ?? "";
-        // });
+        if (api.success()) {
+          Navigator.of(context).pop(place);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(api.message() ?? "Please try again!"),
+            ),
+          );
+        }
       },
     );
   }
