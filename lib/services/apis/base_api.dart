@@ -6,6 +6,7 @@ import 'package:cambodia_geography/models/apis/meta_model.dart';
 import 'package:cambodia_geography/models/apis/object_name_url_model.dart';
 import 'package:cambodia_geography/services/networks/base_network.dart';
 import 'package:http/http.dart';
+import 'package:http_interceptor/http_interceptor.dart';
 import 'package:path/path.dart';
 import 'package:http_parser/http_parser.dart';
 
@@ -78,7 +79,7 @@ abstract class BaseApi<T> {
       Uri postUri = Uri.parse(this.objectNameUrlModel.createUrl());
       _multipartRequest = MultipartRequest(method, postUri);
       _multipartRequest = await multipartRequest(request: _multipartRequest!);
-      _multipartRequest?.fields.addAll(fields);
+      _multipartRequest?.fields.addAll(fields..removeWhere((key, value) => value.isEmpty));
 
       files.forEach((file) async {
         MultipartFile multipart = await MultipartFile.fromPath(
@@ -94,10 +95,20 @@ abstract class BaseApi<T> {
       String? respStr = await streamedResponse?.stream.bytesToString();
 
       if (respStr != null && streamedResponse?.statusCode != null) {
-        this.response = Response(
-          respStr,
-          streamedResponse!.statusCode,
-        );
+        this.response = Response(respStr, streamedResponse!.statusCode);
+
+        // while retry interceptor is not work yet for send, we made this for tmr use.
+        ResponseData responseData = ResponseData.fromHttpResponse(this.response!);
+        bool? shouldRetry = await this.network?.retryPolicy?.shouldAttemptRetryOnResponse(responseData);
+        if (1 >= this.network!.retryCount && shouldRetry == true) {
+          return await send(
+            method: method,
+            fields: fields,
+            files: files,
+            fileField: fileField,
+            fileContentType: fileContentType,
+          );
+        }
       }
     });
   }

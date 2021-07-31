@@ -9,5 +9,5 @@ class UserTokenNetwork extends BaseNetwork {
   }
 
   @override
-  RetryPolicy? get retryPolicy => RefreshTokenPolicy();
+  RetryPolicy? get retryPolicy => RefreshTokenPolicy(this);
 }
