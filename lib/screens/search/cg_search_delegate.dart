@@ -1,13 +1,17 @@
 import 'dart:io';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
+import 'package:cambodia_geography/screens/search/search_history_storage.dart';
 import 'package:flutter/material.dart';
 
 class CgSearchDelegate extends SearchDelegate<String> {
   final AnimationController animationController;
   final BuildContext context;
+  final Future<List<dynamic>?> Function(String) onQueryChanged;
+  final SearchHistoryStorage searchHistoryStorage = SearchHistoryStorage();
 
   CgSearchDelegate({
+    required this.onQueryChanged,
     required this.animationController,
     required this.context,
   });
@@ -40,13 +44,20 @@ class CgSearchDelegate extends SearchDelegate<String> {
     "ត្បូងឃ្មុំ",
   ];
 
-  final searchHistory = [
-    "កណ្ដាល",
-    "កំពង់ចាម",
-    "កំពង់ធំ",
-    "ឧត្តរមានជ័យ",
-    "កែប",
-  ];
+  @override
+  void showResults(BuildContext context) {
+    if (query.isEmpty) return;
+    super.showResults(context);
+    searchHistoryStorage.readList().then((value) {
+      if (value == null) {
+        searchHistoryStorage.writeList([query]);
+      } else {
+        if (value.contains(query)) return;
+        value.add(query);
+        searchHistoryStorage.writeList(value);
+      }
+    });
+  }
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -71,8 +82,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
         icon: Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
         onPressed: () {
           Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER).then((value) {
-            if(value is PlaceModel)
-            print(value.toJson());
+            if (value is PlaceModel) print(value.toJson());
           });
         },
       ),
@@ -122,20 +132,61 @@ class CgSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestionList = query.isEmpty ? searchHistory : dataPlaces.where((p) => p.startsWith(query)).toList();
-    return Container(
-      color: Theme.of(context).colorScheme.surface,
-      child: ListView.builder(
-        itemCount: suggestionList.length,
-        itemBuilder: (context, index) => ListTile(
-          leading: const Icon(Icons.search),
-          title: Text(suggestionList[index]),
-          trailing: const Icon(Icons.keyboard_arrow_right),
-          onTap: () {
-            showResults(context);
-          },
-        ),
-      ),
+    return FutureBuilder<List<dynamic>?>(
+      future: onQueryChanged(query),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var suggestionList = snapshot.data ?? [];
+          return Container(
+            color: Theme.of(context).colorScheme.surface,
+            child: ListView.builder(
+              itemCount: suggestionList.length,
+              itemBuilder: (context, index) => GestureDetector(
+                onLongPressStart: (detail) {
+                  var offset = detail.globalPosition;
+                  final screenSize = MediaQuery.of(context).size;
+                  showMenu(
+                    position: RelativeRect.fromLTRB(
+                      screenSize.width,
+                      offset.dy - 24,
+                      0,
+                      screenSize.height - offset.dy,
+                    ),
+                    context: context,
+                    items: <PopupMenuEntry>[
+                      PopupMenuItem(
+                        value: "",
+                        child: ListTile(
+                          leading: Icon(Icons.delete),
+                          title: Text("Delete"),
+                          onTap: () async {
+                            var selectedItem = suggestionList[index];
+                            var list = await searchHistoryStorage.readList();
+                            if (list?.contains(selectedItem) == true) {
+                              list?.removeWhere((e) => e == selectedItem);
+                              await searchHistoryStorage.writeList(list ?? []);
+                              Navigator.pop(context);
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
+                child: ListTile(
+                  leading: const Icon(Icons.history),
+                  title: Text(suggestionList[index]),
+                  trailing: const Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    showResults(context);
+                  },
+                ),
+              ),
+            ),
+          );
+        }
+        return SizedBox();
+      },
     );
   }
 }

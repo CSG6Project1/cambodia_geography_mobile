@@ -7,6 +7,7 @@ import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
 import 'package:cambodia_geography/screens/search/cg_search_delegate.dart';
+import 'package:cambodia_geography/screens/search/search_history_storage.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_menu_leading_button.dart';
 import 'package:rect_getter/rect_getter.dart';
@@ -141,6 +142,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
             await showSearch(
               context: context,
               delegate: CgSearchDelegate(
+                onQueryChanged: (String query) async {
+                  if (query.isEmpty) {
+                    SearchHistoryStorage storage = SearchHistoryStorage();
+                    return storage.readList();
+                  } else {
+                    //TODO: auto-complete-search
+                  }
+                },
                 animationController: animationController,
                 context: context,
               ),
