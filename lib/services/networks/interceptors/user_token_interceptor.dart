@@ -8,8 +8,6 @@ class UserTokenInterceptor implements InterceptorContract {
 
   @override
   Future<RequestData> interceptRequest({required RequestData data}) async {
-    print("WPWWP");
-
     try {
       UserTokenModel? model = await authApi.getCurrentUserToken();
       if (model?.accessToken != null) {

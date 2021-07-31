@@ -4,11 +4,16 @@ import 'package:http/http.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 
 class BaseNetwork {
+  BaseNetwork() {
+    retryCount = 0;
+  }
+
   List<InterceptorContract> _interceptors = [
     DefaultInterceptor(),
   ];
 
   RetryPolicy? get retryPolicy => null;
+  late int retryCount;
 
   Client? get http {
     return InterceptedClient.build(
