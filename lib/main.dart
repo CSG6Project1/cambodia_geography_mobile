@@ -1,5 +1,7 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
+import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/constants/theme_constant.dart';
 import 'package:cambodia_geography/services/authentications/auth_api.dart';
 import 'package:cambodia_geography/services/storages/locale_storage.dart';
@@ -25,23 +27,53 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with AfterLayoutMixin<SplashScreen> {
   @override
-  void initState() {
-    super.initState();
+  void afterFirstLayout(BuildContext context) {
     _initializeApp().then(_goToNextPage);
   }
 
   void _goToNextPage(_IntModel value) {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) => App(
-          initialIsDarkMode: value.isDarkMode == true,
-          initialLocale: value.locale,
-          userToken: value.userToken,
-        ),
+    Navigator.of(context).pushReplacement(CgPageRoute.fadeThrough(
+      (context, animation, secondaryAnimation) => App(
+        initialIsDarkMode: value.isDarkMode == true,
+        initialLocale: value.locale,
+        userToken: value.userToken,
       ),
-    );
+    ));
+  }
+
+  Future<_IntModel> _initializeApp() async {
+    await Firebase.initializeApp();
+    await CambodiaGeography.instance.initilize();
+
+    bool isDarkMode = await _getInitialDarkMode();
+    Locale? locale = await _getInitialLocale();
+    UserTokenModel? userToken = await _getInitalUserToken();
+
+    return _IntModel(isDarkMode, locale, userToken);
+  }
+
+  Future<UserTokenModel?> _getInitalUserToken() async {
+    AuthApi authApi = AuthApi();
+    UserTokenModel? userToken = await authApi.getCurrentUserToken();
+    return userToken;
+  }
+
+  Future<Locale?> _getInitialLocale() async {
+    LocaleStorage storage = LocaleStorage();
+    Locale? locale = await storage.readLocale();
+    return locale;
+  }
+
+  Future<bool> _getInitialDarkMode() async {
+    ThemeModeStorage storage = ThemeModeStorage();
+    bool? isDarkMode = await storage.readBool();
+    if (isDarkMode == null) {
+      Brightness? platformBrightness = SchedulerBinding.instance?.window.platformBrightness;
+      isDarkMode = platformBrightness == Brightness.dark;
+    }
+    return isDarkMode;
   }
 
   @override
@@ -54,39 +86,6 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-}
-
-Future<_IntModel> _initializeApp() async {
-  await Firebase.initializeApp();
-  await CambodiaGeography.instance.initilize();
-
-  bool isDarkMode = await _getInitialDarkMode();
-  Locale? locale = await _getInitialLocale();
-  UserTokenModel? userToken = await _getInitalUserToken();
-
-  return _IntModel(isDarkMode, locale, userToken);
-}
-
-Future<UserTokenModel?> _getInitalUserToken() async {
-  AuthApi authApi = AuthApi();
-  UserTokenModel? userToken = await authApi.getCurrentUserToken();
-  return userToken;
-}
-
-Future<Locale?> _getInitialLocale() async {
-  LocaleStorage storage = LocaleStorage();
-  Locale? locale = await storage.readLocale();
-  return locale;
-}
-
-Future<bool> _getInitialDarkMode() async {
-  ThemeModeStorage storage = ThemeModeStorage();
-  bool? isDarkMode = await storage.readBool();
-  if (isDarkMode == null) {
-    Brightness? platformBrightness = SchedulerBinding.instance?.window.platformBrightness;
-    isDarkMode = platformBrightness == Brightness.dark;
-  }
-  return isDarkMode;
 }
 
 class _IntModel {
