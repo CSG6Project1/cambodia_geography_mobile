@@ -1,6 +1,6 @@
 # Cambodia Geography
 
-Discover place & Geogo around Cambodia and become an expert in Cambodia geography.
+![Image](https://user-images.githubusercontent.com/29684683/127860708-a0047a41-5add-469c-a6c3-853dbd22e8e8.png)
 
 ## Getting Started
 
@@ -52,4 +52,4 @@ See also the list of [contributors](https://github.com/CSG6Project1/cambodia_geo
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
