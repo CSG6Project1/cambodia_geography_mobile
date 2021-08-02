@@ -20,6 +20,13 @@ fvm flutter run
 ## Data use
 * [Cambodia Geography API](https://github.com/CSG6Project1/cambodia_geography_api) - By our backend team.
 * [https://geo.nestcode.co](https://geo.nestcode.co) - A website that inspired us to do this project.
+
+## Code generation with JSON Serialization
+We uses Json Serializable [ https://flutter.dev/docs/development/data-and-backend/json#code-generation ] package build tool to generate model from Json to Class object. In case you want to add more fields model or even change the model data type, you need to run the command:
+```
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
 ## Authors
 
 **Group 4** - [CADT's students](http://www.cadt.edu.kh/).

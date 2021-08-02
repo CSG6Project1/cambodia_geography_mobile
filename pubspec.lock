@@ -70,14 +70,14 @@ packages:
       name: build_config
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "0.4.7"
   build_daemon:
     dependency: transitive
     description:
       name: build_daemon
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "2.1.10"
   build_resolvers:
     dependency: transitive
     description:
@@ -91,14 +91,14 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.6"
+    version: "1.12.2"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.1"
+    version: "6.1.12"
   built_collection:
     dependency: transitive
     description:
@@ -182,7 +182,7 @@ packages:
       name: code_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.0"
+    version: "3.7.0"
   collection:
     dependency: transitive
     description:
@@ -422,13 +422,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  frontend_server_client:
-    dependency: transitive
-    description:
-      name: frontend_server_client
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.0"
   fuzzy:
     dependency: "direct main"
     description:
@@ -470,7 +463,7 @@ packages:
       name: graphs
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "1.0.0"
   http:
     dependency: "direct main"
     description:
@@ -555,6 +548,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
+  json_serializable:
+    dependency: "direct dev"
+    description:
+      name: json_serializable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.4"
   latinize:
     dependency: transitive
     description:
@@ -868,6 +868,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  source_gen:
+    dependency: transitive
+    description:
+      name: source_gen
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   source_span:
     dependency: transitive
     description:

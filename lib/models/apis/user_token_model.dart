@@ -1,3 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'user_token_model.g.dart';
+
+@JsonSerializable()
 class UserTokenModel {
   UserTokenModel({
     this.accessToken,
@@ -7,29 +11,17 @@ class UserTokenModel {
     this.createdAt,
   });
 
+  @JsonKey(name: 'access_token')
   String? accessToken;
+  @JsonKey(name: 'token_type')
   String? tokenType;
+  @JsonKey(name: 'expires_in')
   int? expiresIn;
+  @JsonKey(name: 'refresh_token')
   String? refreshToken;
+  @JsonKey(name: 'created_at')
   int? createdAt;
 
-  factory UserTokenModel.fromJson(Map<String, dynamic> json) {
-    return UserTokenModel(
-      accessToken: json["access_token"],
-      tokenType: json["token_type"],
-      expiresIn: json["expires_in"],
-      refreshToken: json["refresh_token"],
-      createdAt: json["created_at"],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "access_token": accessToken,
-      "token_type": tokenType,
-      "expires_in": expiresIn,
-      "refresh_token": refreshToken,
-      "created_at": createdAt,
-    };
-  }
+  factory UserTokenModel.fromJson(Map<String, dynamic> json) => _$UserTokenModelFromJson(json);
+  Map<String, dynamic> toJson() => _$UserTokenModelToJson(this);
 }

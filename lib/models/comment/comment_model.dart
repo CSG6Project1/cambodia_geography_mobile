@@ -1,5 +1,8 @@
 import 'package:cambodia_geography/models/user/user_model.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'comment_model.g.dart';
 
+@JsonSerializable()
 class CommentModel {
   CommentModel({
     this.type,
@@ -13,29 +16,12 @@ class CommentModel {
   String? type;
   String? comment;
   UserModel? user;
+  @JsonKey(name: 'created_at')
   DateTime? createdAt;
+  @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
   String? id;
 
-  factory CommentModel.fromJson(Map<String, dynamic> json) {
-    return CommentModel(
-      type: json["type"],
-      comment: json["comment"],
-      user: json["user"] != null ? UserModel.fromJson(json["user"]) : null,
-      createdAt: DateTime.tryParse(json["created_at"]),
-      updatedAt: DateTime.tryParse(json["updated_at"]),
-      id: json["id"],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "type": type,
-      "comment": comment,
-      "user": user?.toJson(),
-      "created_at": createdAt?.toIso8601String(),
-      "updated_at": updatedAt?.toIso8601String(),
-      "id": id,
-    };
-  }
+  factory CommentModel.fromJson(Map<String, dynamic> json) => _$CommentModelFromJson(json);
+  Map<String, dynamic> toJson() => _$CommentModelToJson(this);
 }

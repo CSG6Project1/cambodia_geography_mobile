@@ -1,3 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'tb_province_model.g.dart';
+
+@JsonSerializable()
 class TbProvinceModel {
   TbProvinceModel({
     this.id,
@@ -40,68 +44,23 @@ class TbProvinceModel {
   String? latitude;
   String? longitudes;
   String? abbreviation;
+  @JsonKey(name: 'east_en')
   String? eastEn;
+  @JsonKey(name: 'east_kh')
   String? eastKh;
+  @JsonKey(name: 'west_en')
   String? westEn;
+  @JsonKey(name: 'west_kh')
   String? westKh;
+  @JsonKey(name: 'south_en')
   String? southEn;
+  @JsonKey(name: 'south_kh')
   String? southKh;
+  @JsonKey(name: 'north_en')
   String? northEn;
+  @JsonKey(name: 'north_kh')
   String? northKh;
 
-  factory TbProvinceModel.fromJson(Map<String, dynamic> json) {
-    return TbProvinceModel(
-      id: json["id"],
-      code: json["code"],
-      image: json["image"],
-      khmer: json["khmer"],
-      english: json["english"],
-      krong: json["krong"],
-      srok: json["srok"],
-      khan: json["khan"],
-      commune: json["commune"],
-      sangkat: json["sangkat"],
-      village: json["village"],
-      reference: json["reference"],
-      latitude: json["latitude"],
-      longitudes: json["longitudes"],
-      abbreviation: json["abbreviation"],
-      eastEn: json["east_en"],
-      eastKh: json["east_kh"],
-      westEn: json["west_en"],
-      westKh: json["west_kh"],
-      southEn: json["south_en"],
-      southKh: json["south_kh"],
-      northEn: json["north_en"],
-      northKh: json["north_kh"],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "id": id,
-      "code": code,
-      "image": image,
-      "khmer": khmer,
-      "english": english,
-      "krong": krong,
-      "srok": srok,
-      "khan": khan,
-      "commune": commune,
-      "sangkat": sangkat,
-      "village": village,
-      "reference": reference,
-      "latitude": latitude,
-      "longitudes": longitudes,
-      "abbreviation": abbreviation,
-      "east_en": eastEn,
-      "east_kh": eastKh,
-      "west_en": westEn,
-      "west_kh": westKh,
-      "south_en": southEn,
-      "south_kh": southKh,
-      "north_en": northEn,
-      "north_kh": northKh,
-    };
-  }
+  factory TbProvinceModel.fromJson(Map<String, dynamic> json) => _$TbProvinceModelFromJson(json);
+  Map<String, dynamic> toJson() => _$TbProvinceModelToJson(this);
 }

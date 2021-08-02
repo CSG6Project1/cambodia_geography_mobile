@@ -1,3 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'tb_commune_model.g.dart';
+
+@JsonSerializable()
 class TbCommuneModel {
   TbCommuneModel({
     this.id,
@@ -13,6 +17,7 @@ class TbCommuneModel {
   });
 
   int? id;
+  @JsonKey(name: 'district_code')
   String? districtCode;
   String? code;
   String? type;
@@ -20,36 +25,11 @@ class TbCommuneModel {
   String? english;
   int? village;
   String? reference;
+  @JsonKey(name: 'official_note')
   String? officialNote;
+  @JsonKey(name: 'note_by_checker')
   String? noteByChecker;
 
-  factory TbCommuneModel.fromJson(Map<String, dynamic> json) {
-    return TbCommuneModel(
-      id: json["id"],
-      districtCode: json["district_code"],
-      code: json["code"],
-      type: json["type"],
-      khmer: json["khmer"],
-      english: json["english"],
-      village: json["village"],
-      reference: json["reference"],
-      officialNote: json["official_note"],
-      noteByChecker: json["note_by_checker"],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "id": id,
-      "district_code": districtCode,
-      "code": code,
-      "type": type,
-      "khmer": khmer,
-      "english": english,
-      "village": village,
-      "reference": reference,
-      "official_note": officialNote,
-      "note_by_checker": noteByChecker,
-    };
-  }
+  factory TbCommuneModel.fromJson(Map<String, dynamic> json) => _$TbCommuneModelFromJson(json);
+  Map<String, dynamic> toJson() => _$TbCommuneModelToJson(this);
 }

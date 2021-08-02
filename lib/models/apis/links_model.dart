@@ -1,5 +1,8 @@
 import 'package:cambodia_geography/helpers/app_helper.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'links_model.g.dart';
 
+@JsonSerializable()
 class LinksModel {
   LinksModel({
     this.self,
@@ -25,23 +28,6 @@ class LinksModel {
     );
   }
 
-  factory LinksModel.fromJson(Map<String, dynamic> json) {
-    return LinksModel(
-      self: json["self"],
-      prev: json["prev"],
-      next: json["next"],
-      first: json["first"],
-      last: json["last"],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "self": self,
-      "prev": prev,
-      "next": next,
-      "first": first,
-      "last": last,
-    };
-  }
+  factory LinksModel.fromJson(Map<String, dynamic> json) => _$LinksModelFromJson(json);
+  Map<String, dynamic> toJson() => _$LinksModelToJson(this);
 }
