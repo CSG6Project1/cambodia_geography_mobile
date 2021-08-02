@@ -7,6 +7,7 @@ import 'package:cambodia_geography/models/apis/object_name_url_model.dart';
 import 'package:cambodia_geography/services/networks/base_network.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http_interceptor.dart';
+import 'package:japx/japx.dart';
 import 'package:path/path.dart';
 import 'package:http_parser/http_parser.dart';
 
@@ -125,6 +126,7 @@ abstract class BaseApi<T> {
       String endpoint = objectNameUrlModel.fetchAllUrl(queryParameters: queryParameters);
       response = await network?.http?.get(Uri.parse(endpoint));
       dynamic json = jsonDecode(response?.body.toString() ?? "");
+      json = Japx.decode(json);
       return itemsTransformer(json);
     });
   }
@@ -149,11 +151,9 @@ abstract class BaseApi<T> {
       List data = json['data'];
       List<T> items = [];
       data.forEach((item) {
-        try {
-          Map<String, dynamic>? attrs = item;
-          T record = objectTransformer(attrs ?? {});
-          items.add(record);
-        } catch (e) {}
+        Map<String, dynamic>? attrs = item;
+        T record = objectTransformer(attrs ?? {});
+        items.add(record);
       });
       return items;
     }
@@ -161,17 +161,13 @@ abstract class BaseApi<T> {
 
   MetaModel? buildMeta(Map<String, dynamic> json) {
     if (json.containsKey('meta') && json['meta'] != null) {
-      try {
-        return MetaModel.fromJson(json['meta']);
-      } catch (e) {}
+      return MetaModel.fromJson(json['meta']);
     }
   }
 
   LinksModel? buildLinks(Map<String, dynamic> json) {
     if (json.containsKey('links') && json['links'] != null) {
-      try {
-        return LinksModel.fromJson(json['links']);
-      } catch (e) {}
+      return LinksModel.fromJson(json['links']);
     }
   }
 

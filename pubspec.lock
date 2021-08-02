@@ -534,6 +534,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  japx:
+    dependency: "direct main"
+    description:
+      name: japx
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3"
   js:
     dependency: transitive
     description:
