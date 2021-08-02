@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:cambodia_geography/gen/assets.gen.dart';
+
 import './models/tb_commune_model.dart';
 import './models/tb_district_model.dart';
 import './models/tb_province_model.dart';
@@ -32,7 +34,7 @@ class CambodiaGeography {
   }
 
   Future<void> initilize() async {
-    _tbCommunes = await rootBundle.loadString('assets/tb_commune.json').then((value) {
+    _tbCommunes = await rootBundle.loadString(Assets.tbCommune).then((value) {
       List<dynamic> json = jsonDecode(value);
       return json.map((e) {
         final data = TbCommuneModel.fromJson(e);
@@ -40,7 +42,7 @@ class CambodiaGeography {
       }).toList();
     });
 
-    _tbDistricts = await rootBundle.loadString('assets/tb_district.json').then((value) {
+    _tbDistricts = await rootBundle.loadString(Assets.tbDistrict).then((value) {
       List<dynamic> json = jsonDecode(value);
       return json.map((e) {
         final data = TbDistrictModel.fromJson(e);
@@ -48,7 +50,7 @@ class CambodiaGeography {
       }).toList();
     });
 
-    _tbProvinces = await rootBundle.loadString('assets/tb_province.json').then((value) {
+    _tbProvinces = await rootBundle.loadString(Assets.tbProvince).then((value) {
       List<dynamic> json = jsonDecode(value);
       return json.map((e) {
         final data = TbProvinceModel.fromJson(e);
@@ -56,7 +58,7 @@ class CambodiaGeography {
       }).toList();
     });
 
-    _tbVillages = await rootBundle.loadString('assets/tb_village.json').then((value) {
+    _tbVillages = await rootBundle.loadString(Assets.tbVillage).then((value) {
       List<dynamic> json = jsonDecode(value);
       return json.map((e) {
         final data = TbVillageModel.fromJson(e);

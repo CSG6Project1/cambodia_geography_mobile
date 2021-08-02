@@ -1,7 +1,11 @@
+import 'package:cambodia_geography/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 
 class ThemeConstant {
-  static const List<String> fontFamilyFallback = ["Battambang", "Lora"];
+  static const List<String> fontFamilyFallback = [
+    FontFamily.battambang,
+    FontFamily.lora,
+  ];
 
   static const ColorScheme lightScheme = ColorScheme(
     surface: Color(0xFFFFFFFF),

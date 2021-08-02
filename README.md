@@ -21,11 +21,29 @@ fvm flutter run
 * [Cambodia Geography API](https://github.com/CSG6Project1/cambodia_geography_api) - By our backend team.
 * [https://geo.nestcode.co](https://geo.nestcode.co) - A website that inspired us to do this project.
 
-## Code generation with JSON Serialization
+## Code generation 
+### Model generations with JSON Serialization
 We uses Json Serializable [ https://flutter.dev/docs/development/data-and-backend/json#code-generation ] package build tool to generate model from Json to Class object. In case you want to add more fields model or even change the model data type, you need to run the command:
 ```
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
+
+### Assets generations with flutter_gen
+We also use [flutter_gen](https://pub.dev/packages/flutter_gen) which is the Flutter code generator for your assets, fonts, colors, … — to Get rid of all String-based APIs.
+
+Installation: [https://pub.dev/packages/flutter_gen/install]
+
+Generate new assets:
+```
+fluttergen
+```
+
+```dart
+Widget build(BuildContext context) {
+  return Assets.images.profile.image();
+}
+```
+
 
 ## Authors
 

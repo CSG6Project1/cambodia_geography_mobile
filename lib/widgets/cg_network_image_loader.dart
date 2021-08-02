@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cambodia_geography/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 
 class CgNetworkImageLoader extends StatelessWidget {
@@ -17,14 +18,14 @@ class CgNetworkImageLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl == null) return Image.asset('assets/images/helper_image/placeholder.png');
+    if (imageUrl == null) return Image.asset(Assets.images.helperImage.placeholder.path);
     return CachedNetworkImage(
       imageUrl: imageUrl!,
       width: width,
       height: height,
       fit: fit,
       errorWidget: (context, url, error) {
-        return Image.asset('assets/images/helper_image/placeholder.png');
+        return Image.asset(Assets.images.helperImage.placeholder.path);
       },
     );
   }
