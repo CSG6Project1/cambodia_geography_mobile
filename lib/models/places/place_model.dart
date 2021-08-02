@@ -89,8 +89,8 @@ class PlaceModel {
 
   factory PlaceModel.fromJson(Map<String, dynamic> json) {
     return PlaceModel(
-      createdAt: DateTime.parse(json["created_at"]),
-      updatedAt: DateTime.parse(json["updated_at"]),
+      createdAt: DateTime.tryParse(json["created_at"]),
+      updatedAt: DateTime.tryParse(json["updated_at"]),
       images: List<ImageModel>.from(json["images"].map((x) => ImageModel.fromJson(x))),
       comments: List<String>.from(json["comments"].map((x) => x)),
       type: json["type"],
