@@ -64,20 +64,21 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
+    List<PlaceModel>? places = placeList?.items?.where((place) => place.type == 'place').toList();
+    List<PlaceModel>? restaurant = placeList?.items?.where((place) => place.type == 'restaurant').toList();
     return Scaffold(
       appBar: buildAppbar(),
       body: TabBarView(
         controller: controller,
         children: [
-          buildBody(),
-          Text("Tab 2"),
+          buildBody(places: places),
+          buildBody(places: restaurant),
         ],
       ),
     );
   }
 
-  Widget buildBody() {
-    List<PlaceModel>? places = placeList?.items;
+  Widget buildBody({required List<PlaceModel>? places}) {
     if (places == null) return buildLoadingShimmer();
     return CgLoadMoreList(
       onEndScroll: () => load(loadMore: true),

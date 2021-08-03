@@ -6,8 +6,10 @@ import 'package:cambodia_geography/models/comment/comment_list_model.dart';
 import 'package:cambodia_geography/models/comment/comment_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/services/apis/comment/comment_api.dart';
+import 'package:cambodia_geography/services/apis/comment/create_commen_api.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
+import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -23,36 +25,72 @@ class CommentScreen extends StatefulWidget {
 
 class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   late CommentApi commentApi;
-  late Future<CommentListModel>? commentListModel;
+  late CreateCommentApi createCommentApi;
+  late TextEditingController textController;
+  CommentListModel? commentListModel;
 
   @override
   void initState() {
+    textController = TextEditingController();
     commentApi = CommentApi(id: widget.place.id ?? '');
-    commentListModel = load();
+    createCommentApi = CreateCommentApi();
+    load();
     super.initState();
   }
 
-  Future<CommentListModel> load() async {
-    return await commentApi.fetchAll();
+  Future<void> load({bool loadMore = false}) async {
+    if (loadMore && !(commentListModel?.hasLoadMore() == true)) return;
+    String? page = commentListModel?.links?.getPageNumber().next.toString();
+    final result = await commentApi.fetchAll(queryParameters: {'page': page});
+    if (commentApi.success() && result != null) {
+      setState(() {
+        if (commentListModel != null)
+          commentListModel?.add(result);
+        else
+          commentListModel = result;
+      });
+    }
+  }
+
+  Future<void> createComment(String comment) async {
+    if (widget.place.id == null) return;
+    if (comment.length == 0) return;
+    await createCommentApi.createComment(
+      placeId: widget.place.id!,
+      comment: comment,
+    );
+    if (createCommentApi.success()) {
+      load(loadMore: true);
+    }
+    textController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
+    List<CommentModel>? comments = commentListModel?.items;
     return Scaffold(
       appBar: buildAppBar(context),
-      body: FutureBuilder<CommentListModel>(
-        future: commentListModel,
-        builder: (context, snapshot) {
-          List<CommentModel>? comments = snapshot.data?.items;
-          if (comments == null) return buildLoadingShimmer();
-          return ListView.builder(
-            itemCount: comments.length,
-            itemBuilder: (context, index) {
-              return buildComment(comment: comments[index]);
-            },
-          );
-        },
-      ),
+      body: comments == null
+          ? buildLoadingShimmer()
+          : CgLoadMoreList(
+              onEndScroll: () => load(loadMore: true),
+              child: ListView.builder(
+                itemCount: comments.length,
+                itemBuilder: (context, index) {
+                  if (comments.length == index) {
+                    return Visibility(
+                      visible: commentListModel?.hasLoadMore() == true,
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: ConfigConstant.layoutPadding,
+                        child: const CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  return buildComment(comment: comments[index]);
+                },
+              ),
+            ),
       bottomNavigationBar: CgBottomNavWrapper(
         child: ListTile(
           contentPadding: EdgeInsets.zero,
@@ -64,14 +102,23 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
             ),
           ),
           title: TextField(
+            controller: textController,
             decoration: InputDecoration(
               hintText: 'មតិយោបល់របស់អ្នក...',
               border: InputBorder.none,
             ),
+            onSubmitted: (comment) {
+              createComment(comment);
+            },
           ),
-          trailing: Icon(
-            Icons.send,
-            color: colorScheme.primary,
+          trailing: IconButton(
+            onPressed: () {
+              createComment(textController.text);
+            },
+            icon: Icon(
+              Icons.send,
+              color: colorScheme.primary,
+            ),
           ),
         ),
       ),
@@ -86,7 +133,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
       children: [
         ListTile(
           tileColor: colorScheme.surface,
-          dense: false,
+          dense: true,
           contentPadding: EdgeInsets.symmetric(
             vertical: ConfigConstant.margin1,
             horizontal: ConfigConstant.margin1,

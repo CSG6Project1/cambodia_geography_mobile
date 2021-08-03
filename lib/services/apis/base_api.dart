@@ -4,6 +4,8 @@ import 'package:cambodia_geography/constants/api_constant.dart';
 import 'package:cambodia_geography/models/apis/links_model.dart';
 import 'package:cambodia_geography/models/apis/meta_model.dart';
 import 'package:cambodia_geography/models/apis/object_name_url_model.dart';
+import 'package:cambodia_geography/models/apis/user_token_model.dart';
+import 'package:cambodia_geography/services/authentications/auth_api.dart';
 import 'package:cambodia_geography/services/networks/base_network.dart';
 import 'package:http/http.dart';
 import 'package:path/path.dart';
@@ -122,8 +124,23 @@ abstract class BaseApi<T> {
     return _beforeExec(() async {});
   }
 
-  Future<dynamic> create() {
-    return _beforeExec(() async {});
+  Future<dynamic> create({Map<String, dynamic>? body}) {
+    return _beforeExec(() async {
+      Uri endPoint = Uri.parse(this.objectNameUrlModel.createUrl());
+      UserTokenModel? model = await AuthApi().getCurrentUserToken();
+      response = await network?.http?.post(
+        endPoint,
+        body: jsonEncode(body),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          "Authorization": "${model?.accessToken}",
+        },
+      );
+      dynamic json = jsonDecode(response?.body.toString() ?? '');
+      print('json decode: $json');
+      return itemsTransformer(json);
+    });
   }
 
   Future<dynamic> delete() {
