@@ -135,8 +135,14 @@ abstract class BaseApi<T> {
     return _beforeExec(() async {});
   }
 
-  Future<dynamic> create() {
-    return _beforeExec(() async {});
+  Future<dynamic> create({required Map<String, String> body}) {
+    return _beforeExec(() async {
+      String endpoint = objectNameUrlModel.createUrl();
+      response = await network?.http?.post(Uri.parse(endpoint), body: jsonEncode(body));
+      dynamic json = jsonDecode(response?.body.toString() ?? "");
+      json = Japx.decode(json);
+      return itemsTransformer(json);
+    });
   }
 
   Future<dynamic> delete() {
