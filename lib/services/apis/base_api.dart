@@ -12,8 +12,8 @@ import 'package:path/path.dart';
 import 'package:http_parser/http_parser.dart';
 
 class CgContentType {
-  String type;
-  CgContentType(this.type);
+  final String type;
+  const CgContentType(this.type);
 
   static const String png = 'image/png';
   static const String jpg = 'image/jpg';
@@ -71,13 +71,14 @@ abstract class BaseApi<T> {
 
   Future<dynamic> send({
     required String method,
-    required Map<String, String> fields,
-    required List<File> files,
-    required String fileField,
-    required CgContentType fileContentType,
+    Map<String, String> fields = const {},
+    List<File> files = const [],
+    String fileField = "",
+    CgContentType fileContentType = const CgContentType(CgContentType.jpg),
+    Map<String, dynamic>? queryParameters,
   }) async {
     return _beforeExec(() async {
-      Uri postUri = Uri.parse(this.objectNameUrlModel.createUrl());
+      Uri postUri = Uri.parse(this.objectNameUrlModel.createUrl(queryParameters: queryParameters));
       _multipartRequest = MultipartRequest(method, postUri);
       _multipartRequest = await multipartRequest(request: _multipartRequest!);
       _multipartRequest?.fields.addAll(fields..removeWhere((key, value) => value.isEmpty));
@@ -114,14 +115,24 @@ abstract class BaseApi<T> {
     });
   }
 
-  Future<dynamic> fetchOne({required String id}) async {
+  Future<dynamic> fetchOne({
+    required String id,
+    Map<String, dynamic>? queryParameters,
+  }) async {
     return _beforeExec(() async {
-      String endpoint = objectNameUrlModel.fetchOneUrl(id: id);
+      String endpoint = objectNameUrlModel.fetchOneUrl(id: id, queryParameters: queryParameters);
       response = await network?.http?.get(Uri.parse(endpoint));
+      dynamic json = jsonDecode(response?.body.toString() ?? "");
+      if (json is Map<String, dynamic>) {
+        if (json.containsKey('data')) json = Japx.decode(json);
+        return itemsTransformer(json);
+      }
     });
   }
 
-  Future<dynamic> fetchAll({Map<String, dynamic>? queryParameters}) async {
+  Future<dynamic> fetchAll({
+    Map<String, dynamic>? queryParameters,
+  }) async {
     return _beforeExec(() async {
       String endpoint = objectNameUrlModel.fetchAllUrl(queryParameters: queryParameters);
       response = await network?.http?.get(Uri.parse(endpoint));
@@ -131,22 +142,50 @@ abstract class BaseApi<T> {
     });
   }
 
-  Future<dynamic> update() {
-    return _beforeExec(() async {});
-  }
-
-  Future<dynamic> create({required Map<String, String> body}) {
+  Future<dynamic> update({
+    required String id,
+    required Map<String, dynamic> body,
+    Map<String, dynamic>? queryParameters,
+  }) {
     return _beforeExec(() async {
-      String endpoint = objectNameUrlModel.createUrl();
-      response = await network?.http?.post(Uri.parse(endpoint), body: jsonEncode(body));
+      String endpoint = objectNameUrlModel.updatelUrl(queryParameters: queryParameters);
+      response = await network?.http?.put(Uri.parse(endpoint), body: jsonEncode(body));
       dynamic json = jsonDecode(response?.body.toString() ?? "");
-      json = Japx.decode(json);
-      return itemsTransformer(json);
+      if (json is Map<String, dynamic>) {
+        if (json.containsKey('data')) json = Japx.decode(json);
+        return itemsTransformer(json);
+      }
     });
   }
 
-  Future<dynamic> delete() {
-    return _beforeExec(() async {});
+  Future<dynamic> create({
+    required Map<String, dynamic> body,
+    Map<String, dynamic>? queryParameters,
+  }) {
+    return _beforeExec(() async {
+      String endpoint = objectNameUrlModel.createUrl(queryParameters: queryParameters);
+      response = await network?.http?.post(Uri.parse(endpoint), body: jsonEncode(body));
+      dynamic json = jsonDecode(response?.body.toString() ?? "");
+      if (json is Map<String, dynamic>) {
+        if (json.containsKey('data')) json = Japx.decode(json);
+        return itemsTransformer(json);
+      }
+    });
+  }
+
+  Future<dynamic> delete({
+    String? id,
+    Map<String, dynamic>? queryParameters,
+  }) {
+    return _beforeExec(() async {
+      String endpoint = objectNameUrlModel.deletelUrl(id: id, queryParameters: queryParameters);
+      response = await network?.http?.delete(Uri.parse(endpoint));
+      dynamic json = jsonDecode(response?.body.toString() ?? "");
+      if (json is Map<String, dynamic>) {
+        if (json.containsKey('data')) json = Japx.decode(json);
+        return itemsTransformer(json);
+      }
+    });
   }
 
   T objectTransformer(Map<String, dynamic> json);
