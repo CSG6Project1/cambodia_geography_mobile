@@ -1,7 +1,7 @@
 import 'package:cambodia_geography/services/apis/base_resource_owner_api.dart';
 
-class CreateCommentApi extends BaseResourceOwnerApi {
-  createComment({
+class CrudCommentApi extends BaseResourceOwnerApi {
+  Future<dynamic> createComment({
     required String placeId,
     required String comment,
   }) async {

@@ -6,7 +6,7 @@ import 'package:cambodia_geography/models/comment/comment_list_model.dart';
 import 'package:cambodia_geography/models/comment/comment_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/services/apis/comment/comment_api.dart';
-import 'package:cambodia_geography/services/apis/comment/create_commen_api.dart';
+import 'package:cambodia_geography/services/apis/comment/crud_comment_api.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
@@ -25,7 +25,7 @@ class CommentScreen extends StatefulWidget {
 
 class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   late CommentApi commentApi;
-  late CreateCommentApi createCommentApi;
+  late CrudCommentApi crudCommentApi;
   late TextEditingController textController;
   CommentListModel? commentListModel;
 
@@ -33,9 +33,10 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   void initState() {
     textController = TextEditingController();
     commentApi = CommentApi(id: widget.place.id ?? '');
-    createCommentApi = CreateCommentApi();
-    load();
+    crudCommentApi = CrudCommentApi();
     super.initState();
+
+    load();
   }
 
   Future<void> load({bool loadMore = false}) async {
@@ -55,11 +56,11 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   Future<void> createComment(String comment) async {
     if (widget.place.id == null) return;
     if (comment.length == 0) return;
-    await createCommentApi.createComment(
+    await crudCommentApi.createComment(
       placeId: widget.place.id!,
       comment: comment,
     );
-    if (createCommentApi.success()) {
+    if (crudCommentApi.success()) {
       load(loadMore: true);
     }
     textController.clear();
