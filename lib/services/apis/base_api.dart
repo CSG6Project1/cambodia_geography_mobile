@@ -29,6 +29,8 @@ abstract class BaseApi<T> {
 
   MultipartRequest? _multipartRequest;
 
+  bool get useJapx => true;
+
   BaseApi() {
     network = buildNetwork();
   }
@@ -116,7 +118,7 @@ abstract class BaseApi<T> {
   }
 
   Future<dynamic> fetchOne({
-    required String id,
+    String? id,
     Map<String, dynamic>? queryParameters,
   }) async {
     return _beforeExec(() async {
@@ -124,8 +126,8 @@ abstract class BaseApi<T> {
       response = await network?.http?.get(Uri.parse(endpoint));
       dynamic json = jsonDecode(response?.body.toString() ?? "");
       if (json is Map<String, dynamic>) {
-        if (json.containsKey('data')) json = Japx.decode(json);
-        return itemsTransformer(json);
+        if (json.containsKey('data')) json = useJapx ? Japx.decode(json) : json;
+        return objectTransformer(json);
       }
     });
   }
@@ -137,7 +139,7 @@ abstract class BaseApi<T> {
       String endpoint = objectNameUrlModel.fetchAllUrl(queryParameters: queryParameters);
       response = await network?.http?.get(Uri.parse(endpoint));
       dynamic json = jsonDecode(response?.body.toString() ?? "");
-      json = Japx.decode(json);
+      json = useJapx ? Japx.decode(json) : json;
       return itemsTransformer(json);
     });
   }
@@ -152,7 +154,7 @@ abstract class BaseApi<T> {
       response = await network?.http?.put(Uri.parse(endpoint), body: jsonEncode(body));
       dynamic json = jsonDecode(response?.body.toString() ?? "");
       if (json is Map<String, dynamic>) {
-        if (json.containsKey('data')) json = Japx.decode(json);
+        if (json.containsKey('data')) json = useJapx ? Japx.decode(json) : json;
         return itemsTransformer(json);
       }
     });
@@ -167,9 +169,10 @@ abstract class BaseApi<T> {
       response = await network?.http?.post(Uri.parse(endpoint), body: jsonEncode(body));
       dynamic json = jsonDecode(response?.body.toString() ?? "");
       if (json is Map<String, dynamic>) {
-        if (json.containsKey('data')) json = Japx.decode(json);
+        if (json.containsKey('data')) json = useJapx ? Japx.decode(json) : json;
         return itemsTransformer(json);
       }
+      return json;
     });
   }
 
@@ -182,9 +185,10 @@ abstract class BaseApi<T> {
       response = await network?.http?.delete(Uri.parse(endpoint));
       dynamic json = jsonDecode(response?.body.toString() ?? "");
       if (json is Map<String, dynamic>) {
-        if (json.containsKey('data')) json = Japx.decode(json);
+        if (json.containsKey('data')) json = useJapx ? Japx.decode(json) : json;
         return itemsTransformer(json);
       }
+      return json;
     });
   }
 
