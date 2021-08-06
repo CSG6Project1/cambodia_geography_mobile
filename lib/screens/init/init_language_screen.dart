@@ -33,7 +33,6 @@ class _InitLanguageScreenState extends State<InitLanguageScreen> with CgMediaQue
     return Theme(
       data: buildPrimaryTheme(),
       child: Scaffold(
-        appBar: AppBar(),
         backgroundColor: colorScheme.primary,
         body: Padding(
           padding: ConfigConstant.layoutPadding,
