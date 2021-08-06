@@ -1,30 +1,22 @@
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
-import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/places/place_list_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
-import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/places/local_widgets/place_card.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
-import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
 import 'package:flutter/material.dart';
-import 'package:swipeable_page_route/swipeable_page_route.dart';
 
-class PlacesScreen extends StatefulWidget {
-  const PlacesScreen({
-    required this.province,
-    Key? key,
-  }) : super(key: key);
+class PlaceList extends StatefulWidget {
+  const PlaceList({Key? key, required this.provinceCode}) : super(key: key);
 
-  final TbProvinceModel province;
+  final String provinceCode;
 
   @override
-  _PlacesScreenState createState() => _PlacesScreenState();
+  _PlaceListState createState() => _PlaceListState();
 }
 
-class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderStateMixin, CgThemeMixin {
-  late TabController controller;
+class _PlaceListState extends State<PlaceList> {
   late PlacesApi placesApi;
   String? provinceCode;
   PlaceListModel? placeList;
@@ -32,8 +24,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
   @override
   void initState() {
     placesApi = PlacesApi();
-    controller = TabController(length: 2, vsync: this);
-    provinceCode = widget.province.code;
+    provinceCode = widget.provinceCode;
     super.initState();
     if (provinceCode != null) load();
   }
@@ -58,28 +49,8 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
   }
 
   @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     List<PlaceModel>? places = placeList?.items?.where((place) => place.type == 'place').toList();
-    List<PlaceModel>? restaurant = placeList?.items?.where((place) => place.type == 'restaurant').toList();
-    return Scaffold(
-      appBar: buildAppbar(),
-      body: TabBarView(
-        controller: controller,
-        children: [
-          buildBody(places: places),
-          buildBody(places: restaurant),
-        ],
-      ),
-    );
-  }
-
-  Widget buildBody({required List<PlaceModel>? places}) {
     if (places == null) return buildLoadingShimmer();
     return CgLoadMoreList(
       onEndScroll: () => load(loadMore: true),
@@ -100,39 +71,12 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
             place: places[index],
             onTap: () {
               Navigator.of(context).pushNamed(
-                RouteConfig.PLACEDETAIL,
+                RouteConfig.EDIT_PLACE,
                 arguments: places[index],
               );
             },
           );
         },
-      ),
-    );
-  }
-
-  MorphingAppBar buildAppbar() {
-    return MorphingAppBar(
-      title: CgAppBarTitle(title: widget.province.khmer ?? ''),
-      bottom: TabBar(
-        controller: controller,
-        tabs: [
-          Tab(
-            child: Text(
-              "តំបន់ទេសចរណ៍",
-              style: TextStyle(
-                fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
-              ),
-            ),
-          ),
-          Tab(
-            child: Text(
-              "ភោជនីយ៍ដ្ឆាន៍",
-              style: TextStyle(
-                fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
