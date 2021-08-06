@@ -14,6 +14,7 @@ class CgTextField extends StatefulWidget {
     this.fillColor,
     this.onChanged,
     this.onSubmitted,
+    this.autocorrect = true,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -25,6 +26,7 @@ class CgTextField extends StatefulWidget {
   final Color? fillColor;
   final void Function(String value)? onChanged;
   final void Function(String value)? onSubmitted;
+  final bool autocorrect;
 
   @override
   _CgTextFieldState createState() => _CgTextFieldState();
@@ -37,6 +39,7 @@ class _CgTextFieldState extends State<CgTextField> with CgThemeMixin {
       controller: widget.controller,
       onChanged: widget.onChanged,
       onSubmitted: widget.onSubmitted,
+      autocorrect: widget.autocorrect,
       decoration: buildInputDecoration(colorScheme),
     );
   }

@@ -5,6 +5,7 @@ class CgPageRoute {
   static Route<T> fadeThrough<T>(
     RoutePageBuilder pageBuilder, {
     RouteSettings? settings,
+    Color? fillColor,
     bool maintainState = true,
     bool fullscreenDialog = false,
   }) {
@@ -14,7 +15,12 @@ class CgPageRoute {
       maintainState: maintainState,
       fullscreenDialog: fullscreenDialog,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeThroughTransition(animation: animation, secondaryAnimation: secondaryAnimation, child: child);
+        return FadeThroughTransition(
+          fillColor: fillColor,
+          animation: animation,
+          secondaryAnimation: secondaryAnimation,
+          child: child,
+        );
       },
     );
   }
@@ -36,6 +42,7 @@ class CgPageRoute {
   static Route<T> sharedAxis<T>(
     RoutePageBuilder pageBuilder, {
     RouteSettings? settings,
+    Color? fillColor,
     bool maintainState = true,
     bool fullscreenDialog = false,
     SharedAxisTransitionType type = SharedAxisTransitionType.scaled,
@@ -45,6 +52,7 @@ class CgPageRoute {
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return SharedAxisTransition(
           child: child,
+          fillColor: fillColor,
           animation: animation,
           secondaryAnimation: secondaryAnimation,
           transitionType: type,

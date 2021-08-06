@@ -8,6 +8,7 @@ import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/services/storages/init_app_state_storage.dart';
 import 'package:cambodia_geography/services/storages/locale_storage.dart';
 import 'package:cambodia_geography/types/app_state_type.dart';
+import 'package:cambodia_geography/widgets/cg_headline_text.dart';
 import 'package:flutter/material.dart';
 
 class InitLanguageScreen extends StatefulWidget {
@@ -34,22 +35,14 @@ class _InitLanguageScreenState extends State<InitLanguageScreen> with CgMediaQue
       data: buildPrimaryTheme(),
       child: Scaffold(
         backgroundColor: colorScheme.primary,
-        body: Padding(
-          padding: ConfigConstant.layoutPadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+        body: Center(
+          child: ListView(
+            shrinkWrap: true,
+            padding: ConfigConstant.layoutPadding,
+            physics: const ClampingScrollPhysics(),
             children: [
-              CgAppBarTitle(
-                title: "ជ្រើសរើសភាសា",
-                textStyle: textTheme.headline6?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onPrimary,
-                ),
-              ),
-              Text(
-                "សូមជ្រើសយកមួយភាសា",
-              ),
+              const CgHeadlineText("ជ្រើសរើសភាសា"),
+              const Text("សូមជ្រើសយកមួយភាសា"),
               const SizedBox(height: ConfigConstant.margin2),
               Container(
                 width: double.infinity,
@@ -81,7 +74,7 @@ class _InitLanguageScreenState extends State<InitLanguageScreen> with CgMediaQue
   Future<void> onSubmit(Locale locale) async {
     await App.of(context)?.updateLocale(locale);
     appStateStorage.setCurrentState(AppStateType.setLangauge);
-    Navigator.of(context).pushReplacementNamed(RouteConfig.LOGIN);
+    Navigator.of(context).pushNamed(RouteConfig.LOGIN);
   }
 
   ThemeData buildPrimaryTheme() {

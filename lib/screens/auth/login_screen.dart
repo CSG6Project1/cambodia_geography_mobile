@@ -1,11 +1,17 @@
+import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/apis/user_token_model.dart';
+import 'package:cambodia_geography/screens/auth/local_widgets/social_buttons.dart';
+import 'package:cambodia_geography/screens/auth/signup_screen.dart';
 import 'package:cambodia_geography/services/authentications/auth_api.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:cambodia_geography/widgets/cg_child_divider.dart';
+import 'package:cambodia_geography/widgets/cg_headline_text.dart';
+import 'package:cambodia_geography/widgets/cg_list_view_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -30,6 +36,95 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: colorScheme.primary,
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        leading: ModalRoute.of(context)?.canPop == true ? BackButton() : null,
+        brightness: Brightness.dark,
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: CgListViewSpacer(
+        builder: (context, spacer) {
+          return Column(
+            children: [
+              Hero(
+                tag: Key("AuthIcon"),
+                child: Icon(
+                  Icons.map,
+                  color: colorScheme.onPrimary,
+                  size: ConfigConstant.iconSize5,
+                ),
+              ),
+              const SizedBox(height: ConfigConstant.margin1),
+              Hero(
+                tag: Key("AuthTitle"),
+                child: const CgHeadlineText(
+                  "ប្រទេសកម្ពុជា",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: ConfigConstant.margin2),
+              CgTextField(
+                labelText: "អុីម៉េល",
+                autocorrect: true,
+                onChanged: (String value) {},
+              ),
+              const SizedBox(height: ConfigConstant.margin1),
+              CgTextField(
+                labelText: "ពាក្យសម្ងាត់",
+                onChanged: (String value) {},
+              ),
+              const SizedBox(height: ConfigConstant.margin1),
+              CgButton(
+                labelText: "ចូលគណនី",
+                backgroundColor: colorScheme.primaryVariant,
+                foregroundColor: colorScheme.onPrimary,
+                width: double.infinity,
+                onPressed: () {},
+              ),
+              const SizedBox(height: ConfigConstant.margin0),
+              CgButton(
+                labelText: "មិនមានគណនី? បង្កើតគណនី",
+                backgroundColor: Colors.transparent,
+                foregroundColor: colorScheme.onPrimary,
+                width: double.infinity,
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    CgPageRoute.sharedAxis(
+                      (context, animation, secondaryAnimation) => SignUpScreen(),
+                      fillColor: colorScheme.primary,
+                    ),
+                  );
+                },
+              ),
+              spacer,
+              Hero(
+                tag: Key("AuthOrDivider"),
+                child: CgChildDivider(
+                  dividerColor: colorScheme.onPrimary,
+                  child: Text(
+                    "ឬ",
+                    textAlign: TextAlign.center,
+                    style: textTheme.button?.copyWith(color: colorScheme.onPrimary),
+                  ),
+                ),
+              ),
+              const SizedBox(height: ConfigConstant.margin1),
+              Hero(
+                tag: Key("AuthSocialButtons"),
+                child: SocialButtons(),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget build2(BuildContext context) {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: MorphingAppBar(

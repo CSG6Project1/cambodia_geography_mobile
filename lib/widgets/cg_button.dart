@@ -1,4 +1,6 @@
 import 'package:cambodia_geography/constants/config_constant.dart';
+import 'package:cambodia_geography/helpers/app_helper.dart';
+import 'package:cambodia_geography/helpers/color_helper.dart';
 import 'package:flutter/material.dart';
 
 class CgButton extends StatelessWidget {
@@ -15,6 +17,7 @@ class CgButton extends StatelessWidget {
     this.iconSize = 20,
     this.iconData,
     this.showBorder = false,
+    this.width,
   }) : super(key: key);
 
   final String labelText;
@@ -28,11 +31,14 @@ class CgButton extends StatelessWidget {
   final IconData? iconData;
   final double? iconSize;
   final bool showBorder;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
+    Widget child;
+
     if (iconData != null) {
-      return TextButton.icon(
+      child = TextButton.icon(
         icon: buildIcon(),
         style: buildButtonStyle(context),
         label: buildLabel(context),
@@ -42,15 +48,21 @@ class CgButton extends StatelessWidget {
         autofocus: autofocus,
         focusNode: focusNode,
       );
+    } else {
+      child = TextButton(
+        style: buildButtonStyle(context),
+        child: buildLabel(context),
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        clipBehavior: clipBehavior,
+        autofocus: autofocus,
+        focusNode: focusNode,
+      );
     }
-    return TextButton(
-      style: buildButtonStyle(context),
-      child: buildLabel(context),
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      clipBehavior: clipBehavior,
-      autofocus: autofocus,
-      focusNode: focusNode,
+
+    return Container(
+      width: width,
+      child: child,
     );
   }
 
@@ -79,9 +91,17 @@ class CgButton extends StatelessWidget {
   }
 
   ButtonStyle buildButtonStyle(BuildContext context) {
+    Color? overlayColor;
+    if (backgroundColor != null) {
+      bool lightBackground = ColorHelper.textColorForBackground(backgroundColor!) == Colors.black;
+      if (lightBackground) {
+        overlayColor = ColorHelper.darken(backgroundColor!);
+      }
+    }
     return TextButton.styleFrom(
       backgroundColor: onPressed == null ? Theme.of(context).colorScheme.background : backgroundColor,
     ).copyWith(
+      overlayColor: MaterialStateProperty.all<Color?>(overlayColor),
       side: MaterialStateProperty.all<BorderSide>(
         showBorder && foregroundColor != null ? BorderSide(color: foregroundColor!) : BorderSide.none,
       ),
