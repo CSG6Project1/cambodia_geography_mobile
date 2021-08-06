@@ -1,5 +1,4 @@
 import 'package:cambodia_geography/constants/config_constant.dart';
-import 'package:cambodia_geography/helpers/app_helper.dart';
 import 'package:cambodia_geography/helpers/color_helper.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +17,7 @@ class CgButton extends StatelessWidget {
     this.iconData,
     this.showBorder = false,
     this.width,
+    this.heroTag,
   }) : super(key: key);
 
   final String labelText;
@@ -32,6 +32,7 @@ class CgButton extends StatelessWidget {
   final double? iconSize;
   final bool showBorder;
   final double? width;
+  final Key? heroTag;
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +61,16 @@ class CgButton extends StatelessWidget {
       );
     }
 
-    return Container(
+    child = Container(
       width: width,
       child: child,
     );
+
+    if (heroTag != null) {
+      return Hero(tag: heroTag!, child: child);
+    } else {
+      return child;
+    }
   }
 
   Widget buildIcon() {

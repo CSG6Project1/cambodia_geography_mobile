@@ -92,16 +92,26 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
     );
   }
 
+  Widget? buildLeading() {
+    return ModalRoute.of(context)?.canPop == true
+        ? Hero(
+            tag: Key("AuthBackButton"),
+            child: BackButton(color: colorScheme.onPrimary),
+          )
+        : null;
+  }
+
   AppBar buildAppBar() {
     return AppBar(
-      leading: ModalRoute.of(context)?.canPop == true ? BackButton() : null,
+      leading: buildLeading(),
       brightness: Brightness.dark,
       elevation: 0.0,
       backgroundColor: Colors.transparent,
       actions: [
         CgButton(
+          heroTag: Key("SkipAuthButton"),
           labelText: "Skip",
-          backgroundColor: colorScheme.primary,
+          backgroundColor: Colors.transparent,
           foregroundColor: colorScheme.onPrimary,
           onPressed: () => navigateToNextState(),
         )

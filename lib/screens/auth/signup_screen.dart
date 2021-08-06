@@ -21,6 +21,15 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQueryMixin {
+  Widget? buildLeading() {
+    return ModalRoute.of(context)?.canPop == true
+        ? Hero(
+            tag: Key("AuthBackButton"),
+            child: BackButton(color: colorScheme.onSurface),
+          )
+        : null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,14 +37,15 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
       extendBody: true,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: ModalRoute.of(context)?.canPop == true ? BackButton(color: colorScheme.onSurface) : null,
+        leading: buildLeading(),
         brightness: Brightness.light,
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         actions: [
           CgButton(
+            heroTag: Key("SkipAuthButton"),
             labelText: "Skip",
-            backgroundColor: colorScheme.surface,
+            backgroundColor: Colors.transparent,
             foregroundColor: colorScheme.onSurface,
             onPressed: () async {
               NavigatorState navigator = Navigator.of(context);
