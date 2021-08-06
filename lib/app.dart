@@ -13,11 +13,13 @@ class App extends StatefulWidget {
     required this.initialIsDarkMode,
     required this.initialLocale,
     required this.userToken,
+    required this.initialRoute,
   }) : super(key: key);
 
   final bool initialIsDarkMode;
   final Locale? initialLocale;
   final UserTokenModel? userToken;
+  final String initialRoute;
 
   static _AppState? of(BuildContext context) {
     return context.findAncestorStateOfType<_AppState>();
@@ -33,6 +35,7 @@ class _AppState extends State<App> {
   late ThemeModeStorage storage;
   late LocaleStorage localeStorage;
   late UserTokenModel? _userToken;
+  late String? initialRoute;
 
   @override
   void initState() {
@@ -40,32 +43,33 @@ class _AppState extends State<App> {
     localeStorage = LocaleStorage();
     isDarkMode = widget.initialIsDarkMode;
     locale = widget.initialLocale;
+    initialRoute = widget.initialRoute;
     _userToken = widget.userToken;
     super.initState();
   }
 
-  void updateLocale(Locale _locale) {
+  Future<void> updateLocale(Locale _locale) async {
     setState(() => this.locale = _locale);
-    localeStorage.writeLocale(_locale);
+    await localeStorage.writeLocale(_locale);
   }
 
-  void useDefaultLocale() {
+  Future<void> useDefaultLocale() async {
     setState(() => this.locale = null);
-    localeStorage.remove();
+    await localeStorage.remove();
   }
 
-  void turnDarkModeOn() {
+  Future<void> turnDarkModeOn() async {
     setState(() => isDarkMode = true);
-    storage.writeBool(value: isDarkMode);
+    await storage.writeBool(value: isDarkMode);
   }
 
-  void turnDarkModeOff() {
+  Future<void> turnDarkModeOff() async {
     setState(() => isDarkMode = false);
-    storage.writeBool(value: isDarkMode);
+    await storage.writeBool(value: isDarkMode);
   }
 
-  void toggleDarkMode() => isDarkMode ? turnDarkModeOff() : turnDarkModeOn();
-  void setDarkMode(bool _isDarkMode) => !_isDarkMode ? turnDarkModeOff() : turnDarkModeOn();
+  Future<void> toggleDarkMode() => isDarkMode ? turnDarkModeOff() : turnDarkModeOn();
+  Future<void> setDarkMode(bool _isDarkMode) => !_isDarkMode ? turnDarkModeOff() : turnDarkModeOn();
 
   bool get isSignedIn => this._userToken?.accessToken != null;
 
@@ -74,7 +78,7 @@ class _AppState extends State<App> {
     return MaterialApp(
       theme: ThemeConfig(isDarkMode).themeData,
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: RouteConfig(settings: null).routes[initialRoute]?.screen ?? HomeScreen(),
       navigatorObservers: [HeroController()],
       onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
       locale: locale,

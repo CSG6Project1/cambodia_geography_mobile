@@ -10,6 +10,7 @@ import 'package:cambodia_geography/screens/auth/signup_screen.dart';
 import 'package:cambodia_geography/screens/comment/comment_screen.dart';
 import 'package:cambodia_geography/screens/district/district_screen.dart';
 import 'package:cambodia_geography/screens/home/home_screen.dart';
+import 'package:cambodia_geography/screens/init/init_language_screen.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/screens/place_detail/place_detail_screen.dart';
 import 'package:cambodia_geography/screens/places/places_screen.dart';
@@ -27,6 +28,7 @@ class CgRouteSetting {
   final String title;
   final bool fullscreenDialog;
   final bool canSwap;
+  final Widget? screen;
 
   CgRouteSetting({
     required this.isRoot,
@@ -34,6 +36,7 @@ class CgRouteSetting {
     required this.route,
     this.canSwap = true,
     this.fullscreenDialog = false,
+    this.screen,
   });
 }
 
@@ -44,6 +47,7 @@ class RouteConfig {
   static const String HOME = '/home';
   static const String DISTRICT = '/district';
   static const String LOGIN = '/auth/login';
+  static const String INIT_LANG = '/init_lang';
   static const String SIGNUP = '/auth/signup';
   static const String PLACES = '/places';
   static const String PLACEDETAIL = '/place/detail';
@@ -76,6 +80,7 @@ class RouteConfig {
       HOME: CgRouteSetting(
         isRoot: true,
         title: "HOME",
+        screen: HomeScreen(),
         route: (context) => HomeScreen(),
       ),
       DISTRICT: CgRouteSetting(
@@ -90,12 +95,20 @@ class RouteConfig {
       LOGIN: CgRouteSetting(
         isRoot: false,
         title: "LOGIN",
+        screen: LoginScreen(),
         route: (context) => LoginScreen(),
       ),
       SIGNUP: CgRouteSetting(
         isRoot: false,
         title: "SIGNUP",
+        screen: SignUpScreen(),
         route: (context) => SignUpScreen(),
+      ),
+      INIT_LANG: CgRouteSetting(
+        isRoot: false,
+        title: "INIT_LANG",
+        screen: InitLanguageScreen(),
+        route: (context) => InitLanguageScreen(),
       ),
       PLACES: CgRouteSetting(
         isRoot: false,
@@ -110,13 +123,14 @@ class RouteConfig {
         },
       ),
       PLACEDETAIL: CgRouteSetting(
-          isRoot: false,
-          title: "PLACEDETAIL",
-          route: (context) {
-            Object? arg = settings?.arguments;
-            if (arg is PlaceModel) return PlaceDetailScreen(place: arg);
-            return NotFoundScreen();
-          }),
+        isRoot: false,
+        title: "PLACEDETAIL",
+        route: (context) {
+          Object? arg = settings?.arguments;
+          if (arg is PlaceModel) return PlaceDetailScreen(place: arg);
+          return NotFoundScreen();
+        },
+      ),
       PROVINCE_DETAIL: CgRouteSetting(
         isRoot: false,
         title: "PROVINCE_DETAIL",
