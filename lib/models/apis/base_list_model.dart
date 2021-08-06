@@ -20,8 +20,8 @@ abstract class BaseListModel<T> {
   }
 
   bool hasLoadMore() {
-    if (this.items == null && this.meta == null) return false;
-    if (this.items!.length < this.meta!.totalCount!) {
+    if (this.items == null && this.links == null) return false;
+    if (this.links!.next != null) {
       return true;
     } else
       return false;
