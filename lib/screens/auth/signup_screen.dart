@@ -38,8 +38,21 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
             backgroundColor: colorScheme.surface,
             foregroundColor: colorScheme.onSurface,
             onPressed: () async {
-              await InitAppStateStorage().setCurrentState(AppStateType.skippedAuth);
-              Navigator.of(context).pushNamed(await InitAppStateStorage().getInitialRouteName());
+              NavigatorState navigator = Navigator.of(context);
+              InitAppStateStorage storage = InitAppStateStorage();
+              AppStateType? currentState = await storage.getCurrentAppStateType();
+              if (currentState == AppStateType.setLangauge) {
+                storage.setCurrentState(AppStateType.skippedAuth);
+                String routeName = await InitAppStateStorage().getInitialRouteName();
+                navigator.pushNamed(routeName);
+              } else {
+                if (navigator.canPop()) {
+                  navigator.pop();
+                } else {
+                  String routeName = await InitAppStateStorage().getInitialRouteName();
+                  navigator.pushReplacementNamed(routeName);
+                }
+              }
             },
           ),
         ],
