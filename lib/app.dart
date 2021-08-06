@@ -1,9 +1,12 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:cambodia_geography/app_builder.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/configs/theme_config.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/models/apis/user_token_model.dart';
+import 'package:cambodia_geography/models/user/user_model.dart';
 import 'package:cambodia_geography/screens/home/home_screen.dart';
+import 'package:cambodia_geography/services/apis/users/user_api.dart';
 import 'package:cambodia_geography/services/storages/locale_storage.dart';
 import 'package:cambodia_geography/services/storages/theme_mode_storage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -30,23 +33,44 @@ class App extends StatefulWidget {
   _AppState createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends State<App> with AfterLayoutMixin<App> {
   late bool isDarkMode;
   late Locale? locale;
   late ThemeModeStorage storage;
   late LocaleStorage localeStorage;
   late UserTokenModel? _userToken;
   late String? initialRoute;
+  late UserApi userApi;
+
+  late ValueNotifier<UserModel?> userNotifier;
 
   @override
   void initState() {
+    userApi = UserApi();
     storage = ThemeModeStorage();
     localeStorage = LocaleStorage();
+    userNotifier = ValueNotifier(null);
     isDarkMode = widget.initialIsDarkMode;
     locale = widget.initialLocale;
     initialRoute = widget.initialRoute;
     _userToken = widget.userToken;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    userNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    fetchCurrentUser();
+  }
+
+  Future<void> fetchCurrentUser() async {
+    userNotifier.value = await userApi.fetchCurrentUser();
+    print(userNotifier.value);
   }
 
   Future<void> updateLocale(Locale _locale) async {

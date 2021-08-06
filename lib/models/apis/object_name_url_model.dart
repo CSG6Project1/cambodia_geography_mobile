@@ -20,9 +20,8 @@ class ObjectNameUrlModel {
   }
 
   String fetchOneUrl({required String? id, Map<String, dynamic>? queryParameters}) {
-    String url;
-    if (id == null) url = "$path/$nameInUrl";
-    url = "$path/$nameInUrl/$id";
+    var url = "$path/$nameInUrl";
+    if (id != null) url = "$url/$id";
     return _withBaseUrl(url, queryParameters: queryParameters);
   }
 
