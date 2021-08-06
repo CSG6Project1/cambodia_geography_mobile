@@ -6,6 +6,7 @@ import 'package:cambodia_geography/models/apis/user_token_model.dart';
 import 'package:cambodia_geography/screens/home/home_screen.dart';
 import 'package:cambodia_geography/services/storages/locale_storage.dart';
 import 'package:cambodia_geography/services/storages/theme_mode_storage.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class App extends StatefulWidget {
   const App({
@@ -83,6 +84,11 @@ class _AppState extends State<App> {
       onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
       locale: locale,
       builder: (context, child) => AppBuilder(child: child),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
     );
   }
 }

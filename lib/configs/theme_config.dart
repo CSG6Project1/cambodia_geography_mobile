@@ -1,4 +1,5 @@
 import 'package:cambodia_geography/constants/theme_constant.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ThemeConfig {
@@ -34,6 +35,9 @@ class ThemeConfig {
           onSurface: scheme.onSurface,
           primary: scheme.onPrimary,
         ),
+      ),
+      cupertinoOverrideTheme: CupertinoThemeData(
+        textTheme: CupertinoTextThemeData(),
       ),
     );
   }
