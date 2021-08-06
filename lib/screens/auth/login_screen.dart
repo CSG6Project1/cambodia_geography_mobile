@@ -8,6 +8,8 @@ import 'package:cambodia_geography/models/apis/user_token_model.dart';
 import 'package:cambodia_geography/screens/auth/local_widgets/social_buttons.dart';
 import 'package:cambodia_geography/screens/auth/signup_screen.dart';
 import 'package:cambodia_geography/services/authentications/auth_api.dart';
+import 'package:cambodia_geography/services/storages/init_app_state_storage.dart';
+import 'package:cambodia_geography/types/app_state_type.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_child_divider.dart';
 import 'package:cambodia_geography/widgets/cg_headline_text.dart';
@@ -45,6 +47,17 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
         brightness: Brightness.dark,
         elevation: 0.0,
         backgroundColor: Colors.transparent,
+        actions: [
+          CgButton(
+            labelText: "Skip",
+            backgroundColor: colorScheme.primary,
+            foregroundColor: colorScheme.onPrimary,
+            onPressed: () async {
+              await InitAppStateStorage().setCurrentState(AppStateType.skippedAuth);
+              Navigator.of(context).pushNamed(await InitAppStateStorage().getInitialRouteName());
+            },
+          )
+        ],
       ),
       body: CgListViewSpacer(
         builder: (context, spacer) {
