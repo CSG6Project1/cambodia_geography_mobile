@@ -5,6 +5,7 @@ import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
+import 'local_widgets/place_list.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({Key? key}) : super(key: key);
@@ -56,7 +57,7 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
         children: List.generate(
           controller.length,
           (index) {
-            return SizedBox();
+            return PlaceList(provinceCode: geo.tbProvinces[index].code ?? "");
           },
         ),
       ),

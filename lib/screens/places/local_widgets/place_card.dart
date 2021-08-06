@@ -1,4 +1,3 @@
-import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
@@ -11,10 +10,12 @@ class PlaceCard extends StatelessWidget {
   PlaceCard({
     this.place,
     this.isLoading = false,
+    required this.onTap,
   });
 
   final PlaceModel? place;
   final bool isLoading;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +27,7 @@ class PlaceCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: ConfigConstant.circlarRadius1,
         child: CgOnTapEffect(
-          onTap: () {
-            Navigator.of(context).pushNamed(
-              RouteConfig.PLACEDETAIL,
-              arguments: place,
-            );
-          },
+          onTap: onTap,
           child: Stack(
             clipBehavior: Clip.hardEdge,
             children: [
