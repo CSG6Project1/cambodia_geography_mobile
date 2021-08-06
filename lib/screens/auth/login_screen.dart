@@ -35,10 +35,10 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
 
   Future<void> onLogin() async {
     if (email.isEmpty) {
-      showOkAlertDialog(context: context, title: "Email must me filled");
+      showOkAlertDialog(context: context, title: "Email must be filled");
       return;
     } else if (password.isEmpty) {
-      showOkAlertDialog(context: context, title: "Password must me filled");
+      showOkAlertDialog(context: context, title: "Password must be filled");
       return;
     }
 
@@ -93,12 +93,12 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
   }
 
   Widget? buildLeading() {
-    return ModalRoute.of(context)?.canPop == true
-        ? Hero(
-            tag: Key("AuthBackButton"),
-            child: BackButton(color: colorScheme.onPrimary),
-          )
-        : null;
+    if (ModalRoute.of(context)?.canPop == true) {
+      return Hero(
+        tag: Key("AuthBackButton"),
+        child: BackButton(color: colorScheme.onPrimary),
+      );
+    }
   }
 
   AppBar buildAppBar() {
@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
             const SizedBox(height: ConfigConstant.margin2),
             CgTextField(
               labelText: "អុីម៉េល",
-              autocorrect: true,
+              autocorrect: false,
               onChanged: (String value) {
                 email = value;
               },
