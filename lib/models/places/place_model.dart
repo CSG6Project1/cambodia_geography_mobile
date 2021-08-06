@@ -1,5 +1,8 @@
-import 'package:cambodia_geography/models/places/image_model.dart';
+import 'package:cambodia_geography/models/image_model.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'place_model.g.dart';
 
+@JsonSerializable()
 class PlaceModel {
   PlaceModel({
     this.createdAt,
@@ -20,17 +23,24 @@ class PlaceModel {
     this.id,
   });
 
+  @JsonKey(name: 'create_at')
   DateTime? createdAt;
+  @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
   List<ImageModel>? images;
   List<String>? comments;
   String? type;
   String? khmer;
   String? english;
+  @JsonKey(name: 'province_code')
   String? provinceCode;
+  @JsonKey(name: 'district_code')
   String? districtCode;
+  @JsonKey(name: 'commune_code')
   String? communeCode;
+  @JsonKey(name: 'comment_length')
   int? commentLength;
+  @JsonKey(name: 'village_code')
   String? villageCode;
   double? lat;
   double? lon;
@@ -87,27 +97,6 @@ class PlaceModel {
     );
   }
 
-  factory PlaceModel.fromJson(Map<String, dynamic> json) {
-    return PlaceModel(
-      createdAt: DateTime.parse(json["created_at"]),
-      updatedAt: DateTime.parse(json["updated_at"]),
-      images: List<ImageModel>.from(json["images"].map((x) => ImageModel.fromJson(x))),
-      comments: List<String>.from(json["comments"].map((x) => x)),
-      type: json["type"],
-      khmer: json["khmer"],
-      english: json["english"],
-      provinceCode: json["province_code"],
-      districtCode: json["district_code"],
-      communeCode: json["commune_code"],
-      commentLength: json["comment_length"],
-      villageCode: json["village_code"],
-      lat: json["lat"].toDouble(),
-      lon: json["lon"].toDouble(),
-      body: json["body"],
-      id: json["id"],
-    );
-  }
-
   List<String> paramNames() {
     return [
       "type",
@@ -123,27 +112,6 @@ class PlaceModel {
     ];
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      "created_at": createdAt?.toIso8601String(),
-      "updated_at": updatedAt?.toIso8601String(),
-      "images": List<dynamic>.from(images?.map((x) => x) ?? []),
-      "comments": List<dynamic>.from(comments?.map((x) => x) ?? []),
-      "type": type,
-      "khmer": khmer,
-      "english": english,
-      "province_code": provinceCode,
-      "district_code": districtCode,
-      "commune_code": communeCode,
-      "comment_lenght": commentLength,
-      "village_code": villageCode,
-      "lat": lat,
-      "lon": lon,
-      "body": body,
-      "id": id,
-    };
-  }
-
   Map<String, dynamic> sliceParams(Map<String, dynamic> values, List<String> names) {
     Map<String, dynamic> result = {};
     names.forEach((element) {
@@ -151,4 +119,7 @@ class PlaceModel {
     });
     return result;
   }
+
+  factory PlaceModel.fromJson(Map<String, dynamic> json) => _$PlaceModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PlaceModelToJson(this);
 }

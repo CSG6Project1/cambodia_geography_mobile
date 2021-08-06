@@ -31,14 +31,17 @@ dependencies:
   page_indicator: ^0.4.1
   flutter_markdown: ^0.6.2
   intl: ^0.17.0
+  animations: ^2.0.1
+  after_layout: ^1.1.0
+  japx: ^2.0.3
 
 dev_dependencies:
-  build_runner: ^2.0.6
+  build_runner: ^1.12.1
+  json_serializable: ^4.0.3
   change_app_package_name: ^1.0.0
   flutter_test:
     sdk: flutter
 flutter:
-  generate: true
   uses-material-design: true
   assets:
     - assets/

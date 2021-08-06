@@ -2,6 +2,7 @@ import 'package:cambodia_geography/app_builder.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/configs/theme_config.dart';
 import 'package:cambodia_geography/exports/exports.dart';
+import 'package:cambodia_geography/models/apis/user_token_model.dart';
 import 'package:cambodia_geography/screens/home/home_screen.dart';
 import 'package:cambodia_geography/services/storages/locale_storage.dart';
 import 'package:cambodia_geography/services/storages/theme_mode_storage.dart';
@@ -11,10 +12,12 @@ class App extends StatefulWidget {
     Key? key,
     required this.initialIsDarkMode,
     required this.initialLocale,
+    required this.userToken,
   }) : super(key: key);
 
   final bool initialIsDarkMode;
   final Locale? initialLocale;
+  final UserTokenModel? userToken;
 
   static _AppState? of(BuildContext context) {
     return context.findAncestorStateOfType<_AppState>();
@@ -29,6 +32,7 @@ class _AppState extends State<App> {
   late Locale? locale;
   late ThemeModeStorage storage;
   late LocaleStorage localeStorage;
+  late UserTokenModel? _userToken;
 
   @override
   void initState() {
@@ -36,6 +40,7 @@ class _AppState extends State<App> {
     localeStorage = LocaleStorage();
     isDarkMode = widget.initialIsDarkMode;
     locale = widget.initialLocale;
+    _userToken = widget.userToken;
     super.initState();
   }
 
@@ -61,6 +66,8 @@ class _AppState extends State<App> {
 
   void toggleDarkMode() => isDarkMode ? turnDarkModeOff() : turnDarkModeOn();
   void setDarkMode(bool _isDarkMode) => !_isDarkMode ? turnDarkModeOff() : turnDarkModeOn();
+
+  bool get isSignedIn => this._userToken?.accessToken != null;
 
   @override
   Widget build(BuildContext context) {

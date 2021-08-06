@@ -53,7 +53,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
         searchHistoryStorage.writeList([query]);
       } else {
         if (value.contains(query)) return;
-        value.add(query);
+        value.insert(0, query);
         searchHistoryStorage.writeList(value);
       }
     });

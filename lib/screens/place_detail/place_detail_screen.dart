@@ -67,13 +67,12 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
 
   @override
   void dispose() {
+    pageController.dispose();
     scrollController.removeListener(_scrollListener);
     scrollController.dispose();
-    pageController.dispose();
-    super.dispose();
-
     initedFlexibleSpaceNotifier.dispose();
     headerOpacityNotifier.dispose();
+    super.dispose();
   }
 
   @override
@@ -172,7 +171,12 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
       child: Row(
         children: [
           IconButton(
-            onPressed: () => Navigator.pushNamed(context, RouteConfig.COMMENT, arguments: place),
+            onPressed: () async {
+              initedFlexibleSpaceNotifier.value = false;
+              await Navigator.pushNamed(context, RouteConfig.COMMENT, arguments: place);
+              await Future.delayed(Duration(milliseconds: 500));
+              initedFlexibleSpaceNotifier.value = true;
+            },
             icon: Icon(
               Icons.mode_comment,
               color: colorScheme.primary,

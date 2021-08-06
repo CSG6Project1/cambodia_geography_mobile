@@ -19,31 +19,31 @@ class ObjectNameUrlModel {
     return baseUrl + currentUrl;
   }
 
-  String fetchOneUrl({required String? id}) {
+  String fetchOneUrl({required String? id, Map<String, dynamic>? queryParameters}) {
     String url;
     if (id == null) url = "$path/$nameInUrl";
     url = "$path/$nameInUrl/$id";
-    return _withBaseUrl(url);
+    return _withBaseUrl(url, queryParameters: queryParameters);
   }
 
   String fetchAllUrl({Map<String, dynamic>? queryParameters}) {
     return _withBaseUrl("$path/$nameInUrl", queryParameters: queryParameters);
   }
 
-  String updatelUrl({String? id}) {
+  String updatelUrl({String? id, Map<String, dynamic>? queryParameters}) {
     var url = "$path/$nameInUrl";
     if (id != null) url = "$url/$id";
-    return _withBaseUrl(url);
+    return _withBaseUrl(url, queryParameters: queryParameters);
   }
 
-  String deletelUrl({String? id}) {
+  String deletelUrl({String? id, Map<String, dynamic>? queryParameters}) {
     var url = "$path/$nameInUrl";
     if (id != null) url = "$url/$id";
-    return _withBaseUrl(url);
+    return _withBaseUrl(url, queryParameters: queryParameters);
   }
 
-  String createUrl() {
+  String createUrl({Map<String, dynamic>? queryParameters}) {
     var url = "$path/$nameInUrl";
-    return _withBaseUrl(url);
+    return _withBaseUrl(url, queryParameters: queryParameters);
   }
 }
