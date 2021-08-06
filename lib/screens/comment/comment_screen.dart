@@ -1,15 +1,19 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/comment/comment_list_model.dart';
 import 'package:cambodia_geography/models/comment/comment_model.dart';
+import 'package:cambodia_geography/models/image_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
+import 'package:cambodia_geography/models/user/user_model.dart';
 import 'package:cambodia_geography/services/apis/comment/comment_api.dart';
 import 'package:cambodia_geography/services/apis/comment/crud_comment_api.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
+import 'package:cambodia_geography/widgets/cg_measure_size.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -27,16 +31,25 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   late CommentApi commentApi;
   late CrudCommentApi crudCommentApi;
   late TextEditingController textController;
+  late ScrollController scrollController;
   CommentListModel? commentListModel;
+  List<CommentModel>? comments;
 
   @override
   void initState() {
     textController = TextEditingController();
+    scrollController = ScrollController();
     commentApi = CommentApi(id: widget.place.id ?? '');
     crudCommentApi = CrudCommentApi();
     super.initState();
-
     load();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    textController.dispose();
+    super.dispose();
   }
 
   Future<void> load({bool loadMore = false}) async {
@@ -53,43 +66,68 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
     }
   }
 
-  Future<void> createComment(String comment) async {
+  Future<void> createComment(String commentMsg) async {
     if (widget.place.id == null) return;
-    if (comment.length == 0) return;
+    if (commentMsg.length == 0) return;
     await crudCommentApi.createComment(
       placeId: widget.place.id!,
-      comment: comment,
+      comment: commentMsg,
     );
     if (crudCommentApi.success()) {
-      load(loadMore: true);
-    }
+      var newComment = CommentModel(
+        comment: commentMsg,
+        createdAt: DateTime.now(),
+        user: UserModel(
+          role: '',
+          profileImg: ImageModel(
+            url:
+                'https://res.cloudinary.com/cambodia-geography/image/upload/v1627748799/images/mqmrlezgbjqzdtpyvils.jpg',
+          ),
+        ),
+      );
+      setState(() {
+        comments?.insert(0, newComment);
+      });
+      scrollController.animateTo(
+        0,
+        duration: ConfigConstant.duration,
+        curve: Curves.ease,
+      );
+    } else
+      showOkAlertDialog(context: context, title: 'Comment failed');
     textController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<CommentModel>? comments = commentListModel?.items;
+    comments = commentListModel?.items;
     return Scaffold(
       appBar: buildAppBar(context),
       body: comments == null
           ? buildLoadingShimmer()
           : CgLoadMoreList(
               onEndScroll: () => load(loadMore: true),
-              child: ListView.builder(
-                itemCount: comments.length,
-                itemBuilder: (context, index) {
-                  if (comments.length == index) {
-                    return Visibility(
-                      visible: commentListModel?.hasLoadMore() == true,
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: ConfigConstant.layoutPadding,
-                        child: const CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-                  return buildComment(comment: comments[index]);
+              child: CgMeasureSize(
+                onChange: (size) {
+                  if (size.height < MediaQuery.of(context).size.height) load(loadMore: true);
                 },
+                child: ListView.builder(
+                  controller: scrollController,
+                  itemCount: comments!.length,
+                  itemBuilder: (context, index) {
+                    if (comments!.length == index) {
+                      return Visibility(
+                        visible: commentListModel?.hasLoadMore() == true,
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: ConfigConstant.layoutPadding,
+                          child: const CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    return buildComment(comment: comments![index]);
+                  },
+                ),
               ),
             ),
       bottomNavigationBar: CgBottomNavWrapper(
