@@ -1,3 +1,4 @@
+import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
@@ -29,6 +30,7 @@ class CgRouteSetting {
   final bool fullscreenDialog;
   final bool canSwap;
   final Widget? screen;
+  final Color? fillColor;
 
   CgRouteSetting({
     required this.isRoot,
@@ -37,12 +39,18 @@ class CgRouteSetting {
     this.canSwap = true,
     this.fullscreenDialog = false,
     this.screen,
+    this.fillColor,
   });
 }
 
 class RouteConfig {
   final RouteSettings? settings;
-  RouteConfig({this.settings});
+  final BuildContext? context;
+
+  RouteConfig({
+    this.settings,
+    this.context,
+  });
 
   static const String HOME = '/home';
   static const String DISTRICT = '/district';
@@ -63,16 +71,27 @@ class RouteConfig {
   static const String COMMENT = '/comment';
   static const String NOTFOUND = '/404';
 
+  /// List of route that use custom page route
+  /// instead of `SwipeablePageRoute`
+  static const List<String> routesWithCustomTransitions = [LOGIN, SIGNUP];
+
   Route<dynamic> generate() {
     String? name = settings?.name;
     if (!routes.containsKey(name) || name == null) name = NOTFOUND;
-    return SwipeablePageRoute(
-      canSwipe: routes[name]?.canSwap == true,
-      canOnlySwipeFromEdge: true,
-      settings: settings?.copyWith(arguments: routes[name]!),
-      builder: routes[name]!.route,
-      fullscreenDialog: routes[name]!.fullscreenDialog,
-    );
+    if (routesWithCustomTransitions.contains(name)) {
+      return CgPageRoute.sharedAxis(
+        (context, animation, secondaryAnimation) => routes[name]?.screen ?? NotFoundScreen(),
+        fillColor: routes[name]?.fillColor,
+      );
+    } else {
+      return SwipeablePageRoute(
+        canSwipe: routes[name]?.canSwap == true,
+        canOnlySwipeFromEdge: true,
+        settings: settings?.copyWith(arguments: routes[name]!),
+        builder: routes[name]!.route,
+        fullscreenDialog: routes[name]!.fullscreenDialog,
+      );
+    }
   }
 
   Map<String, CgRouteSetting> get routes {
@@ -96,11 +115,13 @@ class RouteConfig {
         isRoot: false,
         title: "LOGIN",
         screen: LoginScreen(),
+        fillColor: context != null ? Theme.of(context!).colorScheme.surface : null,
         route: (context) => LoginScreen(),
       ),
       SIGNUP: CgRouteSetting(
         isRoot: false,
         title: "SIGNUP",
+        fillColor: context != null ? Theme.of(context!).colorScheme.primary : null,
         screen: SignUpScreen(),
         route: (context) => SignUpScreen(),
       ),

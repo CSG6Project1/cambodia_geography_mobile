@@ -11,11 +11,11 @@ class InitAppStateStorage extends SharePreferenceStorage {
   }
 
   Future<String> getInitialRouteName() async {
-    AppStateType? type = await _getCurrentAppStateType();
+    AppStateType? type = await getCurrentAppStateType();
     String route;
     switch (type) {
       case AppStateType.setLangauge:
-        route = RouteConfig.HOME;
+        route = RouteConfig.INIT_LANG;
         break;
       case AppStateType.skippedAuth:
         route = RouteConfig.HOME;
@@ -30,7 +30,7 @@ class InitAppStateStorage extends SharePreferenceStorage {
     return route;
   }
 
-  Future<AppStateType?> _getCurrentAppStateType() async {
+  Future<AppStateType?> getCurrentAppStateType() async {
     String? currentState = await super.read();
     AppStateType? type;
     switch (currentState) {
