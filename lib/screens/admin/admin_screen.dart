@@ -35,29 +35,32 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).pushNamed(RouteConfig.EDIT_PLACE).then((value) {
-            if (value is PlaceModel) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text("Success created place: ${value.khmer ?? value.english}"),
-                ),
-              );
-            }
-          });
-        },
-      ),
-      appBar: buildAppbar(),
-      body: TabBarView(
-        controller: controller,
-        children: List.generate(
-          controller.length,
-          (index) {
-            return PlaceList(provinceCode: geo.tbProvinces[index].code ?? "");
+    return DrawerWrapper(
+      context: context,
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            Navigator.of(context).pushNamed(RouteConfig.EDIT_PLACE).then((value) {
+              if (value is PlaceModel) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Success created place: ${value.khmer ?? value.english}"),
+                  ),
+                );
+              }
+            });
           },
+        ),
+        appBar: buildAppbar(),
+        body: TabBarView(
+          controller: controller,
+          children: List.generate(
+            controller.length,
+            (index) {
+              return PlaceList(provinceCode: geo.tbProvinces[index].code ?? "");
+            },
+          ),
         ),
       ),
     );
