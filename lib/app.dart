@@ -78,8 +78,9 @@ class _AppState extends State<App> with AfterLayoutMixin<App> {
   }
 
   Future<void> fetchCurrentUser() async {
-    userNotifier.value = await userApi.fetchCurrentUser();
-    print(userNotifier.value);
+    if (isSignedIn) {
+      userNotifier.value = await userApi.fetchCurrentUser();
+    }
   }
 
   Future<void> updateLocale(Locale _locale) async {

@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:cambodia_geography/exports/exports.dart';
-import 'package:cambodia_geography/screens/drawer/drawer_wrapper.dart';
 
 class CgMenuLeadingButton extends StatelessWidget {
   const CgMenuLeadingButton({
@@ -20,14 +18,14 @@ class CgMenuLeadingButton extends StatelessWidget {
           progress: animationController,
         ),
         onPressed: () {
-          DrawerWrapper.of(context)?.open();
+          Scaffold.of(context).openDrawer();
         },
       );
     } else {
       return IconButton(
         icon: Icon(Icons.menu),
         onPressed: () {
-          DrawerWrapper.of(context)?.open();
+          Scaffold.of(context).openDrawer();
         },
       );
     }

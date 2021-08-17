@@ -5,7 +5,6 @@ import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/user/user_model.dart';
-import 'package:cambodia_geography/screens/drawer/drawer_wrapper.dart';
 import 'package:cambodia_geography/screens/drawer/local_widgets/diagonal_path_clipper.dart';
 import 'package:flutter/material.dart';
 
@@ -142,7 +141,7 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                 leading: Icon(route.icon),
                 onTap: () async {
                   if (route.routeName.isEmpty) return;
-                  await DrawerWrapper.of(context)?.close();
+                  Scaffold.of(context).openDrawer();
                   if (selected) return;
                   await Future.delayed(Duration(milliseconds: 50));
                   if (route.isRoot) {
@@ -229,7 +228,7 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                     icon: Icon(Icons.logout),
                     onPressed: () async {
                       await App.of(context)?.signOut();
-                      DrawerWrapper.of(context)?.close();
+                      Scaffold.of(context).openDrawer();
                     },
                   ),
                 ),

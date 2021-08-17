@@ -1,7 +1,7 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
-import 'package:cambodia_geography/screens/drawer/drawer_wrapper.dart';
+import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -35,32 +35,30 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    return DrawerWrapper(
-      context: context,
-      child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Navigator.of(context).pushNamed(RouteConfig.EDIT_PLACE).then((value) {
-              if (value is PlaceModel) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("Success created place: ${value.khmer ?? value.english}"),
-                  ),
-                );
-              }
-            });
+    return Scaffold(
+      drawer: AppDrawer(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.of(context).pushNamed(RouteConfig.EDIT_PLACE).then((value) {
+            if (value is PlaceModel) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Success created place: ${value.khmer ?? value.english}"),
+                ),
+              );
+            }
+          });
+        },
+      ),
+      appBar: buildAppbar(),
+      body: TabBarView(
+        controller: controller,
+        children: List.generate(
+          controller.length,
+          (index) {
+            return PlaceList(provinceCode: geo.tbProvinces[index].code ?? "");
           },
-        ),
-        appBar: buildAppbar(),
-        body: TabBarView(
-          controller: controller,
-          children: List.generate(
-            controller.length,
-            (index) {
-              return PlaceList(provinceCode: geo.tbProvinces[index].code ?? "");
-            },
-          ),
         ),
       ),
     );
@@ -73,7 +71,7 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
         return IconButton(
           icon: Icon(Icons.menu),
           onPressed: () {
-            DrawerWrapper.of(context)?.open();
+            Scaffold.of(context).openDrawer();
           },
         );
       }),
