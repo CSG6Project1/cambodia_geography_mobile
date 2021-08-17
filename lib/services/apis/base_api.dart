@@ -21,6 +21,27 @@ class CgContentType {
   static const String gif = 'image/gif';
 }
 
+class UserModel {
+  final String name;
+  final String email;
+
+  UserModel(this.name, this.email);
+
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      json['name'],
+      json['email'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'email': email,
+    };
+  }
+}
+
 abstract class BaseApi<T> {
   Response? response;
   StreamedResponse? streamedResponse;

@@ -176,7 +176,13 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                 padding: const EdgeInsets.all(ConfigConstant.margin2),
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: CircularProgressIndicator(),
+                  child: App.of(context)?.isSignedIn == true
+                      ? CircularProgressIndicator()
+                      : Icon(
+                          Icons.person,
+                          size: ConfigConstant.iconSize1,
+                          color: colorScheme.primary,
+                        ),
                 ),
               ),
               foregroundImage:
@@ -187,11 +193,28 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
               sizeCurve: Curves.ease,
               crossFadeState: user != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
               secondChild: ListTile(
-                onTap: () {},
+                onTap: () {
+                  if (App.of(context)?.isSignedIn == true) return;
+                  Navigator.of(context).pushNamed(RouteConfig.LOGIN);
+                },
                 tileColor: Colors.red,
                 hoverColor: Colors.blue,
                 contentPadding: EdgeInsets.zero,
-                title: Text("...", style: TextStyle(color: colorScheme.onPrimary)),
+                title: Text(
+                  App.of(context)?.isSignedIn == true ? "..." : "Login",
+                  style: TextStyle(color: colorScheme.onPrimary),
+                ),
+                trailing: Material(
+                  color: Colors.transparent,
+                  child: IconButton(
+                    color: colorScheme.surface,
+                    icon: Icon(Icons.login),
+                    onPressed: () async {
+                      if (App.of(context)?.isSignedIn == true) return;
+                      Navigator.of(context).pushNamed(RouteConfig.LOGIN);
+                    },
+                  ),
+                ),
               ),
               firstChild: ListTile(
                 onTap: () {},
@@ -199,6 +222,17 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                 hoverColor: Colors.blue,
                 contentPadding: EdgeInsets.zero,
                 title: Text(user?.username ?? "", style: TextStyle(color: colorScheme.onPrimary)),
+                trailing: Material(
+                  color: Colors.transparent,
+                  child: IconButton(
+                    color: colorScheme.surface,
+                    icon: Icon(Icons.logout),
+                    onPressed: () async {
+                      await App.of(context)?.signOut();
+                      DrawerWrapper.of(context)?.close();
+                    },
+                  ),
+                ),
                 subtitle: Text(
                   user?.email ?? "",
                   style: TextStyle(

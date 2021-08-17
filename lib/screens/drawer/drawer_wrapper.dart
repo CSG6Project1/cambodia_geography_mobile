@@ -87,9 +87,8 @@ class _DrawerWrapperState extends State<DrawerWrapper>
       animation: animationController,
       child: AppDrawer(),
       builder: (context, child) {
-        CurveTween curve = CurveTween(curve: Curves.ease);
-        double animValue = animationController.drive(curve).value;
-        final slideAmount = _maxSlide * animValue;
+        double animValue = animationController.value;
+        double slideAmount = _maxSlide * animValue;
         WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
           _notifier.value = slideAmount;
         });
@@ -108,9 +107,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
       valueListenable: _notifier,
       child: buildChildOverlay(),
       builder: (context, value, child) {
-        return AnimatedContainer(
-          curve: Curves.ease,
-          duration: const Duration(milliseconds: 0),
+        return Container(
           transform: Matrix4.identity()..translate(_notifier.value),
           alignment: Alignment.centerLeft,
           child: GestureDetector(
