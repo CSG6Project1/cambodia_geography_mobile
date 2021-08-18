@@ -172,7 +172,8 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
             CircleAvatar(
               radius: 24,
               backgroundColor: colorScheme.surface,
-              foregroundImage: user?.profileImg?.url != null ? NetworkImage(user?.profileImg?.url ?? "") : null,
+              foregroundImage:
+                  user?.profileImg?.url != null ? CachedNetworkImageProvider(user?.profileImg?.url ?? "") : null,
               child: Container(
                 padding: const EdgeInsets.all(ConfigConstant.margin2),
                 child: AspectRatio(
