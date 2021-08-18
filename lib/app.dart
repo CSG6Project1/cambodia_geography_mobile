@@ -3,6 +3,7 @@ import 'package:cambodia_geography/app_builder.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/configs/theme_config.dart';
 import 'package:cambodia_geography/exports/exports.dart';
+import 'package:cambodia_geography/main.dart';
 import 'package:cambodia_geography/models/apis/user_token_model.dart';
 import 'package:cambodia_geography/models/user/user_model.dart';
 import 'package:cambodia_geography/screens/home/home_screen.dart';
@@ -78,7 +79,9 @@ class _AppState extends State<App> with AfterLayoutMixin<App> {
   }
 
   Future<void> fetchCurrentUser() async {
-    if (isSignedIn) {
+    UserTokenModel? token = await getInitalUserToken();
+    if (token != null && token.accessToken != null) {
+      _userToken = token;
       userNotifier.value = await userApi.fetchCurrentUser();
     }
   }

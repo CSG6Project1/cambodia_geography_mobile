@@ -68,9 +68,11 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
     user = App.of(context)?.userNotifier.value;
     if (App.of(context)?.userNotifier != null) {
       App.of(context)?.userNotifier.addListener(() {
-        setState(() {
-          user = App.of(context)?.userNotifier.value;
-        });
+        if (mounted) {
+          setState(() {
+            user = App.of(context)?.userNotifier.value;
+          });
+        }
       });
     }
     super.initState();
@@ -141,9 +143,8 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                 leading: Icon(route.icon),
                 onTap: () async {
                   if (route.routeName.isEmpty) return;
-                  Scaffold.of(context).openDrawer();
                   if (selected) return;
-                  await Future.delayed(Duration(milliseconds: 50));
+                  Navigator.of(context).pop();
                   if (route.isRoot) {
                     Navigator.of(context).pushReplacementNamed(route.routeName);
                   } else {
@@ -171,21 +172,18 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
             CircleAvatar(
               radius: 24,
               backgroundColor: colorScheme.surface,
+              foregroundImage: user?.profileImg?.url != null ? NetworkImage(user?.profileImg?.url ?? "") : null,
               child: Container(
                 padding: const EdgeInsets.all(ConfigConstant.margin2),
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: App.of(context)?.isSignedIn == true
-                      ? CircularProgressIndicator()
-                      : Icon(
-                          Icons.person,
-                          size: ConfigConstant.iconSize1,
-                          color: colorScheme.primary,
-                        ),
+                  child: Icon(
+                    Icons.person,
+                    size: ConfigConstant.iconSize1,
+                    color: colorScheme.primary,
+                  ),
                 ),
               ),
-              foregroundImage:
-                  user?.profileImg?.url != null ? CachedNetworkImageProvider(user?.profileImg?.url ?? "") : null,
             ),
             AnimatedCrossFade(
               duration: ConfigConstant.fadeDuration,

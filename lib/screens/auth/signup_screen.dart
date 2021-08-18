@@ -1,4 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
@@ -39,6 +40,8 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
   }
 
   Future<void> onRegister() async {
+    print("VALUE");
+
     if (email.isEmpty) {
       showOkAlertDialog(context: context, title: "Email must be filled");
       return;
@@ -69,6 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
     }
 
     if (error == null) {
+      App.of(context)?.fetchCurrentUser();
       navigateToNextState();
     } else {
       showOkAlertDialog(context: context, title: error);

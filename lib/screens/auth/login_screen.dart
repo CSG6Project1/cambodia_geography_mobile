@@ -1,4 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
@@ -48,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
     );
 
     if (authApi.success()) {
+      App.of(context)?.fetchCurrentUser();
       navigateToNextState();
     } else {
       showOkAlertDialog(context: context, title: authApi.errorMessage());

@@ -10,9 +10,11 @@ import 'package:cambodia_geography/services/storages/theme_mode_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'models/apis/user_token_model.dart';
 
 void main() async {
+  // SharedPreferences.setMockInitialValues({});
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MaterialApp(
@@ -54,16 +56,10 @@ class _SplashScreenState extends State<SplashScreen> with AfterLayoutMixin<Splas
 
     bool isDarkMode = await _getInitialDarkMode();
     Locale? locale = await _getInitialLocale();
-    UserTokenModel? userToken = await _getInitalUserToken();
+    UserTokenModel? userToken = await getInitalUserToken();
 
     String route = await InitAppStateStorage().getInitialRouteName();
     return _IntModel(isDarkMode, locale, userToken, route);
-  }
-
-  Future<UserTokenModel?> _getInitalUserToken() async {
-    AuthApi authApi = AuthApi();
-    UserTokenModel? userToken = await authApi.getCurrentUserToken();
-    return userToken;
   }
 
   Future<Locale?> _getInitialLocale() async {
@@ -106,4 +102,10 @@ class _IntModel {
     this.userToken,
     this.route,
   );
+}
+
+Future<UserTokenModel?> getInitalUserToken() async {
+  AuthApi authApi = AuthApi();
+  UserTokenModel? userToken = await authApi.getCurrentUserToken();
+  return userToken;
 }
