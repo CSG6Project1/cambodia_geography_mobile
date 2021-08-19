@@ -126,7 +126,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
           ),
           Tab(
             child: Text(
-              "ភោជនីយ៍ដ្ឆាន៍",
+              "ភោជនីយដ្ឋាន",
               style: TextStyle(
                 fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
               ),
