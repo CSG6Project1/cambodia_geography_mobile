@@ -2,6 +2,7 @@ import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
+import 'package:cambodia_geography/services/authentications/social_auth_service.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class SocialButtons extends StatefulWidget {
@@ -23,7 +24,9 @@ class _SocialButtonsState extends State<SocialButtons> with CgThemeMixin, CgMedi
             width: double.infinity,
             child: SignInButton(
               Buttons.Facebook,
-              onPressed: () {},
+              onPressed: () {
+                SocialAuthService().loginWithFacebook();
+              },
               shape: RoundedRectangleBorder(
                 borderRadius: ConfigConstant.circlarRadius1,
               ),
@@ -34,7 +37,9 @@ class _SocialButtonsState extends State<SocialButtons> with CgThemeMixin, CgMedi
             width: double.infinity,
             child: SignInButton(
               Buttons.Google,
-              onPressed: () {},
+              onPressed: () {
+                SocialAuthService().logInWithGoogle()();
+              },
               shape: RoundedRectangleBorder(
                 borderRadius: ConfigConstant.circlarRadius1,
               ),

@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> with AfterLayoutMixin<Splas
   }
 
   void _goToNextPage(_IntModel value) {
-    Navigator.of(context).push(
+    Navigator.of(context).pushReplacement(
       CgPageRoute.fadeThrough(
         (context, animation, secondaryAnimation) => App(
           initialIsDarkMode: value.isDarkMode == true,

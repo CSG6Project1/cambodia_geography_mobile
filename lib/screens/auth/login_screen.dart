@@ -62,16 +62,9 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
     AppStateType? currentState = await storage.getCurrentAppStateType();
     if (currentState == AppStateType.setLangauge) {
       storage.setCurrentState(AppStateType.skippedAuth);
-      String routeName = await InitAppStateStorage().getInitialRouteName();
-      navigator.pushNamed(routeName);
-    } else {
-      if (navigator.canPop()) {
-        navigator.pop();
-      } else {
-        String routeName = await InitAppStateStorage().getInitialRouteName();
-        navigator.pushReplacementNamed(routeName);
-      }
     }
+    String routeName = await InitAppStateStorage().getInitialRouteName();
+    navigator.pushReplacementNamed(routeName);
   }
 
   void moveToSignUp() {
@@ -153,6 +146,7 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
             const SizedBox(height: ConfigConstant.margin1),
             CgTextField(
               labelText: "ពាក្យសម្ងាត់",
+              obscureText: true,
               onChanged: (String value) {
                 password = value;
               },
