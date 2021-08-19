@@ -52,13 +52,19 @@ class _SplashScreenState extends State<SplashScreen> with AfterLayoutMixin<Splas
 
   Future<Locale?> _getInitialLocale() async {
     LocaleStorage storage = LocaleStorage();
-    Locale? locale = await storage.readLocale();
+    Locale? locale;
+    try {
+      locale = await storage.readLocale();
+    } catch (e) {}
     return locale;
   }
 
   Future<bool> _getInitialDarkMode() async {
     ThemeModeStorage storage = ThemeModeStorage();
-    bool? isDarkMode = await storage.readBool();
+    bool? isDarkMode;
+    try {
+      isDarkMode = await storage.readBool();
+    } catch (e) {}
     if (isDarkMode == null) {
       Brightness? platformBrightness = SchedulerBinding.instance?.window.platformBrightness;
       isDarkMode = platformBrightness == Brightness.dark;

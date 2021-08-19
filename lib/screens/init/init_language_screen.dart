@@ -74,7 +74,7 @@ class _InitLanguageScreenState extends State<InitLanguageScreen> with CgMediaQue
   Future<void> onSubmit(Locale locale) async {
     await App.of(context)?.updateLocale(locale);
     appStateStorage.setCurrentState(AppStateType.setLangauge);
-    Navigator.of(context).pushNamed(RouteConfig.LOGIN);
+    Navigator.of(context).pushReplacementNamed(RouteConfig.LOGIN);
   }
 
   ThemeData buildPrimaryTheme() {

@@ -11,7 +11,10 @@ class InitAppStateStorage extends SharePreferenceStorage {
   }
 
   Future<String> getInitialRouteName() async {
-    AppStateType? type = await getCurrentAppStateType();
+    AppStateType? type;
+    try {
+      type = await getCurrentAppStateType();
+    } catch (e) {}
     String route;
     switch (type) {
       case AppStateType.setLangauge:

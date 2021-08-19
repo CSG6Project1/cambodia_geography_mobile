@@ -16,7 +16,9 @@ void main() async {
 }
 
 Future<UserTokenModel?> getInitalUserToken() async {
-  AuthApi authApi = AuthApi();
-  UserTokenModel? userToken = await authApi.getCurrentUserToken();
-  return userToken;
+  try {
+    AuthApi authApi = AuthApi();
+    UserTokenModel? userToken = await authApi.getCurrentUserToken();
+    return userToken;
+  } catch (e) {}
 }

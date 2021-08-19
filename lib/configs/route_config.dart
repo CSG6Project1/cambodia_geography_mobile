@@ -85,8 +85,8 @@ class RouteConfig {
       );
     } else {
       return SwipeablePageRoute(
-        canSwipe: routes[name]?.canSwap == true,
-        canOnlySwipeFromEdge: true,
+        canSwipe: routes[name]?.canSwap == true && !(routes[name]?.isRoot == true),
+        canOnlySwipeFromEdge: routes[name]?.canSwap == true && !(routes[name]?.isRoot == true),
         settings: settings?.copyWith(arguments: routes[name]!),
         builder: routes[name]!.route,
         fullscreenDialog: routes[name]!.fullscreenDialog,
