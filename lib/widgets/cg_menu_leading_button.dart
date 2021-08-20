@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cambodia_geography/exports/exports.dart';
+import 'package:flutter/foundation.dart';
 
 class CgMenuLeadingButton extends StatelessWidget {
   const CgMenuLeadingButton({
@@ -11,7 +12,7 @@ class CgMenuLeadingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isAndroid) {
+    if (!kIsWeb && Platform.isAndroid) {
       return IconButton(
         icon: AnimatedIcon(
           icon: AnimatedIcons.menu_arrow,

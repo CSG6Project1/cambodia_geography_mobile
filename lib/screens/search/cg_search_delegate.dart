@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/search/search_history_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CgSearchDelegate extends SearchDelegate<String> {
@@ -91,7 +92,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildLeading(BuildContext context) {
-    if (Platform.isAndroid) {
+    if (!kIsWeb && Platform.isAndroid) {
       return IconButton(
         icon: AnimatedIcon(
           color: Theme.of(context).colorScheme.primary,

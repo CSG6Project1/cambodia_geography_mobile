@@ -1,4 +1,4 @@
-import 'package:cambodia_geography/services/local/local_format_service.dart';
+import 'package:cambodia_geography/services/locale/locale_format_service.dart';
 import 'package:intl/intl.dart';
 
 class DateHelper {

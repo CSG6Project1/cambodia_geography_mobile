@@ -54,6 +54,7 @@ class _InitLanguageScreenState extends State<InitLanguageScreen> with CgMediaQue
                   },
                 ),
               ),
+              const SizedBox(height: ConfigConstant.margin1),
               Container(
                 width: double.infinity,
                 child: CgButton(
