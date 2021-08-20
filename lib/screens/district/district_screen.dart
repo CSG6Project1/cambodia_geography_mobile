@@ -81,7 +81,9 @@ class DistrictScreen extends StatelessWidget {
         ),
         subtitle: Text(
           'លេខកូដ៖ ' + commune.code.toString(),
-          style: Theme.of(context).textTheme.caption,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ),
         children: buildVillageList(
           commune: commune,
@@ -99,10 +101,12 @@ class DistrictScreen extends StatelessWidget {
   }) {
     return List.generate(commune.village ?? 0, (index) {
       String prefix = villages[index].khmer.toString().contains('ភូមិ') ? '' : 'ភូមិ ';
-      return ListTile(
-        title: Text(prefix + villages[index].khmer.toString()),
-        subtitle: Text('លេខកូដ៖ ' + villages[index].code.toString()),
-        tileColor: index.isEven ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.surface,
+      return Material(
+        child: ListTile(
+          title: Text(prefix + villages[index].khmer.toString()),
+          subtitle: Text('លេខកូដ៖ ' + villages[index].code.toString()),
+          tileColor: index.isEven ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.surface,
+        ),
       );
     });
   }

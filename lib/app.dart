@@ -114,7 +114,7 @@ class _AppState extends State<App> with AfterLayoutMixin<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeConfig(isDarkMode).themeData,
+      theme: ThemeConfig(false).themeData,
       debugShowCheckedModeBanner: false,
       home: RouteConfig().routes[initialRoute]?.screen ?? HomeScreen(),
       navigatorObservers: [HeroController()],

@@ -56,9 +56,9 @@ class ProvinceCard extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         initiallyExpanded: initiallyDistrictExpanded,
         onExpansionChanged: onDistrictExpansionChanged,
-        // collapsedBackgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
           isKhan ? 'ខណ្ឌ' : 'ស្រុក',
           style: Theme.of(context)
@@ -68,7 +68,9 @@ class ProvinceCard extends StatelessWidget {
         ),
         subtitle: Text(
           isKhan ? NumberHelper.toKhmer(province.khan) + ' ខណ្ឌ' : NumberHelper.toKhmer(province.srok) + ' ស្រុក',
-          style: Theme.of(context).textTheme.caption,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
         ),
         children: List.generate(
           district.length,
@@ -91,15 +93,17 @@ class ProvinceCard extends StatelessWidget {
             return Column(
               children: [
                 Divider(height: 0, color: Theme.of(context).dividerColor),
-                ListTile(
-                  title: Text(title),
-                  subtitle: Text(subtitle),
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      RouteConfig.DISTRICT,
-                      arguments: district[index],
-                    );
-                  },
+                Material(
+                  child: ListTile(
+                    title: Text(title),
+                    subtitle: Text(subtitle),
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        RouteConfig.DISTRICT,
+                        arguments: district[index],
+                      );
+                    },
+                  ),
                 )
               ],
             );
@@ -109,24 +113,27 @@ class ProvinceCard extends StatelessWidget {
     );
   }
 
-  ListTile buildTourPlaceListTile({
+  Widget buildTourPlaceListTile({
     required BuildContext context,
     void Function()? onTap,
     String? subtitle,
     String? title,
   }) {
-    return ListTile(
-      contentPadding: EdgeInsets.symmetric(vertical: ConfigConstant.margin1, horizontal: ConfigConstant.margin2),
-      onTap: onTap,
-      subtitle: subtitle != null ? Text(subtitle, style: Theme.of(context).textTheme.caption) : null,
-      tileColor: Theme.of(context).colorScheme.surface,
-      selectedTileColor: Theme.of(context).colorScheme.surface,
-      title: Text(
-        title ?? '',
-        style: Theme.of(context)
-            .textTheme
-            .headline6
-            ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
+    return Material(
+      color: Theme.of(context).colorScheme.surface,
+      child: ListTile(
+        contentPadding: EdgeInsets.symmetric(vertical: ConfigConstant.margin1, horizontal: ConfigConstant.margin2),
+        onTap: onTap,
+        subtitle: subtitle != null ? Text(subtitle, style: Theme.of(context).textTheme.caption) : null,
+        tileColor: Theme.of(context).colorScheme.surface,
+        selectedTileColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          title ?? '',
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
+        ),
       ),
     );
   }
