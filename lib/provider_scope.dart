@@ -1,6 +1,7 @@
 import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/models/apis/user_token_model.dart';
+import 'package:cambodia_geography/providers/editing_provider.dart';
 import 'package:cambodia_geography/providers/locale_provider.dart';
 import 'package:cambodia_geography/providers/theme_provider.dart';
 import 'package:cambodia_geography/providers/user_location_provider.dart';
@@ -29,6 +30,7 @@ class ProviderScope extends StatelessWidget {
         ChangeNotifierProvider<LocaleProvider>(create: (_) => LocaleProvider(initialLocale)),
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider(userToken)),
         ChangeNotifierProvider<UserLocationProvider>(create: (_) => UserLocationProvider()),
+        ChangeNotifierProvider<EditingProvider>(create: (_) => EditingProvider()),
       ],
       child: App(initialRoute: initialRoute),
     );

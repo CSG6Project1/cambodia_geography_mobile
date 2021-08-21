@@ -94,14 +94,34 @@ abstract class BaseApi<T> {
 
   Future<dynamic> send({
     required String method,
+    String? id,
     Map<String, String> fields = const {},
     List<File> files = const [],
     String fileField = "",
     CgContentType fileContentType = const CgContentType(CgContentType.jpg),
     Map<String, dynamic>? queryParameters,
   }) async {
+    List<String> methods = ["POST", "PUT"];
+    assert(methods.contains(method));
+
     return _beforeExec(() async {
-      Uri postUri = Uri.parse(this.objectNameUrlModel.createUrl(queryParameters: queryParameters));
+      Uri postUri;
+
+      switch (method) {
+        case "POST":
+          assert(id == null);
+          postUri = Uri.parse(this.objectNameUrlModel.createUrl(queryParameters: queryParameters));
+          break;
+        case "PUT":
+          assert(id != null);
+          postUri = Uri.parse(this.objectNameUrlModel.updatelUrl(queryParameters: queryParameters, id: id));
+          break;
+        default:
+          assert(id == null);
+          postUri = Uri.parse(this.objectNameUrlModel.createUrl(queryParameters: queryParameters));
+          break;
+      }
+
       _multipartRequest = MultipartRequest(method, postUri);
       _multipartRequest = await multipartRequest(request: _multipartRequest!);
       _multipartRequest?.fields.addAll(fields..removeWhere((key, value) => value.isEmpty));

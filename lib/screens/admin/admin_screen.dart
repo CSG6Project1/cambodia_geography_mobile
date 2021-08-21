@@ -1,10 +1,12 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
+import 'package:cambodia_geography/providers/editing_provider.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_gps_button.dart';
 import 'package:cambodia_geography/widgets/cg_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 import 'local_widgets/place_list.dart';
 
@@ -59,9 +61,10 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
           (index) {
             return PlaceList(
               provinceCode: geo.tbProvinces[index].code ?? "",
+              showDeleteButton: true,
               onTap: (place) {
                 Navigator.of(context).pushNamed(
-                  RouteConfig.PLACEDETAIL,
+                  RouteConfig.EDIT_PLACE,
                   arguments: place,
                 );
               },
@@ -75,7 +78,16 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
   MorphingAppBar buildAppbar() {
     return MorphingAppBar(
       title: CgAppBarTitle(title: "Admin"),
-      actions: [CgGpsButton()],
+      actions: [
+        CgGpsButton(),
+        IconButton(
+          icon: Icon(Icons.settings),
+          onPressed: () {
+            EditingProvider provider = Provider.of<EditingProvider>(context, listen: false);
+            provider.editing = !provider.editing;
+          },
+        ),
+      ],
       leading: Builder(builder: (context) {
         return IconButton(
           icon: Icon(Icons.menu),

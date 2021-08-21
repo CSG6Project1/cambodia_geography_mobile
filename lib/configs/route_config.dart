@@ -175,7 +175,12 @@ class RouteConfig {
       EDIT_PLACE: CgRouteSetting(
         isRoot: false,
         title: "EDIT_PLACE",
-        route: (context) => EditPlaceScreen(),
+        route: (context) {
+          Object? arg = settings?.arguments;
+          if (arg == null) return EditPlaceScreen(place: null);
+          if (arg is PlaceModel) return EditPlaceScreen(place: arg);
+          return NotFoundScreen();
+        },
       ),
       BODY_EDITOR: CgRouteSetting(
         isRoot: false,

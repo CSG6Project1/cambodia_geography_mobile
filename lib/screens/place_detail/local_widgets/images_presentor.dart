@@ -1,5 +1,4 @@
 import 'package:cambodia_geography/constants/config_constant.dart';
-import 'package:cambodia_geography/widgets/cg_images_viewer.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:flutter/material.dart';
 
@@ -79,29 +78,29 @@ class _ImagesPresentorState extends State<ImagesPresentor> {
   }
 
   Future<void> onViewImages(List<String> images) async {
-    return showModalBottomSheet(
-      context: context,
-      useRootNavigator: true,
-      isScrollControlled: true,
-      backgroundColor: Colors.black,
-      barrierColor: Colors.transparent,
-      builder: (context) {
-        return ImagesViewer(
-          images: images,
-          statusBarHeight: MediaQuery.of(context).padding.top,
-          currentImageIndex: currentPage ?? 0,
-          onPageChanged: (index) {
-            widget.controller.animateToPage(
-              index,
-              duration: ConfigConstant.duration,
-              curve: Curves.easeIn,
-            );
-            if (widget.onPageChanged != null) {
-              widget.onPageChanged!(index);
-            }
-          },
-        );
-      },
-    );
+    // return showModalBottomSheet(
+    //   context: context,
+    //   useRootNavigator: true,
+    //   isScrollControlled: true,
+    //   backgroundColor: Colors.black,
+    //   barrierColor: Colors.transparent,
+    //   builder: (context) {
+    //     return ImagesViewer(
+    //       images: images,
+    //       statusBarHeight: MediaQuery.of(context).padding.top,
+    //       currentImageIndex: currentPage ?? 0,
+    //       onPageChanged: (index) {
+    //         widget.controller.animateToPage(
+    //           index,
+    //           duration: ConfigConstant.duration,
+    //           curve: Curves.easeIn,
+    //         );
+    //         if (widget.onPageChanged != null) {
+    //           widget.onPageChanged!(index);
+    //         }
+    //       },
+    //     );
+    //   },
+    // );
   }
 }

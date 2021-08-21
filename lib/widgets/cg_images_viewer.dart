@@ -1,12 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:page_indicator/page_indicator.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'dart:io' as io;
 
 class ImagesViewer extends StatefulWidget {
-  final List<String> images;
+  final List<io.File> images;
   final Function(int)? onPageChanged;
   final int currentImageIndex;
   final double statusBarHeight;
@@ -72,7 +72,7 @@ class _ImageViewerState extends State<ImagesViewer> {
               backgroundDecoration: BoxDecoration(color: Colors.transparent),
               builder: (context, index) {
                 return PhotoViewGalleryPageOptions(
-                  imageProvider: CachedNetworkImageProvider(widget.images[index]),
+                  imageProvider: FileImage(widget.images[index]),
                   initialScale: PhotoViewComputedScale.contained * 1,
                   maxScale: PhotoViewComputedScale.contained * 2.5,
                   minScale: PhotoViewComputedScale.contained * 1,

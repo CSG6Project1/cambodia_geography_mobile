@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/app_constant.dart';
@@ -7,12 +9,22 @@ import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
+import 'package:cambodia_geography/models/tb_commune_model.dart';
+import 'package:cambodia_geography/models/tb_district_model.dart';
+import 'package:cambodia_geography/models/tb_province_model.dart';
+import 'package:cambodia_geography/models/tb_village_model.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/services/apis/admins/crud_places_api.dart';
 import 'package:cambodia_geography/services/images/image_picker_service.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
+
+enum EditPlaceFlowType {
+  edit,
+  create,
+}
 
 class EditPlaceScreen extends StatefulWidget {
   const EditPlaceScreen({
@@ -33,7 +45,7 @@ class EditPlaceScreen extends StatefulWidget {
 }
 
 class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixin, CgThemeMixin {
-  List<File> images = [];
+  List<ImageProvider> images = [];
   late PlaceModel place;
 
   String error = "";
@@ -44,6 +56,8 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   List<String> communes = [];
   List<String> villages = [];
 
+  late EditPlaceFlowType flowType;
+
   @override
   void initState() {
     place = PlaceModel(
@@ -53,7 +67,91 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
       english: "",
       body: "",
     );
+
+    if (widget.place?.id != null) {
+      flowType = EditPlaceFlowType.edit;
+    } else {
+      flowType = EditPlaceFlowType.create;
+    }
+
+    if (widget.place != null) {
+      place = widget.place!;
+    }
+
+    if (place.provinceCode != null) {
+      setDistrict(place.provinceCode);
+      if (place.districtCode != null) {
+        setCommunes(place.districtCode);
+        if (place.communeCode != null) {
+          setVillages(place.communeCode);
+        }
+      }
+    }
+
+    place.images?.forEach((image) {
+      if (image.url != null) {
+        this.images.add(CachedNetworkImageProvider(image.url!));
+      }
+    });
+
     super.initState();
+  }
+
+  Future<File?> _getCacheFile(String imageUrl) async {
+    DefaultCacheManager cache = DefaultCacheManager();
+    try {
+      File file = await cache.getSingleFile(imageUrl);
+      return file;
+    } catch (e) {
+      FileInfo fileInfo = await cache.downloadFile(imageUrl);
+      return fileInfo.file;
+    }
+  }
+
+  Future<List<File>> _getFilesFromImages() async {
+    List<File> files = [];
+
+    for (var image in images) {
+      if (image is CachedNetworkImageProvider) {
+        File? file = await _getCacheFile(image.url);
+        if (file != null) files.add(file);
+      }
+      if (image is FileImage) {
+        files.add(image.file);
+      }
+    }
+    return files;
+    // image.obtainKey(ImageConfiguration.empty).then((val) {
+    //   if (image is CachedNetworkImageProvider) {
+    //     Uint32List? uint32List;
+    //     DecoderCallback callback = (bytes, {allowUpscaling = false, cacheHeight, cacheWidth}) {
+    //       return instantiateImageCodec(bytes, targetWidth: cacheWidth, targetHeight: cacheHeight);
+    //     };
+    //     ImageStreamCompleter _load = image.load(image, callback);
+    //     _load.addListener(ImageStreamListener((info, bool) async {
+    //       uint32List = await info.image.toByteData().then((value) => value?.buffer.asUint32List());
+    //       print(uint32List);
+    //     }));
+    //   }
+    // });
+  }
+
+  void setDistrict(String? _provinceCode) {
+    this.place = this.place.copyWith(provinceCode: _provinceCode);
+    var result = geo.districtsSearch(provinceCode: _provinceCode.toString());
+    districts = result.map((e) => e.khmer.toString() + " (${e.code})").toList();
+  }
+
+  void setCommunes(String? _districtCode) {
+    this.place = this.place.copyWith(districtCode: _districtCode);
+    var result = geo.communesSearch(districtCode: _districtCode.toString());
+    communes = result.map((e) => e.khmer.toString() + " (${e.code})").toList();
+  }
+
+  void setVillages(String? _communeCode) {
+    this.place = this.place.copyWith(communeCode: _communeCode);
+    var result = geo.villagesSearch(communeCode: _communeCode.toString());
+    villages = result.map((e) => e.khmer.toString() + " (${e.code})").toList();
   }
 
   @override
@@ -168,6 +266,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
       child: CgTextField(
         labelText: "ឈ្មោះទីតាំង (ឡាតាំង)",
         fillColor: colorScheme.background,
+        value: place.english,
         onChanged: (String value) {
           this.place = this.place.copyWith(english: value);
         },
@@ -181,6 +280,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
       child: CgTextField(
         labelText: "ឈ្មោះទីតាំង",
         fillColor: colorScheme.background,
+        value: place.khmer,
         onChanged: (String value) {
           this.place = this.place.copyWith(khmer: value);
         },
@@ -279,9 +379,13 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   }
 
   Widget buildVillageDropDownField() {
+    List<TbVillageModel> _village =
+        CambodiaGeography.instance.tbVillages.where((element) => place.villageCode == element.code).toList();
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgDropDownField(
+        initValue:
+            _village.isNotEmpty ? _village.first.khmer.toString() + " (${_village.first.code.toString()})" : null,
         labelText: "ភូមិ",
         fillColor: colorScheme.background,
         key: Key(villages.join()),
@@ -307,9 +411,13 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   }
 
   Widget buildCommunesDropDownField() {
+    List<TbCommuneModel> _communes =
+        CambodiaGeography.instance.tbCommunes.where((element) => place.communeCode == element.code).toList();
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgDropDownField(
+        initValue:
+            _communes.isNotEmpty ? _communes.first.khmer.toString() + " (${_communes.first.code.toString()})" : null,
         labelText: "ឃុំ",
         fillColor: colorScheme.background,
         key: Key(communes.join()),
@@ -329,9 +437,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
           setState(() {
             var selectedCommune = geo.tbCommunes.where((e) => value?.contains(e.khmer.toString()) == true).toList();
             var _communeCode = selectedCommune.first.code;
-            this.place = this.place.copyWith(communeCode: _communeCode);
-            var result = geo.villagesSearch(communeCode: _communeCode.toString());
-            villages = result.map((e) => e.khmer.toString() + " (${e.code})").toList();
+            setVillages(_communeCode);
           });
         },
       ),
@@ -339,9 +445,13 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   }
 
   Widget buildDistrictDropDownField() {
+    List<TbDistrictModel> _districts =
+        CambodiaGeography.instance.tbDistricts.where((element) => place.districtCode == element.code).toList();
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgDropDownField(
+        initValue:
+            _districts.isNotEmpty ? _districts.first.khmer.toString() + " (${_districts.first.code.toString()})" : null,
         labelText: "ស្រុក",
         key: Key(districts.join()),
         items: [
@@ -364,9 +474,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
           setState(() {
             var selectedDistrict = geo.tbDistricts.where((e) => value?.contains(e.khmer.toString()) == true).toList();
             var _districtCode = selectedDistrict.first.code;
-            this.place = this.place.copyWith(districtCode: _districtCode);
-            var result = geo.communesSearch(districtCode: _districtCode.toString());
-            communes = result.map((e) => e.khmer.toString() + " (${e.code})").toList();
+            setCommunes(_districtCode);
           });
         },
       ),
@@ -374,10 +482,14 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   }
 
   Widget buildProvinceDropDownField() {
+    List<TbProvinceModel> _provinces =
+        CambodiaGeography.instance.tbProvinces.where((element) => place.provinceCode == element.code).toList();
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgDropDownField(
         labelText: "ស្ថិតនៅខេត្ត",
+        initValue:
+            _provinces.isNotEmpty ? _provinces.first.khmer.toString() + " (${_provinces.first.code.toString()})" : null,
         items: geo.tbProvinces.map((e) => e.khmer.toString() + " (${e.code.toString()})").toList(),
         onChanged: (value) {
           districts.clear();
@@ -385,9 +497,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
           setState(() {
             var selectedProvince = geo.tbProvinces.where((e) => value?.contains(e.khmer.toString()) == true).toList();
             var _provinceCode = selectedProvince.first.code;
-            this.place = this.place.copyWith(provinceCode: _provinceCode);
-            var result = geo.districtsSearch(provinceCode: _provinceCode.toString());
-            districts = result.map((e) => e.khmer.toString() + " (${e.code})").toList();
+            setDistrict(_provinceCode);
           });
         },
       ),
@@ -398,9 +508,19 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     return FloatingActionButton(
       child: Icon(Icons.save),
       onPressed: () async {
-        final api = CrudPlacesApi();
-        await api.createAPlace(images: images, place: place);
+        CrudPlacesApi api = CrudPlacesApi();
+        App.of(context)?.showLoading();
 
+        switch (flowType) {
+          case EditPlaceFlowType.create:
+            await api.createAPlace(images: await _getFilesFromImages(), place: place);
+            break;
+          case EditPlaceFlowType.edit:
+            await api.updatePlace(images: await _getFilesFromImages(), place: place);
+            break;
+        }
+
+        App.of(context)?.hideLoading();
         if (api.success()) {
           Navigator.of(context).pop(place);
         } else {
@@ -437,7 +557,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
                   File? file = await ImagePickerService.pickImage();
                   if (file != null) {
                     setState(() {
-                      images.add(file);
+                      images.add(FileImage(file));
                     });
                   }
                 },
@@ -456,9 +576,10 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
               children: [
                 ClipRRect(
                   borderRadius: ConfigConstant.circlarRadius1,
-                  child: Image.file(
-                    images[index],
-                    fit: BoxFit.fill,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(image: images[index]),
+                    ),
                   ),
                 ),
                 buildImageDeleteButton(

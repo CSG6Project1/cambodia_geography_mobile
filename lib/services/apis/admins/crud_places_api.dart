@@ -14,10 +14,7 @@ class CrudPlacesApi extends BaseResourceOwnerApi<PlaceModel> {
     return PlaceModel.fromJson(json);
   }
 
-  Future<void> createAPlace({
-    required List<File> images,
-    required PlaceModel place,
-  }) async {
+  Map<String, String> getFields(PlaceModel place) {
     Map<String, dynamic> _json = place.sliceParams(place.toJson(), place.paramNames())
       ..removeWhere((key, value) {
         return value == null;
@@ -29,9 +26,35 @@ class CrudPlacesApi extends BaseResourceOwnerApi<PlaceModel> {
       value: (e) => "${e.value}",
     );
 
+    return fields;
+  }
+
+  Future<void> deletePlace({required String id}) async {
+    return super.delete(id: id);
+  }
+
+  Future<void> updatePlace({
+    required List<File> images,
+    required PlaceModel place,
+  }) async {
+    assert(place.id != null);
+    return await super.send(
+      id: place.id,
+      method: "PUT",
+      fields: getFields(place),
+      files: images,
+      fileField: "images",
+      fileContentType: CgContentType(CgContentType.jpeg),
+    );
+  }
+
+  Future<void> createAPlace({
+    required List<File> images,
+    required PlaceModel place,
+  }) async {
     return await super.send(
       method: "POST",
-      fields: fields,
+      fields: getFields(place),
       files: images,
       fileField: "images",
       fileContentType: CgContentType(CgContentType.jpeg),

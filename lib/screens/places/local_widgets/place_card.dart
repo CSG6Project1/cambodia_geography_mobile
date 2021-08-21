@@ -6,12 +6,12 @@ import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
+import 'package:cambodia_geography/providers/editing_provider.dart';
 import 'package:cambodia_geography/providers/user_location_provider.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/services/geography/distance_caculator_service.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
-import 'package:cambodia_geography/widgets/cg_on_tap_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,10 +19,12 @@ class PlaceCard extends StatelessWidget {
   PlaceCard({
     this.place,
     required this.onTap,
+    this.onDelete,
   });
 
   final PlaceModel? place;
   final void Function() onTap;
+  final void Function()? onDelete;
 
   String getGeoInfo() {
     List<String> geoInfo = [];
@@ -76,7 +78,7 @@ class PlaceCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: ConfigConstant.circlarRadius1),
       margin: EdgeInsets.zero,
       clipBehavior: Clip.hardEdge,
-      child: CgOnTapEffect(
+      child: InkWell(
         onTap: onTap,
         child: Row(
           children: [
@@ -103,9 +105,42 @@ class PlaceCard extends StatelessWidget {
         padding: const EdgeInsets.all(ConfigConstant.margin1),
         child: AspectRatio(
           aspectRatio: 1,
-          child: CgNetworkImageLoader(
-            imageUrl: place?.images?.isNotEmpty == true ? place?.images?.first.url : null,
-            fit: BoxFit.cover,
+          child: Stack(
+            children: [
+              CgNetworkImageLoader(
+                imageUrl: place?.images?.isNotEmpty == true ? place?.images?.first.url : null,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+              ),
+              if (onDelete != null)
+                Consumer<EditingProvider>(
+                  builder: (context, provider, child) {
+                    bool showDeleteButton = onDelete != null && provider.editing;
+                    return IgnorePointer(
+                      ignoring: !showDeleteButton,
+                      child: AnimatedOpacity(
+                        opacity: showDeleteButton ? 1 : 0,
+                        duration: ConfigConstant.fadeDuration ~/ 2,
+                        child: Material(
+                          color: Theme.of(context).colorScheme.background,
+                          child: InkWell(
+                            onTap: onDelete,
+                            child: Container(
+                              width: double.infinity,
+                              height: double.infinity,
+                              child: Icon(
+                                Icons.delete,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+            ],
           ),
         ),
       ),

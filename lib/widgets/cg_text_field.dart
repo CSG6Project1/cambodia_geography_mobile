@@ -35,10 +35,24 @@ class CgTextField extends StatefulWidget {
 }
 
 class _CgTextFieldState extends State<CgTextField> with CgThemeMixin {
+  late TextEditingController controller;
+
+  @override
+  void initState() {
+    controller = widget.controller ?? TextEditingController(text: widget.value ?? "");
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (widget.controller != null) controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: widget.controller,
+      controller: controller,
       onChanged: widget.onChanged,
       onSubmitted: widget.onSubmitted,
       autocorrect: widget.autocorrect,
