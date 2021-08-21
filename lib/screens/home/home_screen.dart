@@ -5,11 +5,11 @@ import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
-import 'package:cambodia_geography/screens/drawer/app_drawer.dart';
 import 'package:cambodia_geography/screens/search/cg_search_delegate.dart';
 import 'package:cambodia_geography/screens/search/search_history_storage.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_menu_leading_button.dart';
+import 'package:cambodia_geography/widgets/cg_scaffold.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -105,9 +105,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CgScaffold(
       appBar: buildAppbar(),
-      drawer: AppDrawer(),
       body: RectGetter(
         key: listViewKey,
         child: NotificationListener<ScrollNotification>(
@@ -131,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
     );
   }
 
-  MorphingAppBar buildAppbar() {
+  PreferredSizeWidget buildAppbar() {
     return MorphingAppBar(
       leading: CgMenuLeadingButton(animationController: animationController),
       actions: [

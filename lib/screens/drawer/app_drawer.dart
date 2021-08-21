@@ -82,8 +82,8 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
   Widget build(BuildContext context) {
     return Theme(
       data: themeData,
-      child: Container(
-        margin: EdgeInsets.only(right: kToolbarHeight),
+      child: Drawer(
+        // width: min(350, mediaQueryData.size.width) - kToolbarHeight,
         child: Scaffold(
           extendBody: true,
           backgroundColor: colorScheme.surface,
@@ -144,7 +144,7 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                 onTap: () async {
                   if (route.routeName.isEmpty) return;
                   if (selected) return;
-                  Navigator.of(context).pop();
+                  if (Scaffold.hasDrawer(context)) Navigator.of(context).pop();
                   if (route.isRoot) {
                     Navigator.of(context).pushReplacementNamed(route.routeName);
                   } else {
