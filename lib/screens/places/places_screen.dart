@@ -49,6 +49,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
           PlaceList(
             provinceCode: provinceCode!,
             type: PlaceType.place,
+            basePlacesApi: PlacesApi(),
             onTap: (place) {
               Navigator.of(context).pushNamed(
                 RouteConfig.PLACEDETAIL,
@@ -59,6 +60,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
           PlaceList(
             provinceCode: provinceCode!,
             type: PlaceType.restaurant,
+            basePlacesApi: PlacesApi(),
             onTap: (place) {
               Navigator.of(context).pushNamed(
                 RouteConfig.PLACEDETAIL,

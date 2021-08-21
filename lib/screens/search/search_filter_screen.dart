@@ -46,10 +46,12 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
           CgButton(
             onPressed: () {
               Navigator.of(context).pop(PlaceModel(
-                  provinceCode: _provinceCode,
-                  districtCode: _districtCode,
-                  communeCode: _communeCode,
-                  villageCode: _villageCode));
+                type: _placeType ?? "place",
+                provinceCode: _provinceCode,
+                districtCode: _districtCode,
+                communeCode: _communeCode,
+                villageCode: _villageCode,
+              ));
             },
             labelText: "កំណត់",
             backgroundColor: colorScheme.surface,
@@ -65,7 +67,9 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
             items: placeTypes,
             onChanged: (value) {
               setState(() {
-                _placeType = value;
+                if (value == placeTypes[1]) {
+                  _placeType = "restaurant";
+                }
                 print(_placeType);
               });
             },

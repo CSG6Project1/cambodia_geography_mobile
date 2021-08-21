@@ -6,7 +6,7 @@ import 'package:cambodia_geography/models/places/place_list_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/places/local_widgets/place_card.dart';
 import 'package:cambodia_geography/services/apis/admins/crud_places_api.dart';
-import 'package:cambodia_geography/services/apis/places/places_api.dart';
+import 'package:cambodia_geography/services/apis/places/base_places_api.dart';
 import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
 import 'package:flutter/material.dart';
 
@@ -18,23 +18,35 @@ enum PlaceType {
 class PlaceList extends StatefulWidget {
   const PlaceList({
     Key? key,
-    required this.provinceCode,
+    this.provinceCode,
     required this.onTap,
     this.showDeleteButton = false,
     this.type,
+    this.keyword,
+    this.districtCode,
+    this.villageCode,
+    this.communeCode,
+    required this.basePlacesApi,
+    this.page,
   }) : super(key: key);
 
-  final String provinceCode;
-  final PlaceType? type;
   final void Function(PlaceModel place) onTap;
   final bool showDeleteButton;
+  final BasePlacesApi basePlacesApi;
+  final String? keyword;
+  final PlaceType? type;
+  final String? provinceCode;
+  final String? districtCode;
+  final String? villageCode;
+  final String? communeCode;
+  final String? page;
 
   @override
   _PlaceListState createState() => _PlaceListState();
 }
 
 class _PlaceListState extends State<PlaceList> with AutomaticKeepAliveClientMixin, CgThemeMixin {
-  late PlacesApi placesApi;
+  late BasePlacesApi placesApi;
   late bool loading;
 
   String? provinceCode;
@@ -42,21 +54,27 @@ class _PlaceListState extends State<PlaceList> with AutomaticKeepAliveClientMixi
 
   @override
   void initState() {
-    placesApi = PlacesApi();
+    placesApi = widget.basePlacesApi;
     provinceCode = widget.provinceCode;
     super.initState();
     loading = true;
-    if (provinceCode != null) load();
+    load();
   }
 
   Future<void> load({bool loadMore = false}) async {
     if (loadMore && !(this.placeList?.hasLoadMore() == true)) return;
 
-    final result = await placesApi.fetchAll(queryParameters: {
-      'province_code': provinceCode,
-      'type': widget.type == null ? null : widget.type.toString().replaceAll("PlaceType.", ""),
-      'page': loadMore ? placeList?.links?.getPageNumber().next.toString() : null,
-    });
+    final result = await placesApi.fetchAllPlaces(
+      // 'province_code': provinceCode,
+      // 'type': widget.type == null ? null : widget.type.toString().replaceAll("PlaceType.", ""),
+      // 'page': loadMore ? placeList?.links?.getPageNumber().next.toString() : null,
+      keyword: widget.keyword,
+      type: widget.type,
+      provinceCode: widget.provinceCode,
+      districtCode: widget.districtCode,
+      villageCode: widget.villageCode,
+      communeCode: widget.communeCode,
+    );
 
     if (placesApi.success() && result != null) {
       setState(() {
