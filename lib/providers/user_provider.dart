@@ -15,6 +15,7 @@ class UserProvider extends ChangeNotifier {
   UserProvider(this._userToken) {
     this.userApi = UserApi();
     this.userTokenStorage = UserTokenStorage();
+    fetchCurrentUser();
   }
 
   Future<void> signOut() async {

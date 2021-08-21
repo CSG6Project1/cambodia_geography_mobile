@@ -1,14 +1,19 @@
+import 'dart:io';
 import 'package:cambodia_geography/app_builder.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/configs/theme_config.dart';
 import 'package:cambodia_geography/exports/exports.dart';
+import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
+import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/providers/locale_provider.dart';
 import 'package:cambodia_geography/providers/theme_provider.dart';
 import 'package:cambodia_geography/screens/home/home_screen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({
     Key? key,
     required this.initialRoute,
@@ -16,17 +21,52 @@ class App extends StatelessWidget {
 
   final String? initialRoute;
 
+  static _AppState? of(BuildContext context) {
+    return context.findAncestorStateOfType<_AppState>();
+  }
+
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin {
+  ThemeProvider? themeProvider;
+  LocaleProvider? localeProvider;
+  bool _loading = false;
+
+  Future<T?> showLoading<T>({void Function()? onCancel}) {
+    if (!kIsWeb && Platform.isIOS) {
+      return showCupertinoDialog<T>(
+        context: context,
+        builder: _loadingBuilder,
+        barrierDismissible: false,
+      );
+    } else {
+      return showDialog<T>(
+        context: context,
+        barrierDismissible: false,
+        builder: _loadingBuilder,
+      );
+    }
+  }
+
+  void hideLoading() {
+    if (_loading) {
+      return Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: true);
-    LocaleProvider localeProvider = Provider.of<LocaleProvider>(context, listen: true);
+    themeProvider = Provider.of<ThemeProvider>(context, listen: true);
+    localeProvider = Provider.of<LocaleProvider>(context, listen: true);
     return MaterialApp(
-      theme: ThemeConfig(themeProvider.isDarkMode).themeData,
+      theme: theme,
       debugShowCheckedModeBanner: false,
-      home: RouteConfig().routes[initialRoute]?.screen ?? HomeScreen(),
+      home: RouteConfig().routes[widget.initialRoute]?.screen ?? HomeScreen(),
       navigatorObservers: [HeroController()],
       onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
-      locale: localeProvider.locale,
+      locale: localeProvider?.locale,
       builder: (context, child) => AppBuilder(child: child),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -34,5 +74,28 @@ class App extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
     );
+  }
+
+  Widget _loadingBuilder(BuildContext _context) {
+    _loading = true;
+    return Theme(
+      data: ThemeConfig(themeProvider?.isDarkMode == true).themeData,
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          content: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  ThemeData get theme {
+    return ThemeConfig(themeProvider?.isDarkMode == true).themeData;
   }
 }
