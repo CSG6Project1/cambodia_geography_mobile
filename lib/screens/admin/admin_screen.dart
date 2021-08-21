@@ -56,7 +56,15 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
         children: List.generate(
           controller.length,
           (index) {
-            return PlaceList(provinceCode: geo.tbProvinces[index].code ?? "");
+            return PlaceList(
+              provinceCode: geo.tbProvinces[index].code ?? "",
+              onTap: (place) {
+                Navigator.of(context).pushNamed(
+                  RouteConfig.PLACEDETAIL,
+                  arguments: place,
+                );
+              },
+            );
           },
         ),
       ),

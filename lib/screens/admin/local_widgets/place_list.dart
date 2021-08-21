@@ -1,4 +1,3 @@
-import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/models/places/place_list_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
@@ -7,10 +6,22 @@ import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
 import 'package:flutter/material.dart';
 
+enum PlaceType {
+  place,
+  restaurant,
+}
+
 class PlaceList extends StatefulWidget {
-  const PlaceList({Key? key, required this.provinceCode}) : super(key: key);
+  const PlaceList({
+    Key? key,
+    required this.provinceCode,
+    required this.onTap,
+    this.type,
+  }) : super(key: key);
 
   final String provinceCode;
+  final PlaceType? type;
+  final void Function(PlaceModel place) onTap;
 
   @override
   _PlaceListState createState() => _PlaceListState();
@@ -34,6 +45,7 @@ class _PlaceListState extends State<PlaceList> {
 
     final result = await placesApi.fetchAll(queryParameters: {
       'province_code': provinceCode,
+      'type': widget.type == null ? null : widget.type.toString().replaceAll("PlaceType.", ""),
       'page': placeList?.links?.getPageNumber().next.toString(),
     });
 
@@ -50,14 +62,17 @@ class _PlaceListState extends State<PlaceList> {
 
   @override
   Widget build(BuildContext context) {
-    List<PlaceModel>? places = placeList?.items?.where((place) => place.type == 'place').toList();
-    if (places == null) return buildLoadingShimmer();
+    List<PlaceModel>? places = placeList?.items;
     return CgLoadMoreList(
       onEndScroll: () => load(loadMore: true),
-      child: ListView.builder(
-        itemCount: places.length + 1,
+      child: ListView.separated(
+        padding: ConfigConstant.layoutPadding,
+        itemCount: (places?.length ?? 0) + 1,
+        separatorBuilder: (context, index) {
+          return SizedBox(height: ConfigConstant.margin1);
+        },
         itemBuilder: (context, index) {
-          if (places.length == index) {
+          if (places?.length == index) {
             return Visibility(
               visible: placeList?.hasLoadMore() == true,
               child: Container(
@@ -68,12 +83,10 @@ class _PlaceListState extends State<PlaceList> {
             );
           }
           return PlaceCard(
-            place: places[index],
+            place: places?[index],
             onTap: () {
-              Navigator.of(context).pushNamed(
-                RouteConfig.EDIT_PLACE,
-                arguments: places[index],
-              );
+              if (places?[index] == null) return;
+              widget.onTap(places![index]);
             },
           );
         },
@@ -83,11 +96,10 @@ class _PlaceListState extends State<PlaceList> {
 
   Widget buildLoadingShimmer() {
     return ListView(
-      padding: const EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
+      padding: ConfigConstant.layoutPadding,
       children: List.generate(
         5,
         (index) => PlaceCard(
-          isLoading: true,
           onTap: () {},
         ),
       ),

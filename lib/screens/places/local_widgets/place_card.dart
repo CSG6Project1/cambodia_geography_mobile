@@ -9,12 +9,10 @@ import 'package:flutter/material.dart';
 class PlaceCard extends StatelessWidget {
   PlaceCard({
     this.place,
-    this.isLoading = false,
     required this.onTap,
   });
 
   final PlaceModel? place;
-  final bool isLoading;
   final void Function() onTap;
 
   @override
@@ -22,19 +20,16 @@ class PlaceCard extends StatelessWidget {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2, vertical: ConfigConstant.margin1),
       shape: RoundedRectangleBorder(borderRadius: ConfigConstant.circlarRadius1),
-      child: ClipRRect(
-        borderRadius: ConfigConstant.circlarRadius1,
-        child: CgOnTapEffect(
-          onTap: onTap,
-          child: Stack(
-            clipBehavior: Clip.hardEdge,
-            children: [
-              buildCardImage(context),
-              buildCardInfo(colorScheme, textTheme),
-            ],
-          ),
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.hardEdge,
+      child: CgOnTapEffect(
+        onTap: onTap,
+        child: Row(
+          children: [
+            buildCardInfo(colorScheme, textTheme),
+            buildCardImage(context),
+          ],
         ),
       ),
     );
@@ -42,25 +37,39 @@ class PlaceCard extends StatelessWidget {
 
   Widget buildCardImage(BuildContext context) {
     return AnimatedCrossFade(
-      crossFadeState: isLoading ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+      crossFadeState: place?.images == null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
       duration: ConfigConstant.fadeDuration,
       sizeCurve: Curves.ease,
-      firstChild: CgCustomShimmer(
+      firstChild: SizedBox(
+        height: ConfigConstant.objectHeight6,
+        width: ConfigConstant.objectHeight6,
+      ),
+      secondChild: Container(
+        height: ConfigConstant.objectHeight6,
+        width: ConfigConstant.objectHeight6,
+        padding: const EdgeInsets.all(ConfigConstant.margin1),
         child: AspectRatio(
-          aspectRatio: 16 / 9,
-          child: Container(
-            color: Theme.of(context).colorScheme.surface,
+          aspectRatio: 1,
+          child: CgNetworkImageLoader(
+            imageUrl: place?.images?.isNotEmpty == true ? place?.images?.first.url : null,
+            fit: BoxFit.cover,
           ),
         ),
       ),
-      secondChild: AspectRatio(
-        aspectRatio: 16 / 9,
-        child: CgNetworkImageLoader(
-          imageUrl: place?.images?.isNotEmpty == true ? place?.images?.first.url : null,
-          fit: BoxFit.cover,
-          height: ConfigConstant.objectHeight1,
-        ),
-      ),
+    );
+  }
+
+  Widget buildAnimatedCrossFade({
+    required Widget loadingWidget,
+    required Widget child,
+    required bool loading,
+  }) {
+    return AnimatedCrossFade(
+      firstChild: child,
+      secondChild: loadingWidget,
+      sizeCurve: Curves.ease,
+      crossFadeState: loading ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      duration: ConfigConstant.fadeDuration,
     );
   }
 
@@ -68,15 +77,77 @@ class PlaceCard extends StatelessWidget {
     ColorScheme colorScheme,
     TextTheme textTheme,
   ) {
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: Column(
-        children: [
-          const Divider(height: 0, thickness: 0.5),
-          isLoading ? buildLoadingTitle(colorScheme) : buildLoadedTitle(colorScheme, textTheme),
-        ],
+    return Expanded(
+      child: ListTile(
+        title: buildAnimatedCrossFade(
+          loading: place?.khmer == null,
+          loadingWidget: CgCustomShimmer(
+            child: Container(height: 14, width: 200, color: colorScheme.surface),
+          ),
+          child: Text(
+            place?.khmer ?? "",
+            style: TextStyle(color: colorScheme.primary),
+          ),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildAnimatedCrossFade(
+              loading: place?.provinceCode == null,
+              loadingWidget: Container(
+                width: double.infinity,
+                child: CgCustomShimmer(
+                  child: Row(
+                    children: [
+                      Container(height: 14, width: 100, color: colorScheme.surface),
+                    ],
+                  ),
+                ),
+              ),
+              child: Container(
+                width: double.infinity,
+                child: Text(place?.provinceCode ?? ""),
+              ),
+            ),
+            buildAnimatedCrossFade(
+              loading: place?.khmer == null,
+              loadingWidget: const SizedBox(width: double.infinity),
+              child: Row(
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.mode_comment,
+                        size: ConfigConstant.iconSize1,
+                        color: colorScheme.primary,
+                      ),
+                      const SizedBox(width: ConfigConstant.margin0),
+                      Text(
+                        NumberHelper.toKhmer((place?.commentLength ?? 0).toString()),
+                        style: textTheme.caption,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: ConfigConstant.margin1),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.place,
+                        size: ConfigConstant.iconSize1,
+                        color: colorScheme.onSurface,
+                      ),
+                      const SizedBox(width: ConfigConstant.margin0),
+                      Text(
+                        "10 Kilo",
+                        style: textTheme.caption,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
