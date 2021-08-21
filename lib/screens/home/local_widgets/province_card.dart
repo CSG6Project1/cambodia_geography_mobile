@@ -212,22 +212,24 @@ class ProvinceCard extends StatelessWidget {
                 ),
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  province.khmer ?? '',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
-                ),
-                if (krongs.length > 0) Text(krongTitle, style: Theme.of(context).textTheme.caption),
-                Text(
-                  'លេខកូដ៖ ' + NumberHelper.toKhmer(province.code),
-                  style: Theme.of(context).textTheme.caption,
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    province.khmer ?? '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
+                  ),
+                  if (krongs.length > 0) Text(krongTitle, style: Theme.of(context).textTheme.caption),
+                  Text(
+                    'លេខកូដ៖ ' + NumberHelper.toKhmer(province.code),
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

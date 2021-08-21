@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:cambodia_geography/constants/api_constant.dart';
+import 'package:cambodia_geography/helpers/app_helper.dart';
 import 'package:cambodia_geography/models/apis/links_model.dart';
 import 'package:cambodia_geography/models/apis/meta_model.dart';
 import 'package:cambodia_geography/models/apis/object_name_url_model.dart';
@@ -76,6 +77,18 @@ abstract class BaseApi<T> {
     required MultipartRequest request,
   }) async {
     return request;
+  }
+
+  Map<String, dynamic> filterOutNull(Map<String, dynamic> json) {
+    json.forEach((key, value) {
+      dynamic value = json[key];
+      if (value != null && value is List) {
+        value.removeWhere((e) => e == null || e == "null");
+        json[key] = value;
+      }
+    });
+    json.removeWhere((key, value) => value == null || value == "null" || (value is List && value.isEmpty));
+    return json;
   }
 
   Future<dynamic> _beforeExec(Future<dynamic> Function() body) async {
@@ -176,11 +189,10 @@ abstract class BaseApi<T> {
   Future<dynamic> fetchAll({
     Map<String, dynamic>? queryParameters,
   }) async {
+    queryParameters = filterOutNull(queryParameters ?? {});
     return _beforeExec(() async {
       String endpoint = objectNameUrlModel.fetchAllUrl(queryParameters: queryParameters);
-      print(endpoint);
       response = await network?.http?.get(Uri.parse(endpoint));
-      print(response?.body.toString());
       dynamic json = jsonDecode(response?.body.toString() ?? "");
       json = useJapx ? Japx.decode(json) : json;
       return itemsTransformer(json);

@@ -60,8 +60,9 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
         children: List.generate(
           controller.length,
           (index) {
+            String code = geo.tbProvinces[index].code ?? "";
             return PlaceList(
-              provinceCode: geo.tbProvinces[index].code ?? "",
+              provinceCode: code,
               showDeleteButton: true,
               basePlacesApi: PlacesApi(),
               onTap: (place) {
@@ -69,7 +70,7 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
                   RouteConfig.EDIT_PLACE,
                   arguments: place,
                 );
-              }, 
+              },
             );
           },
         ),

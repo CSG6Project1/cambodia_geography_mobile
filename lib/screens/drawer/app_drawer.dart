@@ -4,6 +4,7 @@ import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/user/user_model.dart';
+import 'package:cambodia_geography/providers/theme_provider.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/screens/drawer/local_widgets/diagonal_path_clipper.dart';
 import 'package:flutter/material.dart';
@@ -75,14 +76,19 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
   Widget build(BuildContext context) {
     return Theme(
       data: themeData,
-      child: Drawer(
-        // width: min(350, mediaQueryData.size.width) - kToolbarHeight,
-        child: Scaffold(
-          extendBody: true,
-          backgroundColor: colorScheme.surface,
-          extendBodyBehindAppBar: true,
-          body: buildBody(),
-        ),
+      child: Row(
+        children: [
+          Drawer(
+            // width: min(350, mediaQueryData.size.width) - kToolbarHeight,
+            child: Scaffold(
+              extendBody: true,
+              backgroundColor: colorScheme.surface,
+              extendBodyBehindAppBar: true,
+              body: buildBody(),
+            ),
+          ),
+          const VerticalDivider(width: 0),
+        ],
       ),
     );
   }
@@ -195,16 +201,30 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                   userProvider?.isSignedIn == true ? "..." : "Login",
                   style: TextStyle(color: colorScheme.onPrimary),
                 ),
-                trailing: Material(
-                  color: Colors.transparent,
-                  child: IconButton(
-                    color: colorScheme.surface,
-                    icon: Icon(Icons.login),
-                    onPressed: () async {
-                      if (userProvider?.isSignedIn == true) return;
-                      Navigator.of(context).pushNamed(RouteConfig.LOGIN);
-                    },
-                  ),
+                trailing: Wrap(
+                  children: [
+                    Material(
+                      color: Colors.transparent,
+                      child: IconButton(
+                        color: colorScheme.surface,
+                        icon: Icon(Icons.login),
+                        onPressed: () async {
+                          if (userProvider?.isSignedIn == true) return;
+                          Navigator.of(context).pushNamed(RouteConfig.LOGIN);
+                        },
+                      ),
+                    ),
+                    Material(
+                      color: Colors.transparent,
+                      child: IconButton(
+                        color: colorScheme.surface,
+                        icon: Icon(Icons.dark_mode),
+                        onPressed: () async {
+                          Provider.of<ThemeProvider>(context, listen: false).toggleDarkMode();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
               firstChild: ListTile(
@@ -213,16 +233,30 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                 hoverColor: Colors.blue,
                 contentPadding: EdgeInsets.zero,
                 title: Text(user?.username ?? "", style: TextStyle(color: colorScheme.onPrimary)),
-                trailing: Material(
-                  color: Colors.transparent,
-                  child: IconButton(
-                    color: colorScheme.surface,
-                    icon: Icon(Icons.logout),
-                    onPressed: () async {
-                      await userProvider?.signOut();
-                      Scaffold.of(context).openDrawer();
-                    },
-                  ),
+                trailing: Wrap(
+                  children: [
+                    // Material(
+                    //   color: Colors.transparent,
+                    //   child: IconButton(
+                    //     color: colorScheme.surface,
+                    //     icon: Icon(Icons.logout),
+                    //     onPressed: () async {
+                    //       await userProvider?.signOut();
+                    //       Scaffold.of(context).openDrawer();
+                    //     },
+                    //   ),
+                    // ),
+                    Material(
+                      color: Colors.transparent,
+                      child: IconButton(
+                        color: colorScheme.surface,
+                        icon: Icon(Icons.dark_mode),
+                        onPressed: () async {
+                          Provider.of<ThemeProvider>(context, listen: false).toggleDarkMode();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
                 subtitle: Text(
                   user?.email ?? "",
