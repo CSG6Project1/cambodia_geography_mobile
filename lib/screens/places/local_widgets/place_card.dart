@@ -6,10 +6,14 @@ import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
+import 'package:cambodia_geography/providers/user_location_provider.dart';
+import 'package:cambodia_geography/screens/map/map_screen.dart';
+import 'package:cambodia_geography/services/geography/distance_caculator_service.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:cambodia_geography/widgets/cg_on_tap_effect.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PlaceCard extends StatelessWidget {
   PlaceCard({
@@ -19,6 +23,50 @@ class PlaceCard extends StatelessWidget {
 
   final PlaceModel? place;
   final void Function() onTap;
+
+  String getGeoInfo() {
+    List<String> geoInfo = [];
+
+    TbProvinceModel? province;
+    TbDistrictModel? district;
+    TbCommuneModel? commune;
+    TbVillageModel? village;
+
+    List<TbProvinceModel> provinces = CambodiaGeography.instance.tbProvinces.where((province) {
+      return place?.provinceCode == province.code;
+    }).toList();
+
+    List<TbDistrictModel> districts = CambodiaGeography.instance.tbDistricts.where((district) {
+      return place?.districtCode == district.code;
+    }).toList();
+
+    List<TbCommuneModel> communes = CambodiaGeography.instance.tbCommunes.where((commune) {
+      return place?.communeCode == commune.code;
+    }).toList();
+
+    List<TbVillageModel> villages = CambodiaGeography.instance.tbVillages.where((village) {
+      return place?.villageCode == village.code;
+    }).toList();
+
+    if (provinces.isNotEmpty) {
+      province = provinces.first;
+      if (province.khmer != null) geoInfo.add(province.khmer ?? "");
+    }
+    if (districts.isNotEmpty) {
+      district = districts.first;
+      if (district.khmer != null) geoInfo.add(district.khmer ?? "");
+    }
+    if (communes.isNotEmpty) {
+      commune = communes.first;
+      if (commune.khmer != null) geoInfo.add(commune.khmer ?? "");
+    }
+    if (villages.isNotEmpty) {
+      village = villages.first;
+      if (village.khmer != null) geoInfo.add(village.khmer ?? "");
+    }
+
+    return geoInfo.join(" ");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,43 +126,6 @@ class PlaceCard extends StatelessWidget {
     );
   }
 
-  String getGeoInfo() {
-    List<String> geoInfo = [];
-
-    TbProvinceModel? province;
-    TbDistrictModel? district;
-    TbCommuneModel? commune;
-    TbVillageModel? village;
-
-    List<TbProvinceModel> provinces =
-        CambodiaGeography.instance.tbProvinces.where((province) => place?.provinceCode == province.code).toList();
-    List<TbDistrictModel> districts =
-        CambodiaGeography.instance.tbDistricts.where((district) => place?.districtCode == district.code).toList();
-    List<TbCommuneModel> communes =
-        CambodiaGeography.instance.tbCommunes.where((commune) => place?.communeCode == commune.code).toList();
-    List<TbVillageModel> villages =
-        CambodiaGeography.instance.tbVillages.where((village) => place?.villageCode == village.code).toList();
-
-    if (provinces.isNotEmpty) {
-      province = provinces.first;
-      if (province.khmer != null) geoInfo.add(province.khmer ?? "");
-    }
-    if (districts.isNotEmpty) {
-      district = districts.first;
-      if (district.khmer != null) geoInfo.add(district.khmer ?? "");
-    }
-    if (communes.isNotEmpty) {
-      commune = communes.first;
-      if (commune.khmer != null) geoInfo.add(commune.khmer ?? "");
-    }
-    if (villages.isNotEmpty) {
-      village = villages.first;
-      if (village.khmer != null) geoInfo.add(village.khmer ?? "");
-    }
-
-    return geoInfo.join(" ");
-  }
-
   Widget buildCardInfo(
     ColorScheme colorScheme,
     TextTheme textTheme,
@@ -170,19 +181,45 @@ class PlaceCard extends StatelessWidget {
   }
 
   Widget buildDistance(ColorScheme colorScheme, TextTheme textTheme) {
-    return Row(
-      children: [
-        Icon(
-          Icons.place,
-          size: ConfigConstant.iconSize1,
-          color: colorScheme.onSurface,
-        ),
-        const SizedBox(width: ConfigConstant.margin0),
-        Text(
-          "10 Kilo",
-          style: textTheme.caption,
-        ),
-      ],
+    return Consumer<UserLocationProvider>(
+      builder: (context, value, child) {
+        double? distance;
+        if (value.currentPosition != null) {
+          LatLng? placeLatLng;
+          if (place?.lat != null && place?.lat != null) placeLatLng = LatLng(place!.lat!, place!.lon!);
+          LatLng? userLatLng = LatLng(value.currentPosition!.latitude, value.currentPosition!.longitude);
+          if (placeLatLng != null) {
+            distance = DistanceCaculatorService.calculateDistance(placeLatLng, userLatLng);
+          }
+        }
+
+        return Expanded(
+          child: buildAnimatedCrossFade(
+            loading: distance == null,
+            loadingWidget: const SizedBox(
+              width: double.infinity,
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.place,
+                  size: ConfigConstant.iconSize1,
+                  color: colorScheme.onSurface,
+                ),
+                const SizedBox(width: ConfigConstant.margin0),
+                Expanded(
+                  child: Text(
+                    distance != null ? NumberHelper.toKhmer(distance.toStringAsFixed(2) + " គីឡូម៉ែត្រ") : "",
+                    style: textTheme.caption,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

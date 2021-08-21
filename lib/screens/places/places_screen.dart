@@ -4,6 +4,7 @@ import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:cambodia_geography/widgets/cg_gps_button.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -73,6 +74,9 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
   MorphingAppBar buildAppbar() {
     return MorphingAppBar(
       title: CgAppBarTitle(title: widget.province.khmer ?? ''),
+      actions: [
+        CgGpsButton(),
+      ],
       bottom: TabBar(
         controller: controller,
         tabs: [
