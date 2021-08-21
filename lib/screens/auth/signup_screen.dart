@@ -1,4 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
@@ -54,6 +55,8 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
       return;
     }
 
+    App.of(context)?.showLoading();
+
     await userRegisterApi.register(
       email: email,
       password: password,
@@ -71,6 +74,8 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
     if (userRegisterApi.success() && !authApi.success()) {
       error = authApi.errorMessage() ?? "Log in fail";
     }
+
+    App.of(context)?.hideLoading();
 
     if (error == null) {
       Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();

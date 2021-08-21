@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cambodia_geography/app_builder.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/configs/theme_config.dart';
+import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
@@ -11,6 +12,7 @@ import 'package:cambodia_geography/screens/home/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatefulWidget {
@@ -79,16 +81,14 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin {
   Widget _loadingBuilder(BuildContext _context) {
     _loading = true;
     return Theme(
-      data: ThemeConfig(themeProvider?.isDarkMode == true).themeData,
+      data: theme,
       child: WillPopScope(
         onWillPop: () async => false,
         child: AlertDialog(
-          content: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-            ],
+          content: LottieBuilder.asset(
+            'assets/lotties/1055-world-locations.json',
+            width: ConfigConstant.objectHeight6,
+            height: ConfigConstant.objectHeight6,
           ),
         ),
       ),
