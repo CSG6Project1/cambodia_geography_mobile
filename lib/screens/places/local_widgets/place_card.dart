@@ -1,6 +1,11 @@
+import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
+import 'package:cambodia_geography/models/tb_commune_model.dart';
+import 'package:cambodia_geography/models/tb_district_model.dart';
+import 'package:cambodia_geography/models/tb_province_model.dart';
+import 'package:cambodia_geography/models/tb_village_model.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:cambodia_geography/widgets/cg_on_tap_effect.dart';
@@ -73,6 +78,43 @@ class PlaceCard extends StatelessWidget {
     );
   }
 
+  String getGeoInfo() {
+    List<String> geoInfo = [];
+
+    TbProvinceModel? province;
+    TbDistrictModel? district;
+    TbCommuneModel? commune;
+    TbVillageModel? village;
+
+    List<TbProvinceModel> provinces =
+        CambodiaGeography.instance.tbProvinces.where((province) => place?.provinceCode == province.code).toList();
+    List<TbDistrictModel> districts =
+        CambodiaGeography.instance.tbDistricts.where((district) => place?.districtCode == district.code).toList();
+    List<TbCommuneModel> communes =
+        CambodiaGeography.instance.tbCommunes.where((commune) => place?.communeCode == commune.code).toList();
+    List<TbVillageModel> villages =
+        CambodiaGeography.instance.tbVillages.where((village) => place?.villageCode == village.code).toList();
+
+    if (provinces.isNotEmpty) {
+      province = provinces.first;
+      if (province.khmer != null) geoInfo.add(province.khmer ?? "");
+    }
+    if (districts.isNotEmpty) {
+      district = districts.first;
+      if (district.khmer != null) geoInfo.add(district.khmer ?? "");
+    }
+    if (communes.isNotEmpty) {
+      commune = communes.first;
+      if (commune.khmer != null) geoInfo.add(commune.khmer ?? "");
+    }
+    if (villages.isNotEmpty) {
+      village = villages.first;
+      if (village.khmer != null) geoInfo.add(village.khmer ?? "");
+    }
+
+    return geoInfo.join(" ");
+  }
+
   Widget buildCardInfo(
     ColorScheme colorScheme,
     TextTheme textTheme,
@@ -106,43 +148,18 @@ class PlaceCard extends StatelessWidget {
               ),
               child: Container(
                 width: double.infinity,
-                child: Text(place?.provinceCode ?? ""),
+                child: Text(getGeoInfo()),
               ),
             ),
+            const SizedBox(height: ConfigConstant.margin0),
             buildAnimatedCrossFade(
               loading: place?.khmer == null,
               loadingWidget: const SizedBox(width: double.infinity),
               child: Row(
                 children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.mode_comment,
-                        size: ConfigConstant.iconSize1,
-                        color: colorScheme.primary,
-                      ),
-                      const SizedBox(width: ConfigConstant.margin0),
-                      Text(
-                        NumberHelper.toKhmer((place?.commentLength ?? 0).toString()),
-                        style: textTheme.caption,
-                      ),
-                    ],
-                  ),
+                  buildComment(colorScheme, textTheme),
                   const SizedBox(width: ConfigConstant.margin1),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.place,
-                        size: ConfigConstant.iconSize1,
-                        color: colorScheme.onSurface,
-                      ),
-                      const SizedBox(width: ConfigConstant.margin0),
-                      Text(
-                        "10 Kilo",
-                        style: textTheme.caption,
-                      ),
-                    ],
-                  ),
+                  buildDistance(colorScheme, textTheme),
                 ],
               ),
             ),
@@ -152,64 +169,37 @@ class PlaceCard extends StatelessWidget {
     );
   }
 
-  Widget buildLoadedTitle(
-    ColorScheme colorScheme,
-    TextTheme textTheme,
-  ) {
-    return Container(
-      color: colorScheme.surface,
-      padding: const EdgeInsets.symmetric(
-        horizontal: ConfigConstant.margin2,
-        vertical: ConfigConstant.margin1,
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              place?.khmer ?? "",
-              maxLines: 1,
-              style: textTheme.bodyText1,
-            ),
-          ),
-          Text(
-            NumberHelper.toKhmer((place?.commentLength ?? 0).toString()),
-            style: textTheme.caption,
-          ),
-          const SizedBox(width: ConfigConstant.margin0),
-          Icon(
-            Icons.mode_comment,
-            size: ConfigConstant.iconSize1,
-            color: colorScheme.primary,
-          ),
-        ],
-      ),
+  Widget buildDistance(ColorScheme colorScheme, TextTheme textTheme) {
+    return Row(
+      children: [
+        Icon(
+          Icons.place,
+          size: ConfigConstant.iconSize1,
+          color: colorScheme.onSurface,
+        ),
+        const SizedBox(width: ConfigConstant.margin0),
+        Text(
+          "10 Kilo",
+          style: textTheme.caption,
+        ),
+      ],
     );
   }
 
-  Widget buildLoadingTitle(ColorScheme colorScheme) {
-    return Container(
-      color: colorScheme.surface,
-      height: ConfigConstant.objectHeight1,
-      padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CgCustomShimmer(
-            child: Container(
-              height: 14,
-              width: 200,
-              color: colorScheme.surface,
-            ),
-          ),
-          CgCustomShimmer(
-            child: Container(
-              height: 14,
-              width: 20,
-              color: colorScheme.surface,
-            ),
-          ),
-        ],
-      ),
+  Widget buildComment(ColorScheme colorScheme, TextTheme textTheme) {
+    return Row(
+      children: [
+        Icon(
+          Icons.mode_comment,
+          size: ConfigConstant.iconSize1,
+          color: colorScheme.primary,
+        ),
+        const SizedBox(width: ConfigConstant.margin0),
+        Text(
+          NumberHelper.toKhmer((place?.commentLength ?? 0).toString()),
+          style: textTheme.caption,
+        ),
+      ],
     );
   }
 }

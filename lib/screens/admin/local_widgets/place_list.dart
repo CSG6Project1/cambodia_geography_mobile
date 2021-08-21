@@ -27,7 +27,7 @@ class PlaceList extends StatefulWidget {
   _PlaceListState createState() => _PlaceListState();
 }
 
-class _PlaceListState extends State<PlaceList> {
+class _PlaceListState extends State<PlaceList> with AutomaticKeepAliveClientMixin {
   late PlacesApi placesApi;
   String? provinceCode;
   PlaceListModel? placeList;
@@ -62,12 +62,13 @@ class _PlaceListState extends State<PlaceList> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     List<PlaceModel>? places = placeList?.items;
     return CgLoadMoreList(
       onEndScroll: () => load(loadMore: true),
       child: ListView.separated(
         padding: ConfigConstant.layoutPadding,
-        itemCount: (places?.length ?? 0) + 1,
+        itemCount: places == null ? 5 : places.length + 1,
         separatorBuilder: (context, index) {
           return SizedBox(height: ConfigConstant.margin1);
         },
@@ -94,15 +95,6 @@ class _PlaceListState extends State<PlaceList> {
     );
   }
 
-  Widget buildLoadingShimmer() {
-    return ListView(
-      padding: ConfigConstant.layoutPadding,
-      children: List.generate(
-        5,
-        (index) => PlaceCard(
-          onTap: () {},
-        ),
-      ),
-    );
-  }
+  @override
+  bool get wantKeepAlive => true;
 }
