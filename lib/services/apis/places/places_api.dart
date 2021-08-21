@@ -37,6 +37,7 @@ class PlacesApi extends BasePlacesApi {
       "district_code": districtCode,
       "village_code": villageCode,
       "commune_code": communeCode,
+      "page": page,
     });
   }
 }

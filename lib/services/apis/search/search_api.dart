@@ -32,7 +32,8 @@ class SearchApi extends BasePlacesApi {
     String? page,
   }) {
     return super.fetchAll(queryParameters: {
-      "keyword" : keyword
+      "keyword": keyword,
+      "page": page,
     });
   }
 }

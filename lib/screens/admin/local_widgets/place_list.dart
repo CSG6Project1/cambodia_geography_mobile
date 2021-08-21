@@ -63,17 +63,16 @@ class _PlaceListState extends State<PlaceList> with AutomaticKeepAliveClientMixi
 
   Future<void> load({bool loadMore = false}) async {
     if (loadMore && !(this.placeList?.hasLoadMore() == true)) return;
+    String? page = loadMore ? placeList?.links?.getPageNumber().next.toString() : null;
 
     final result = await placesApi.fetchAllPlaces(
-      // 'province_code': provinceCode,
-      // 'type': widget.type == null ? null : widget.type.toString().replaceAll("PlaceType.", ""),
-      // 'page': loadMore ? placeList?.links?.getPageNumber().next.toString() : null,
       keyword: widget.keyword,
       type: widget.type,
       provinceCode: widget.provinceCode,
       districtCode: widget.districtCode,
       villageCode: widget.villageCode,
       communeCode: widget.communeCode,
+      page: page,
     );
 
     if (placesApi.success() && result != null) {
