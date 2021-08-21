@@ -3,9 +3,9 @@ import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/services/apis/places/base_places_api.dart';
 
-class PlacesApi extends BasePlacesApi {
+class SearchApi extends BasePlacesApi {
   @override
-  String get nameInUrl => "places";
+  String get nameInUrl => "searchplaces/result";
 
   @override
   PlaceModel objectTransformer(Map<String, dynamic> json) {
@@ -32,11 +32,7 @@ class PlacesApi extends BasePlacesApi {
     String? page,
   }) {
     return super.fetchAll(queryParameters: {
-      "type": type.toString().replaceAll("PlaceType.", ""),
-      "province_code": provinceCode,
-      "district_code": districtCode,
-      "village_code": villageCode,
-      "commune_code": communeCode,
+      "keyword" : keyword
     });
   }
 }

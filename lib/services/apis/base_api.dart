@@ -178,7 +178,9 @@ abstract class BaseApi<T> {
   }) async {
     return _beforeExec(() async {
       String endpoint = objectNameUrlModel.fetchAllUrl(queryParameters: queryParameters);
+      print(endpoint);
       response = await network?.http?.get(Uri.parse(endpoint));
+      print(response?.body.toString());
       dynamic json = jsonDecode(response?.body.toString() ?? "");
       json = useJapx ? Japx.decode(json) : json;
       return itemsTransformer(json);

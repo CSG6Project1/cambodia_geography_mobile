@@ -1,11 +1,22 @@
 import 'dart:io';
 import 'package:cambodia_geography/configs/route_config.dart';
+import 'package:cambodia_geography/models/places/place_list_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
+import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/screens/search/search_history_storage.dart';
+import 'package:cambodia_geography/services/apis/search/search_filter_api.dart';
 import 'package:flutter/foundation.dart';
+import 'package:cambodia_geography/services/apis/places/places_api.dart';
+import 'package:cambodia_geography/services/apis/search/search_api.dart';
 import 'package:flutter/material.dart';
 
 class CgSearchDelegate extends SearchDelegate<String> {
+  late PlacesApi placesApi;
+  late SearchApi searchApi;
+  PlaceModel? placeModel;
+  PlaceListModel? placeList;
+  String? provinceCode;
+
   final AnimationController animationController;
   final BuildContext context;
   final Future<List<dynamic>?> Function(String) onQueryChanged;
@@ -15,39 +26,20 @@ class CgSearchDelegate extends SearchDelegate<String> {
     required this.onQueryChanged,
     required this.animationController,
     required this.context,
+    required this.provinceCode,
   });
-
-  static const dataPlaces = [
-    "កំពង់ចាម",
-    "បន្ទាយមានជ័យ",
-    "បាត់ដំបង",
-    "កំពង់ឆ្នាំង",
-    "កំពង់ស្ពឺ",
-    "កំពង់ធំ",
-    "កំពត",
-    "កណ្តាល",
-    "កោះកុង",
-    "ក្រចេះ",
-    "មណ្ឌលគិរី",
-    "ភ្នំពេញ",
-    "ព្រះវិហារ",
-    "ព្រៃវែង",
-    "ពោធិ៍សាត់",
-    "រតនគិរី",
-    "សៀមរាប",
-    "ព្រះសីហនុ",
-    "ស្ទឹងត្រែង",
-    "ស្វាយរៀង",
-    "តាកែវ",
-    "ឧត្តរមានជ័យ",
-    "កែប",
-    "ប៉ៃលិន",
-    "ត្បូងឃ្មុំ",
-  ];
 
   @override
   void showResults(BuildContext context) {
     if (query.isEmpty) return;
+    // Navigator.push(context, MaterialPageRoute(builder: (context){
+    //   return PlaceList(
+    //   key: Key(query),
+    //   onTap: (place) {},
+    //   basePlacesApi: SearchApi(),
+    //   keyword: query,
+    // );
+    // }));
     super.showResults(context);
     searchHistoryStorage.readList().then((value) {
       if (value == null) {
@@ -83,7 +75,11 @@ class CgSearchDelegate extends SearchDelegate<String> {
         icon: Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
         onPressed: () {
           Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER).then((value) {
-            if (value is PlaceModel) print(value.toJson());
+            if (value is PlaceModel) {
+              print(value.toJson());
+              placeModel = value;
+              showResults(context);
+            }
           });
         },
       ),
@@ -112,22 +108,22 @@ class CgSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Container(
-      color: Theme.of(context).colorScheme.surface,
-      child: Center(
-        child: Container(
-          color: Colors.white,
-          height: 50,
-          width: 50,
-          child: Card(
-            color: Colors.red,
-            shape: const StadiumBorder(),
-            child: Center(
-              child: Text(query),
-            ),
-          ),
-        ),
-      ),
+    return PlaceList(
+      type: placeModel?.type == "restaurant" ? PlaceType.restaurant : PlaceType.place,
+      provinceCode: placeModel?.provinceCode,
+      districtCode: placeModel?.districtCode,
+      villageCode: placeModel?.villageCode,
+      communeCode: placeModel?.communeCode,
+      key: Key(query),
+      basePlacesApi: placeModel != null ? SearchFilterApi() : SearchApi(),
+      keyword: query,
+      onTap: (place) {
+        Navigator.pushNamed(
+          context,
+          RouteConfig.PLACEDETAIL,
+          arguments: place,
+        );
+      },
     );
   }
 

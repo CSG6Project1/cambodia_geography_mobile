@@ -35,7 +35,10 @@ dependencies:
   intl: ^0.17.0
   animations: ^2.0.1
   after_layout: ^1.1.0
-  japx: ^2.0.3
+  japx:
+    git:
+      url: "https://github.com/niptict-g6/flutter-plugins-japx.git"
+      ref: master
   font_awesome_flutter: ^9.1.0
   flutter_signin_button: ^2.0.0
   adaptive_dialog: ^1.1.0

@@ -2,6 +2,7 @@ import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/providers/editing_provider.dart';
+import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_gps_button.dart';
 import 'package:cambodia_geography/widgets/cg_scaffold.dart';
@@ -62,12 +63,13 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
             return PlaceList(
               provinceCode: geo.tbProvinces[index].code ?? "",
               showDeleteButton: true,
+              basePlacesApi: PlacesApi(),
               onTap: (place) {
                 Navigator.of(context).pushNamed(
                   RouteConfig.EDIT_PLACE,
                   arguments: place,
                 );
-              },
+              }, 
             );
           },
         ),
