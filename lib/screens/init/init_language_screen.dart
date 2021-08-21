@@ -1,15 +1,16 @@
-import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/app_constant.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
+import 'package:cambodia_geography/providers/locale_provider.dart';
 import 'package:cambodia_geography/services/storages/init_app_state_storage.dart';
 import 'package:cambodia_geography/services/storages/locale_storage.dart';
 import 'package:cambodia_geography/types/app_state_type.dart';
 import 'package:cambodia_geography/widgets/cg_headline_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class InitLanguageScreen extends StatefulWidget {
   const InitLanguageScreen({Key? key}) : super(key: key);
@@ -73,7 +74,7 @@ class _InitLanguageScreenState extends State<InitLanguageScreen> with CgMediaQue
   }
 
   Future<void> onSubmit(Locale locale) async {
-    await App.of(context)?.updateLocale(locale);
+    await Provider.of<LocaleProvider>(context, listen: false).updateLocale(locale);
     appStateStorage.setCurrentState(AppStateType.setLangauge);
     Navigator.of(context).pushReplacementNamed(RouteConfig.LOGIN);
   }

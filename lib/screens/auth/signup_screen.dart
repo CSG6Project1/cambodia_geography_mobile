@@ -1,10 +1,10 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
+import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/screens/auth/local_widgets/social_buttons.dart';
 import 'package:cambodia_geography/screens/auth/login_screen.dart';
 import 'package:cambodia_geography/services/apis/users/user_register_api.dart';
@@ -16,6 +16,7 @@ import 'package:cambodia_geography/widgets/cg_headline_text.dart';
 import 'package:cambodia_geography/widgets/cg_list_view_spacer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -72,7 +73,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
     }
 
     if (error == null) {
-      App.of(context)?.fetchCurrentUser();
+      Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
       navigateToNextState();
     } else {
       showOkAlertDialog(context: context, title: error);

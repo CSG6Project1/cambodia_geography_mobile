@@ -1,5 +1,5 @@
 import 'package:after_layout/after_layout.dart';
-import 'package:cambodia_geography/app.dart';
+import 'package:cambodia_geography/provider_scope.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/constants/theme_constant.dart';
@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> with AfterLayoutMixin<Splas
   void _goToNextPage(_IntModel value) {
     Navigator.of(context).pushReplacement(
       CgPageRoute.fadeThrough(
-        (context, animation, secondaryAnimation) => App(
+        (context, animation, secondaryAnimation) => ProviderScope(
           initialIsDarkMode: value.isDarkMode == true,
           initialLocale: value.locale,
           userToken: value.userToken,

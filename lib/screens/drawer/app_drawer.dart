@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/user/user_model.dart';
+import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/screens/drawer/local_widgets/diagonal_path_clipper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -32,7 +33,8 @@ class _Route {
 }
 
 class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMixin {
-  UserModel? user;
+  late UserProvider? userProvider;
+  UserModel? get user => this.userProvider?.user;
 
   List<_Route> get routes {
     return [
@@ -64,18 +66,9 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
   }
 
   @override
-  void initState() {
-    user = App.of(context)?.userNotifier.value;
-    if (App.of(context)?.userNotifier != null) {
-      App.of(context)?.userNotifier.addListener(() {
-        if (mounted) {
-          setState(() {
-            user = App.of(context)?.userNotifier.value;
-          });
-        }
-      });
-    }
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    userProvider = Provider.of<UserProvider>(context, listen: true);
   }
 
   @override
@@ -192,14 +185,14 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
               crossFadeState: user != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
               secondChild: ListTile(
                 onTap: () {
-                  if (App.of(context)?.isSignedIn == true) return;
+                  if (userProvider?.isSignedIn == true) return;
                   Navigator.of(context).pushNamed(RouteConfig.LOGIN);
                 },
                 tileColor: Colors.red,
                 hoverColor: Colors.blue,
                 contentPadding: EdgeInsets.zero,
                 title: Text(
-                  App.of(context)?.isSignedIn == true ? "..." : "Login",
+                  userProvider?.isSignedIn == true ? "..." : "Login",
                   style: TextStyle(color: colorScheme.onPrimary),
                 ),
                 trailing: Material(
@@ -208,7 +201,7 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                     color: colorScheme.surface,
                     icon: Icon(Icons.login),
                     onPressed: () async {
-                      if (App.of(context)?.isSignedIn == true) return;
+                      if (userProvider?.isSignedIn == true) return;
                       Navigator.of(context).pushNamed(RouteConfig.LOGIN);
                     },
                   ),
@@ -226,7 +219,7 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                     color: colorScheme.surface,
                     icon: Icon(Icons.logout),
                     onPressed: () async {
-                      await App.of(context)?.signOut();
+                      await userProvider?.signOut();
                       Scaffold.of(context).openDrawer();
                     },
                   ),
