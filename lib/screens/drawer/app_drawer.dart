@@ -74,9 +74,9 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
     userProvider = Provider.of<UserProvider>(context, listen: true);
   }
 
-  void onUserTilePress() {
+  void onUserTilePress({bool forceOpenUser = false}) {
     Navigator.of(context).pop();
-    if (userProvider?.isSignedIn == true) {
+    if (userProvider?.isSignedIn == true || forceOpenUser) {
       Navigator.of(context).pushNamed(RouteConfig.USER);
     } else {
       Navigator.of(context).pushNamed(RouteConfig.LOGIN);
@@ -171,32 +171,46 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
 
   Widget buildUserInfo() {
     return Positioned(
-      top: 24 + 1,
       right: 0,
       left: 0,
-      child: Padding(
+      child: AnimatedContainer(
+        duration: ConfigConstant.fadeDuration,
+        margin: EdgeInsets.only(top: userProvider?.isSignedIn == true ? 24 + 1 : 40 + 1),
         padding: const EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
-              child: CircleAvatar(
-                radius: 24,
-                backgroundColor: colorScheme.surface,
-                foregroundImage:
-                    user?.profileImg?.url != null ? CachedNetworkImageProvider(user?.profileImg?.url ?? "") : null,
-                child: Container(
-                  padding: const EdgeInsets.all(ConfigConstant.margin2),
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: Icon(
-                      Icons.person,
-                      size: ConfigConstant.iconSize1,
-                      color: colorScheme.primary,
+              child: Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 24,
+                    backgroundColor: colorScheme.surface,
+                    foregroundImage:
+                        user?.profileImg?.url != null ? CachedNetworkImageProvider(user?.profileImg?.url ?? "") : null,
+                    child: Container(
+                      padding: const EdgeInsets.all(ConfigConstant.margin2),
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Icon(
+                          Icons.person,
+                          size: ConfigConstant.iconSize1,
+                          color: colorScheme.primary,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  Positioned.fill(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(ConfigConstant.objectHeight2),
+                        onTap: () => onUserTilePress(forceOpenUser: true),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
             AnimatedCrossFade(
@@ -209,27 +223,10 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                   onTap: onUserTilePress,
                   tileColor: Colors.transparent,
                   contentPadding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
+                  trailing: Icon(Icons.arrow_right, color: colorScheme.onPrimary),
                   title: Text(
                     userProvider?.isSignedIn == true ? "..." : "Login",
                     style: TextStyle(color: colorScheme.onPrimary),
-                  ),
-                  trailing: Wrap(
-                    children: [
-                      if (!(userProvider?.isSignedIn == true))
-                        Material(
-                          color: Colors.transparent,
-                          child: IconButton(
-                            color: colorScheme.surface,
-                            icon: Icon(Icons.login),
-                            onPressed: () async {
-                              if (userProvider?.isSignedIn == true) return;
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pushNamed(RouteConfig.LOGIN);
-                            },
-                          ),
-                        ),
-                      buildToggleDarkModeButton(),
-                    ],
                   ),
                 ),
               ),
@@ -239,6 +236,7 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                   onTap: onUserTilePress,
                   tileColor: Colors.transparent,
                   contentPadding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
+                  trailing: Icon(Icons.arrow_right, color: colorScheme.onPrimary),
                   title: AnimatedCrossFade(
                     duration: ConfigConstant.fadeDuration,
                     sizeCurve: Curves.ease,
@@ -252,7 +250,6 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                       style: TextStyle(color: colorScheme.onPrimary),
                     ),
                   ),
-                  trailing: buildToggleDarkModeButton(),
                   subtitle: Text(
                     user?.email ?? "",
                     style: TextStyle(
@@ -264,19 +261,6 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Material buildToggleDarkModeButton() {
-    return Material(
-      color: Colors.transparent,
-      child: IconButton(
-        color: colorScheme.surface,
-        icon: Icon(Icons.dark_mode),
-        onPressed: () async {
-          Provider.of<ThemeProvider>(context, listen: false).toggleDarkMode();
-        },
       ),
     );
   }
