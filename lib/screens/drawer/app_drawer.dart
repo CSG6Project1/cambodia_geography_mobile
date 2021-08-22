@@ -46,12 +46,13 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
         icon: Icons.home,
         isRoot: true,
       ),
-      _Route(
-        routeName: RouteConfig.ADMIN,
-        displayName: "Admin",
-        icon: Icons.admin_panel_settings,
-        isRoot: true,
-      ),
+      if (this.userProvider?.user?.role == "admin")
+        _Route(
+          routeName: RouteConfig.ADMIN,
+          displayName: "Admin",
+          icon: Icons.admin_panel_settings,
+          isRoot: true,
+        ),
       _Route(
         routeName: "",
         displayName: "Rate us",

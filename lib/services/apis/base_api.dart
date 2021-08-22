@@ -22,27 +22,6 @@ class CgContentType {
   static const String gif = 'image/gif';
 }
 
-class UserModel {
-  final String name;
-  final String email;
-
-  UserModel(this.name, this.email);
-
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      json['name'],
-      json['email'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'email': email,
-    };
-  }
-}
-
 abstract class BaseApi<T> {
   Response? response;
   StreamedResponse? streamedResponse;
@@ -261,6 +240,14 @@ abstract class BaseApi<T> {
     if (json.containsKey('links') && json['links'] != null) {
       return LinksModel.fromJson(json['links']);
     }
+  }
+
+  Map<String, dynamic> sliceParams(Map<String, dynamic> values, List<String> names) {
+    Map<String, dynamic> result = {};
+    names.forEach((element) {
+      result[element] = values[element];
+    });
+    return result;
   }
 
   Map<String, dynamic>? fetchAllQueryParameters(Map<String, dynamic>? queryParameters) {

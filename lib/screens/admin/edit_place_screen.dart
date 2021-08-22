@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -19,7 +18,6 @@ import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/services/apis/admins/crud_places_api.dart';
-import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:cambodia_geography/services/images/image_picker_service.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:flutter/foundation.dart';

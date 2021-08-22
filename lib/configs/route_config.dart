@@ -73,7 +73,7 @@ class RouteConfig {
 
   /// List of route that use custom page route
   /// instead of `SwipeablePageRoute`
-  static const List<String> routesWithCustomTransitions = [LOGIN, SIGNUP];
+  static const List<String> routesWithCustomTransitions = [LOGIN, SIGNUP, USER];
 
   Route<dynamic> generate() {
     String? name = settings?.name;
@@ -199,7 +199,9 @@ class RouteConfig {
       USER: CgRouteSetting(
         isRoot: false,
         title: "USER",
+        screen: UserScreen(),
         route: (context) => UserScreen(),
+        fillColor: context != null ? Theme.of(context!).colorScheme.surface : null,
       ),
       MAP: CgRouteSetting(
         isRoot: false,

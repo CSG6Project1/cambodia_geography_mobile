@@ -1,20 +1,20 @@
 import 'dart:io';
 import 'dart:ui';
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
+import 'package:cambodia_geography/models/user/user_model.dart';
 import 'package:cambodia_geography/providers/locale_provider.dart';
 import 'package:cambodia_geography/providers/theme_provider.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
+import 'package:cambodia_geography/services/apis/users/user_api.dart';
 import 'package:cambodia_geography/services/authentications/social_auth_service.dart';
 import 'package:cambodia_geography/services/images/image_picker_service.dart';
-import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:provider/provider.dart';
 
@@ -28,11 +28,13 @@ class UserScreen extends StatefulWidget {
 class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgThemeMixin, SingleTickerProviderStateMixin {
   late SocialAuthService socialAuthService;
   late AnimationController controller;
+  late UserApi userApi;
 
   @override
   void initState() {
     socialAuthService = SocialAuthService();
     controller = AnimationController(vsync: this, duration: ConfigConstant.fadeDuration);
+    userApi = UserApi();
     super.initState();
   }
 
@@ -100,9 +102,34 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
         ),
       ],
     );
-    if (values?.isNotEmpty == true) {
-      print(values?.first);
-      // provider.fetchCurrentUser();
+    if (values?.isNotEmpty == true && provider.user?.id != null) {
+      App.of(context)?.showLoading();
+      await userApi.updateProfile(
+        user: UserModel(
+          username: values?.first,
+          id: provider.user?.id,
+        ),
+      );
+      if (!userApi.success()) {
+        App.of(context)?.hideLoading();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              userApi.message() ?? "Update fail, please try again!",
+            ),
+          ),
+        );
+      } else {
+        await provider.fetchCurrentUser();
+        App.of(context)?.hideLoading();
+      }
+    } else {
+      if (values != null)
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("User name must not empty"),
+          ),
+        );
     }
   }
 
@@ -121,9 +148,14 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
         ),
       ],
     );
-    if (values?.isNotEmpty == true) {
-      print(values?.first);
-      // provider.fetchCurrentUser();
+    if (values?.length == 2) {
+      String password = values?.first ?? "";
+      String confirmPassword = values?.last ?? "";
+      password = password.trim();
+      confirmPassword = confirmPassword.trim();
+      if (password.isNotEmpty && password == confirmPassword) {
+        //TODO: reset password
+      }
     }
   }
 
@@ -138,105 +170,110 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
     }
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          buildAppBar(provider),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                AnimatedCrossFade(
-                  duration: ConfigConstant.fadeDuration,
-                  crossFadeState: provider.isSignedIn ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                  secondChild: Column(
-                    children: [
-                      buildSettingTile(
-                        title: "Name",
-                        subtitle: provider.user?.username,
-                        iconData: Icons.person,
-                        onTap: () {
-                          showUpdateNameDialog(provider);
-                        },
-                      ),
-                      buildSettingTile(
-                        title: "Email",
-                        iconData: Icons.mail,
-                        subtitle: provider.user?.email,
-                        onTap: () {},
-                      ),
-                      buildSettingTile(
-                        title: "Password",
-                        iconData: Icons.remove_red_eye,
-                        onTap: () => showUpdatePasswordDialog(provider),
-                      ),
-                      buildSettingTile(
-                        title: "Log Out",
-                        iconData: Icons.logout,
-                        showDivider: false,
-                        onTap: () {
-                          provider.signOut();
-                        },
-                      ),
-                    ],
+      body: RefreshIndicator(
+        onRefresh: () {
+          return provider.fetchCurrentUser();
+        },
+        child: CustomScrollView(
+          slivers: [
+            buildAppBar(provider),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  AnimatedCrossFade(
+                    duration: ConfigConstant.fadeDuration,
+                    crossFadeState: provider.isSignedIn ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                    secondChild: Column(
+                      children: [
+                        buildSettingTile(
+                          title: "Name",
+                          subtitle: provider.user?.username,
+                          iconData: Icons.person,
+                          onTap: () {
+                            showUpdateNameDialog(provider);
+                          },
+                        ),
+                        buildSettingTile(
+                          title: "Email",
+                          iconData: Icons.mail,
+                          subtitle: provider.user?.email,
+                          onTap: () {},
+                        ),
+                        buildSettingTile(
+                          title: "Password",
+                          iconData: Icons.remove_red_eye,
+                          onTap: () => showUpdatePasswordDialog(provider),
+                        ),
+                        buildSettingTile(
+                          title: "Log Out",
+                          iconData: Icons.logout,
+                          showDivider: false,
+                          onTap: () {
+                            provider.signOut();
+                          },
+                        ),
+                      ],
+                    ),
+                    firstChild: buildSettingTile(
+                      title: "Login",
+                      iconData: Icons.login,
+                      showDivider: false,
+                      onTap: () {
+                        Navigator.of(context).pushNamed(RouteConfig.LOGIN);
+                      },
+                    ),
                   ),
-                  firstChild: buildSettingTile(
-                    title: "Login",
-                    iconData: Icons.login,
-                    showDivider: false,
-                    onTap: () {
-                      Navigator.of(context).pushNamed(RouteConfig.LOGIN);
+                  const SizedBox(height: ConfigConstant.margin2),
+                  Consumer<ThemeProvider>(
+                    builder: (context, provider, child) {
+                      return AnimatedCrossFade(
+                        duration: ConfigConstant.fadeDuration,
+                        crossFadeState: provider.isDarkMode ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                        secondChild: buildSettingTile(
+                          title: "Theme",
+                          iconData: Icons.dark_mode,
+                          subtitle: "Dark Mode",
+                          onTap: () => showThemeModeDialog(provider),
+                        ),
+                        firstChild: buildSettingTile(
+                          title: "Theme",
+                          iconData: Icons.light_mode,
+                          subtitle: "Light Mode",
+                          onTap: () => showThemeModeDialog(provider),
+                        ),
+                      );
                     },
                   ),
-                ),
-                const SizedBox(height: ConfigConstant.margin2),
-                Consumer<ThemeProvider>(
-                  builder: (context, provider, child) {
-                    return AnimatedCrossFade(
-                      duration: ConfigConstant.fadeDuration,
-                      crossFadeState: provider.isDarkMode ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                      secondChild: buildSettingTile(
-                        title: "Theme",
-                        iconData: Icons.dark_mode,
-                        subtitle: "Dark Mode",
-                        onTap: () => showThemeModeDialog(provider),
-                      ),
-                      firstChild: buildSettingTile(
-                        title: "Theme",
-                        iconData: Icons.light_mode,
-                        subtitle: "Light Mode",
-                        onTap: () => showThemeModeDialog(provider),
-                      ),
-                    );
-                  },
-                ),
-                Consumer<LocaleProvider>(
-                  builder: (context, provider, child) {
-                    return buildSettingTile(
-                      title: "Language",
-                      iconData: Icons.language,
-                      subtitle: "English",
-                      showDivider: false,
-                      onTap: () => showLanguageDialog(provider),
-                    );
-                  },
-                ),
-                const SizedBox(height: ConfigConstant.margin2),
-                buildSettingTile(
-                  title: "Rate our app",
-                  iconData: Icons.rate_review,
-                  subtitle: "We’d love to hear your experience",
-                  onTap: () {},
-                ),
-                buildSettingTile(
-                  title: "Policy & Privary",
-                  iconData: Icons.privacy_tip,
-                  showDivider: false,
-                  onTap: () {},
-                ),
-                const SizedBox(height: ConfigConstant.objectHeight7),
-              ],
-            ),
-          )
-        ],
+                  Consumer<LocaleProvider>(
+                    builder: (context, provider, child) {
+                      return buildSettingTile(
+                        title: "Language",
+                        iconData: Icons.language,
+                        subtitle: "English",
+                        showDivider: false,
+                        onTap: () => showLanguageDialog(provider),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: ConfigConstant.margin2),
+                  buildSettingTile(
+                    title: "Rate our app",
+                    iconData: Icons.rate_review,
+                    subtitle: "We’d love to hear your experience",
+                    onTap: () {},
+                  ),
+                  buildSettingTile(
+                    title: "Policy & Privary",
+                    iconData: Icons.privacy_tip,
+                    showDivider: false,
+                    onTap: () {},
+                  ),
+                  const SizedBox(height: ConfigConstant.objectHeight7),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -338,8 +375,22 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                                             ratioY: 1,
                                           ),
                                         );
-                                        if (file != null) {
-                                          print(file.path);
+                                        if (file != null && provider.user?.id != null) {
+                                          await userApi.updateProfile(
+                                            image: file,
+                                            user: UserModel(
+                                              id: provider.user?.id,
+                                            ),
+                                          );
+                                          if (!userApi.success()) {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  userApi.message() ?? "Update fail, please try again!",
+                                                ),
+                                              ),
+                                            );
+                                          }
                                         }
                                       },
                                       child: Container(
@@ -421,13 +472,4 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
       },
     );
   }
-}
-
-class _TileSetting {
-  final String title;
-  final void Function() onPressed;
-  _TileSetting({
-    required this.title,
-    required this.onPressed,
-  });
 }

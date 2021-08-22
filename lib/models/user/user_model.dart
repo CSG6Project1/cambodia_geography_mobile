@@ -25,6 +25,14 @@ class UserModel {
   ImageModel? profileImg;
   String? id;
 
+  List<String> paramNames() {
+    return [
+      'role',
+      'username',
+      'email',
+    ];
+  }
+
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }
