@@ -46,22 +46,32 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
   }
 
   Future<void> showThemeModeDialog(ThemeProvider provider) async {
-    var key = await showConfirmationDialog(
+    String initialSelectedActionKey = provider.systemTheme
+        ? "system"
+        : provider.isDarkMode
+            ? "dark"
+            : "light";
+
+    String? key = await showConfirmationDialog(
       context: context,
       title: "Theme",
-      initialSelectedActionKey: provider.isDarkMode ? "dark" : "light",
+      initialSelectedActionKey: initialSelectedActionKey,
       actions: [
         AlertDialogAction(key: "system", label: "System"),
         AlertDialogAction(key: "dark", label: "Dark Mode"),
         AlertDialogAction(key: "light", label: "Light Mode"),
       ],
     );
+
     switch (key) {
       case "dark":
         provider.turnDarkModeOn();
         break;
       case "light":
         provider.turnDarkModeOff();
+        break;
+      case "system":
+        provider.useSystemDefault();
         break;
       default:
     }

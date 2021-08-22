@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> with AfterLayoutMixin<Splas
     await Firebase.initializeApp();
     await CambodiaGeography.instance.initilize();
 
-    bool isDarkMode = await _getInitialDarkMode();
+    bool isDarkMode = await getInitialDarkMode();
     Locale? locale = await _getInitialLocale();
     UserTokenModel? userToken = await getInitalUserToken();
 
@@ -57,19 +57,6 @@ class _SplashScreenState extends State<SplashScreen> with AfterLayoutMixin<Splas
       locale = await storage.readLocale();
     } catch (e) {}
     return locale;
-  }
-
-  Future<bool> _getInitialDarkMode() async {
-    ThemeModeStorage storage = ThemeModeStorage();
-    bool? isDarkMode;
-    try {
-      isDarkMode = await storage.readBool();
-    } catch (e) {}
-    if (isDarkMode == null) {
-      Brightness? platformBrightness = SchedulerBinding.instance?.window.platformBrightness;
-      isDarkMode = platformBrightness == Brightness.dark;
-    }
-    return isDarkMode;
   }
 
   @override
