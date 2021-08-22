@@ -32,7 +32,7 @@ class _CgBottomNavWrapperState extends State<CgBottomNavWrapper> with CgMediaQue
           duration: ConfigConstant.fadeDuration,
           padding: EdgeInsets.symmetric(
             horizontal: ConfigConstant.margin2,
-            vertical: ConfigConstant.margin2,
+            vertical: ConfigConstant.margin1,
           ),
           transform: Matrix4.identity()..translate(0.0, widget.visible ? 0.0 : height),
           curve: Curves.ease,

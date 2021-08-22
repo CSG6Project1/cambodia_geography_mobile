@@ -204,10 +204,14 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
               style: textTheme.caption,
             ),
             secondChild: CgCustomShimmer(
-              child: Container(
-                color: colorScheme.surface,
-                width: 100,
-                height: 12,
+              child: Row(
+                children: [
+                  Container(
+                    height: 12,
+                    width: 100,
+                    color: colorScheme.surface,
+                  ),
+                ],
               ),
             ),
           ),
@@ -216,13 +220,17 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
             crossFadeState: comment?.comment != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
             firstChild: Text(
               comment?.comment ?? '',
-              style: textTheme.caption,
+              style: textTheme.bodyText2,
             ),
             secondChild: CgCustomShimmer(
-              child: Container(
-                color: colorScheme.surface,
-                width: 48,
-                height: 12,
+              child: Row(
+                children: [
+                  Container(
+                    height: 12,
+                    width: 48,
+                    color: colorScheme.surface,
+                  ),
+                ],
               ),
             ),
           ),
@@ -240,7 +248,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
       title: RichText(
         text: TextSpan(
           text: 'មតិយោបល់ ',
-          style: Theme.of(context).appBarTheme.titleTextStyle?.copyWith(color: colorScheme.onSurface),
+          style: textTheme.bodyText1,
           children: [
             TextSpan(
               text: '• ' + NumberHelper.toKhmer(widget.place.commentLength),
@@ -260,57 +268,6 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
           ),
         )
       ],
-    );
-  }
-
-  // Widget buildLoadingShimmer() {
-  //   return ListView(
-  //     children: List.generate(widget.place.commentLength ?? 0, (index) {
-  //       return Column(
-  //         children: [
-  //           ListTile(
-  //             tileColor: colorScheme.surface,
-  //             contentPadding: EdgeInsets.symmetric(
-  //               vertical: ConfigConstant.margin2,
-  //               horizontal: ConfigConstant.margin1,
-  //             ),
-  //             leading: CgCustomShimmer(
-  //               child: CircleAvatar(
-  //                 radius: 36,
-  //                 backgroundColor: colorScheme.surface,
-  //               ),
-  //             ),
-  //             title: Row(
-  //               children: [
-  //                 buildTextShimmer(),
-  //               ],
-  //             ),
-  //           ),
-  //           Divider(height: 0),
-  //         ],
-  //       );
-  //     }),
-  //   );
-  // }
-
-  CgCustomShimmer buildTextShimmer() {
-    return CgCustomShimmer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            color: colorScheme.surface,
-            width: 100,
-            height: 12,
-          ),
-          SizedBox(height: ConfigConstant.margin1),
-          Container(
-            color: colorScheme.surface,
-            width: 250,
-            height: 12,
-          ),
-        ],
-      ),
     );
   }
 }

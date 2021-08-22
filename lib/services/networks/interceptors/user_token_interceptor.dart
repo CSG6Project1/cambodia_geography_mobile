@@ -11,7 +11,6 @@ class UserTokenInterceptor implements InterceptorContract {
     try {
       UserTokenModel? model = await authApi.getCurrentUserToken();
       if (model?.accessToken != null) {
-        print("Bearer ${model?.accessToken}");
         data.headers["Authorization"] = "Bearer ${model?.accessToken}";
       }
     } catch (e) {}
