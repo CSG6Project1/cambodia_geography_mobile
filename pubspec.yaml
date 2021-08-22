@@ -46,6 +46,7 @@ dependencies:
   geolocator: ^7.4.0
   geocoding: ^2.0.0
   flutter_cache_manager: ^3.1.2
+  styled_text: ^3.0.2
 
 dev_dependencies:
   build_runner: ^1.12.1
