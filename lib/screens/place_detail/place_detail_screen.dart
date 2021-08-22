@@ -6,7 +6,6 @@ import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
-import 'package:cambodia_geography/screens/place_detail/local_widgets/images_presentor.dart';
 import 'package:cambodia_geography/screens/place_detail/local_widgets/place_title.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:flutter/foundation.dart';
@@ -58,7 +57,12 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
       body: CustomScrollView(
         controller: scrollController,
         slivers: [
-          buildAppBar(),
+          CgImageAppBar(
+            expandedHeight: expandedHeight,
+            pageController: pageController,
+            title: place.khmer.toString(),
+            images: place.images?.map((e) => e.url ?? '').toList() ?? [],
+          ),
           buildBody(),
         ],
       ),
@@ -68,7 +72,12 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
   SliverList buildBody() {
     return SliverList(
       delegate: SliverChildListDelegate([
-        PlaceTitle(place: place),
+        PlaceTitle(
+          title: place.khmer.toString(),
+          provinceCode: place.provinceCode,
+          lat: place.lat,
+          lon: place.lon,
+        ),
         Container(
           color: colorScheme.surface,
           margin: const EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
@@ -92,33 +101,6 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
         const SizedBox(height: ConfigConstant.objectHeight1)
       ]),
     );
-  }
-
-  SliverAppBar buildAppBar() {
-    return SliverAppBar(
-      elevation: 0,
-      expandedHeight: expandedHeight,
-      collapsedHeight: kToolbarHeight,
-      pinned: true,
-      floating: false,
-      stretch: true,
-      title: buildAppBarTitle(),
-      flexibleSpace: buildFlexibleSpace(),
-    );
-  }
-
-  Widget buildFlexibleSpace() {
-    List<String> images = place.images?.map((e) => e.url ?? '').toList() ?? [];
-    return FlexibleSpaceBar(
-      background: ImagesPresentor(
-        images: images,
-        controller: pageController,
-      ),
-    );
-  }
-
-  Widget buildAppBarTitle() {
-    return CgAppBarTitle(title: place.khmer.toString());
   }
 
   Widget buildBottomNavigationBar() {

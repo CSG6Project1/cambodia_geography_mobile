@@ -3,7 +3,6 @@ import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/helpers/app_helper.dart';
-import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +10,25 @@ import 'package:flutter/material.dart';
 class PlaceTitle extends StatelessWidget {
   const PlaceTitle({
     Key? key,
-    required this.place,
+    required this.title,
+    this.subtitle,
+    required this.provinceCode,
+    required this.lat,
+    required this.lon,
   }) : super(key: key);
-  final PlaceModel place;
+  // final PlaceModel place;
+  final String title;
+  final String? subtitle;
+  final String? provinceCode;
+  final double? lat;
+  final double? lon;
 
   @override
   Widget build(BuildContext context) {
     CambodiaGeography geo = CambodiaGeography.instance;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
-    TbProvinceModel province = geo.tbProvinces.firstWhere((province) => province.code == place.provinceCode);
+    TbProvinceModel province = geo.tbProvinces.firstWhere((province) => province.code == provinceCode);
 
     return Container(
       color: colorScheme.surface,
@@ -29,7 +37,7 @@ class PlaceTitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildTitle(textTheme, colorScheme),
-          buildLocationText(colorScheme, province, textTheme),
+          buildSubtitle(colorScheme, province, textTheme),
           buildMainButtons(colorScheme, context),
         ],
       ),
@@ -38,12 +46,12 @@ class PlaceTitle extends StatelessWidget {
 
   Widget buildTitle(TextTheme textTheme, ColorScheme colorScheme) {
     return Text(
-      '${place.khmer}',
+      title,
       style: textTheme.headline6?.copyWith(color: colorScheme.primary, fontWeight: FontWeight.w700),
     );
   }
 
-  Widget buildLocationText(ColorScheme colorScheme, TbProvinceModel province, TextTheme textTheme) {
+  Widget buildSubtitle(ColorScheme colorScheme, TbProvinceModel province, TextTheme textTheme) {
     return Row(
       children: [
         Icon(
@@ -52,7 +60,7 @@ class PlaceTitle extends StatelessWidget {
           color: colorScheme.primary,
         ),
         Text(
-          '${province.khmer}',
+          subtitle ?? '${province.khmer}',
           style: textTheme.bodyText2?.copyWith(color: textTheme.caption?.color),
         ),
       ],
@@ -64,12 +72,9 @@ class PlaceTitle extends StatelessWidget {
     BuildContext context,
   ) {
     LatLng? latLng;
-    double? latitude = place.lat;
-    double? longitude = place.lon;
-
     bool isLatLngValdated = false;
-    if (latitude != null || longitude != null) {
-      isLatLngValdated = AppHelper.isLatLngValdated(latitude!, longitude!);
+    if (lat != null || lon != null) {
+      isLatLngValdated = AppHelper.isLatLngValdated(lat!, lon!);
     }
 
     if (!isLatLngValdated) {
@@ -86,7 +91,7 @@ class PlaceTitle extends StatelessWidget {
           backgroundColor: colorScheme.secondary.withOpacity(0.1),
           showBorder: true,
           onPressed: () {
-            latLng = LatLng(latitude!, longitude!);
+            latLng = LatLng(lat!, lon!);
             Navigator.of(context).pushNamed(
               RouteConfig.MAP,
               arguments: MapScreenSetting(

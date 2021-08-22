@@ -36,4 +36,29 @@ class AppHelper<T> {
     json.removeWhere((key, value) => value == null || value == "null" || (value is List && value.isEmpty));
     return json;
   }
+
+  static String getCompassDirection(double num, {bool isEnglish = false}) {
+    List<String> directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+    List<String> directionsInKhmer = ['ជើង', 'ឦសាន្ត', 'កើត', 'អាគ្នេយ៍', 'ត្បូង', 'នីរតី', 'លិច', 'ពាយព្យ'];
+    double val = (num / 45);
+    int index = (val % 8).toInt();
+    if (isEnglish) return directions[index];
+    return directionsInKhmer[index];
+  }
+
+  static IconData getDirectionIcon(double num) {
+    List<IconData> directionIcons = [
+      Icons.north,
+      Icons.north_east,
+      Icons.east,
+      Icons.south_east,
+      Icons.south,
+      Icons.south_west,
+      Icons.west,
+      Icons.north_west,
+    ];
+    double val = (num / 45);
+    int index = (val % 8).toInt();
+    return directionIcons[index];
+  }
 }
