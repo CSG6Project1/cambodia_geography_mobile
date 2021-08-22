@@ -45,8 +45,6 @@ class CrudPlacesApi extends BaseResourceOwnerApi<PlaceModel> {
       "removeImages": jsonEncode(removeImages),
     };
 
-    print(removeImagesField);
-
     Map<String, String> fields = {
       ...getFields(place),
       ...removeImagesField,

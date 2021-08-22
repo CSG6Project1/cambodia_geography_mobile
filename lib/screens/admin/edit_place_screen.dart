@@ -159,6 +159,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
       }
     }
 
+    if (files.isEmpty) removeImages = widget.place?.images?.map((e) => "${e.id}").toList() ?? [];
     return files;
   }
 
