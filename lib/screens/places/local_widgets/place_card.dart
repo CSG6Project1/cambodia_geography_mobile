@@ -1,4 +1,5 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
+import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
@@ -6,6 +7,7 @@ import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
+import 'package:cambodia_geography/providers/bookmark_editing_provider.dart';
 import 'package:cambodia_geography/providers/editing_provider.dart';
 import 'package:cambodia_geography/providers/user_location_provider.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
@@ -74,19 +76,52 @@ class PlaceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: ConfigConstant.circlarRadius1),
-      margin: EdgeInsets.zero,
-      clipBehavior: Clip.hardEdge,
-      child: InkWell(
-        onTap: onTap,
-        child: Row(
-          children: [
-            buildCardInfo(colorScheme, textTheme),
-            buildCardImage(context),
-          ],
+    return Consumer<BookmarkEditingProvider>(
+      child: Card(
+        clipBehavior: Clip.hardEdge,
+        shape: RoundedRectangleBorder(borderRadius: ConfigConstant.circlarRadius1),
+        margin: EdgeInsets.zero,
+        child: InkWell(
+          onTap: onTap,
+          child: Row(
+            children: [
+              buildCardInfo(colorScheme, textTheme),
+              buildCardImage(context),
+            ],
+          ),
         ),
       ),
+      builder: (context, provider, card) {
+        bool inBookmarkScreen = ModalRoute.of(context)?.settings.name == RouteConfig.BOOKMARK;
+        bool editing = provider.editing && inBookmarkScreen;
+        return Stack(
+          children: [
+            Positioned(
+              right: 0,
+              top: 0,
+              bottom: 0,
+              child: AnimatedOpacity(
+                opacity: editing ? 1 : 0,
+                duration: ConfigConstant.fadeDuration ~/ 2,
+                child: Checkbox(
+                  value: provider.isChecked(place?.id ?? ""),
+                  onChanged: (value) {
+                    provider.toggleCheckBox(place?.id ?? "");
+                  },
+                ),
+              ),
+            ),
+            AnimatedContainer(
+              duration: ConfigConstant.fadeDuration,
+              curve: Curves.ease,
+              child: card,
+              margin: EdgeInsets.only(
+                right: editing ? ConfigConstant.objectHeight1 + ConfigConstant.margin1 : 0,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -113,37 +148,40 @@ class PlaceCard extends StatelessWidget {
                 width: double.infinity,
                 height: double.infinity,
               ),
-              if (onDelete != null)
-                Consumer<EditingProvider>(
-                  builder: (context, provider, child) {
-                    bool showDeleteButton = onDelete != null && provider.editing;
-                    return IgnorePointer(
-                      ignoring: !showDeleteButton,
-                      child: AnimatedOpacity(
-                        opacity: showDeleteButton ? 1 : 0,
-                        duration: ConfigConstant.fadeDuration ~/ 2,
-                        child: Material(
-                          color: Theme.of(context).colorScheme.background,
-                          child: InkWell(
-                            onTap: onDelete,
-                            child: Container(
-                              width: double.infinity,
-                              height: double.infinity,
-                              child: Icon(
-                                Icons.delete,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+              if (onDelete != null) buildDeleteButton(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildDeleteButton() {
+    return Consumer<EditingProvider>(
+      builder: (context, provider, child) {
+        bool showDeleteButton = onDelete != null && provider.editing;
+        return IgnorePointer(
+          ignoring: !showDeleteButton,
+          child: AnimatedOpacity(
+            opacity: showDeleteButton ? 1 : 0,
+            duration: ConfigConstant.fadeDuration ~/ 2,
+            child: Material(
+              color: Theme.of(context).colorScheme.background,
+              child: InkWell(
+                onTap: onDelete,
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Icon(
+                    Icons.delete,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 

@@ -15,6 +15,7 @@ import 'package:cambodia_geography/services/apis/users/user_api.dart';
 import 'package:cambodia_geography/services/authentications/social_auth_service.dart';
 import 'package:cambodia_geography/services/images/image_picker_service.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:provider/provider.dart';
 
@@ -139,22 +140,40 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
       title: "Change password",
       textFields: [
         DialogTextField(
-          hintText: "Password",
+          hintText: "Old password",
           obscureText: true,
         ),
         DialogTextField(
-          hintText: "Confirm Password",
+          hintText: "new Password",
           obscureText: true,
         ),
       ],
     );
-    if (values?.length == 2) {
-      String password = values?.first ?? "";
-      String confirmPassword = values?.last ?? "";
-      password = password.trim();
-      confirmPassword = confirmPassword.trim();
-      if (password.isNotEmpty && password == confirmPassword) {
-        //TODO: reset password
+    if (values?.length == 2 && provider.user?.id != null) {
+      String oldPassword = values?.first ?? "";
+      String newPassword = values?.last ?? "";
+      oldPassword = oldPassword.trim();
+      newPassword = newPassword.trim();
+      if (newPassword.isNotEmpty) {
+        App.of(context)?.showLoading();
+        await userApi.updateProfile(
+          user: UserModel(
+            id: provider.user?.id,
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+          ),
+        );
+        if (!userApi.success()) {
+          App.of(context)?.hideLoading();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(userApi.message() ?? "Update fail, please try again!"),
+            ),
+          );
+        } else {
+          await provider.fetchCurrentUser();
+          App.of(context)?.hideLoading();
+        }
       }
     }
   }

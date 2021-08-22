@@ -4,7 +4,6 @@ import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/user/user_model.dart';
-import 'package:cambodia_geography/providers/theme_provider.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/screens/drawer/local_widgets/diagonal_path_clipper.dart';
 import 'package:flutter/foundation.dart';
@@ -53,6 +52,13 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
           icon: Icons.admin_panel_settings,
           isRoot: true,
         ),
+      _Route(
+        isRoot: true,
+        routeName: RouteConfig.BOOKMARK,
+        displayName: "Bookmark",
+        icon: Icons.bookmark,
+        overrideOnTap: () {},
+      ),
       _Route(
         routeName: "",
         displayName: "Rate us",

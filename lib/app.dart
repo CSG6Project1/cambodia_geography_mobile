@@ -27,6 +27,8 @@ class App extends StatefulWidget {
     return context.findAncestorStateOfType<_AppState>();
   }
 
+  static final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
   @override
   _AppState createState() => _AppState();
 }
@@ -66,7 +68,7 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin {
       theme: theme,
       debugShowCheckedModeBanner: false,
       home: RouteConfig().routes[widget.initialRoute]?.screen ?? HomeScreen(),
-      navigatorObservers: [HeroController()],
+      navigatorObservers: [HeroController(), App.routeObserver],
       onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
       locale: localeProvider?.locale,
       builder: (context, child) => AppBuilder(child: child),
