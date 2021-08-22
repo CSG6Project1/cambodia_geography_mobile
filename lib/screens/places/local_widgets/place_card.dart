@@ -212,7 +212,9 @@ class PlaceCard extends StatelessWidget {
           ),
           child: Text(
             place?.khmer ?? "",
+            maxLines: 1,
             style: TextStyle(color: colorScheme.primary),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         subtitle: Column(
@@ -232,7 +234,11 @@ class PlaceCard extends StatelessWidget {
               ),
               child: Container(
                 width: double.infinity,
-                child: Text(getGeoInfo()),
+                child: Text(
+                  getGeoInfo(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
             const SizedBox(height: ConfigConstant.margin0),
