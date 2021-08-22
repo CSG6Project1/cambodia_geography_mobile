@@ -6,9 +6,7 @@ import 'package:cambodia_geography/constants/theme_constant.dart';
 import 'package:cambodia_geography/main.dart';
 import 'package:cambodia_geography/services/storages/init_app_state_storage.dart';
 import 'package:cambodia_geography/services/storages/locale_storage.dart';
-import 'package:cambodia_geography/services/storages/theme_mode_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'models/apis/user_token_model.dart';
 

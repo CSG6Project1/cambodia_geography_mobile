@@ -8,14 +8,17 @@ import 'package:cambodia_geography/models/comment/comment_model.dart';
 import 'package:cambodia_geography/models/image_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/user/user_model.dart';
+import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/services/apis/comment/comment_api.dart';
 import 'package:cambodia_geography/services/apis/comment/crud_comment_api.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
 import 'package:cambodia_geography/widgets/cg_measure_size.dart';
+import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class CommentScreen extends StatefulWidget {
@@ -103,41 +106,48 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
     comments = commentListModel?.items;
     return Scaffold(
       appBar: buildAppBar(context),
-      body: comments == null
-          ? buildLoadingShimmer()
-          : CgLoadMoreList(
-              onEndScroll: () => load(loadMore: true),
-              child: CgMeasureSize(
-                onChange: (size) {
-                  if (size.height < MediaQuery.of(context).size.height) load(loadMore: true);
-                },
-                child: ListView.builder(
-                  controller: scrollController,
-                  itemCount: comments!.length,
-                  itemBuilder: (context, index) {
-                    if (comments!.length == index) {
-                      return Visibility(
-                        visible: commentListModel?.hasLoadMore() == true,
-                        child: Container(
-                          alignment: Alignment.center,
-                          padding: ConfigConstant.layoutPadding,
-                          child: const CircularProgressIndicator(),
-                        ),
-                      );
-                    }
-                    return buildComment(comment: comments![index]);
-                  },
-                ),
-              ),
-            ),
+      body: CgLoadMoreList(
+        onEndScroll: () => load(loadMore: true),
+        child: CgMeasureSize(
+          onChange: (size) {
+            if (size.height < MediaQuery.of(context).size.height) load(loadMore: true);
+          },
+          child: ListView.builder(
+            controller: scrollController,
+            itemCount: comments?.length ?? 10,
+            itemBuilder: (context, index) {
+              if (comments?.length == index) {
+                return Visibility(
+                  visible: commentListModel?.hasLoadMore() == true,
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: ConfigConstant.layoutPadding,
+                    child: const CircularProgressIndicator(),
+                  ),
+                );
+              }
+              return buildComment(comment: comments?[index]);
+            },
+          ),
+        ),
+      ),
       bottomNavigationBar: CgBottomNavWrapper(
         child: ListTile(
           contentPadding: EdgeInsets.zero,
-          leading: CircleAvatar(
-            radius: 24,
-            backgroundColor: colorScheme.surface,
-            foregroundImage: NetworkImage(
-              'https://lh5.googleusercontent.com/proxy/PigxOVqG50fy57LwMQ2bBdvp09o93GgNLwLYLxUsW-9IW7MEkeJySNjZX_ikleNQalqnso0L8RJ3212xKWdkhAiuMmCvFQCkIkFyUT9kaTwlJyg=s0-d',
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
+            child: Container(
+              color: colorScheme.background,
+              child: Consumer<UserProvider>(
+                builder: (context, provider, child) {
+                  return CgNetworkImageLoader(
+                    imageUrl: provider.user?.profileImg?.url,
+                    width: ConfigConstant.objectHeight1,
+                    height: ConfigConstant.objectHeight1,
+                    fit: BoxFit.cover,
+                  );
+                },
+              ),
             ),
           ),
           title: TextField(
@@ -165,35 +175,59 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   }
 
   Widget buildComment({
-    required CommentModel comment,
+    required CommentModel? comment,
   }) {
-    String date = DateFormat('dd MMM, yyyy, hh:mm a').format(comment.createdAt!);
+    String date = comment?.createdAt != null ? DateFormat('dd MMM, yyyy, hh:mm a').format(comment!.createdAt!) : "";
     return Column(
       children: [
         ListTile(
           tileColor: colorScheme.surface,
-          dense: true,
-          contentPadding: EdgeInsets.symmetric(
-            vertical: ConfigConstant.margin1,
-            horizontal: ConfigConstant.margin1,
-          ),
-          leading: CircleAvatar(
-            radius: 36,
-            backgroundColor: colorScheme.surface,
-            foregroundImage: NetworkImage(
-              comment.user?.profileImg?.url ?? '',
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
+            child: Container(
+              color: colorScheme.background,
+              child: CgNetworkImageLoader(
+                imageUrl: comment?.user?.profileImg?.url,
+                width: ConfigConstant.objectHeight1,
+                height: ConfigConstant.objectHeight1,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          title: Text(
-            (comment.user?.username.toString() ?? '') + ' • ' + date,
-            style: textTheme.caption,
+          title: AnimatedCrossFade(
+            duration: ConfigConstant.fadeDuration,
+            crossFadeState: comment != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            firstChild: Text(
+              comment?.user?.username != null
+                  ? (comment?.user?.username.toString() ?? '') + ' • ' + date
+                  : "CamGeo's User",
+              style: textTheme.caption,
+            ),
+            secondChild: CgCustomShimmer(
+              child: Container(
+                color: colorScheme.surface,
+                width: 100,
+                height: 12,
+              ),
+            ),
           ),
-          subtitle: Text(
-            comment.comment ?? '',
-            style: textTheme.caption,
+          subtitle: AnimatedCrossFade(
+            duration: ConfigConstant.fadeDuration,
+            crossFadeState: comment?.comment != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            firstChild: Text(
+              comment?.comment ?? '',
+              style: textTheme.caption,
+            ),
+            secondChild: CgCustomShimmer(
+              child: Container(
+                color: colorScheme.surface,
+                width: 48,
+                height: 12,
+              ),
+            ),
           ),
         ),
-        Divider(height: 0),
+        const Divider(height: 0),
       ],
     );
   }
@@ -206,9 +240,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
       title: RichText(
         text: TextSpan(
           text: 'មតិយោបល់ ',
-          style: Theme.of(context).appBarTheme.titleTextStyle?.copyWith(
-                color: colorScheme.onSurface,
-              ),
+          style: Theme.of(context).appBarTheme.titleTextStyle?.copyWith(color: colorScheme.onSurface),
           children: [
             TextSpan(
               text: '• ' + NumberHelper.toKhmer(widget.place.commentLength),
@@ -231,35 +263,35 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
     );
   }
 
-  Widget buildLoadingShimmer() {
-    return ListView(
-      children: List.generate(widget.place.commentLength ?? 0, (index) {
-        return Column(
-          children: [
-            ListTile(
-              tileColor: colorScheme.surface,
-              contentPadding: EdgeInsets.symmetric(
-                vertical: ConfigConstant.margin2,
-                horizontal: ConfigConstant.margin1,
-              ),
-              leading: CgCustomShimmer(
-                child: CircleAvatar(
-                  radius: 36,
-                  backgroundColor: colorScheme.surface,
-                ),
-              ),
-              title: Row(
-                children: [
-                  buildTextShimmer(),
-                ],
-              ),
-            ),
-            Divider(height: 0),
-          ],
-        );
-      }),
-    );
-  }
+  // Widget buildLoadingShimmer() {
+  //   return ListView(
+  //     children: List.generate(widget.place.commentLength ?? 0, (index) {
+  //       return Column(
+  //         children: [
+  //           ListTile(
+  //             tileColor: colorScheme.surface,
+  //             contentPadding: EdgeInsets.symmetric(
+  //               vertical: ConfigConstant.margin2,
+  //               horizontal: ConfigConstant.margin1,
+  //             ),
+  //             leading: CgCustomShimmer(
+  //               child: CircleAvatar(
+  //                 radius: 36,
+  //                 backgroundColor: colorScheme.surface,
+  //               ),
+  //             ),
+  //             title: Row(
+  //               children: [
+  //                 buildTextShimmer(),
+  //               ],
+  //             ),
+  //           ),
+  //           Divider(height: 0),
+  //         ],
+  //       );
+  //     }),
+  //   );
+  // }
 
   CgCustomShimmer buildTextShimmer() {
     return CgCustomShimmer(

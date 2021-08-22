@@ -12,7 +12,6 @@ import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class PlaceDetailScreen extends StatefulWidget {
   const PlaceDetailScreen({
@@ -32,10 +31,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
   late CambodiaGeography geo;
   late PlaceModel place;
 
-  late ValueNotifier<bool> initedFlexibleSpaceNotifier;
-  late ValueNotifier<double> headerOpacityNotifier;
-
-  double get expandedHeight => MediaQuery.of(context).size.width * 9 / 16 - kToolbarHeight;
+  double get expandedHeight => MediaQuery.of(context).size.width;
 
   @override
   void initState() {
@@ -44,34 +40,14 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
 
     scrollController = ScrollController();
     pageController = PageController();
-    initedFlexibleSpaceNotifier = ValueNotifier(false);
-    headerOpacityNotifier = ValueNotifier(0.0);
-    scrollController.addListener(_scrollListener);
+
     super.initState();
-
-    WidgetsBinding.instance?.addPostFrameCallback(
-      (timeStamp) async {
-        await Future.delayed(Duration(milliseconds: 500));
-        initedFlexibleSpaceNotifier.value = true;
-      },
-    );
-  }
-
-  void _scrollListener() {
-    double offset = scrollController.offset - kToolbarHeight * 2;
-    double maxHeight = expandedHeight;
-    if (offset >= maxHeight) offset = maxHeight;
-    if (offset <= 0) offset = 0;
-    headerOpacityNotifier.value = offset / maxHeight;
   }
 
   @override
   void dispose() {
     pageController.dispose();
-    scrollController.removeListener(_scrollListener);
     scrollController.dispose();
-    initedFlexibleSpaceNotifier.dispose();
-    headerOpacityNotifier.dispose();
     super.dispose();
   }
 
@@ -118,13 +94,13 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
     );
   }
 
-  MorphingSliverAppBar buildAppBar() {
-    return MorphingSliverAppBar(
+  SliverAppBar buildAppBar() {
+    return SliverAppBar(
       elevation: 0,
       expandedHeight: expandedHeight,
       collapsedHeight: kToolbarHeight,
       pinned: true,
-      floating: true,
+      floating: false,
       stretch: true,
       title: buildAppBarTitle(),
       flexibleSpace: buildFlexibleSpace(),
@@ -133,37 +109,16 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
 
   Widget buildFlexibleSpace() {
     List<String> images = place.images?.map((e) => e.url ?? '').toList() ?? [];
-    Widget child = FlexibleSpaceBar(
+    return FlexibleSpaceBar(
       background: ImagesPresentor(
         images: images,
         controller: pageController,
       ),
     );
-    return ValueListenableBuilder(
-      child: child,
-      valueListenable: initedFlexibleSpaceNotifier,
-      builder: (context, value, child) {
-        return AnimatedOpacity(
-          opacity: initedFlexibleSpaceNotifier.value ? 1 : 0,
-          duration: ConfigConstant.fadeDuration,
-          child: child,
-        );
-      },
-    );
   }
 
   Widget buildAppBarTitle() {
-    Widget child = CgAppBarTitle(title: place.khmer.toString());
-    return ValueListenableBuilder<double>(
-      child: child,
-      valueListenable: headerOpacityNotifier,
-      builder: (context, value, child) {
-        return Opacity(
-          opacity: headerOpacityNotifier.value,
-          child: child,
-        );
-      },
-    );
+    return CgAppBarTitle(title: place.khmer.toString());
   }
 
   Widget buildBottomNavigationBar() {
@@ -172,10 +127,11 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
         children: [
           IconButton(
             onPressed: () async {
-              initedFlexibleSpaceNotifier.value = false;
-              await Navigator.pushNamed(context, RouteConfig.COMMENT, arguments: place);
-              await Future.delayed(Duration(milliseconds: 500));
-              initedFlexibleSpaceNotifier.value = true;
+              await Navigator.pushNamed(
+                context,
+                RouteConfig.COMMENT,
+                arguments: place,
+              );
             },
             icon: Icon(
               Icons.mode_comment,

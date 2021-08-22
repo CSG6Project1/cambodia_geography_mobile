@@ -15,8 +15,6 @@ import 'package:cambodia_geography/services/apis/users/user_api.dart';
 import 'package:cambodia_geography/services/authentications/social_auth_service.dart';
 import 'package:cambodia_geography/services/images/image_picker_service.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:provider/provider.dart';
 
