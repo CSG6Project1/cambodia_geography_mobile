@@ -16,6 +16,7 @@ import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
 import 'package:cambodia_geography/widgets/cg_measure_size.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
+import 'package:cambodia_geography/widgets/cg_no_data_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -58,13 +59,14 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   Future<void> load({bool loadMore = false}) async {
     if (loadMore && !(commentListModel?.hasLoadMore() == true)) return;
     String? page = commentListModel?.links?.getPageNumber().next.toString();
-    final result = await commentApi.fetchAll(queryParameters: {'page': page});
+    final result = await commentApi.fetchAll(queryParameters: {'page': loadMore ? page : null});
     if (commentApi.success() && result != null) {
       setState(() {
-        if (commentListModel != null)
+        if (commentListModel != null && loadMore) {
           commentListModel?.add(result);
-        else
+        } else {
           commentListModel = result;
+        }
       });
     }
   }
@@ -106,28 +108,35 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
     comments = commentListModel?.items;
     return Scaffold(
       appBar: buildAppBar(context),
-      body: CgLoadMoreList(
-        onEndScroll: () => load(loadMore: true),
-        child: CgMeasureSize(
-          onChange: (size) {
-            if (size.height < MediaQuery.of(context).size.height) load(loadMore: true);
-          },
-          child: ListView.builder(
-            controller: scrollController,
-            itemCount: comments?.length ?? 10,
-            itemBuilder: (context, index) {
-              if (comments?.length == index) {
-                return Visibility(
-                  visible: commentListModel?.hasLoadMore() == true,
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: ConfigConstant.layoutPadding,
-                    child: const CircularProgressIndicator(),
-                  ),
-                );
-              }
-              return buildComment(comment: comments?[index]);
-            },
+      body: RefreshIndicator(
+        onRefresh: () => load(),
+        child: CgNoDataWrapper(
+          isNoData: comments?.isEmpty == true,
+          child: CgLoadMoreList(
+            onEndScroll: () => load(loadMore: true),
+            child: CgMeasureSize(
+              onChange: (size) {
+                if (size.height < MediaQuery.of(context).size.height) load(loadMore: true);
+              },
+              child: ListView.builder(
+                physics: const AlwaysScrollableScrollPhysics(),
+                controller: scrollController,
+                itemCount: comments?.length ?? 10,
+                itemBuilder: (context, index) {
+                  if (comments?.length == index) {
+                    return Visibility(
+                      visible: commentListModel?.hasLoadMore() == true,
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: ConfigConstant.layoutPadding,
+                        child: const CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  return buildComment(comment: comments?[index]);
+                },
+              ),
+            ),
           ),
         ),
       ),
@@ -200,7 +209,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
             firstChild: Text(
               comment?.user?.username != null
                   ? (comment?.user?.username.toString() ?? '') + ' • ' + date
-                  : "CamGeo's User",
+                  : "CamGeo's User" + ' • ' + date,
               style: textTheme.caption,
             ),
             secondChild: CgCustomShimmer(

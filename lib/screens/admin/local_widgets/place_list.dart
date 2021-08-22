@@ -8,6 +8,7 @@ import 'package:cambodia_geography/screens/places/local_widgets/place_card.dart'
 import 'package:cambodia_geography/services/apis/admins/crud_places_api.dart';
 import 'package:cambodia_geography/services/apis/places/base_places_api.dart';
 import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
+import 'package:cambodia_geography/widgets/cg_no_data_wrapper.dart';
 import 'package:flutter/material.dart';
 
 enum PlaceType {
@@ -130,46 +131,35 @@ class _PlaceListState extends State<PlaceList> with AutomaticKeepAliveClientMixi
     super.build(context);
     List<PlaceModel>? places = placeList?.items;
 
+    bool isNoData = !loading && places != null && places.isEmpty;
     return RefreshIndicator(
       onRefresh: () async => load(),
-      child: LayoutBuilder(
-        builder: (context, constraint) {
-          return Stack(
-            children: [
-              Positioned(
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                child: CgLoadMoreList(
-                  onEndScroll: () => load(loadMore: true),
-                  child: ListView.separated(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    padding: ConfigConstant.layoutPadding,
-                    itemCount: places == null ? 5 : places.length + 1,
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        height: ConfigConstant.margin1,
-                      );
-                    },
-                    itemBuilder: (context, index) {
-                      if (places?.length == index) return buildLoadMoreLoading();
-                      return PlaceCard(
-                        onDelete: () => onDelete(places?[index]),
-                        place: places?[index],
-                        onTap: () {
-                          if (places?[index] == null) return;
-                          widget.onTap(places![index]);
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
-              buildNoData(places, constraint.maxHeight)
-            ],
-          );
-        },
+      child: CgNoDataWrapper(
+        child: CgLoadMoreList(
+          onEndScroll: () => load(loadMore: true),
+          child: ListView.separated(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: ConfigConstant.layoutPadding,
+            itemCount: places == null ? 5 : places.length + 1,
+            separatorBuilder: (context, index) {
+              return const SizedBox(
+                height: ConfigConstant.margin1,
+              );
+            },
+            itemBuilder: (context, index) {
+              if (places?.length == index) return buildLoadMoreLoading();
+              return PlaceCard(
+                onDelete: () => onDelete(places?[index]),
+                place: places?[index],
+                onTap: () {
+                  if (places?[index] == null) return;
+                  widget.onTap(places![index]);
+                },
+              );
+            },
+          ),
+        ),
+        isNoData: isNoData,
       ),
     );
   }
@@ -181,42 +171,6 @@ class _PlaceListState extends State<PlaceList> with AutomaticKeepAliveClientMixi
         alignment: Alignment.center,
         padding: ConfigConstant.layoutPadding,
         child: const CircularProgressIndicator(),
-      ),
-    );
-  }
-
-  Widget buildNoData(List<PlaceModel>? places, double heigth) {
-    return Positioned(
-      top: 0,
-      bottom: 0,
-      right: 0,
-      left: 0,
-      child: IgnorePointer(
-        ignoring: !loading && places != null && places.isEmpty ? false : true,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: AnimatedOpacity(
-            duration: ConfigConstant.duration,
-            opacity: !loading && places != null && places.isEmpty ? 1 : 0,
-            child: Container(
-              height: heigth,
-              color: colorScheme.surface,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.map,
-                    size: ConfigConstant.iconSize5,
-                    color: colorScheme.primary,
-                  ),
-                  const SizedBox(height: ConfigConstant.margin1),
-                  Text("មិនមានទិន្នន័យ"),
-                ],
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
