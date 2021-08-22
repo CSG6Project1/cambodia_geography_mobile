@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
@@ -6,6 +8,7 @@ import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/app_constant.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
+import 'package:cambodia_geography/helpers/app_helper.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/image_model.dart';
@@ -16,8 +19,10 @@ import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/services/apis/admins/crud_places_api.dart';
+import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:cambodia_geography/services/images/image_picker_service.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -219,21 +224,48 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (place.body?.isNotEmpty == true || place.khmer?.isNotEmpty == true || place.english?.isNotEmpty == true) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Are you sure to exit?"),
-              action: SnackBarAction(
-                label: "Exit",
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
+        PlaceModel initPlace = widget.place ?? PlaceModel.empty();
+        Map<String, dynamic> initPlaceMap = AppHelper.filterOutNull(initPlace.toJson());
+        Map<String, dynamic> placeMap = AppHelper.filterOutNull(place.toJson());
+
+        bool didNoUpdate = "$initPlaceMap" == "$placeMap";
+        bool didUpdate = !didNoUpdate;
+
+        List<String> initialImages = [];
+        List<String?> images = widget.place?.images?.map((e) => e.url).toList() ?? [];
+
+        this.images.forEach((image) {
+          if (image is CachedNetworkImageProvider) {
+            initialImages.add(image.url);
+          }
+          if (image is FileImage) {
+            initialImages.add(image.file.path);
+          }
+        });
+
+        bool didNotChangeImages = listEquals(initialImages, images);
+        bool didChangeImages = !didNotChangeImages;
+
+        if (didUpdate) {
+          OkCancelResult result = await showOkCancelAlertDialog(
+            context: context,
+            title: "Discard changes?",
+            message: place.khmer,
+            okLabel: "Discard",
           );
+          if (result == OkCancelResult.ok) Navigator.of(context).pop();
+        } else if (didChangeImages) {
+          OkCancelResult result = await showOkCancelAlertDialog(
+            context: context,
+            title: "Discard changes?",
+            message: "Some images are updated",
+            okLabel: "Discard",
+          );
+          if (result == OkCancelResult.ok) Navigator.of(context).pop();
         } else {
           Navigator.of(context).pop();
         }
+
         return false;
       },
       child: Scaffold(
@@ -433,7 +465,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
         initValue: place.type,
         onChanged: (String? value) {
           if (value == null) return;
-          place.copyWith(type: value);
+          this.place = this.place.copyWith(type: value);
         },
       ),
     );

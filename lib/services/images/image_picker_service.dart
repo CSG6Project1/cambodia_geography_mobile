@@ -20,17 +20,8 @@ class ImagePickerService {
   static Future<File?> cropAnImage(File imageFile) async {
     File? croppedFile = await ImageCropper.cropImage(
       sourcePath: imageFile.path,
-      aspectRatioPresets: [CropAspectRatioPreset.ratio16x9],
-      aspectRatio: CropAspectRatio(ratioX: 16, ratioY: 9),
-      androidUiSettings: AndroidUiSettings(
-        toolbarTitle: 'Cropper',
-        lockAspectRatio: true,
-      ),
-      iosUiSettings: IOSUiSettings(
-        rotateButtonsHidden: true,
-        rotateClockwiseButtonHidden: true,
-        aspectRatioPickerButtonHidden: true,
-      ),
+      androidUiSettings: AndroidUiSettings(toolbarTitle: 'Cropper'),
+      iosUiSettings: IOSUiSettings(),
     );
     imageFile.delete();
     return croppedFile;

@@ -79,18 +79,6 @@ abstract class BaseApi<T> {
     return request;
   }
 
-  Map<String, dynamic> filterOutNull(Map<String, dynamic> json) {
-    json.forEach((key, value) {
-      dynamic value = json[key];
-      if (value != null && value is List) {
-        value.removeWhere((e) => e == null || e == "null");
-        json[key] = value;
-      }
-    });
-    json.removeWhere((key, value) => value == null || value == "null" || (value is List && value.isEmpty));
-    return json;
-  }
-
   Future<dynamic> _beforeExec(Future<dynamic> Function() body) async {
     this.response = null;
     this.streamedResponse = null;
@@ -281,7 +269,7 @@ abstract class BaseApi<T> {
     if (!queryParameters.containsKey('per_page')) {
       queryParameters.addAll(perPage);
     }
-    queryParameters = filterOutNull(queryParameters);
+    queryParameters = AppHelper.filterOutNull(queryParameters);
     return queryParameters;
   }
 
