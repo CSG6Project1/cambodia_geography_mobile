@@ -46,9 +46,13 @@ abstract class BaseApi<T> {
 
   String? message() {
     if (response?.body == null) return null;
-    dynamic json = jsonDecode(response!.body);
-    if (json is Map && json.containsKey('message')) {
-      return json['message'];
+    try {
+      dynamic json = jsonDecode(response!.body);
+      if (json is Map && json.containsKey('message')) {
+        return json['message'];
+      }
+    } catch (e) {
+      return null;
     }
   }
 
