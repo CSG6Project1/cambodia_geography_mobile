@@ -189,7 +189,7 @@ abstract class BaseApi<T> {
   Future<dynamic> fetchAll({
     Map<String, dynamic>? queryParameters,
   }) async {
-    queryParameters = filterOutNull(queryParameters ?? {});
+    queryParameters = fetchAllQueryParameters(queryParameters);
     return _beforeExec(() async {
       String endpoint = objectNameUrlModel.fetchAllUrl(queryParameters: queryParameters);
       response = await network?.http?.get(Uri.parse(endpoint));
@@ -273,6 +273,16 @@ abstract class BaseApi<T> {
     if (json.containsKey('links') && json['links'] != null) {
       return LinksModel.fromJson(json['links']);
     }
+  }
+
+  Map<String, dynamic>? fetchAllQueryParameters(Map<String, dynamic>? queryParameters) {
+    Map<String, dynamic> perPage = {"per_page": "10"};
+    queryParameters ??= perPage;
+    if (!queryParameters.containsKey('per_page')) {
+      queryParameters.addAll(perPage);
+    }
+    queryParameters = filterOutNull(queryParameters);
+    return queryParameters;
   }
 
   String get nameInUrl;
