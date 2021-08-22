@@ -16,6 +16,7 @@ import 'package:cambodia_geography/services/authentications/social_auth_service.
 import 'package:cambodia_geography/services/images/image_picker_service.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:provider/provider.dart';
 
@@ -394,10 +395,12 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                           sigmaY: lerpDouble(10, 20, value) ?? 20,
                           tileMode: TileMode.mirror,
                         ),
-                        child: CgNetworkImageLoader(
-                          fit: BoxFit.cover,
-                          imageUrl: provider.user?.profileImg?.url,
-                        ),
+                        child: provider.user?.profileImg?.url != null
+                            ? CgNetworkImageLoader(
+                                fit: BoxFit.cover,
+                                imageUrl: provider.user?.profileImg?.url,
+                              )
+                            : null,
                       ),
                     ),
                   ),
@@ -416,16 +419,33 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                             Stack(
                               children: [
                                 Container(
+                                  width: ConfigConstant.objectHeight5,
+                                  height: ConfigConstant.objectHeight5,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(ConfigConstant.objectHeight5),
                                     border: Border.all(color: Colors.white, width: 3),
                                   ),
-                                  child: CgNetworkImageLoader(
-                                    imageUrl: provider.user?.profileImg?.url ?? "",
-                                    width: ConfigConstant.objectHeight5,
-                                    height: ConfigConstant.objectHeight5,
-                                    fit: BoxFit.cover,
-                                    borderRadius: BorderRadius.circular(ConfigConstant.objectHeight5),
+                                  child: AnimatedCrossFade(
+                                    duration: ConfigConstant.fadeDuration,
+                                    crossFadeState: provider.user?.profileImg?.url != null
+                                        ? CrossFadeState.showFirst
+                                        : CrossFadeState.showSecond,
+                                    secondChild: Container(
+                                      alignment: Alignment.center,
+                                      width: ConfigConstant.objectHeight5,
+                                      height: ConfigConstant.objectHeight5,
+                                      child: Text(
+                                        provider.user?.username?[0].toUpperCase() ?? "",
+                                        style: textTheme.headline4?.copyWith(color: colorScheme.onPrimary),
+                                      ),
+                                    ),
+                                    firstChild: CgNetworkImageLoader(
+                                      imageUrl: provider.user?.profileImg?.url,
+                                      width: ConfigConstant.objectHeight5,
+                                      height: ConfigConstant.objectHeight5,
+                                      fit: BoxFit.cover,
+                                      borderRadius: BorderRadius.circular(ConfigConstant.objectHeight5),
+                                    ),
                                   ),
                                 ),
                                 Positioned.fill(
