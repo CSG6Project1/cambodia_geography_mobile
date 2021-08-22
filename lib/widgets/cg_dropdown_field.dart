@@ -10,6 +10,8 @@ class CgDropDownField extends StatefulWidget {
     this.hintText,
     this.prefix,
     this.suffix,
+    this.isExpanded = false,
+    this.outlineBorder = false,
     this.onChanged,
     required this.items,
   }) : super(key: key);
@@ -21,6 +23,8 @@ class CgDropDownField extends StatefulWidget {
   final String? hintText;
   final Widget? suffix;
   final Widget? prefix;
+  final bool isExpanded;
+  final bool outlineBorder;
   final void Function(String? value)? onChanged;
 
   @override
@@ -51,6 +55,7 @@ class _CgDropDownFieldState extends State<CgDropDownField> with CgThemeMixin {
     return DropdownButtonFormField(
       value: currentValue,
       items: buildItems(),
+      isExpanded: widget.isExpanded,
       decoration: buildInputDecoration(context),
       onChanged: (String? value) => setCurrentValue(value),
     );
@@ -72,8 +77,12 @@ class _CgDropDownFieldState extends State<CgDropDownField> with CgThemeMixin {
       fillColor: widget.fillColor ?? colorScheme.background,
       filled: true,
       labelStyle: Theme.of(context).textTheme.bodyText2,
-      focusedBorder: UnderlineInputBorder(borderRadius: BorderRadius.circular(4.0), borderSide: BorderSide.none),
-      border: UnderlineInputBorder(borderSide: BorderSide.none),
+      focusedBorder: widget.outlineBorder
+          ? OutlineInputBorder(borderRadius: BorderRadius.circular(4.0), borderSide: BorderSide.none)
+          : UnderlineInputBorder(borderRadius: BorderRadius.circular(4.0), borderSide: BorderSide.none),
+      border: widget.outlineBorder
+          ? OutlineInputBorder(borderSide: BorderSide.none)
+          : UnderlineInputBorder(borderSide: BorderSide.none),
       contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       suffixIcon: widget.suffix,
       prefix: widget.prefix,
