@@ -1,3 +1,5 @@
+import 'package:cambodia_geography/cambodia_geography.dart';
+import 'package:cambodia_geography/constants/app_constant.dart';
 import 'package:cambodia_geography/models/image_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'place_model.g.dart';
@@ -118,6 +120,16 @@ class PlaceModel {
       result[element] = values[element];
     });
     return result;
+  }
+
+  factory PlaceModel.empty() {
+    return PlaceModel(
+      type: AppContant.placeType.first,
+      provinceCode: CambodiaGeography.instance.tbProvinces.first.code,
+      khmer: "",
+      english: "",
+      body: "",
+    );
   }
 
   factory PlaceModel.fromJson(Map<String, dynamic> json) => _$PlaceModelFromJson(json);

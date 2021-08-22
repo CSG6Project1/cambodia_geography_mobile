@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cambodia_geography/models/places/place_list_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
@@ -36,15 +37,28 @@ class CrudPlacesApi extends BaseResourceOwnerApi<PlaceModel> {
   Future<void> updatePlace({
     required List<File> images,
     required PlaceModel place,
+    required List<String> removeImages,
   }) async {
     assert(place.id != null);
+
+    Map<String, String> removeImagesField = {
+      "removeImages": jsonEncode(removeImages),
+    };
+
+    print(removeImagesField);
+
+    Map<String, String> fields = {
+      ...getFields(place),
+      ...removeImagesField,
+    };
+
     return await super.send(
       id: place.id,
       method: "PUT",
-      fields: getFields(place),
       files: images,
       fileField: "images",
       fileContentType: CgContentType(CgContentType.jpeg),
+      fields: fields,
     );
   }
 

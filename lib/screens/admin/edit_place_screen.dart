@@ -8,6 +8,7 @@ import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
+import 'package:cambodia_geography/models/image_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
@@ -45,12 +46,10 @@ class EditPlaceScreen extends StatefulWidget {
 }
 
 class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixin, CgThemeMixin {
-  List<ImageProvider> images = [];
   late PlaceModel place;
+  late CambodiaGeography geo;
 
-  String error = "";
-
-  final geo = CambodiaGeography.instance;
+  List<ImageProvider> images = [];
   List<String> provinces = [];
   List<String> districts = [];
   List<String> communes = [];
@@ -60,41 +59,70 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
 
   @override
   void initState() {
-    place = PlaceModel(
-      type: AppContant.placeType.first,
-      provinceCode: CambodiaGeography.instance.tbProvinces.first.code,
-      khmer: "",
-      english: "",
-      body: "",
-    );
+    geo = CambodiaGeography.instance;
+    place = PlaceModel.empty();
+    place = widget.place ?? this.place;
+    setFlowType();
+    setInitGeoItems();
+    setInitImages();
+    super.initState();
+  }
 
+  void setFlowType() {
     if (widget.place?.id != null) {
       flowType = EditPlaceFlowType.edit;
     } else {
       flowType = EditPlaceFlowType.create;
     }
+  }
 
-    if (widget.place != null) {
-      place = widget.place!;
-    }
-
+  void setInitGeoItems() {
     if (place.provinceCode != null) {
       setDistrict(place.provinceCode);
       if (place.districtCode != null) {
         setCommunes(place.districtCode);
-        if (place.communeCode != null) {
-          setVillages(place.communeCode);
-        }
+        if (place.communeCode != null) setVillages(place.communeCode);
       }
+      setInitialGeoValue();
     }
+  }
 
+  void setInitImages() {
     place.images?.forEach((image) {
       if (image.url != null) {
         this.images.add(CachedNetworkImageProvider(image.url!));
       }
     });
+  }
 
-    super.initState();
+  Future<void> onSave() async {
+    CrudPlacesApi api = CrudPlacesApi();
+    App.of(context)?.showLoading();
+    List<File> images = await _getFilesFromImages();
+
+    switch (flowType) {
+      case EditPlaceFlowType.create:
+        await api.createAPlace(images: images, place: place);
+        break;
+      case EditPlaceFlowType.edit:
+        await api.updatePlace(
+          images: images,
+          place: place,
+          removeImages: removeImages,
+        );
+        break;
+    }
+
+    App.of(context)?.hideLoading();
+    if (api.success()) {
+      Navigator.of(context).pop(place);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(api.message() ?? "Please try again!"),
+        ),
+      );
+    }
   }
 
   Future<File?> _getCacheFile(String imageUrl) async {
@@ -108,47 +136,80 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     }
   }
 
+  List<String> removeImages = [];
+
   Future<List<File>> _getFilesFromImages() async {
     List<File> files = [];
+    removeImages = [];
 
     for (var image in images) {
+      if (image is FileImage) files.add(image.file);
       if (image is CachedNetworkImageProvider) {
         File? file = await _getCacheFile(image.url);
         if (file != null) files.add(file);
-      }
-      if (image is FileImage) {
-        files.add(image.file);
+        List<ImageModel>? imagesToDelete = widget.place?.images?.where((_image) => _image.url == image.url).toList();
+        if (imagesToDelete?.isNotEmpty == true && imagesToDelete?.first.id != null) {
+          removeImages.add(imagesToDelete!.first.id!);
+        }
       }
     }
+
     return files;
-    // image.obtainKey(ImageConfiguration.empty).then((val) {
-    //   if (image is CachedNetworkImageProvider) {
-    //     Uint32List? uint32List;
-    //     DecoderCallback callback = (bytes, {allowUpscaling = false, cacheHeight, cacheWidth}) {
-    //       return instantiateImageCodec(bytes, targetWidth: cacheWidth, targetHeight: cacheHeight);
-    //     };
-    //     ImageStreamCompleter _load = image.load(image, callback);
-    //     _load.addListener(ImageStreamListener((info, bool) async {
-    //       uint32List = await info.image.toByteData().then((value) => value?.buffer.asUint32List());
-    //       print(uint32List);
-    //     }));
-    //   }
-    // });
+  }
+
+  String? provinceInitValue;
+  String? districtInitValue;
+  String? communesInitValue;
+  String? villagesInitValue;
+
+  void setInitialGeoValue() {
+    List<TbVillageModel> _village =
+        CambodiaGeography.instance.tbVillages.where((element) => place.villageCode == element.code).toList();
+    villagesInitValue = _village.isNotEmpty && villages.isNotEmpty
+        ? _village.first.khmer.toString() + " (${_village.first.code.toString()})"
+        : null;
+
+    List<TbCommuneModel> _communes =
+        CambodiaGeography.instance.tbCommunes.where((element) => place.communeCode == element.code).toList();
+    communesInitValue = _communes.isNotEmpty && communes.isNotEmpty
+        ? _communes.first.khmer.toString() + " (${_communes.first.code.toString()})"
+        : null;
+
+    List<TbDistrictModel> _districts =
+        CambodiaGeography.instance.tbDistricts.where((element) => place.districtCode == element.code).toList();
+    districtInitValue = _districts.isNotEmpty && districts.isNotEmpty
+        ? _districts.first.khmer.toString() + " (${_districts.first.code.toString()})"
+        : null;
+
+    List<TbProvinceModel> _provinces =
+        CambodiaGeography.instance.tbProvinces.where((element) => place.provinceCode == element.code).toList();
+    provinceInitValue =
+        _provinces.isNotEmpty ? _provinces.first.khmer.toString() + " (${_provinces.first.code.toString()})" : null;
+  }
+
+  void clearInitialValue() {
+    this.villagesInitValue = null;
+    this.communesInitValue = null;
+    this.districtInitValue = null;
+    this.provinceInitValue = null;
   }
 
   void setDistrict(String? _provinceCode) {
+    clearInitialValue();
     this.place = this.place.copyWith(provinceCode: _provinceCode);
     var result = geo.districtsSearch(provinceCode: _provinceCode.toString());
     districts = result.map((e) => e.khmer.toString() + " (${e.code})").toList();
   }
 
   void setCommunes(String? _districtCode) {
+    clearInitialValue();
     this.place = this.place.copyWith(districtCode: _districtCode);
     var result = geo.communesSearch(districtCode: _districtCode.toString());
     communes = result.map((e) => e.khmer.toString() + " (${e.code})").toList();
   }
 
   void setVillages(String? _communeCode) {
+    clearInitialValue();
     this.place = this.place.copyWith(communeCode: _communeCode);
     var result = geo.villagesSearch(communeCode: _communeCode.toString());
     villages = result.map((e) => e.khmer.toString() + " (${e.code})").toList();
@@ -379,20 +440,15 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   }
 
   Widget buildVillageDropDownField() {
-    List<TbVillageModel> _village =
-        CambodiaGeography.instance.tbVillages.where((element) => place.villageCode == element.code).toList();
+    List<String> items = ["null", ...villages];
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgDropDownField(
-        initValue:
-            _village.isNotEmpty ? _village.first.khmer.toString() + " (${_village.first.code.toString()})" : null,
+        initValue: items.contains(villagesInitValue) ? villagesInitValue : null,
         labelText: "ភូមិ",
         fillColor: colorScheme.background,
         key: Key(villages.join()),
-        items: [
-          "null",
-          ...villages,
-        ],
+        items: items,
         onChanged: (value) {
           if (value == "null") {
             setState(() {
@@ -411,13 +467,11 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   }
 
   Widget buildCommunesDropDownField() {
-    List<TbCommuneModel> _communes =
-        CambodiaGeography.instance.tbCommunes.where((element) => place.communeCode == element.code).toList();
+    List<String> items = ["null", ...communes];
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgDropDownField(
-        initValue:
-            _communes.isNotEmpty ? _communes.first.khmer.toString() + " (${_communes.first.code.toString()})" : null,
+        initValue: items.contains(communesInitValue) ? communesInitValue : null,
         labelText: "ឃុំ",
         fillColor: colorScheme.background,
         key: Key(communes.join()),
@@ -445,13 +499,11 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   }
 
   Widget buildDistrictDropDownField() {
-    List<TbDistrictModel> _districts =
-        CambodiaGeography.instance.tbDistricts.where((element) => place.districtCode == element.code).toList();
+    List<String> items = ["null", ...districts];
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgDropDownField(
-        initValue:
-            _districts.isNotEmpty ? _districts.first.khmer.toString() + " (${_districts.first.code.toString()})" : null,
+        initValue: items.contains(districtInitValue) ? districtInitValue : null,
         labelText: "ស្រុក",
         key: Key(districts.join()),
         items: [
@@ -482,15 +534,13 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   }
 
   Widget buildProvinceDropDownField() {
-    List<TbProvinceModel> _provinces =
-        CambodiaGeography.instance.tbProvinces.where((element) => place.provinceCode == element.code).toList();
+    List<String> items = geo.tbProvinces.map((e) => e.khmer.toString() + " (${e.code.toString()})").toList();
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgDropDownField(
         labelText: "ស្ថិតនៅខេត្ត",
-        initValue:
-            _provinces.isNotEmpty ? _provinces.first.khmer.toString() + " (${_provinces.first.code.toString()})" : null,
-        items: geo.tbProvinces.map((e) => e.khmer.toString() + " (${e.code.toString()})").toList(),
+        initValue: items.contains(provinceInitValue) ? provinceInitValue : null,
+        items: items,
         onChanged: (value) {
           districts.clear();
           communes.clear();
@@ -507,30 +557,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   Widget buildSaveButton() {
     return FloatingActionButton(
       child: Icon(Icons.save),
-      onPressed: () async {
-        CrudPlacesApi api = CrudPlacesApi();
-        App.of(context)?.showLoading();
-
-        switch (flowType) {
-          case EditPlaceFlowType.create:
-            await api.createAPlace(images: await _getFilesFromImages(), place: place);
-            break;
-          case EditPlaceFlowType.edit:
-            await api.updatePlace(images: await _getFilesFromImages(), place: place);
-            break;
-        }
-
-        App.of(context)?.hideLoading();
-        if (api.success()) {
-          Navigator.of(context).pop(place);
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(api.message() ?? "Please try again!"),
-            ),
-          );
-        }
-      },
+      onPressed: () => onSave(),
     );
   }
 

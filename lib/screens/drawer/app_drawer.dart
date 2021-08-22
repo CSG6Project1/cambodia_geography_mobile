@@ -7,10 +7,8 @@ import 'package:cambodia_geography/models/user/user_model.dart';
 import 'package:cambodia_geography/providers/theme_provider.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/screens/drawer/local_widgets/diagonal_path_clipper.dart';
-import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {
