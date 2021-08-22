@@ -11,6 +11,7 @@ class CgNetworkImageLoader extends StatelessWidget {
     this.height,
     this.fit,
     this.showError = true,
+    this.borderRadius = BorderRadius.zero,
   }) : super(key: key);
 
   final String? imageUrl;
@@ -18,18 +19,22 @@ class CgNetworkImageLoader extends StatelessWidget {
   final double? height;
   final BoxFit? fit;
   final bool showError;
+  final BorderRadius borderRadius;
 
   @override
   Widget build(BuildContext context) {
     if (imageUrl == null) return buildNoImage();
-    return CachedNetworkImage(
-      imageUrl: imageUrl!,
-      width: width,
-      height: height,
-      fit: fit,
-      errorWidget: (context, url, error) {
-        return buildNoImage();
-      },
+    return ClipRRect(
+      borderRadius: borderRadius,
+      child: CachedNetworkImage(
+        imageUrl: imageUrl!,
+        width: width,
+        height: height,
+        fit: fit,
+        errorWidget: (context, url, error) {
+          return buildNoImage();
+        },
+      ),
     );
   }
 

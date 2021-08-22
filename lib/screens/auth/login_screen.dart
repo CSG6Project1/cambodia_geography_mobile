@@ -70,7 +70,11 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
       storage.setCurrentState(AppStateType.skippedAuth);
     }
     String routeName = await InitAppStateStorage().getInitialRouteName();
-    navigator.pushReplacementNamed(routeName);
+    if (navigator.canPop() == true) {
+      navigator.pop();
+    } else {
+      navigator.pushReplacementNamed(routeName);
+    }
   }
 
   void moveToSignUp() {
