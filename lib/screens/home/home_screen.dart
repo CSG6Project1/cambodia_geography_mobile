@@ -7,6 +7,7 @@ import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/search/cg_search_delegate.dart';
 import 'package:cambodia_geography/screens/search/search_history_storage.dart';
+import 'package:cambodia_geography/services/apis/search/search_autocomplete_api.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_menu_leading_button.dart';
 import 'package:cambodia_geography/widgets/cg_scaffold.dart';
@@ -14,6 +15,7 @@ import 'package:rect_getter/rect_getter.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 import 'local_widgets/province_card.dart';
+import 'local_widgets/search_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -133,30 +135,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
   PreferredSizeWidget buildAppbar() {
     return MorphingAppBar(
       leading: CgMenuLeadingButton(animationController: animationController),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.search),
-          onPressed: () async {
-            animationController.forward();
-            await showSearch(
-              context: context,
-              delegate: CgSearchDelegate(
-                onQueryChanged: (String query) async {
-                  if (query.isEmpty) {
-                    SearchHistoryStorage storage = SearchHistoryStorage();
-                    return storage.readList();
-                  } else {
-                    //TODO: auto-complete-search
-                  }
-                },
-                animationController: animationController,
-                context: context, provinceCode: '',
-              ),
-            );
-            animationController.reverse();
-          },
-        )
-      ],
+      actions: [SearchButton(animationController: animationController)],
       title: Wrap(
         key: const Key("HomeTitle"),
         crossAxisAlignment: WrapCrossAlignment.center,
@@ -213,3 +192,5 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
     );
   }
 }
+
+

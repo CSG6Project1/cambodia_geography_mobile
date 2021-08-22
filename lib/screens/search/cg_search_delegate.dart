@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cambodia_geography/configs/route_config.dart';
+import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/models/places/place_list_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:cambodia_geography/services/apis/search/search_api.dart';
 import 'package:flutter/material.dart';
+import 'package:styled_text/styled_text.dart';
 
 class CgSearchDelegate extends SearchDelegate<String> {
   late PlacesApi placesApi;
@@ -127,11 +129,20 @@ class CgSearchDelegate extends SearchDelegate<String> {
     );
   }
 
+  String removeAllHtmlTags(String htmlText) {
+    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+
+    return htmlText.replaceAll(exp, '');
+  }
+
   @override
   Widget buildSuggestions(BuildContext context) {
     return FutureBuilder<List<dynamic>?>(
       future: onQueryChanged(query),
       builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return SizedBox();
+        }
         if (snapshot.hasData) {
           var suggestionList = snapshot.data ?? [];
           return Container(
@@ -139,6 +150,10 @@ class CgSearchDelegate extends SearchDelegate<String> {
             child: ListView.builder(
               itemCount: suggestionList.length,
               itemBuilder: (context, index) => GestureDetector(
+                onTap: () {
+                  query = removeAllHtmlTags(suggestionList[index]);
+                  showResults(context);
+                },
                 onLongPressStart: (detail) {
                   var offset = detail.globalPosition;
                   final screenSize = MediaQuery.of(context).size;
@@ -171,18 +186,18 @@ class CgSearchDelegate extends SearchDelegate<String> {
                   );
                 },
                 child: ListTile(
-                  leading: const Icon(Icons.history),
-                  title: Text(suggestionList[index]),
+                  leading: query.isEmpty ? Icon(Icons.history) : Icon(Icons.search),
+                  title: StyledText(text: suggestionList[index], style: TextStyle(), styles: {
+                    "b": TextStyle(fontWeight: FontWeight.bold),
+                  }),
                   trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () {
-                    showResults(context);
-                  },
                 ),
               ),
             ),
           );
+        } else {
+          return Center(child: CircularProgressIndicator.adaptive());
         }
-        return SizedBox();
       },
     );
   }
