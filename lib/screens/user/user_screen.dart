@@ -1,6 +1,9 @@
+import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
+import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/services/authentications/social_auth_service.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:provider/provider.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class UserScreen extends StatefulWidget {
@@ -21,6 +24,7 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<UserProvider>(context, listen: true);
     final socialTiles = [
       _TileSetting(
         title: "Facebook",
@@ -59,7 +63,18 @@ class _UserScreenState extends State<UserScreen> {
             ListTile(
               title: Text(item.title),
               onTap: item.onPressed,
-            )
+            ),
+          AnimatedCrossFade(
+            duration: ConfigConstant.fadeDuration,
+            crossFadeState: provider.isSignedIn ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            secondChild: SizedBox(),
+            firstChild: ListTile(
+              title: Text("Sign Out"),
+              onTap: () {
+                provider.signOut();
+              },
+            ),
+          )
         ],
       ),
     );

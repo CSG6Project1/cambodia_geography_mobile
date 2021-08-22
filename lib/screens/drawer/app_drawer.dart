@@ -7,7 +7,10 @@ import 'package:cambodia_geography/models/user/user_model.dart';
 import 'package:cambodia_geography/providers/theme_provider.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/screens/drawer/local_widgets/diagonal_path_clipper.dart';
+import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -72,6 +75,15 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
     userProvider = Provider.of<UserProvider>(context, listen: true);
   }
 
+  void onUserTilePress() {
+    Navigator.of(context).pop();
+    if (userProvider?.isSignedIn == true) {
+      Navigator.of(context).pushNamed(RouteConfig.USER);
+    } else {
+      Navigator.of(context).pushNamed(RouteConfig.LOGIN);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -87,7 +99,7 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
               body: buildBody(),
             ),
           ),
-          const VerticalDivider(width: 0),
+          if (kIsWeb) const VerticalDivider(width: 0),
         ],
       ),
     );
@@ -160,27 +172,30 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
 
   Widget buildUserInfo() {
     return Positioned(
-      bottom: 0,
+      top: 24 + 1,
       right: 0,
       left: 0,
       child: Padding(
-        padding: const EdgeInsets.all(ConfigConstant.margin2),
+        padding: const EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
-              radius: 24,
-              backgroundColor: colorScheme.surface,
-              foregroundImage:
-                  user?.profileImg?.url != null ? CachedNetworkImageProvider(user?.profileImg?.url ?? "") : null,
-              child: Container(
-                padding: const EdgeInsets.all(ConfigConstant.margin2),
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: Icon(
-                    Icons.person,
-                    size: ConfigConstant.iconSize1,
-                    color: colorScheme.primary,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
+              child: CircleAvatar(
+                radius: 24,
+                backgroundColor: colorScheme.surface,
+                foregroundImage:
+                    user?.profileImg?.url != null ? CachedNetworkImageProvider(user?.profileImg?.url ?? "") : null,
+                child: Container(
+                  padding: const EdgeInsets.all(ConfigConstant.margin2),
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Icon(
+                      Icons.person,
+                      size: ConfigConstant.iconSize1,
+                      color: colorScheme.primary,
+                    ),
                   ),
                 ),
               ),
@@ -188,86 +203,81 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
             AnimatedCrossFade(
               duration: ConfigConstant.fadeDuration,
               sizeCurve: Curves.ease,
-              crossFadeState: user != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-              secondChild: ListTile(
-                onTap: () {
-                  if (userProvider?.isSignedIn == true) return;
-                  Navigator.of(context).pushNamed(RouteConfig.LOGIN);
-                },
-                tileColor: Colors.red,
-                hoverColor: Colors.blue,
-                contentPadding: EdgeInsets.zero,
-                title: Text(
-                  userProvider?.isSignedIn == true ? "..." : "Login",
-                  style: TextStyle(color: colorScheme.onPrimary),
-                ),
-                trailing: Wrap(
-                  children: [
-                    Material(
-                      color: Colors.transparent,
-                      child: IconButton(
-                        color: colorScheme.surface,
-                        icon: Icon(Icons.login),
-                        onPressed: () async {
-                          if (userProvider?.isSignedIn == true) return;
-                          Navigator.of(context).pushNamed(RouteConfig.LOGIN);
-                        },
-                      ),
-                    ),
-                    Material(
-                      color: Colors.transparent,
-                      child: IconButton(
-                        color: colorScheme.surface,
-                        icon: Icon(Icons.dark_mode),
-                        onPressed: () async {
-                          Provider.of<ThemeProvider>(context, listen: false).toggleDarkMode();
-                        },
-                      ),
-                    ),
-                  ],
+              crossFadeState: userProvider?.isSignedIn == true ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              secondChild: Material(
+                color: Colors.transparent,
+                child: ListTile(
+                  onTap: onUserTilePress,
+                  tileColor: Colors.transparent,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
+                  title: Text(
+                    userProvider?.isSignedIn == true ? "..." : "Login",
+                    style: TextStyle(color: colorScheme.onPrimary),
+                  ),
+                  trailing: Wrap(
+                    children: [
+                      if (!(userProvider?.isSignedIn == true))
+                        Material(
+                          color: Colors.transparent,
+                          child: IconButton(
+                            color: colorScheme.surface,
+                            icon: Icon(Icons.login),
+                            onPressed: () async {
+                              if (userProvider?.isSignedIn == true) return;
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pushNamed(RouteConfig.LOGIN);
+                            },
+                          ),
+                        ),
+                      buildToggleDarkModeButton(),
+                    ],
+                  ),
                 ),
               ),
-              firstChild: ListTile(
-                onTap: () {},
-                tileColor: Colors.red,
-                hoverColor: Colors.blue,
-                contentPadding: EdgeInsets.zero,
-                title: Text(user?.username ?? "", style: TextStyle(color: colorScheme.onPrimary)),
-                trailing: Wrap(
-                  children: [
-                    // Material(
-                    //   color: Colors.transparent,
-                    //   child: IconButton(
-                    //     color: colorScheme.surface,
-                    //     icon: Icon(Icons.logout),
-                    //     onPressed: () async {
-                    //       await userProvider?.signOut();
-                    //       Scaffold.of(context).openDrawer();
-                    //     },
-                    //   ),
-                    // ),
-                    Material(
-                      color: Colors.transparent,
-                      child: IconButton(
-                        color: colorScheme.surface,
-                        icon: Icon(Icons.dark_mode),
-                        onPressed: () async {
-                          Provider.of<ThemeProvider>(context, listen: false).toggleDarkMode();
-                        },
-                      ),
+              firstChild: Material(
+                color: Colors.transparent,
+                child: ListTile(
+                  onTap: onUserTilePress,
+                  tileColor: Colors.transparent,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
+                  title: AnimatedCrossFade(
+                    duration: ConfigConstant.fadeDuration,
+                    sizeCurve: Curves.ease,
+                    crossFadeState: user != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                    firstChild: Text(
+                      user?.username ?? "",
+                      style: TextStyle(color: colorScheme.onPrimary),
                     ),
-                  ],
-                ),
-                subtitle: Text(
-                  user?.email ?? "",
-                  style: TextStyle(
-                    color: colorScheme.onPrimary.withOpacity(0.5),
+                    secondChild: Text(
+                      "...",
+                      style: TextStyle(color: colorScheme.onPrimary),
+                    ),
+                  ),
+                  trailing: buildToggleDarkModeButton(),
+                  subtitle: Text(
+                    user?.email ?? "",
+                    style: TextStyle(
+                      color: colorScheme.onPrimary.withOpacity(0.5),
+                    ),
                   ),
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Material buildToggleDarkModeButton() {
+    return Material(
+      color: Colors.transparent,
+      child: IconButton(
+        color: colorScheme.surface,
+        icon: Icon(Icons.dark_mode),
+        onPressed: () async {
+          Provider.of<ThemeProvider>(context, listen: false).toggleDarkMode();
+        },
       ),
     );
   }
