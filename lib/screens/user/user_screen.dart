@@ -227,8 +227,14 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                           title: "Log Out",
                           iconData: Icons.logout,
                           showDivider: false,
-                          onTap: () {
-                            provider.signOut();
+                          onTap: () async {
+                            OkCancelResult result = await showOkCancelAlertDialog(
+                              context: context,
+                              title: "Are you sure to logout?",
+                            );
+                            if (result == OkCancelResult.ok) {
+                              provider.signOut();
+                            }
                           },
                         ),
                       ],
