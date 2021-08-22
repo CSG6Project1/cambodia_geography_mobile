@@ -188,6 +188,36 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
     }
   }
 
+  Future<void> updateImageProfile(UserProvider provider) async {
+    File? file = await ImagePickerService.pickImage(
+      aspectRatio: CropAspectRatio(
+        ratioX: 1,
+        ratioY: 1,
+      ),
+    );
+    if (file != null && provider.user?.id != null) {
+      App.of(context)?.showLoading();
+      await userApi.updateProfile(
+        image: file,
+        user: UserModel(
+          id: provider.user?.id,
+        ),
+      );
+      App.of(context)?.hideLoading();
+      if (!userApi.success()) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              userApi.message() ?? "Update fail, please try again!",
+            ),
+          ),
+        );
+      } else {
+        provider.fetchCurrentUser();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<UserProvider>(context, listen: true);
@@ -403,31 +433,7 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                                     color: Colors.transparent,
                                     child: InkWell(
                                       borderRadius: BorderRadius.circular(ConfigConstant.objectHeight5),
-                                      onTap: () async {
-                                        File? file = await ImagePickerService.pickImage(
-                                          aspectRatio: CropAspectRatio(
-                                            ratioX: 1,
-                                            ratioY: 1,
-                                          ),
-                                        );
-                                        if (file != null && provider.user?.id != null) {
-                                          await userApi.updateProfile(
-                                            image: file,
-                                            user: UserModel(
-                                              id: provider.user?.id,
-                                            ),
-                                          );
-                                          if (!userApi.success()) {
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  userApi.message() ?? "Update fail, please try again!",
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                        }
-                                      },
+                                      onTap: () => updateImageProfile(provider),
                                       child: Container(
                                         width: ConfigConstant.objectHeight5,
                                         height: ConfigConstant.objectHeight5,

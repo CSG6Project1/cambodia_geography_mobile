@@ -75,12 +75,12 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
       error = authApi.errorMessage() ?? "Log in fail";
     }
 
-    App.of(context)?.hideLoading();
-
     if (error == null) {
-      Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
+      await Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
+      App.of(context)?.hideLoading();
       navigateToNextState();
     } else {
+      App.of(context)?.hideLoading();
       showOkAlertDialog(context: context, title: error);
     }
   }

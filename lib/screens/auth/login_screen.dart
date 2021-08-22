@@ -52,12 +52,12 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
       password: password,
     );
 
-    App.of(context)?.hideLoading();
-
     if (authApi.success()) {
-      Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
+      await Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
+      App.of(context)?.hideLoading();
       navigateToNextState();
     } else {
+      App.of(context)?.hideLoading();
       showOkAlertDialog(context: context, title: authApi.errorMessage());
     }
   }
