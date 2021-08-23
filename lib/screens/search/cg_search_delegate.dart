@@ -1,6 +1,6 @@
 import 'dart:io';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
-import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/models/places/place_list_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
@@ -154,42 +154,29 @@ class CgSearchDelegate extends SearchDelegate<String> {
                   query = removeAllHtmlTags(suggestionList[index]);
                   showResults(context);
                 },
-                onLongPressStart: (detail) {
-                  var offset = detail.globalPosition;
-                  final screenSize = MediaQuery.of(context).size;
-                  showMenu(
-                    position: RelativeRect.fromLTRB(
-                      screenSize.width,
-                      offset.dy - 24,
-                      0,
-                      screenSize.height - offset.dy,
-                    ),
+                onLongPress: () async {
+                  OkCancelResult result = await showOkCancelAlertDialog(
                     context: context,
-                    items: <PopupMenuEntry>[
-                      PopupMenuItem(
-                        value: "",
-                        child: ListTile(
-                          leading: Icon(Icons.delete),
-                          title: Text("Delete"),
-                          onTap: () async {
-                            var selectedItem = suggestionList[index];
-                            var list = await searchHistoryStorage.readList();
-                            if (list?.contains(selectedItem) == true) {
-                              list?.removeWhere((e) => e == selectedItem);
-                              await searchHistoryStorage.writeList(list ?? []);
-                              Navigator.pop(context);
-                            }
-                          },
-                        ),
-                      ),
-                    ],
+                    title: "Are you sure to delete?",
                   );
+                  if (result == OkCancelResult.ok) {
+                    var selectedItem = suggestionList[index];
+                    var list = await searchHistoryStorage.readList();
+                    if (list?.contains(selectedItem) == true) {
+                      list?.removeWhere((e) => e == selectedItem);
+                      await searchHistoryStorage.writeList(list ?? []);
+                    }
+                  }
                 },
                 child: ListTile(
                   leading: query.isEmpty ? Icon(Icons.history) : Icon(Icons.search),
-                  title: StyledText(text: suggestionList[index], style: TextStyle(), styles: {
-                    "b": TextStyle(fontWeight: FontWeight.bold),
-                  }),
+                  title: StyledText(
+                    text: suggestionList[index],
+                    style: TextStyle(),
+                    styles: {
+                      "b": TextStyle(fontWeight: FontWeight.bold),
+                    },
+                  ),
                   trailing: const Icon(Icons.keyboard_arrow_right),
                 ),
               ),
