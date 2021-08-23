@@ -15,6 +15,8 @@ import 'package:cambodia_geography/types/app_state_type.dart';
 import 'package:cambodia_geography/widgets/cg_child_divider.dart';
 import 'package:cambodia_geography/widgets/cg_headline_text.dart';
 import 'package:cambodia_geography/widgets/cg_list_view_spacer.dart';
+import 'package:cambodia_geography/widgets/text_fields/cg_email_field.dart';
+import 'package:cambodia_geography/widgets/text_fields/cg_password_field.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -168,21 +170,21 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
             const SizedBox(height: ConfigConstant.margin1),
             CgTextField(
               labelText: "ឈ្មោះ",
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.name,
               onChanged: (String value) {
                 username = value;
               },
             ),
             const SizedBox(height: ConfigConstant.margin1),
-            CgTextField(
-              labelText: "អុីម៉េល",
-              autocorrect: false,
+            CgEmailField(
               onChanged: (String value) {
                 email = value;
               },
             ),
             const SizedBox(height: ConfigConstant.margin1),
-            CgTextField(
-              labelText: "ពាក្យសម្ងាត់",
+            CgPasswordField(
+              onSubmitted: (String value) => onRegister(),
               onChanged: (String value) {
                 password = value;
               },
