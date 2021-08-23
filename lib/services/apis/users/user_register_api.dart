@@ -15,6 +15,14 @@ class UserRegisterApi extends BaseAppApi {
     );
   }
 
+  Future<dynamic> registerWithSocial({
+    required String username,
+    required String idToken,
+  }) async {
+    Map<String, String> body = {"username": username, "id_token": idToken};
+    return await super.create(body: body);
+  }
+
   @override
   objectTransformer(Map<String, dynamic> json) {
     return json;

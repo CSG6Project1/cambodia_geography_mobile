@@ -46,6 +46,23 @@ class AuthApi {
     await storage.writeMap(data);
   }
 
+  Future<void> loginWithSocialAccount({required String idToken}) async {
+    return _beforeExec(() async {
+      var body = {
+        "id_token": idToken,
+        "grant_type": "credential",
+      };
+
+      Uri endpoint = Uri.parse(authPath);
+      response = await this.network?.http?.post(endpoint, body: jsonEncode(body));
+
+      if (success() && response?.body != null) {
+        var json = jsonDecode(response!.body);
+        saveToStorage(json);
+      }
+    });
+  }
+
   Future<void> loginWithEmail({
     required String email,
     required String password,

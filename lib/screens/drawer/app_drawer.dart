@@ -181,7 +181,9 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
       left: 0,
       child: AnimatedContainer(
         duration: ConfigConstant.fadeDuration,
-        margin: EdgeInsets.only(top: userProvider?.isSignedIn == true ? 24 + 1 : 40 + 1),
+        margin: EdgeInsets.only(
+          top: userProvider?.isSignedIn == true && user?.email != null ? 24 + 1 : 40 + 1,
+        ),
         padding: const EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,12 +258,14 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                       style: TextStyle(color: colorScheme.onPrimary),
                     ),
                   ),
-                  subtitle: Text(
-                    user?.email ?? "",
-                    style: TextStyle(
-                      color: colorScheme.onPrimary.withOpacity(0.5),
-                    ),
-                  ),
+                  subtitle: user?.email != null
+                      ? Text(
+                          user?.email ?? "",
+                          style: TextStyle(
+                            color: colorScheme.onPrimary.withOpacity(0.5),
+                          ),
+                        )
+                      : null,
                 ),
               ),
             ),

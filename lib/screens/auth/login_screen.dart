@@ -38,6 +38,17 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
     super.initState();
   }
 
+  Future<void> finishLogin() async {
+    if (authApi.success()) {
+      await Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
+      App.of(context)?.hideLoading();
+      navigateToNextState();
+    } else {
+      App.of(context)?.hideLoading();
+      showOkAlertDialog(context: context, title: authApi.errorMessage());
+    }
+  }
+
   Future<void> onLogin() async {
     if (email.isEmpty) {
       showOkAlertDialog(context: context, title: "Email must be filled");
@@ -54,14 +65,13 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
       password: password,
     );
 
-    if (authApi.success()) {
-      await Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
-      App.of(context)?.hideLoading();
-      navigateToNextState();
-    } else {
-      App.of(context)?.hideLoading();
-      showOkAlertDialog(context: context, title: authApi.errorMessage());
-    }
+    finishLogin();
+  }
+
+  Future<void> onLoginWithSocial(String idToken) async {
+    App.of(context)?.showLoading();
+    await authApi.loginWithSocialAccount(idToken: idToken);
+    finishLogin();
   }
 
   Future<void> navigateToNextState() async {
@@ -191,7 +201,11 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
             const SizedBox(height: ConfigConstant.margin1),
             Hero(
               tag: Key("AuthSocialButtons"),
-              child: SocialButtons(),
+              child: SocialButtons(
+                onFetched: (idToken, provider) {
+                  onLoginWithSocial(idToken);
+                },
+              ),
             ),
           ],
         );
