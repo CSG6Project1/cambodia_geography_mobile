@@ -173,8 +173,11 @@ class CgSearchDelegate extends SearchDelegate<String> {
                   title: StyledText(
                     text: suggestionList[index],
                     style: TextStyle(),
-                    styles: {
-                      "b": TextStyle(fontWeight: FontWeight.bold),
+                    tags: {
+                      "b": StyledTextActionTag(
+                        (_, __) {},
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     },
                   ),
                   trailing: const Icon(Icons.keyboard_arrow_right),

@@ -1,20 +1,29 @@
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
-import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
-import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/services/authentications/social_auth_service.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
-class SocialButtons extends StatefulWidget {
-  const SocialButtons({Key? key}) : super(key: key);
-
-  @override
-  _SocialButtonsState createState() => _SocialButtonsState();
+enum SocialProviderType {
+  google,
+  facebook,
 }
 
-class _SocialButtonsState extends State<SocialButtons> with CgThemeMixin, CgMediaQueryMixin {
+class SocialButtons extends StatelessWidget {
+  const SocialButtons({
+    Key? key,
+    required this.onFetched,
+  }) : super(key: key);
+
+  final void Function(
+    String idToken,
+    SocialProviderType provider,
+  ) onFetched;
+
   @override
   Widget build(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
+    TextTheme textTheme = themeData.textTheme;
+    SocialAuthService socialAuthService = SocialAuthService();
     return Theme(
       data: themeData.copyWith(textTheme: textTheme.copyWith(button: TextStyle(fontFamily: null))),
       child: Column(
@@ -25,7 +34,9 @@ class _SocialButtonsState extends State<SocialButtons> with CgThemeMixin, CgMedi
             child: SignInButton(
               Buttons.Facebook,
               onPressed: () {
-                SocialAuthService().loginWithFacebook();
+                socialAuthService.getFacebookIdToken().then((value) {
+                  if (value != null) onFetched(value, SocialProviderType.facebook);
+                });
               },
               shape: RoundedRectangleBorder(
                 borderRadius: ConfigConstant.circlarRadius1,
@@ -38,7 +49,9 @@ class _SocialButtonsState extends State<SocialButtons> with CgThemeMixin, CgMedi
             child: SignInButton(
               Buttons.Google,
               onPressed: () {
-                SocialAuthService().logInWithGoogle()();
+                socialAuthService.getGoogleIdToken().then((value) {
+                  if (value != null) onFetched(value, SocialProviderType.google);
+                });
               },
               shape: RoundedRectangleBorder(
                 borderRadius: ConfigConstant.circlarRadius1,

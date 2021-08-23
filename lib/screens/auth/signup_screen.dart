@@ -43,9 +43,22 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
     super.initState();
   }
 
-  Future<void> onRegister() async {
-    print("VALUE");
+  Future<void> finishRegister(String? error) async {
+    if (userRegisterApi.success() && !authApi.success()) {
+      error = authApi.errorMessage() ?? "Log in fail";
+    }
 
+    if (error == null) {
+      await Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
+      App.of(context)?.hideLoading();
+      navigateToNextState();
+    } else {
+      App.of(context)?.hideLoading();
+      showOkAlertDialog(context: context, title: error);
+    }
+  }
+
+  Future<void> onRegister() async {
     if (email.isEmpty) {
       showOkAlertDialog(context: context, title: "Email must be filled");
       return;
@@ -73,18 +86,32 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
       error = userRegisterApi.message() ?? "Register fail";
     }
 
-    if (userRegisterApi.success() && !authApi.success()) {
-      error = authApi.errorMessage() ?? "Log in fail";
+    finishRegister(error);
+  }
+
+  Future<void> onRegisterWithSocial(String idToken) async {
+    List<String>? result = await showTextInputDialog(
+      context: context,
+      title: "Please enter your name",
+      textFields: [
+        DialogTextField(hintText: "ឈ្មោះ"),
+      ],
+    );
+
+    String? username = result?.isNotEmpty == true ? result?.first.trim() : null;
+    if (!(username?.isNotEmpty == true)) return;
+
+    App.of(context)?.showLoading();
+    await userRegisterApi.registerWithSocial(username: username!, idToken: idToken);
+    String? error;
+
+    if (userRegisterApi.success()) {
+      await authApi.loginWithSocialAccount(idToken: idToken);
+    } else {
+      error = userRegisterApi.message() ?? "Register fail, please try again!";
     }
 
-    if (error == null) {
-      await Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
-      App.of(context)?.hideLoading();
-      navigateToNextState();
-    } else {
-      App.of(context)?.hideLoading();
-      showOkAlertDialog(context: context, title: error);
-    }
+    finishRegister(error);
   }
 
   Future<void> navigateToNextState() async {
@@ -220,7 +247,11 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
             const SizedBox(height: ConfigConstant.margin1),
             Hero(
               tag: Key("AuthSocialButtons"),
-              child: SocialButtons(),
+              child: SocialButtons(
+                onFetched: (idToken, provider) {
+                  onRegisterWithSocial(idToken);
+                },
+              ),
             ),
           ],
         );
