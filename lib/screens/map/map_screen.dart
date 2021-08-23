@@ -6,7 +6,7 @@ import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_button.dart';
 import 'package:cambodia_geography/widgets/cg_dropdown_field.dart';
-import 'package:cambodia_geography/widgets/cg_text_field.dart';
+import 'package:cambodia_geography/widgets/text_fields/cg_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
