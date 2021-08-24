@@ -11,6 +11,10 @@ class CrudCommentApi extends BaseResourceOwnerApi {
     });
   }
 
+  Future<dynamic> deleteComment({required String id}) async {
+    return await super.delete(id: id);
+  }
+
   @override
   String get nameInUrl => 'comment';
 
