@@ -1,13 +1,12 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/comment/comment_list_model.dart';
 import 'package:cambodia_geography/models/comment/comment_model.dart';
-import 'package:cambodia_geography/models/image_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
-import 'package:cambodia_geography/models/user/user_model.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/services/apis/comment/comment_api.dart';
 import 'package:cambodia_geography/services/apis/comment/crud_comment_api.dart';
@@ -38,6 +37,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   late ScrollController scrollController;
   CommentListModel? commentListModel;
   List<CommentModel>? comments;
+  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
 
   @override
   void initState() {
@@ -74,33 +74,69 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   Future<void> createComment(String commentMsg) async {
     if (widget.place.id == null) return;
     if (commentMsg.length == 0) return;
+    FocusScope.of(context).unfocus();
+    App.of(context)?.showLoading();
     await crudCommentApi.createComment(
       placeId: widget.place.id!,
       comment: commentMsg,
     );
     if (crudCommentApi.success()) {
-      var newComment = CommentModel(
-        comment: commentMsg,
-        createdAt: DateTime.now(),
-        user: UserModel(
-          role: '',
-          profileImg: ImageModel(
-            url:
-                'https://res.cloudinary.com/cambodia-geography/image/upload/v1627748799/images/mqmrlezgbjqzdtpyvils.jpg',
-          ),
-        ),
-      );
-      setState(() {
-        comments?.insert(0, newComment);
-      });
-      scrollController.animateTo(
-        0,
-        duration: ConfigConstant.duration,
-        curve: Curves.ease,
-      );
+      await load();
+      scrollController.animateTo(0, duration: ConfigConstant.duration, curve: Curves.ease);
+      App.of(context)?.hideLoading();
     } else
       showOkAlertDialog(context: context, title: 'Comment failed');
     textController.clear();
+  }
+
+  Future<void> onTapCommentOption(CommentModel? comment) async {
+    var userProvider = Provider.of<UserProvider>(context, listen: false);
+    if (userProvider.user?.id == null || comment?.user?.id == null) return;
+    if (comment?.user?.id == userProvider.user!.id) {
+      var option = await showModalActionSheet<String>(
+        context: context,
+        actions: [
+          SheetAction(label: 'Edit', key: 'edit'),
+          SheetAction(
+            label: 'Delete',
+            key: 'delete',
+            isDestructiveAction: true,
+          ),
+        ],
+      );
+      if (option == 'delete') {
+        OkCancelResult result = await showOkCancelAlertDialog(
+          context: context,
+          title: 'Delete comment',
+          isDestructiveAction: true,
+          okLabel: 'Delete',
+        );
+        if (comment?.id == null) return;
+        if (result == OkCancelResult.ok) {
+          App.of(context)?.showLoading();
+          await crudCommentApi.deleteComment(id: comment!.id.toString());
+          if (crudCommentApi.success()) {
+            await load();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Comment deleted'),
+              ),
+            );
+            App.of(context)?.hideLoading();
+          } else
+            showOkAlertDialog(context: context, title: 'Comment failed');
+        }
+      }
+    } else
+      await showModalActionSheet(
+        context: context,
+        actions: [
+          SheetAction(
+            label: 'Report',
+            isDestructiveAction: true,
+          ),
+        ],
+      );
   }
 
   @override
@@ -119,12 +155,15 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
                 if (size.height < MediaQuery.of(context).size.height) load(loadMore: true);
               },
               child: ListView.builder(
+                key: listKey,
+                shrinkWrap: true,
                 physics: const AlwaysScrollableScrollPhysics(),
                 controller: scrollController,
                 itemCount: comments?.length ?? 10,
                 itemBuilder: (context, index) {
                   if (comments?.length == index) {
                     return Visibility(
+                      key: Key('$index'),
                       visible: commentListModel?.hasLoadMore() == true,
                       child: Container(
                         alignment: Alignment.center,
@@ -133,7 +172,9 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
                       ),
                     );
                   }
-                  return buildComment(comment: comments?[index]);
+                  return buildComment(
+                    comment: comments?[index],
+                  );
                 },
               ),
             ),
@@ -170,8 +211,8 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
             },
           ),
           trailing: IconButton(
-            onPressed: () {
-              createComment(textController.text);
+            onPressed: () async {
+              await createComment(textController.text);
             },
             icon: Icon(
               Icons.send,
@@ -190,6 +231,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
     return Column(
       children: [
         ListTile(
+          onLongPress: () => onTapCommentOption(comment),
           tileColor: colorScheme.surface,
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
