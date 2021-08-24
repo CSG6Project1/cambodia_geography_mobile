@@ -181,7 +181,7 @@ abstract class BaseApi<T> {
       dynamic json = jsonDecode(response?.body.toString() ?? "");
       if (json is Map<String, dynamic>) {
         if (json.containsKey('data')) json = useJapx ? Japx.decode(json) : json;
-        return itemsTransformer(json);
+        return objectTransformer(json);
       }
     });
   }
@@ -193,10 +193,17 @@ abstract class BaseApi<T> {
     return _beforeExec(() async {
       String endpoint = objectNameUrlModel.createUrl(queryParameters: queryParameters);
       response = await network?.http?.post(Uri.parse(endpoint), body: jsonEncode(body));
-      dynamic json = jsonDecode(response?.body.toString() ?? "");
+
+      dynamic json;
+      try {
+        json = jsonDecode(response?.body.toString() ?? "");
+      } catch (e) {
+        return null;
+      }
+
       if (json is Map<String, dynamic>) {
         if (json.containsKey('data')) json = useJapx ? Japx.decode(json) : json;
-        return itemsTransformer(json);
+        return objectTransformer(json);
       }
       return json;
     });
@@ -212,7 +219,7 @@ abstract class BaseApi<T> {
       dynamic json = jsonDecode(response?.body.toString() ?? "");
       if (json is Map<String, dynamic>) {
         if (json.containsKey('data')) json = useJapx ? Japx.decode(json) : json;
-        return itemsTransformer(json);
+        return objectTransformer(json);
       }
       return json;
     });

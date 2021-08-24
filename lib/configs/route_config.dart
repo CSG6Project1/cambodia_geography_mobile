@@ -2,12 +2,14 @@ import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
+import 'package:cambodia_geography/models/user/confirmation_model.dart';
 import 'package:cambodia_geography/screens/404/not_found_screen.dart';
 import 'package:cambodia_geography/screens/admin/admin_screen.dart';
 import 'package:cambodia_geography/screens/admin/body_editor_screen.dart';
 import 'package:cambodia_geography/screens/admin/edit_place_screen.dart';
 import 'package:cambodia_geography/screens/auth/login_screen.dart';
 import 'package:cambodia_geography/screens/auth/signup_screen.dart';
+import 'package:cambodia_geography/screens/auth/confirmation_screen.dart';
 import 'package:cambodia_geography/screens/comment/comment_screen.dart';
 import 'package:cambodia_geography/screens/district/district_screen.dart';
 import 'package:cambodia_geography/screens/home/home_screen.dart';
@@ -57,6 +59,7 @@ class RouteConfig {
   static const String LOGIN = '/auth/login';
   static const String INIT_LANG = '/init_lang';
   static const String SIGNUP = '/auth/signup';
+  static const String VERIFY_EMAIL = '/auth/verify_email';
   static const String PLACES = '/places';
   static const String PLACEDETAIL = '/place/detail';
   static const String PROVINCE_DETAIL = '/province_detail';
@@ -125,6 +128,16 @@ class RouteConfig {
         screen: SignUpScreen(),
         route: (context) => SignUpScreen(),
       ),
+      VERIFY_EMAIL: CgRouteSetting(
+        isRoot: false,
+        title: "VERIFY_EMAIL",
+        fullscreenDialog: true,
+        route: (context) {
+          Object? arguments = settings?.arguments;
+          if (arguments is ConfirmationModel) return ConfirmationScreen(confirmation: arguments);
+          return NotFoundScreen();
+        },
+      ),
       INIT_LANG: CgRouteSetting(
         isRoot: false,
         title: "INIT_LANG",
@@ -136,10 +149,7 @@ class RouteConfig {
         title: "PLACES",
         route: (context) {
           Object? arguments = settings?.arguments;
-          if (arguments is TbProvinceModel)
-            return PlacesScreen(
-              province: arguments,
-            );
+          if (arguments is TbProvinceModel) return PlacesScreen(province: arguments);
           return NotFoundScreen();
         },
       ),

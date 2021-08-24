@@ -33,23 +33,24 @@ class App extends StatefulWidget {
   _AppState createState() => _AppState();
 }
 
-class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin {
+class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleTickerProviderStateMixin {
   ThemeProvider? themeProvider;
   LocaleProvider? localeProvider;
   bool _loading = false;
+  late AnimationController _loadingController;
 
-  Future<T?> showLoading<T>({void Function()? onCancel}) {
+  Future<T?> showLoading<T>({void Function()? onCancel, void Function()? onComplete}) {
     if (!kIsWeb && Platform.isIOS) {
       return showCupertinoDialog<T>(
         context: context,
-        builder: _loadingBuilder,
+        builder: (context) => _loadingBuilder(context, onComplete),
         barrierDismissible: false,
       );
     } else {
       return showDialog<T>(
         context: context,
+        builder: (context) => _loadingBuilder(context, onComplete),
         barrierDismissible: false,
-        builder: _loadingBuilder,
       );
     }
   }
@@ -58,6 +59,21 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin {
     if (_loading) {
       return Navigator.of(context).pop();
     }
+  }
+
+  @override
+  void initState() {
+    _loadingController = AnimationController(
+      vsync: this,
+      duration: ConfigConstant.fadeDuration,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _loadingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -80,7 +96,7 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin {
     );
   }
 
-  Widget _loadingBuilder(BuildContext _context) {
+  Widget _loadingBuilder(BuildContext _context, void Function()? onComplete) {
     _loading = true;
     return Theme(
       data: theme,
@@ -91,6 +107,16 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin {
             'assets/lotties/1055-world-locations.json',
             width: ConfigConstant.objectHeight6,
             height: ConfigConstant.objectHeight6,
+            onLoaded: onComplete != null
+                ? (LottieComposition composition) {
+                    _loadingController
+                      ..duration = composition.duration
+                      ..forward().then((value) {
+                        hideLoading();
+                        onComplete();
+                      });
+                  }
+                : null,
           ),
         ),
       ),

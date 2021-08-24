@@ -14,6 +14,7 @@ class UserModel {
     this.updatedAt,
     this.profileImg,
     this.id,
+    this.isVerify,
   });
 
   String? role;
@@ -28,6 +29,7 @@ class UserModel {
   @JsonKey(name: 'profile_img')
   ImageModel? profileImg;
   String? id;
+  bool? isVerify;
 
   List<String> paramNames() {
     return [

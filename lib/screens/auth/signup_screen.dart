@@ -1,13 +1,16 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/configs/cg_page_route.dart';
+import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
+import 'package:cambodia_geography/models/user/confirmation_model.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/screens/auth/local_widgets/social_buttons.dart';
 import 'package:cambodia_geography/screens/auth/login_screen.dart';
+import 'package:cambodia_geography/services/apis/users/confirmation_api.dart';
 import 'package:cambodia_geography/services/apis/users/user_register_api.dart';
 import 'package:cambodia_geography/services/authentications/auth_api.dart';
 import 'package:cambodia_geography/services/storages/init_app_state_storage.dart';
@@ -50,7 +53,6 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
 
     if (error == null) {
       await Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
-      App.of(context)?.hideLoading();
       navigateToNextState();
     } else {
       App.of(context)?.hideLoading();
@@ -121,8 +123,18 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
     if (currentState == AppStateType.setLangauge) {
       storage.setCurrentState(AppStateType.skippedAuth);
     }
-    String routeName = await InitAppStateStorage().getInitialRouteName();
-    navigator.pushReplacementNamed(routeName);
+
+    if (Provider.of<UserProvider>(context, listen: false).user?.isVerify == true) {
+      String routeName = await InitAppStateStorage().getInitialRouteName();
+      App.of(context)?.hideLoading();
+      navigator.pushReplacementNamed(routeName);
+    } else {
+      ConfirmationApi api = ConfirmationApi();
+      ConfirmationModel? model = await api.create(body: {});
+
+      App.of(context)?.hideLoading();
+      Navigator.of(context).pushNamed(RouteConfig.VERIFY_EMAIL, arguments: model);
+    }
   }
 
   void moveToLogin() {
