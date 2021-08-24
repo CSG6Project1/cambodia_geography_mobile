@@ -70,6 +70,8 @@ class SocialAuthService {
       }
 
       var idToken = await FirebaseAuth.instance.currentUser?.getIdToken();
+      var uid = FirebaseAuth.instance.currentUser?.uid;
+      print(uid);
       print(idToken);
 
       if (await GoogleSignIn().isSignedIn()) await GoogleSignIn().signOut();

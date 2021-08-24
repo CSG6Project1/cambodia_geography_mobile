@@ -9,7 +9,12 @@ class UserRegisterApi extends BaseAppApi {
     required String email,
     required String password,
   }) async {
-    Map<String, String> body = {"username": username, "email": email, "password": password};
+    Map<String, String> body = {
+      "username": username,
+      "email": email,
+      "password": password,
+      "grant_type": "password",
+    };
     return await super.create(
       body: body,
     );
@@ -19,7 +24,11 @@ class UserRegisterApi extends BaseAppApi {
     required String username,
     required String idToken,
   }) async {
-    Map<String, String> body = {"username": username, "id_token": idToken};
+    Map<String, String> body = {
+      "username": username,
+      "id_token": idToken,
+      "grant_type": "credential",
+    };
     return await super.create(body: body);
   }
 
