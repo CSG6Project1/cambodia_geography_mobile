@@ -20,6 +20,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:open_mail_app/open_mail_app.dart';
+import 'package:pausable_timer/pausable_timer.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmationScreen extends StatefulWidget {
@@ -34,12 +35,13 @@ class ConfirmationScreen extends StatefulWidget {
   _ConfirmationScreenState createState() => _ConfirmationScreenState();
 }
 
-class _ConfirmationScreenState extends State<ConfirmationScreen> with CgMediaQueryMixin, CgThemeMixin {
+class _ConfirmationScreenState extends State<ConfirmationScreen>
+    with CgMediaQueryMixin, CgThemeMixin, WidgetsBindingObserver {
   UserProvider? provider;
   late int endTime;
 
   late Duration expireDuration;
-  late Timer isVerifyTimer;
+  late PausableTimer isVerifyTimer;
 
   UserApi userApi = UserApi();
 
@@ -47,18 +49,25 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> with CgMediaQue
   void initState() {
     setInitialExpireDuration();
     endTime = getEndTime();
-    isVerifyTimer = Timer.periodic(
+
+    isVerifyTimer = PausableTimer(
       Duration(seconds: 10),
-      (Timer t) {
+      () {
         checkIsVerify();
+        isVerifyTimer
+          ..reset()
+          ..start();
       },
-    );
+    )..start();
+
+    WidgetsBinding.instance?.addObserver(this);
     super.initState();
   }
 
   @override
   void dispose() {
     resetTimer();
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
 
@@ -66,6 +75,21 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> with CgMediaQue
   void didChangeDependencies() {
     super.didChangeDependencies();
     provider = Provider.of<UserProvider>(context, listen: true);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    //AppLifecycleState state: Paused audio playback;
+    if (state == AppLifecycleState.paused) {
+      if (isVerifyTimer.isActive) isVerifyTimer.pause();
+    }
+
+    // AppLifecycleState state: Resumed audio playback
+    if (state == AppLifecycleState.resumed) {
+      checkIsVerify().then((value) {
+        if (isVerifyTimer.isPaused) isVerifyTimer.start();
+      });
+    }
   }
 
   void setInitialExpireDuration() {
@@ -92,10 +116,10 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> with CgMediaQue
   Future<void> checkIsVerify() async {
     UserModel? user = await userApi.fetchCurrentUser();
     if (user?.isVerify == true) {
-      resetTimer();
       App.of(context)?.showLoading(onComplete: () async {
         String routeName = await InitAppStateStorage().getInitialRouteName();
         Navigator.of(context).pushNamedAndRemoveUntil(routeName, (route) => true);
+        resetTimer();
       });
     }
   }

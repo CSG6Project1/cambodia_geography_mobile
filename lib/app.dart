@@ -57,6 +57,7 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
 
   void hideLoading() {
     if (_loading) {
+      _loading = false;
       return Navigator.of(context).pop();
     }
   }
