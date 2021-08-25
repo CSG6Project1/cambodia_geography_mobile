@@ -11,6 +11,10 @@ class CrudCommentApi extends BaseResourceOwnerApi {
     });
   }
 
+  Future<dynamic> updateComment({required String id, required String comment}) async {
+    return await super.update(id: id, body: {'comment': comment});
+  }
+
   Future<dynamic> deleteComment({required String id}) async {
     return await super.delete(id: id);
   }
