@@ -176,7 +176,7 @@ abstract class BaseApi<T> {
     Map<String, dynamic>? queryParameters,
   }) {
     return _beforeExec(() async {
-      String endpoint = objectNameUrlModel.updatelUrl(queryParameters: queryParameters);
+      String endpoint = objectNameUrlModel.updatelUrl(id: id, queryParameters: queryParameters);
       response = await network?.http?.put(Uri.parse(endpoint), body: jsonEncode(body));
       dynamic json = jsonDecode(response?.body.toString() ?? "");
       if (json is Map<String, dynamic>) {

@@ -126,6 +126,36 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
           } else
             showOkAlertDialog(context: context, title: 'Comment failed');
         }
+      } else {
+        var commentUpdate = await showTextInputDialog(
+          context: context,
+          title: 'Edit comment',
+          textFields: [
+            DialogTextField(
+              initialText: comment?.comment.toString(),
+              maxLines: 10,
+              minLines: 1,
+            ),
+          ],
+        );
+        if (commentUpdate == null || comment?.id == null) return;
+        App.of(context)?.showLoading();
+        await crudCommentApi.updateComment(id: comment!.id!, comment: commentUpdate.first);
+        if (crudCommentApi.success()) {
+          await load();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Comment updated'),
+            ),
+          );
+        } else {
+          await showOkAlertDialog(
+            context: context,
+            title: 'Comment failed',
+            message: crudCommentApi.message(),
+          );
+        }
+        App.of(context)?.hideLoading();
       }
     } else
       await showModalActionSheet(
@@ -182,43 +212,52 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
         ),
       ),
       bottomNavigationBar: CgBottomNavWrapper(
-        child: ListTile(
-          contentPadding: EdgeInsets.zero,
-          leading: ClipRRect(
-            borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
-            child: Container(
-              color: colorScheme.background,
-              child: Consumer<UserProvider>(
-                builder: (context, provider, child) {
-                  return CgNetworkImageLoader(
-                    imageUrl: provider.user?.profileImg?.url,
-                    width: ConfigConstant.objectHeight1,
-                    height: ConfigConstant.objectHeight1,
-                    fit: BoxFit.cover,
-                  );
-                },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Expanded(
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
+                  child: Container(
+                    color: colorScheme.background,
+                    child: Consumer<UserProvider>(
+                      builder: (context, provider, child) {
+                        return CgNetworkImageLoader(
+                          imageUrl: provider.user?.profileImg?.url,
+                          width: ConfigConstant.objectHeight1,
+                          height: ConfigConstant.objectHeight1,
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                title: TextField(
+                  controller: textController,
+                  maxLines: 5,
+                  minLines: 1,
+                  decoration: InputDecoration(
+                    hintText: 'មតិយោបល់របស់អ្នក...',
+                    border: InputBorder.none,
+                  ),
+                  onSubmitted: (comment) {
+                    createComment(comment);
+                  },
+                ),
               ),
             ),
-          ),
-          title: TextField(
-            controller: textController,
-            decoration: InputDecoration(
-              hintText: 'មតិយោបល់របស់អ្នក...',
-              border: InputBorder.none,
+            IconButton(
+              onPressed: () async {
+                await createComment(textController.text);
+              },
+              icon: Icon(
+                Icons.send,
+                color: colorScheme.primary,
+              ),
             ),
-            onSubmitted: (comment) {
-              createComment(comment);
-            },
-          ),
-          trailing: IconButton(
-            onPressed: () async {
-              await createComment(textController.text);
-            },
-            icon: Icon(
-              Icons.send,
-              color: colorScheme.primary,
-            ),
-          ),
+          ],
         ),
       ),
     );
