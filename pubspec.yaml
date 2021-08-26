@@ -50,6 +50,8 @@ dependencies:
   flutter_countdown_timer: ^4.1.0
   open_mail_app: ^0.2.0
   pausable_timer: ^1.0.0+1
+  avatar_glow: ^2.0.1
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   build_runner: ^1.12.1
