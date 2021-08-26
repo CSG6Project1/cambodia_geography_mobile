@@ -41,10 +41,10 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
     super.initState();
   }
 
-  Future<void> finishLogin() async {
+  Future<void> finishLogin({required bool socialAuth}) async {
     if (authApi.success()) {
       await Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
-      navigateToNextState();
+      navigateToNextState(skip: socialAuth);
     } else {
       App.of(context)?.hideLoading();
       showOkAlertDialog(context: context, title: authApi.errorMessage());
@@ -67,16 +67,16 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
       password: password,
     );
 
-    finishLogin();
+    finishLogin(socialAuth: false);
   }
 
   Future<void> onLoginWithSocial(String idToken) async {
     App.of(context)?.showLoading();
     await authApi.loginWithSocialAccount(idToken: idToken);
-    finishLogin();
+    finishLogin(socialAuth: true);
   }
 
-  Future<void> navigateToNextState() async {
+  Future<void> navigateToNextState({required bool skip}) async {
     NavigatorState navigator = Navigator.of(context);
     InitAppStateStorage storage = InitAppStateStorage();
     AppStateType? currentState = await storage.getCurrentAppStateType();
@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
       storage.setCurrentState(AppStateType.skippedAuth);
     }
 
-    if (Provider.of<UserProvider>(context, listen: false).user?.isVerify == true) {
+    if (Provider.of<UserProvider>(context, listen: false).user?.isVerify == true || skip) {
       String routeName = await InitAppStateStorage().getInitialRouteName();
       App.of(context)?.hideLoading();
       if (navigator.canPop() == true) {
@@ -142,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
           labelText: "Skip",
           backgroundColor: Colors.transparent,
           foregroundColor: colorScheme.onPrimary,
-          onPressed: () => navigateToNextState(),
+          onPressed: () => navigateToNextState(skip: true),
         )
       ],
     );
