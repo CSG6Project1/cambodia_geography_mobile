@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
@@ -49,8 +50,14 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
   void initState() {
     setInitialExpireDuration();
     endTime = getEndTime();
+    isVerifyTimer = getInitTimer();
 
-    isVerifyTimer = PausableTimer(
+    WidgetsBinding.instance?.addObserver(this);
+    super.initState();
+  }
+
+  PausableTimer getInitTimer() {
+    return PausableTimer(
       Duration(seconds: 10),
       () {
         checkIsVerify();
@@ -59,9 +66,6 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
           ..start();
       },
     )..start();
-
-    WidgetsBinding.instance?.addObserver(this);
-    super.initState();
   }
 
   @override
@@ -99,6 +103,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
 
   void resetCoundown() {
     setState(() {
+      isVerifyTimer = getInitTimer();
       endTime = getEndTime();
     });
   }
@@ -113,13 +118,14 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
     }
   }
 
-  Future<void> checkIsVerify() async {
-    UserModel? user = await userApi.fetchCurrentUser();
-    if (user?.isVerify == true) {
+  Future<void> checkIsVerify({bool skip = false}) async {
+    UserModel? user = skip ? null : await userApi.fetchCurrentUser();
+    if (user?.isVerify == true || skip) {
+      if (!skip) provider?.user = user;
       App.of(context)?.showLoading(onComplete: () async {
         String routeName = await InitAppStateStorage().getInitialRouteName();
-        Navigator.of(context).pushNamedAndRemoveUntil(routeName, (route) => true);
         resetTimer();
+        Navigator.of(context).pushNamedAndRemoveUntil(routeName, (route) => true);
       });
     }
   }
@@ -181,13 +187,15 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
         elevation: 0.0,
         backgroundColor: colorScheme.surface,
         automaticallyImplyLeading: false,
+        leading: CloseButton(color: colorScheme.primary),
         actions: [
-          if (provider?.user?.isVerify == true)
-            IconButton(
-              color: colorScheme.secondary,
-              icon: Icon(Icons.verified),
-              onPressed: () {},
-            ),
+          CgButton(
+            heroTag: Key("SkipAuthButton"),
+            labelText: "Skip",
+            backgroundColor: Colors.transparent,
+            foregroundColor: colorScheme.primary,
+            onPressed: () => checkIsVerify(skip: true),
+          ),
         ],
       ),
       body: CgListViewSpacer(
@@ -218,6 +226,9 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
                 onPressed: () => openMailApp(),
               ),
               buildCountdownWrapper(
+                onEnd: () {
+                  this.isVerifyTimer.reset();
+                },
                 endWidget: CgButton(
                   labelText: "ផ្ញើឡើងវិញ",
                   width: double.infinity,
@@ -235,46 +246,69 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
   }
 
   Widget buildMailLogo() {
-    return Container(
-      height: ConfigConstant.objectHeight5,
-      width: ConfigConstant.objectHeight5,
-      decoration: BoxDecoration(
-        color: colorScheme.primary.withOpacity(0.05),
-        borderRadius: ConfigConstant.circlarRadius2,
-      ),
-      child: Icon(
-        Icons.email,
-        color: colorScheme.primary,
-        size: ConfigConstant.iconSize5,
-      ),
+    return Stack(
+      children: [
+        AvatarGlow(
+          glowColor: Color(0xFFf3c9ca),
+          endRadius: ConfigConstant.iconSize5,
+          repeat: true,
+          showTwoGlows: true,
+          shape: BoxShape.rectangle,
+          curve: Curves.ease,
+          child: SizedBox(
+            height: ConfigConstant.objectHeight5,
+            width: ConfigConstant.objectHeight5,
+          ),
+        ),
+        Positioned.fill(
+          child: Center(
+            child: Container(
+              decoration: BoxDecoration(color: colorScheme.surface),
+              width: ConfigConstant.iconSize4,
+              height: ConfigConstant.iconSize3,
+            ),
+          ),
+        ),
+        Positioned.fill(
+          child: Icon(
+            Icons.email,
+            color: colorScheme.primary,
+            size: ConfigConstant.iconSize5,
+          ),
+        ),
+      ],
     );
   }
 
   Widget buildLastMessage() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        style: textTheme.bodyText2,
-        text: "មិនបានទទួលអ៊ីមែលទេ? សូមពិនិត្យមើលសារឥតបានការរបស់អ្នក (Spam) ឬ ",
-        children: [
-          WidgetSpan(
-            alignment: PlaceholderAlignment.middle,
-            child: InkWell(
-              onTap: () => onChangeEmailPressed(),
-              child: Text(
-                "ផ្លាស់ប្តូរអ៊ីមែល",
-                style: TextStyle(color: colorScheme.primary),
-              ),
-            ),
-          ),
-        ],
+    return Container(
+      constraints: BoxConstraints(maxWidth: 350),
+      child: RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          style: textTheme.bodyText2,
+          text: "មិនបានទទួលអ៊ីមែលទេ? សូមពិនិត្យមើលសារឥតបានការរបស់អ្នក (Spam)", // ឬ
+          children: [
+            // WidgetSpan(
+            //   alignment: PlaceholderAlignment.middle,
+            //   child: InkWell(
+            //     onTap: () => onChangeEmailPressed(),
+            //     child: Text(
+            //       "ផ្លាស់ប្តូរអ៊ីមែល",
+            //       style: TextStyle(color: colorScheme.primary),
+            //     ),
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget buildCountdownWrapper({required Widget endWidget}) {
+  Widget buildCountdownWrapper({required Widget endWidget, required void Function() onEnd}) {
     return CountdownTimer(
       endTime: endTime,
+      onEnd: onEnd,
       widgetBuilder: (context, CurrentRemainingTime? remainingTime) {
         String second = remainingTime?.sec != null ? NumberHelper.toKhmer(remainingTime?.sec) : "0";
         return AnimatedContainer(

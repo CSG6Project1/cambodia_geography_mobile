@@ -11,6 +11,7 @@ import 'package:cambodia_geography/models/user/user_model.dart';
 import 'package:cambodia_geography/providers/locale_provider.dart';
 import 'package:cambodia_geography/providers/theme_provider.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
+import 'package:cambodia_geography/screens/home/local_widgets/verify_email_banner.dart';
 import 'package:cambodia_geography/services/apis/users/user_api.dart';
 import 'package:cambodia_geography/services/authentications/social_auth_service.dart';
 import 'package:cambodia_geography/services/images/image_picker_service.dart';
@@ -238,6 +239,7 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
             SliverList(
               delegate: SliverChildListDelegate(
                 [
+                  VerifyEmailBanner(margin: const EdgeInsets.symmetric(vertical: 1)),
                   AnimatedCrossFade(
                     duration: ConfigConstant.fadeDuration,
                     crossFadeState: provider.isSignedIn ? CrossFadeState.showSecond : CrossFadeState.showFirst,
