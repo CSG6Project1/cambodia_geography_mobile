@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
       ConfirmationModel? model = await api.create(body: {});
 
       App.of(context)?.hideLoading();
-      Navigator.of(context).pushNamed(RouteConfig.VERIFY_EMAIL, arguments: model);
+      Navigator.of(context).pushNamed(RouteConfig.CONFIRMATION, arguments: model);
     }
   }
 

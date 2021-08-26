@@ -59,7 +59,7 @@ class RouteConfig {
   static const String LOGIN = '/auth/login';
   static const String INIT_LANG = '/init_lang';
   static const String SIGNUP = '/auth/signup';
-  static const String VERIFY_EMAIL = '/auth/verify_email';
+  static const String CONFIRMATION = '/auth/confirmation';
   static const String PLACES = '/places';
   static const String PLACEDETAIL = '/place/detail';
   static const String PROVINCE_DETAIL = '/province_detail';
@@ -128,7 +128,7 @@ class RouteConfig {
         screen: SignUpScreen(),
         route: (context) => SignUpScreen(),
       ),
-      VERIFY_EMAIL: CgRouteSetting(
+      CONFIRMATION: CgRouteSetting(
         isRoot: false,
         title: "VERIFY_EMAIL",
         fullscreenDialog: true,
