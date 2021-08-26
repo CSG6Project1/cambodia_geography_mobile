@@ -10,7 +10,14 @@ class UserProvider extends ChangeNotifier {
   late UserTokenModel? _userToken;
   late String? initialRoute;
   late UserApi userApi;
-  UserModel? user;
+  UserModel? get user => _user;
+  UserModel? _user;
+
+  set user(UserModel? user) {
+    if (this._user == user) return;
+    this._user = user;
+    notifyListeners();
+  }
 
   UserProvider(this._userToken) {
     this.userApi = UserApi();
@@ -20,7 +27,7 @@ class UserProvider extends ChangeNotifier {
 
   Future<void> signOut() async {
     await userTokenStorage.remove();
-    this.user = null;
+    this._user = null;
     this._userToken = null;
     notifyListeners();
   }
@@ -29,7 +36,7 @@ class UserProvider extends ChangeNotifier {
     UserTokenModel? token = await getInitalUserToken();
     if (token != null && token.accessToken != null) {
       _userToken = token;
-      user = await userApi.fetchCurrentUser();
+      _user = await userApi.fetchCurrentUser();
       notifyListeners();
     }
   }

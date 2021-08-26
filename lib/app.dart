@@ -111,7 +111,7 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
             onLoaded: onComplete != null
                 ? (LottieComposition composition) {
                     _loadingController
-                      ..duration = composition.duration
+                      ..duration = composition.duration ~/ 2
                       ..forward().then((value) {
                         hideLoading();
                         onComplete();

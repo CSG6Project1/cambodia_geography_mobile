@@ -46,14 +46,14 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
     super.initState();
   }
 
-  Future<void> finishRegister(String? error) async {
+  Future<void> finishRegister(String? error, {required bool socialAuth}) async {
     if (userRegisterApi.success() && !authApi.success()) {
       error = authApi.errorMessage() ?? "Log in fail";
     }
 
     if (error == null) {
       await Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
-      navigateToNextState();
+      navigateToNextState(skip: socialAuth);
     } else {
       App.of(context)?.hideLoading();
       showOkAlertDialog(context: context, title: error);
@@ -88,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
       error = userRegisterApi.message() ?? "Register fail";
     }
 
-    finishRegister(error);
+    finishRegister(error, socialAuth: false);
   }
 
   Future<void> onRegisterWithSocial(String idToken) async {
@@ -113,10 +113,10 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
       error = userRegisterApi.message() ?? "Register fail, please try again!";
     }
 
-    finishRegister(error);
+    finishRegister(error, socialAuth: true);
   }
 
-  Future<void> navigateToNextState() async {
+  Future<void> navigateToNextState({required bool skip}) async {
     NavigatorState navigator = Navigator.of(context);
     InitAppStateStorage storage = InitAppStateStorage();
     AppStateType? currentState = await storage.getCurrentAppStateType();
@@ -124,7 +124,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
       storage.setCurrentState(AppStateType.skippedAuth);
     }
 
-    if (Provider.of<UserProvider>(context, listen: false).user?.isVerify == true) {
+    if (Provider.of<UserProvider>(context, listen: false).user?.isVerify == true || skip) {
       String routeName = await InitAppStateStorage().getInitialRouteName();
       App.of(context)?.hideLoading();
       navigator.pushReplacementNamed(routeName);
@@ -133,7 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
       ConfirmationModel? model = await api.create(body: {});
 
       App.of(context)?.hideLoading();
-      Navigator.of(context).pushNamed(RouteConfig.VERIFY_EMAIL, arguments: model);
+      Navigator.of(context).pushNamed(RouteConfig.CONFIRMATION, arguments: model);
     }
   }
 
@@ -178,7 +178,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
           labelText: "Skip",
           backgroundColor: Colors.transparent,
           foregroundColor: colorScheme.onSurface,
-          onPressed: () => navigateToNextState(),
+          onPressed: () => navigateToNextState(skip: true),
         ),
       ],
     );
