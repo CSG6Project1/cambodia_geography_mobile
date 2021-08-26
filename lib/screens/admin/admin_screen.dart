@@ -7,6 +7,7 @@ import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_gps_button.dart';
 import 'package:cambodia_geography/widgets/cg_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 import 'local_widgets/place_list.dart';
@@ -45,11 +46,7 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
         onPressed: () {
           Navigator.of(context).pushNamed(RouteConfig.EDIT_PLACE).then((value) {
             if (value is PlaceModel) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text("Success created place: ${value.khmer ?? value.english}"),
-                ),
-              );
+              Fluttertoast.showToast(msg: 'Created place successfully');
             }
           });
         },

@@ -17,6 +17,7 @@ import 'package:cambodia_geography/widgets/cg_measure_size.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:cambodia_geography/widgets/cg_no_data_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -117,11 +118,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
           await crudCommentApi.deleteComment(id: comment!.id.toString());
           if (crudCommentApi.success()) {
             await load();
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Comment deleted'),
-              ),
-            );
+            Fluttertoast.showToast(msg: 'Comment deleted');
             App.of(context)?.hideLoading();
           } else
             showOkAlertDialog(context: context, title: 'Comment failed');
@@ -143,11 +140,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
         await crudCommentApi.updateComment(id: comment!.id!, comment: commentUpdate.first);
         if (crudCommentApi.success()) {
           await load();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Comment updated'),
-            ),
-          );
+          Fluttertoast.showToast(msg: 'Comment updated');
         } else {
           await showOkAlertDialog(
             context: context,
