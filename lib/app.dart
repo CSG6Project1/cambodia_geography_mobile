@@ -39,7 +39,10 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
   bool _loading = false;
   late AnimationController _loadingController;
 
-  Future<T?> showLoading<T>({void Function()? onCancel, void Function()? onComplete}) {
+  Future<T?> showLoading<T>({void Function()? onCancel, void Function()? onComplete}) async {
+    if (_loading) return null;
+    _loading = true;
+
     if (!kIsWeb && Platform.isIOS) {
       return showCupertinoDialog<T>(
         context: context,
@@ -98,7 +101,6 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
   }
 
   Widget _loadingBuilder(BuildContext _context, void Function()? onComplete) {
-    _loading = true;
     return Theme(
       data: theme,
       child: WillPopScope(

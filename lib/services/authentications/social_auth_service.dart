@@ -23,7 +23,7 @@ class SocialAuthService {
   }
 
   Future<String?> getFacebookIdToken() async {
-    final LoginResult result = await FacebookAuth.instance.login();
+    final LoginResult result = await FacebookAuth.instance.login(loginBehavior: LoginBehavior.webOnly);
     if (result.status == LoginStatus.success) {
       final AccessToken? accessToken = result.accessToken;
       if (accessToken?.token == null) return null;

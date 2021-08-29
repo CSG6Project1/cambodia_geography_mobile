@@ -20,7 +20,9 @@ class VerifyEmailBanner extends StatelessWidget {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Consumer<UserProvider>(
       builder: (context, provider, widget) {
-        bool isVerify = provider.user == null || (provider.user?.email != null && provider.user?.isVerify == true);
+        bool isVerify = provider.user == null ||
+            (provider.user?.email != null && provider.user?.isVerify == true) ||
+            provider.user?.email == null;
         return Container(
           margin: margin,
           child: AnimatedCrossFade(
@@ -28,6 +30,7 @@ class VerifyEmailBanner extends StatelessWidget {
             duration: ConfigConstant.fadeDuration,
             firstChild: const SizedBox(),
             secondChild: MaterialBanner(
+              forceActionsBelow: true,
               backgroundColor: colorScheme.surface,
               leading: CircleAvatar(
                 backgroundColor: colorScheme.secondary,

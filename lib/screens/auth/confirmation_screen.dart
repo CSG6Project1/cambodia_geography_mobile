@@ -125,7 +125,10 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
       App.of(context)?.showLoading(onComplete: () async {
         String routeName = await InitAppStateStorage().getInitialRouteName();
         resetTimer();
-        Navigator.of(context).pushNamedAndRemoveUntil(routeName, (route) => true);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          routeName,
+          ModalRoute.withName('/'),
+        );
       });
     }
   }
