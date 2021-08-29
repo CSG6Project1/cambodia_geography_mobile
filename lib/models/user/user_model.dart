@@ -15,6 +15,7 @@ class UserModel {
     this.profileImg,
     this.id,
     this.isVerify,
+    this.providers,
   });
 
   String? role;
@@ -30,6 +31,7 @@ class UserModel {
   ImageModel? profileImg;
   String? id;
   bool? isVerify;
+  List<String>? providers;
 
   List<String> paramNames() {
     return [
