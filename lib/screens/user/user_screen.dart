@@ -16,6 +16,8 @@ import 'package:cambodia_geography/services/apis/users/user_api.dart';
 import 'package:cambodia_geography/services/authentications/social_auth_service.dart';
 import 'package:cambodia_geography/services/images/image_picker_service.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
+import 'package:cambodia_geography/widgets/cg_popup_menu.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:provider/provider.dart';
 
@@ -253,11 +255,17 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                             showUpdateNameDialog(provider);
                           },
                         ),
-                        buildSettingTile(
-                          title: "Email",
-                          iconData: Icons.mail,
-                          subtitle: provider.user?.email,
-                          onTap: () {},
+                        AnimatedCrossFade(
+                          duration: ConfigConstant.fadeDuration,
+                          crossFadeState:
+                              provider.user?.email != null ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                          secondChild: buildSettingTile(
+                            title: "Email",
+                            iconData: Icons.mail,
+                            subtitle: provider.user?.email,
+                            onTap: () {},
+                          ),
+                          firstChild: const SizedBox(),
                         ),
                         buildSettingTile(
                           title: "Password",
@@ -277,6 +285,26 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                               provider.signOut();
                             }
                           },
+                        ),
+                        const SizedBox(height: ConfigConstant.margin2),
+                        buildSocialTile(
+                          title: "Facebook",
+                          iconData: FontAwesomeIcons.facebook,
+                          subtitle: provider.user?.providers?.contains("facebook.com") == true
+                              ? "Connected"
+                              : "Not connected",
+                          onConnect: () {},
+                          onUpdate: () {},
+                          isConnected: provider.user?.providers?.contains("facebook.com") == true,
+                        ),
+                        buildSocialTile(
+                          title: "Google",
+                          iconData: FontAwesomeIcons.google,
+                          subtitle:
+                              provider.user?.providers?.contains("google.com") == true ? "Connected" : "Not connected",
+                          onConnect: () {},
+                          onUpdate: () {},
+                          isConnected: provider.user?.providers?.contains("google.com") == true,
                         ),
                       ],
                     ),
@@ -365,6 +393,61 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
             ),
             title: Text(title),
             subtitle: subtitle != null ? Text(subtitle) : null,
+          ),
+          if (showDivider) const Divider(height: 0, indent: ConfigConstant.objectHeight4)
+        ],
+      ),
+    );
+  }
+
+  Material buildSocialTile({
+    required String title,
+    required IconData iconData,
+    required bool isConnected,
+    void Function()? onUpdate,
+    void Function()? onConnect,
+    String? subtitle,
+    bool showDivider = true,
+  }) {
+    return Material(
+      child: Column(
+        children: [
+          CgPopupMenu<String>(
+            openOnLongPressed: false,
+            onPressed: (value) {
+              if (value == "update" && onUpdate != null) onUpdate();
+              if (value == "connect" && onConnect != null) onConnect();
+            },
+            positinRight: 0,
+            items: [
+              if (isConnected) ...[
+                PopupMenuItem<String>(
+                  value: "update",
+                  child: Text("Update"),
+                ),
+                // PopupMenuItem<String>(
+                //   value: "diconnect",
+                //   child: Text("Diconnect"),
+                // ),
+              ],
+              if (!isConnected)
+                PopupMenuItem<String>(
+                  value: "connect",
+                  child: Text("Connect"),
+                )
+            ],
+            child: ListTile(
+              leading: AspectRatio(
+                aspectRatio: 1,
+                child: Icon(
+                  iconData,
+                  color: colorScheme.primary,
+                ),
+              ),
+              title: Text(title),
+              subtitle: subtitle != null ? Text(subtitle) : null,
+              trailing: Icon(Icons.more_vert),
+            ),
           ),
           if (showDivider) const Divider(height: 0, indent: ConfigConstant.objectHeight4)
         ],
