@@ -410,13 +410,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_map:
-    dependency: "direct main"
-    description:
-      name: flutter_map
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.13.1"
   flutter_markdown:
     dependency: "direct main"
     description:
@@ -546,6 +539,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  google_maps_flutter:
+    dependency: "direct main"
+    description:
+      name: google_maps_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.8"
+  google_maps_flutter_platform_interface:
+    dependency: transitive
+    description:
+      name: google_maps_flutter_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
   google_sign_in:
     dependency: "direct main"
     description:
@@ -681,13 +688,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.2"
-  latlong2:
-    dependency: transitive
-    description:
-      name: latlong2
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.8.0"
   list_diff:
     dependency: transitive
     description:
@@ -695,13 +695,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  lists:
-    dependency: transitive
-    description:
-      name: lists
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   logging:
     dependency: transitive
     description:
@@ -737,13 +730,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
-  mgrs_dart:
-    dependency: transitive
-    description:
-      name: mgrs_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   mime:
     dependency: transitive
     description:
@@ -870,13 +856,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.0"
-  positioned_tap_detector_2:
-    dependency: transitive
-    description:
-      name: positioned_tap_detector_2
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   process:
     dependency: transitive
     description:
@@ -884,13 +863,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.3"
-  proj4dart:
-    dependency: transitive
-    description:
-      name: proj4dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   provider:
     dependency: "direct main"
     description:
@@ -1134,13 +1106,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  transparent_image:
-    dependency: transitive
-    description:
-      name: transparent_image
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   tuple:
     dependency: transitive
     description:
@@ -1155,13 +1120,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
-  unicode:
-    dependency: transitive
-    description:
-      name: unicode
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.1"
   url_launcher:
     dependency: transitive
     description:
@@ -1274,13 +1232,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.5"
-  wkt_parser:
-    dependency: transitive
-    description:
-      name: wkt_parser
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   xdg_directories:
     dependency: transitive
     description:

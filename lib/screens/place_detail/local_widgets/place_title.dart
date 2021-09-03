@@ -7,6 +7,7 @@ import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/widgets/cg_text_shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PlaceTitle extends StatelessWidget {
   const PlaceTitle({
@@ -101,6 +102,7 @@ class PlaceTitle extends StatelessWidget {
               arguments: MapScreenSetting(
                 flowType: MapFlowType.view,
                 initialLatLng: latLng,
+                provinceCode: provinceCode,
               ),
             );
           },
