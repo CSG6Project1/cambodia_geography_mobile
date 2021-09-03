@@ -1,6 +1,9 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/constants/app_constant.dart';
+import 'package:cambodia_geography/helpers/app_helper.dart';
 import 'package:cambodia_geography/models/image_model.dart';
+import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
+import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'place_model.g.dart';
 
@@ -59,6 +62,24 @@ class PlaceModel {
 
   void clearVillageCode() {
     this.villageCode = null;
+  }
+
+  PlaceType? placeType() {
+    switch (this.type) {
+      case "place":
+        return PlaceType.place;
+      case "restaurant":
+        return PlaceType.restaurant;
+      case "province":
+        return PlaceType.province;
+      default:
+    }
+  }
+
+  LatLng? latLng() {
+    if (AppHelper.isLatLngValdated(this.lat, this.lon)) {
+      return LatLng(this.lat!, this.lon!);
+    }
   }
 
   PlaceModel copyWith({

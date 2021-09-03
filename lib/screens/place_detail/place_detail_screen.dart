@@ -77,6 +77,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
           provinceCode: place.provinceCode,
           lat: place.lat,
           lon: place.lon,
+          place: place,
         ),
         Container(
           color: colorScheme.surface,

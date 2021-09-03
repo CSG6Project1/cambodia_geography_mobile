@@ -3,10 +3,12 @@ import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/helpers/app_helper.dart';
+import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/widgets/cg_text_shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PlaceTitle extends StatelessWidget {
   const PlaceTitle({
@@ -17,13 +19,16 @@ class PlaceTitle extends StatelessWidget {
     required this.lat,
     required this.lon,
     this.loading = false,
+    this.place,
   }) : super(key: key);
+
   final String title;
   final String? subtitle;
   final String? provinceCode;
   final double? lat;
   final double? lon;
   final bool loading;
+  final PlaceModel? place;
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +106,7 @@ class PlaceTitle extends StatelessWidget {
               arguments: MapScreenSetting(
                 flowType: MapFlowType.view,
                 initialLatLng: latLng,
+                place: place,
               ),
             );
           },

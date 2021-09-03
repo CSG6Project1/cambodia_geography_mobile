@@ -19,7 +19,22 @@ class AppHelper<T> {
 
   /// Latitude must be a number between -90 and 90
   /// Longitude must a number between -180 and 180
-  static bool isLatLngValdated(double latitude, double longitude) {
+  static bool isLatLngValdatedStr(String? latitude, String? longitude) {
+    double? lat = double.tryParse(latitude ?? "");
+    double? lon = double.tryParse(longitude ?? "");
+
+    if (lat == null || lon == null) return false;
+
+    bool isLatitude = lat.isFinite && lat.abs() <= 90;
+    bool isLongtitude = lon.isFinite && lon.abs() <= 180;
+    return isLatitude && isLongtitude;
+  }
+
+  /// Latitude must be a number between -90 and 90
+  /// Longitude must a number between -180 and 180
+  static bool isLatLngValdated(double? latitude, double? longitude) {
+    if (latitude == null || longitude == null) return false;
+
     bool isLatitude = latitude.isFinite && latitude.abs() <= 90;
     bool isLongtitude = longitude.isFinite && longitude.abs() <= 180;
     return isLatitude && isLongtitude;
