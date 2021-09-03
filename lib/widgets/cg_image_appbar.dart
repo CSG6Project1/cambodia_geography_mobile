@@ -1,5 +1,6 @@
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/screens/place_detail/local_widgets/images_presentor.dart';
+import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 
 class CgImageAppBar extends StatelessWidget {
   const CgImageAppBar({
@@ -8,12 +9,14 @@ class CgImageAppBar extends StatelessWidget {
     required this.pageController,
     required this.title,
     required this.images,
+    this.loading = false,
   }) : super(key: key);
 
   final double expandedHeight;
   final PageController pageController;
   final String title;
   final List<String> images;
+  final bool loading;
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -23,17 +26,24 @@ class CgImageAppBar extends StatelessWidget {
       pinned: true,
       floating: false,
       stretch: true,
-      title: buildAppBarTitle(),
-      flexibleSpace: buildFlexibleSpace(),
+      title: loading ? SizedBox() : buildAppBarTitle(),
+      flexibleSpace: buildFlexibleSpace(context),
     );
   }
 
-  Widget buildFlexibleSpace() {
-    // List<String> images = place.images?.map((e) => e.url ?? '').toList() ?? [];
+  Widget buildFlexibleSpace(BuildContext context) {
     return FlexibleSpaceBar(
-      background: ImagesPresentor(
-        images: images,
-        controller: pageController,
+      background: CgCustomShimmer(
+        child: loading
+            ? Container(
+                height: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width,
+                color: Theme.of(context).colorScheme.surface,
+              )
+            : ImagesPresentor(
+                images: images,
+                controller: pageController,
+              ),
       ),
     );
   }
