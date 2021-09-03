@@ -40,10 +40,10 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
   Future<Weather>? weather;
   LatLng? latLng;
   PlaceListModel? placeList;
-  PlaceModel? placeModel;
   late PlacesApi placesApi;
   late bool loading;
 
+  PlaceModel? get placeModel => placeList?.items?.isNotEmpty == true ? placeList?.items?.first : null;
   double get expandedHeight => MediaQuery.of(context).size.width;
 
   @override
@@ -131,6 +131,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
             provinceCode: widget.province.code,
             lat: double.tryParse(widget.province.latitude ?? '0'),
             lon: double.tryParse(widget.province.longitudes ?? '0'),
+            place: placeModel,
           ),
           buildContainer(
             title: 'អាកាសធាតុ',
