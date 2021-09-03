@@ -1,3 +1,4 @@
+import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/api_constant.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
@@ -5,11 +6,17 @@ import 'package:cambodia_geography/helpers/app_helper.dart';
 import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
+import 'package:cambodia_geography/models/places/place_list_model.dart';
+import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
+import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/screens/place_detail/local_widgets/place_title.dart';
+import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
+import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
+import 'package:cambodia_geography/widgets/cg_text_shimmer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:weather/weather.dart';
@@ -32,6 +39,10 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
   late WeatherFactory weatherFactory;
   Future<Weather>? weather;
   LatLng? latLng;
+  PlaceListModel? placeList;
+  PlaceModel? placeModel;
+  late PlacesApi placesApi;
+  late bool loading;
 
   double get expandedHeight => MediaQuery.of(context).size.width;
 
@@ -40,7 +51,10 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
     scrollController = ScrollController();
     pageController = PageController();
     weatherFactory = WeatherFactory(ApiConstant.openWeatherMapApiKey);
+    placesApi = PlacesApi();
     super.initState();
+    loading = true;
+    loadProvince();
 
     double? latitude = double.tryParse(widget.province.latitude ?? "");
     double? longitudes = double.tryParse(widget.province.longitudes ?? "");
@@ -55,21 +69,51 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
     return await weatherFactory.currentWeatherByLocation(latitude, longitudes);
   }
 
+  Future<void> loadProvince({bool loadMore = false}) async {
+    if (loadMore && !(this.placeList?.hasLoadMore() == true)) return;
+    String? page = loadMore ? placeList?.links?.getPageNumber().next.toString() : null;
+
+    final result = await placesApi.fetchAllPlaces(
+      type: PlaceType.province,
+      provinceCode: widget.province.code,
+      page: page,
+    );
+
+    if (placesApi.success() && result != null) {
+      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+        setState(() {
+          loading = false;
+          if (placeList != null && loadMore) {
+            placeList?.add(result);
+          } else {
+            placeList = result;
+          }
+        });
+      });
+    } else
+      print(placesApi.message());
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<String> images = [];
+    if (placeList?.items == null)
+      loading = true;
+    else {
+      if (placeList?.items?[0].images == null) images = [];
+      images = placeList!.items![0].images!.map((e) => e.url.toString()).toList();
+    }
     return Scaffold(
       bottomNavigationBar: buildBottomNavigationBar(),
       body: CustomScrollView(
         controller: scrollController,
         slivers: [
           CgImageAppBar(
+            loading: loading,
             expandedHeight: expandedHeight,
             pageController: pageController,
             title: widget.province.khmer ?? "Province",
-            images: [
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Ankor_Wat_temple.jpg/1200px-Ankor_Wat_temple.jpg',
-              'https://www.telegraph.co.uk/content/dam/Travel/2019/February/wat-xlarge.jpg',
-            ],
+            images: images,
           ),
           buildBody(),
         ],
@@ -82,6 +126,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
       delegate: SliverChildListDelegate(
         [
           PlaceTitle(
+            loading: loading,
             title: widget.province.khmer.toString(),
             provinceCode: widget.province.code,
             lat: double.tryParse(widget.province.latitude ?? '0'),
@@ -134,10 +179,19 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
     );
   }
 
-  MarkdownBody buildAboutProvince() {
+  Widget buildAboutProvince() {
+    if (loading)
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: List.generate(
+          4,
+          (index) => CgTextShimmer(
+            width: double.infinity,
+          ),
+        ),
+      );
     return MarkdownBody(
-      data:
-          'ឬប្រាសាទអង្គរតូចមានទីតាំងស្ថិតនៅភាគខាងជើងនៃក្រុងសៀមរាបនៃខេត្តសៀមរាប។ ប្រាសាទអង្គរវត្តជា ប្រាសាទព្រហ្មញ្ញសាសនាធំបំផុត និងជាវិមានសាសនាដ៏ធំបំផុត នៅក្នុងលោក។ ប្រាសាទនេះត្រូវបានកសាងឡើងដោយ ព្រះបាទសូរ្យវរ្ម័នទី២ ដែលជាស្នាដៃដ៏ធំអស្ចារ្យ និងមានឈ្មោះ ល្បីល្បាញរន្ទឺសុះសាយទៅគ្រប់ទិសទីលើពិភពលោក។ ប្រាសាទនេះសាងសង់ឡើងនៅដើមសតវត្សទី១២ ដែលស្ថិត នៅក្នុងរាជធានយសោធរបុរៈ។ ប្រាសាទអង្គរវត្តជាប្រាសាទ កសាងឡើង ដើម្បីឧទ្ទិសដល់ព្រះវិស្ណុ។ឬប្រាសាទ អង្គរតូចមានទីតាំងស្ថិតនៅភាគខាងជើងនៃក្រុងសៀមរាបនៃខេត្តសៀមរាប។  ប្រាសាទអង្គរវត្តជា ប្រាសាទព្រហ្មញ្ញសាសនាធំបំផុត និងជាវិមានសាសនាដ៏ធំបំផុត នៅក្នុងលោក។ ប្រាសាទអង្គរវត្តជាប្រាសាទ កសាងឡើង ដើម្បីឧទ្ទិសដល់ព្រះវិស្ណុ។',
+      data: placeList?.items?[0].body ?? 'Province body',
       selectable: true,
       styleSheet: MarkdownStyleSheet.fromTheme(
         themeData.copyWith(
@@ -165,10 +219,12 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: textTheme.subtitle1?.copyWith(color: textTheme.caption?.color, fontWeight: FontWeight.bold),
-          ),
+          loading
+              ? CgTextShimmer()
+              : Text(
+                  title,
+                  style: textTheme.subtitle1?.copyWith(color: textTheme.caption?.color, fontWeight: FontWeight.bold),
+                ),
           body,
         ],
       ),
@@ -231,21 +287,27 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
   }) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      title: Text(
-        title,
-        style: textTheme.bodyText2?.copyWith(color: colorScheme.primary),
-      ),
-      subtitle: Text(
-        subtitle,
-        style: textTheme.caption,
-      ),
+      title: loading
+          ? Container(child: CgTextShimmer(height: 16, width: 100), alignment: Alignment.centerLeft)
+          : Text(
+              title,
+              style: textTheme.bodyText2?.copyWith(color: colorScheme.primary),
+            ),
+      subtitle: loading
+          ? Container(child: CgTextShimmer(height: 12, width: 200), alignment: Alignment.centerLeft)
+          : Text(
+              subtitle,
+              style: textTheme.caption,
+            ),
       tileColor: colorScheme.surface,
       leading: AspectRatio(
         aspectRatio: 1,
-        child: Container(
-          alignment: Alignment.center,
-          child: weatherImage != null ? CgNetworkImageLoader(imageUrl: weatherImage) : leading,
-        ),
+        child: loading
+            ? CgCustomShimmer(child: Container(color: Colors.white))
+            : Container(
+                alignment: Alignment.center,
+                child: weatherImage != null ? CgNetworkImageLoader(imageUrl: weatherImage) : leading,
+              ),
       ),
     );
   }
@@ -256,11 +318,11 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
         children: [
           IconButton(
             onPressed: () async {
-              // await Navigator.pushNamed(
-              //   context,
-              //   RouteConfig.COMMENT,
-              //   arguments: place,
-              // );
+              await Navigator.pushNamed(
+                context,
+                RouteConfig.COMMENT,
+                arguments: placeList?.items?[0],
+              );
             },
             icon: Icon(
               Icons.mode_comment,
@@ -268,7 +330,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
             ),
           ),
           Text(
-            NumberHelper.toKhmer((0).toString()),
+            NumberHelper.toKhmer((placeList?.items?[0].commentLength).toString()),
             style: textTheme.caption,
           ),
           const Spacer(),

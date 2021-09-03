@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 enum PlaceType {
   place,
   restaurant,
+  province,
 }
 
 class PlaceList extends StatefulWidget {

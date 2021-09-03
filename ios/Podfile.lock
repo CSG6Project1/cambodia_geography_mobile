@@ -71,6 +71,9 @@ PODS:
     - Flutter
   - flutter_secure_storage (3.3.1):
     - Flutter
+  - fluttertoast (0.0.2):
+    - Flutter
+    - Toast
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -118,6 +121,8 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - open_mail_app (0.0.1):
+    - Flutter
   - OrderedSet (5.0.0)
   - path_provider (0.0.1):
     - Flutter
@@ -127,6 +132,7 @@ PODS:
   - sqflite (0.0.2):
     - Flutter
     - FMDB (>= 2.7.5)
+  - Toast (4.0.0)
   - TOCropViewController (2.6.0)
   - url_launcher (0.0.1):
     - Flutter
@@ -142,11 +148,13 @@ DEPENDENCIES:
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - geocoding (from `.symlinks/plugins/geocoding/ios`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
+  - open_mail_app (from `.symlinks/plugins/open_mail_app/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
@@ -173,6 +181,7 @@ SPEC REPOS:
     - nanopb
     - OrderedSet
     - PromisesObjC
+    - Toast
     - TOCropViewController
 
 EXTERNAL SOURCES:
@@ -193,6 +202,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
   flutter_secure_storage:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
   geocoding:
     :path: ".symlinks/plugins/geocoding/ios"
   geolocator_apple:
@@ -203,6 +214,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_cropper/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
+  open_mail_app:
+    :path: ".symlinks/plugins/open_mail_app/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   shared_preferences:
@@ -237,6 +250,7 @@ SPEC CHECKSUMS:
   flutter_inappwebview: bfd58618f49dc62f2676de690fc6dcda1d6c3721
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
+  fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geocoding: 32cfcdb16d38d907caaba65e2e42ad10d38bee58
   geolocator_apple: 60a1c3f5930c090d2f5164ba8bf25f4f89121e3c
@@ -249,11 +263,13 @@ SPEC CHECKSUMS:
   image_cropper: f1668dd8d2cad2d357955caad15a40547856edcb
   image_picker: e06f7a68f000bd36f552c1847e33cda96ed31f1f
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  open_mail_app: 794172f6a22cd16319d3ddaf45e945b2f74952b0
   OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
