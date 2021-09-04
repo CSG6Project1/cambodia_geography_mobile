@@ -54,6 +54,7 @@ dependencies:
   settings_ui: ^1.0.0
   google_maps_flutter: ^2.0.8
   carousel_slider: ^4.0.0
+  uni_links: ^0.5.1
 
 dev_dependencies:
   build_runner: ^1.12.1
