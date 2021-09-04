@@ -8,20 +8,6 @@ class SearchApi extends BasePlacesApi {
   String get nameInUrl => "searchplaces/result";
 
   @override
-  PlaceModel objectTransformer(Map<String, dynamic> json) {
-    return PlaceModel.fromJson(json);
-  }
-
-  @override
-  PlaceListModel itemsTransformer(Map<String, dynamic> json) {
-    return PlaceListModel(
-      items: buildItems(json),
-      meta: buildMeta(json),
-      links: buildLinks(json),
-    );
-  }
-
-  @override
   fetchAllPlaces({
     String? keyword,
     PlaceType? type,
