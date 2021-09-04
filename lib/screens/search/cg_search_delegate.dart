@@ -29,7 +29,12 @@ class CgSearchDelegate extends SearchDelegate<String> {
     required this.animationController,
     required this.context,
     required this.provinceCode,
-  });
+    String hintText = "ស្វែងរកទីកន្លែង...",
+  }) : super(
+          searchFieldLabel: hintText,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.search,
+        );
 
   @override
   void showResults(BuildContext context) {
@@ -43,15 +48,17 @@ class CgSearchDelegate extends SearchDelegate<String> {
     // );
     // }));
     super.showResults(context);
-    searchHistoryStorage.readList().then((value) {
-      if (value == null) {
-        searchHistoryStorage.writeList([query]);
-      } else {
-        if (value.contains(query)) return;
-        value.insert(0, query);
-        searchHistoryStorage.writeList(value);
-      }
-    });
+    searchHistoryStorage.readList().then(
+      (value) {
+        if (value == null) {
+          searchHistoryStorage.writeList([query]);
+        } else {
+          if (value.contains(query)) return;
+          value.insert(0, query);
+          searchHistoryStorage.writeList(value);
+        }
+      },
+    );
   }
 
   @override
@@ -76,13 +83,15 @@ class CgSearchDelegate extends SearchDelegate<String> {
       IconButton(
         icon: Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
         onPressed: () {
-          Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER).then((value) {
-            if (value is PlaceModel) {
-              print(value.toJson());
-              placeModel = value;
-              showResults(context);
-            }
-          });
+          Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER).then(
+            (value) {
+              if (value is PlaceModel) {
+                print(value.toJson());
+                placeModel = value;
+                showResults(context);
+              }
+            },
+          );
         },
       ),
     ];
@@ -153,6 +162,17 @@ class CgSearchDelegate extends SearchDelegate<String> {
                 onTap: () {
                   query = removeAllHtmlTags(suggestionList[index]);
                   showResults(context);
+                  searchHistoryStorage.readList().then(
+                    (value) {
+                      if (query != suggestionList[0]) {
+                        value?.remove(query);
+                        value!.insert(0, query);
+                        searchHistoryStorage.writeList(value);
+                      } else {
+                        return;
+                      }
+                    },
+                  );
                 },
                 onLongPress: () async {
                   OkCancelResult result = await showOkCancelAlertDialog(
