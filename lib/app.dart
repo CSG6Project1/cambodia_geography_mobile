@@ -91,6 +91,7 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
       navigatorObservers: [HeroController(), App.routeObserver],
       onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
       locale: localeProvider?.locale,
+      themeMode: themeProvider?.themeMode,
       builder: (context, child) => AppBuilder(child: child),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,

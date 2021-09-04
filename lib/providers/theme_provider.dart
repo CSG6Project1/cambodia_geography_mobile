@@ -8,6 +8,13 @@ class ThemeProvider extends ChangeNotifier {
 
   bool systemTheme = false;
 
+  ThemeMode get themeMode {
+    if (systemTheme) return ThemeMode.system;
+    if (isDarkMode) return ThemeMode.dark;
+    if (isDarkMode) return ThemeMode.light;
+    return ThemeMode.system;
+  }
+
   ThemeProvider(this.isDarkMode) {
     storage = ThemeModeStorage();
     storage.readBool().then((value) {
