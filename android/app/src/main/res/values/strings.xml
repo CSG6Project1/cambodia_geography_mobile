@@ -4,4 +4,6 @@
   <string name="facebook_app_id">905695696961498</string>
   <string name="fb_login_protocol_scheme">fb905695696961498</string>
   <string name="google_map_api_key">AIzaSyCe-es1F-4AwR-Opflu6ntq_2me8xo6bzE</string>
+  <string name="scheme">camgeo</string>
+  <string name="host">cambodia-geography.herokuapp.com</string>
 </resources>
