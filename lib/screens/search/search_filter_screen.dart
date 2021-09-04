@@ -84,6 +84,7 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
                 setState(() {
                   districts.clear();
                   communes.clear();
+                  villages.clear();
                   _provinceCode = null;
                 });
                 return;
