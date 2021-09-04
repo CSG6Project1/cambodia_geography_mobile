@@ -52,6 +52,9 @@ class PlaceModel {
   String? body;
   String? id;
 
+  String? page;
+  void setPage(String? value) => this.page = value;
+
   void clearCommuneCode() {
     this.communeCode = null;
   }

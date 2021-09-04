@@ -4,6 +4,7 @@ import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/helpers/app_helper.dart';
 import 'package:cambodia_geography/models/places/place_list_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
+import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/screens/places/local_widgets/place_card.dart';
 import 'package:cambodia_geography/services/apis/places/base_places_api.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
@@ -17,7 +18,6 @@ class CarouselPlaceList extends StatefulWidget {
   const CarouselPlaceList({
     Key? key,
     required this.initialPlace,
-    required this.initialPage,
     required this.controller,
     required this.onPageChanged,
   }) : super(key: key);
@@ -25,7 +25,6 @@ class CarouselPlaceList extends StatefulWidget {
   final Completer<GoogleMapController> controller;
   final Function(PlaceModel)? onPageChanged;
   final PlaceModel? initialPlace;
-  final String? initialPage;
 
   @override
   _CarouselPlaceListState createState() => _CarouselPlaceListState();
@@ -52,7 +51,7 @@ class _CarouselPlaceListState extends State<CarouselPlaceList> {
     placesApi = PlacesApi();
     super.initState();
 
-    load(initialPage: widget.initialPage).then((value) {
+    load(initialPage: widget.initialPlace?.page).then((value) {
       int? page = placeList?.items?.indexWhere((element) => element.id == widget.initialPlace?.id);
       if (page != null) {
         carouselController.animateToPage(page).then((value) {
@@ -62,24 +61,31 @@ class _CarouselPlaceListState extends State<CarouselPlaceList> {
     });
   }
 
-  Future<void> load({String? initialPage, bool loadMore = false}) async {
-    if (loadMore && !(this.placeList?.hasLoadMore() == true)) return;
+  Future<void> load({String? initialPage, bool loadMore = false, bool reverseLoad = false}) async {
+    print("ATTEM LOAD");
+
+    bool hasLoadMore = this.placeList?.hasLoadMore() == true || reverseLoad;
+    if ((loadMore && !hasLoadMore)) return;
     String? page = initialPage ?? (loadMore ? placeList?.links?.getPageNumber().next.toString() : null);
 
     final result = await placesApi.fetchAllPlaces(
+      type: widget.initialPlace?.placeType() != PlaceType.province ? widget.initialPlace?.placeType() : null,
       provinceCode: widget.initialPlace?.provinceCode,
       page: page,
-      type: widget.initialPlace?.placeType(),
     );
 
     if (placesApi.success() && result != null) {
       setState(() {
         if (placeList != null && loadMore) {
-          placeList?.add(result);
+          placeList?.add(result, reverseLoad: reverseLoad);
         } else {
           placeList = result;
         }
       });
+
+      if (reverseLoad && result?.items?.length != null) {
+        carouselController.jumpToPage(result!.items!.length + 1);
+      }
     }
   }
 
@@ -101,6 +107,15 @@ class _CarouselPlaceListState extends State<CarouselPlaceList> {
             viewportFraction: 0.8,
             enableInfiniteScroll: false,
             onPageChanged: (index, reason) {
+              var self = placeList?.links?.getPageNumber().self;
+              int selfInt = int.tryParse("$self") ?? 1;
+
+              if (index == places.length - 2) {
+                load(loadMore: true);
+              } else if (index == 1 && selfInt > 1) {
+                load(reverseLoad: true, loadMore: true, initialPage: "${selfInt - 1}");
+              }
+
               PlaceModel place = this.places[index];
               if (widget.onPageChanged != null) {
                 widget.onPageChanged!(place);
@@ -109,29 +124,50 @@ class _CarouselPlaceListState extends State<CarouselPlaceList> {
           ),
           itemBuilder: (BuildContext context, int index, int pageViewIndex) {
             PlaceModel? place = this.placeList?.items?[index];
-            return buildPlaceItem(place, context);
+            return buildPlaceItem(place, context, index);
           },
         ),
       ),
     );
   }
 
-  Column buildPlaceItem(PlaceModel? place, BuildContext context) {
-    return Column(
+  Widget buildPlaceItem(PlaceModel? place, BuildContext context, int index) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin0),
-          child: PlaceCard(
-            place: place,
-            onTap: () {
-              if (place != null) {
-                Navigator.of(context).pushNamed(
-                  RouteConfig.PLACEDETAIL,
-                  arguments: place,
-                );
-              }
-            },
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin0),
+            child: Column(
+              children: [
+                PlaceCard(
+                  place: place,
+                  onTap: () {
+                    if (place != null) {
+                      Navigator.of(context).pushNamed(
+                        RouteConfig.PLACEDETAIL,
+                        arguments: place,
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
+        ),
+        AnimatedCrossFade(
+          duration: ConfigConstant.fadeDuration,
+          crossFadeState: this.placeList?.hasLoadMore() == true && index == places.length - 1
+              ? CrossFadeState.showFirst
+              : CrossFadeState.showSecond,
+          firstChild: Container(
+            width: kToolbarHeight,
+            margin: const EdgeInsets.only(left: ConfigConstant.margin1),
+            alignment: Alignment.center,
+            child: CircularProgressIndicator(),
+          ),
+          secondChild: const SizedBox(),
         ),
       ],
     );

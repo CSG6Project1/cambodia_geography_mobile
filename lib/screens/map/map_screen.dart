@@ -15,7 +15,6 @@ class MapScreenSetting {
   final LatLng? initialLatLng;
   final MapFlowType flowType;
   final PlaceModel? place;
-  final String? page;
 
   static LatLng defaultLatLng = LatLng(11.5564, 104.9282);
 
@@ -23,7 +22,6 @@ class MapScreenSetting {
     required this.flowType,
     this.initialLatLng,
     this.place,
-    this.page,
   });
 }
 
@@ -131,7 +129,6 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
             onLongPress: (LatLng latLng) {},
           ),
           CarouselPlaceList(
-            initialPage: widget.settings.page,
             initialPlace: widget.settings.place,
             controller: controller,
             onPageChanged: onCarouselPageChanged,
@@ -145,9 +142,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
     return MorphingAppBar(
       elevation: 0.0,
       backgroundColor: colorScheme.surface,
-      leading: BackButton(
-        color: colorScheme.onSurface,
-      ),
+      leading: BackButton(color: Theme.of(context).colorScheme.primary),
       title: CgAppBarTitle(
         title: "Map",
         textStyle: TextStyle(color: colorScheme.onSurface),

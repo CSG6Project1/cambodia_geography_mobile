@@ -12,8 +12,14 @@ abstract class BaseListModel<T> {
     this.links,
   });
 
-  BaseListModel add(BaseListModel newList) {
-    if (newList.items != null) this.items?.addAll(newList.items as List<T>);
+  BaseListModel add(BaseListModel newList, {bool reverseLoad = false}) {
+    if (newList.items != null) {
+      if (reverseLoad) {
+        this.items?.insertAll(0, newList.items as List<T>);
+      } else {
+        this.items?.addAll(newList.items as List<T>);
+      }
+    }
     this.links = newList.links;
     this.meta = newList.meta;
     return this;
