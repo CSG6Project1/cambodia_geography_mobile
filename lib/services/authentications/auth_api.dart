@@ -43,6 +43,7 @@ class AuthApi {
   }
 
   Future<void> saveToStorage(Map<String, dynamic> data) async {
+    print(data);
     await storage.writeMap(data);
   }
 

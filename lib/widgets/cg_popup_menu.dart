@@ -28,6 +28,7 @@ class _CgPopupMenuState<T> extends State<CgPopupMenu> with CgMediaQueryMixin {
   Offset? _tapDownPosition;
 
   void onPressed(BuildContext context) async {
+    if (widget.items.isEmpty) return;
     dynamic overlay = Overlay.of(context)?.context.findRenderObject();
     if (overlay is RenderBox) {
       dynamic result = await showMenu<T>(

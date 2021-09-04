@@ -52,14 +52,28 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
     if (idToken == null) return;
     App.of(context)?.showLoading();
     await userAccountLinkagesApi.addAccountLinkage(idToken);
-    if (userAccountLinkagesApi.success()) await provider.fetchCurrentUser();
+    if (userAccountLinkagesApi.success()) {
+      await provider.fetchCurrentUser();
+    } else {
+      print(userAccountLinkagesApi.response?.statusCode);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(userAccountLinkagesApi.message() ?? "Connect fail!")),
+      );
+    }
+    print(userAccountLinkagesApi.message());
     App.of(context)?.hideLoading();
   }
 
   void onDisconnect(SocialProviderType type, UserProvider provider) async {
     App.of(context)?.showLoading();
     await userAccountLinkagesApi.disconnectAnAccountLinkage(providerTypeToStr(type));
-    if (userAccountLinkagesApi.success()) await provider.fetchCurrentUser();
+    if (userAccountLinkagesApi.success()) {
+      await provider.fetchCurrentUser();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(userAccountLinkagesApi.message() ?? "Disconnect fail!")),
+      );
+    }
     App.of(context)?.hideLoading();
   }
 
@@ -71,6 +85,7 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
   @override
   Widget build(BuildContext context) {
     UserProvider provider = Provider.of<UserProvider>(context, listen: true);
+    // print(provider.user?.providers);
     return Column(
       children: [
         buildSocialTile(
@@ -81,6 +96,7 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
           onUpdate: () {},
           onDisconnect: () => onDisconnect(SocialProviderType.facebook, provider),
           isConnected: isConnected(provider, SocialProviderType.facebook),
+          provider: provider,
         ),
         buildSocialTile(
           title: "Google",
@@ -90,6 +106,7 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
           onUpdate: () {},
           onDisconnect: () => onDisconnect(SocialProviderType.google, provider),
           isConnected: isConnected(provider, SocialProviderType.google),
+          provider: provider,
         ),
       ],
     );
@@ -99,12 +116,15 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
     required String title,
     required IconData iconData,
     required bool isConnected,
+    required UserProvider provider,
     void Function()? onUpdate,
     void Function()? onConnect,
     void Function()? onDisconnect,
     String? subtitle,
     bool showDivider = true,
   }) {
+    bool shouldShowDisconnectBtn =
+        isConnected && !(provider.user?.email == null && provider.user?.providers?.length == 1);
     return Material(
       child: Column(
         children: [
@@ -117,16 +137,11 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
             },
             positinRight: 0,
             items: [
-              if (isConnected) ...[
-                PopupMenuItem<String>(
-                  value: "update",
-                  child: Text("Update"),
-                ),
+              if (shouldShowDisconnectBtn)
                 PopupMenuItem<String>(
                   value: "diconnect",
                   child: Text("Diconnect"),
                 ),
-              ],
               if (!isConnected)
                 PopupMenuItem<String>(
                   value: "connect",
