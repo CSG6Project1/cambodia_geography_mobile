@@ -17,6 +17,7 @@ import 'package:cambodia_geography/widgets/cg_measure_size.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:cambodia_geography/widgets/cg_no_data_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -123,7 +124,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
           } else
             showOkAlertDialog(context: context, title: 'Comment failed');
         }
-      } else {
+      } else if (option == 'edit') {
         var commentUpdate = await showTextInputDialog(
           context: context,
           title: 'Edit comment',
@@ -208,26 +209,34 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Expanded(
-              child: ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
-                  child: Container(
-                    color: colorScheme.background,
-                    child: Consumer<UserProvider>(
-                      builder: (context, provider, child) {
-                        return CgNetworkImageLoader(
-                          imageUrl: provider.user?.profileImg?.url,
-                          width: ConfigConstant.objectHeight1,
-                          height: ConfigConstant.objectHeight1,
-                          fit: BoxFit.cover,
-                        );
-                      },
-                    ),
+            Container(
+              margin: EdgeInsets.only(bottom: 2),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
+                child: Container(
+                  color: colorScheme.background,
+                  child: Consumer<UserProvider>(
+                    builder: (context, provider, child) {
+                      return CgNetworkImageLoader(
+                        imageUrl: provider.user?.profileImg?.url,
+                        width: ConfigConstant.objectHeight1,
+                        height: ConfigConstant.objectHeight1,
+                        fit: BoxFit.cover,
+                      );
+                    },
                   ),
                 ),
-                title: TextField(
+              ),
+            ),
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
+                padding: EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
+                decoration: BoxDecoration(
+                  color: colorScheme.background,
+                  borderRadius: ConfigConstant.circlarRadius2,
+                ),
+                child: TextField(
                   controller: textController,
                   maxLines: 5,
                   minLines: 1,
@@ -241,13 +250,16 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
                 ),
               ),
             ),
-            IconButton(
-              onPressed: () async {
-                await createComment(textController.text);
-              },
-              icon: Icon(
-                Icons.send,
-                color: colorScheme.primary,
+            Container(
+              margin: EdgeInsets.only(bottom: 2),
+              child: IconButton(
+                onPressed: () async {
+                  await createComment(textController.text);
+                },
+                icon: Icon(
+                  Icons.send,
+                  color: colorScheme.primary,
+                ),
               ),
             ),
           ],
