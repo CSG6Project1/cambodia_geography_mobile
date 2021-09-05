@@ -331,7 +331,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
             ),
           ),
           Text(
-            NumberHelper.toKhmer((placeList?.items?[0].commentLength).toString()),
+            NumberHelper.toKhmer((placeList?.items?[0].commentLength ?? 0)),
             style: textTheme.caption,
           ),
           const Spacer(),

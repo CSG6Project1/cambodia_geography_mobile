@@ -58,6 +58,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
         controller: scrollController,
         slivers: [
           CgImageAppBar(
+            loading: false,
             expandedHeight: expandedHeight,
             pageController: pageController,
             title: place.khmer.toString(),

@@ -9,7 +9,7 @@ class CgImageAppBar extends StatelessWidget {
     required this.pageController,
     required this.title,
     required this.images,
-    this.loading = false,
+    required this.loading,
   }) : super(key: key);
 
   final double expandedHeight;
@@ -33,18 +33,18 @@ class CgImageAppBar extends StatelessWidget {
 
   Widget buildFlexibleSpace(BuildContext context) {
     return FlexibleSpaceBar(
-      background: CgCustomShimmer(
-        child: loading
-            ? Container(
+      background: loading
+          ? CgCustomShimmer(
+              child: Container(
                 height: MediaQuery.of(context).size.width,
                 width: MediaQuery.of(context).size.width,
                 color: Theme.of(context).colorScheme.surface,
-              )
-            : ImagesPresentor(
-                images: images,
-                controller: pageController,
               ),
-      ),
+            )
+          : ImagesPresentor(
+              images: images,
+              controller: pageController,
+            ),
     );
   }
 
