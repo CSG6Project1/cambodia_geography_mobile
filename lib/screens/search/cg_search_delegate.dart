@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
+import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/models/places/place_list_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
@@ -8,13 +9,12 @@ import 'package:cambodia_geography/screens/search/search_history_storage.dart';
 import 'package:cambodia_geography/services/apis/search/search_filter_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
-import 'package:cambodia_geography/services/apis/search/search_api.dart';
 import 'package:flutter/material.dart';
 import 'package:styled_text/styled_text.dart';
 
 class CgSearchDelegate extends SearchDelegate<String> {
   late PlacesApi placesApi;
-  late SearchApi searchApi;
+  late SearchFilterApi searchFilterApi;
   PlaceModel? placeModel;
   PlaceListModel? placeList;
   String? provinceCode;
@@ -39,14 +39,6 @@ class CgSearchDelegate extends SearchDelegate<String> {
   @override
   void showResults(BuildContext context) {
     if (query.isEmpty) return;
-    // Navigator.push(context, MaterialPageRoute(builder: (context){
-    //   return PlaceList(
-    //   key: Key(query),
-    //   onTap: (place) {},
-    //   basePlacesApi: SearchApi(),
-    //   keyword: query,
-    // );
-    // }));
     super.showResults(context);
     searchHistoryStorage.readList().then(
       (value) {
@@ -80,19 +72,34 @@ class CgSearchDelegate extends SearchDelegate<String> {
           query = "";
         },
       ),
-      IconButton(
-        icon: Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
-        onPressed: () {
-          Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER).then(
-            (value) {
-              if (value is PlaceModel) {
-                print(value.toJson());
-                placeModel = value;
-                showResults(context);
-              }
-            },
-          );
-        },
+      Container(
+        alignment: Alignment.center,
+        child: AnimatedCrossFade(
+          sizeCurve: Curves.ease,
+          firstChild: Container(
+            width: kToolbarHeight,
+            height: kToolbarHeight,
+            child: IconButton(
+              icon: Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
+              onPressed: () {
+                Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER).then(
+                  (value) {
+                    if (value is PlaceModel) {
+                      print(value.toJson());
+                      placeModel = value;
+                      showResults(context);
+                    }
+                  },
+                );
+              },
+            ),
+          ),
+          secondChild: SizedBox(
+            height: kToolbarHeight,
+          ),
+          crossFadeState: query.isNotEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+          duration: ConfigConstant.fadeDuration,
+        ),
       ),
     ];
   }
@@ -126,7 +133,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
       villageCode: placeModel?.villageCode,
       communeCode: placeModel?.communeCode,
       key: Key(query),
-      basePlacesApi: placeModel != null ? SearchFilterApi() : SearchApi(),
+      basePlacesApi: placeModel != null ? SearchFilterApi() : SearchFilterApi(),
       keyword: query,
       onTap: (place) {
         Navigator.pushNamed(

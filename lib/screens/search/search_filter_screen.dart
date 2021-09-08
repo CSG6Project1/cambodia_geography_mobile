@@ -26,7 +26,7 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
   List<String> districts = [];
   List<String> communes = [];
   List<String> villages = [];
-  List<String> placeTypes = ["តំបន់ទេសចរណ៍", "ភោជនីយដ្ឋាន"];
+  List<String> placeTypes = ["ទទេ", "តំបន់ទេសចរណ៍", "ភោជនីយដ្ឋាន"];
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +45,15 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
         actions: [
           CgButton(
             onPressed: () {
-              Navigator.of(context).pop(PlaceModel(
-                type: _placeType ?? "place",
-                provinceCode: _provinceCode,
-                districtCode: _districtCode,
-                communeCode: _communeCode,
-                villageCode: _villageCode,
-              ));
+              Navigator.of(context).pop(
+                PlaceModel(
+                  type: _placeType,
+                  provinceCode: _provinceCode,
+                  districtCode: _districtCode,
+                  communeCode: _communeCode,
+                  villageCode: _villageCode,
+                ),
+              );
             },
             labelText: "កំណត់",
             backgroundColor: colorScheme.surface,
@@ -66,12 +68,18 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
             fillColor: colorScheme.background,
             items: placeTypes,
             onChanged: (value) {
-              setState(() {
-                if (value == placeTypes[1]) {
-                  _placeType = "restaurant";
-                }
-                print(_placeType);
-              });
+              setState(
+                () {
+                  if (value == placeTypes[0]) {
+                    _placeType = null;
+                  } else if (value == placeTypes[1]) {
+                    _placeType = "place";
+                  } else {
+                    _placeType = "restaurant";
+                  }
+                  print(_placeType);
+                },
+              );
             },
           ),
           const SizedBox(height: ConfigConstant.margin1),
@@ -81,21 +89,27 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
             items: ["ទទេ", ...geo.tbProvinces.map((e) => e.khmer.toString()).toList()],
             onChanged: (value) {
               if (value == "ទទេ") {
-                setState(() {
-                  districts.clear();
-                  communes.clear();
-                  villages.clear();
-                  _provinceCode = null;
-                });
+                setState(
+                  () {
+                    districts.clear();
+                    communes.clear();
+                    villages.clear();
+                    _provinceCode = null;
+                  },
+                );
                 return;
               }
-              setState(() {
-                var selectedProvince = geo.tbProvinces.where((e) => e.khmer == value).toList();
-                _provinceCode = selectedProvince.first.code;
-                districts =
-                    geo.districtsSearch(provinceCode: _provinceCode.toString()).map((e) => e.khmer.toString()).toList();
-                print(districts);
-              });
+              setState(
+                () {
+                  var selectedProvince = geo.tbProvinces.where((e) => e.khmer == value).toList();
+                  _provinceCode = selectedProvince.first.code;
+                  districts = geo
+                      .districtsSearch(provinceCode: _provinceCode.toString())
+                      .map((e) => e.khmer.toString())
+                      .toList();
+                  print(districts);
+                },
+              );
             },
           ),
           const SizedBox(height: ConfigConstant.margin1),
@@ -107,22 +121,26 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
               items: ["ទទេ", ...districts],
               onChanged: (value) {
                 if (value == "ទទេ") {
-                  setState(() {
-                    villages.clear();
-                    communes.clear();
-                    _districtCode = null;
-                  });
+                  setState(
+                    () {
+                      villages.clear();
+                      communes.clear();
+                      _districtCode = null;
+                    },
+                  );
                   return;
                 }
-                setState(() {
-                  var selectedDistrict = geo.tbDistricts.where((e) => e.khmer == value).toList();
-                  _districtCode = selectedDistrict.first.code;
-                  communes = geo
-                      .communesSearch(districtCode: _districtCode.toString())
-                      .map((e) => e.khmer.toString())
-                      .toList();
-                  print(communes);
-                });
+                setState(
+                  () {
+                    var selectedDistrict = geo.tbDistricts.where((e) => e.khmer == value).toList();
+                    _districtCode = selectedDistrict.first.code;
+                    communes = geo
+                        .communesSearch(districtCode: _districtCode.toString())
+                        .map((e) => e.khmer.toString())
+                        .toList();
+                    print(communes);
+                  },
+                );
               },
             ),
           const SizedBox(height: ConfigConstant.margin1),
@@ -134,18 +152,24 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
               items: ["ទទេ", ...communes],
               onChanged: (value) {
                 if (value == "ទទេ") {
-                  setState(() {
-                    villages.clear();
-                    _communeCode = null;
-                  });
+                  setState(
+                    () {
+                      villages.clear();
+                      _communeCode = null;
+                    },
+                  );
                   return;
                 }
-                setState(() {
-                  var selectedCommune = geo.tbCommunes.where((e) => e.khmer == value).toList();
-                  _communeCode = selectedCommune.first.code;
-                  villages =
-                      geo.villagesSearch(communeCode: _communeCode.toString()).map((e) => e.khmer.toString()).toList();
-                });
+                setState(
+                  () {
+                    var selectedCommune = geo.tbCommunes.where((e) => e.khmer == value).toList();
+                    _communeCode = selectedCommune.first.code;
+                    villages = geo
+                        .villagesSearch(communeCode: _communeCode.toString())
+                        .map((e) => e.khmer.toString())
+                        .toList();
+                  },
+                );
               },
             ),
           const SizedBox(height: ConfigConstant.margin1),
@@ -160,10 +184,12 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
                   _villageCode = null;
                   return;
                 }
-                setState(() {
-                  var selectedVillage = geo.tbVillages.where((e) => e.khmer == value).toList();
-                  _villageCode = selectedVillage.first.code;
-                });
+                setState(
+                  () {
+                    var selectedVillage = geo.tbVillages.where((e) => e.khmer == value).toList();
+                    _villageCode = selectedVillage.first.code;
+                  },
+                );
               },
             ),
         ],
