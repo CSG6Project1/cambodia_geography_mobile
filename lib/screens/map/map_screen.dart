@@ -1,15 +1,24 @@
 import 'dart:async';
+import 'package:cambodia_geography/constants/api_constant.dart';
+import 'package:cambodia_geography/constants/config_constant.dart';
+import 'package:cambodia_geography/exports/widgets_exports.dart';
+import 'package:cambodia_geography/helpers/app_helper.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/map/local_widgets/carousel_place_list.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 export 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_webservice/places.dart';
+import 'package:google_api_headers/google_api_headers.dart';
 
 class MapScreenSetting {
   final LatLng? initialLatLng;
@@ -45,21 +54,22 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMixin {
   late final Completer<GoogleMapController> controller;
   late final CameraPosition cameraPosition;
+  late final ValueNotifier<String?> currentNameNotifier;
 
   Set<Marker> markers = {};
+  bool get picking => widget.settings.flowType == MapFlowType.pick;
 
   @override
   void initState() {
     controller = Completer();
+    currentNameNotifier = ValueNotifier(null);
     cameraPosition = CameraPosition(
       target: widget.settings.initialLatLng ?? MapScreenSetting.defaultLatLng,
       zoom: 12,
     );
 
     if (widget.settings.initialLatLng != null) {
-      markers.add(buildPinMarker(
-        widget.settings.initialLatLng!,
-      ));
+      setMarker(widget.settings.initialLatLng!);
     }
 
     super.initState();
@@ -80,20 +90,47 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
     });
   }
 
-  void onCarouselPageChanged(PlaceModel place) async {
-    Marker marker = buildPinMarker(place.latLng()!);
-    setState(() => this.markers = Set.of([marker]));
+  void moveCameraTo(LatLng latLng) async {
+    print(latLng.toJson().toString());
     GoogleMapController _mapController = await controller.future;
-    _mapController.animateCamera(CameraUpdate.newLatLng(LatLng(
-      place.lat!,
-      place.lon!,
-    )));
+    _mapController.animateCamera(CameraUpdate.newLatLng(latLng));
+  }
+
+  void setMarker(LatLng latLng, {bool updateState = true}) {
+    Marker marker = buildPinMarker(latLng);
+
+    if (updateState) {
+      setState(() => this.markers = Set.of([marker]));
+    } else {
+      this.markers = Set.of([marker]);
+    }
+
+    this.currentNameNotifier.value = null;
+    placemarkFromCoordinates(latLng.latitude, latLng.longitude).then((placemarks) {
+      this.currentNameNotifier.value = [
+        "LatLng: ${latLng.latitude}",
+        latLng.longitude,
+        placemarks.first.toJson().values.map((e) => e),
+      ].join(", ");
+    });
+  }
+
+  void onCarouselPageChanged(PlaceModel place) async {
+    setMarker(place.latLng()!);
+    moveCameraTo(LatLng(place.lat!, place.lon!));
+  }
+
+  @override
+  void dispose() {
+    currentNameNotifier.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
+      bottomNavigationBar: buildBottomNavigationBar(),
       body: Stack(
         children: [
           GoogleMap(
@@ -125,17 +162,70 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
             tileOverlays: const <TileOverlay>{},
             onCameraMove: (CameraPosition position) {},
             onCameraIdle: () {},
-            onTap: (LatLng latLng) {},
+            onTap: (LatLng latLng) async {
+              if (!picking) return;
+              setMarker(latLng);
+            },
             onLongPress: (LatLng latLng) {},
           ),
-          CarouselPlaceList(
-            initialPlace: widget.settings.place,
-            controller: controller,
-            onPageChanged: onCarouselPageChanged,
-          )
+          if (widget.settings.flowType == MapFlowType.view)
+            CarouselPlaceList(
+              initialPlace: widget.settings.place,
+              controller: controller,
+              onPageChanged: onCarouselPageChanged,
+            )
         ],
       ),
     );
+  }
+
+  CgBottomNavWrapper buildBottomNavigationBar() {
+    return CgBottomNavWrapper(
+      child: Column(
+        children: [
+          ValueListenableBuilder<String?>(
+            valueListenable: currentNameNotifier,
+            builder: (context, value, child) {
+              return AnimatedCrossFade(
+                crossFadeState: value?.isNotEmpty == true ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                duration: ConfigConstant.fadeDuration,
+                secondChild: SizedBox(width: double.infinity),
+                firstChild: Container(
+                  width: double.infinity,
+                  child: Text(value ?? "", textAlign: TextAlign.start),
+                ),
+              );
+            },
+          ),
+          Container(
+            width: double.infinity,
+            child: CgButton(
+              labelText: "Confirm",
+              foregroundColor: colorScheme.onPrimary,
+              onPressed: () {
+                if (this.markers.isEmpty) return;
+                Navigator.of(context).pop(this.markers.first.position);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<LatLng?> getLatLng(Prediction? prediction) async {
+    if (prediction?.placeId != null) {
+      GoogleMapsPlaces _places = GoogleMapsPlaces(
+        apiKey: ApiConstant.googleMapApiKey,
+        apiHeaders: await GoogleApiHeaders().getHeaders(),
+      );
+      PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(prediction!.placeId!);
+      double? lat = detail.result.geometry?.location.lat;
+      double? lng = detail.result.geometry?.location.lng;
+      if (AppHelper.isLatLngValdated(lat, lng)) {
+        return LatLng(lat!, lng!);
+      }
+    }
   }
 
   MorphingAppBar buildAppBar() {
@@ -143,10 +233,33 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
       elevation: 0.0,
       backgroundColor: colorScheme.surface,
       leading: BackButton(color: Theme.of(context).colorScheme.primary),
-      title: CgAppBarTitle(
-        title: "Map",
-        textStyle: TextStyle(color: colorScheme.onSurface),
-      ),
+      title: picking
+          ? TextField(
+              readOnly: true,
+              decoration: InputDecoration(
+                hintText: "Search...",
+                border: InputBorder.none,
+              ),
+              onTap: () async {
+                Prediction? prediction = await PlacesAutocomplete.show(
+                  context: context,
+                  apiKey: ApiConstant.googleMapApiKey,
+                  mode: Mode.overlay, // Mode.fullscreen
+                  types: [],
+                  strictbounds: false,
+                  components: [],
+                );
+                LatLng? latLng = await getLatLng(prediction);
+                if (latLng != null) {
+                  setMarker(latLng);
+                  moveCameraTo(latLng);
+                }
+              },
+            )
+          : CgAppBarTitle(
+              title: "Map",
+              textStyle: TextStyle(color: colorScheme.onSurface),
+            ),
       actions: [],
     );
   }
