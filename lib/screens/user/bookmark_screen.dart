@@ -1,12 +1,14 @@
 import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
-import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/providers/bookmark_editing_provider.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
-import 'package:cambodia_geography/services/apis/places/places_api.dart';
+import 'package:cambodia_geography/services/apis/bookmarks/bookmark_api.dart';
+import 'package:cambodia_geography/services/apis/bookmarks/bookmark_remove_all_places_api.dart';
+import 'package:cambodia_geography/services/apis/bookmarks/bookmark_remove_multiple_places_api.dart';
+import 'package:cambodia_geography/services/apis/bookmarks/bookmark_remove_place_api.dart';
 import 'package:cambodia_geography/widgets/cg_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -76,74 +78,64 @@ class _BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvid
   }
 
   Widget buildBody() {
-    return Stack(
-      children: List.generate(
-        provinces.length,
-        (index) {
-          return Visibility(
-            visible: currentProvinceCode == provinces[index].code,
-            child: TabBarView(
-              controller: controller,
-              children: [
-                PlaceList(
-                  type: PlaceType.place,
-                  provinceCode: provinces[index].code,
-                  basePlacesApi: PlacesApi(),
-                  onTap: (place) {
-                    Navigator.of(context).pushNamed(
-                      RouteConfig.PLACEDETAIL,
-                      arguments: place,
-                    );
-                  },
-                ),
-                PlaceList(
-                  type: PlaceType.restaurant,
-                  provinceCode: provinces[index].code,
-                  basePlacesApi: PlacesApi(),
-                  onTap: (place) {
-                    Navigator.of(context).pushNamed(
-                      RouteConfig.PLACEDETAIL,
-                      arguments: place,
-                    );
-                  },
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+    return TabBarView(
+      controller: controller,
+      children: [
+        PlaceList(
+          type: PlaceType.place,
+          basePlacesApi: BookmarkApi(),
+          onTap: (place) {
+            Navigator.of(context).pushNamed(
+              RouteConfig.PLACEDETAIL,
+              arguments: place,
+            );
+          },
+        ),
+        PlaceList(
+          type: PlaceType.restaurant,
+          basePlacesApi: BookmarkApi(),
+          onTap: (place) {
+            Navigator.of(context).pushNamed(
+              RouteConfig.PLACEDETAIL,
+              arguments: place,
+            );
+          },
+        ),
+      ],
     );
   }
 
   MorphingAppBar buildAppbar() {
+    BookmarkEditingProvider provider = Provider.of<BookmarkEditingProvider>(context, listen: false);
     return MorphingAppBar(
       actions: [
         IconButton(
           onPressed: () {
-            BookmarkEditingProvider provider = Provider.of<BookmarkEditingProvider>(context, listen: false);
             provider.editing = !provider.editing;
+            print(provider.checkPlaceIds);
           },
           icon: Icon(Icons.settings),
         ),
+        IconButton(
+            onPressed: () async {
+              if (provider.checkPlaceIds.length == 1) {
+                BookmarkRemovePlaceApi bookmarkRemovePlaceApi = BookmarkRemovePlaceApi();
+                App.of(context)?.showLoading();
+                await bookmarkRemovePlaceApi.removePlace(id: provider.checkPlaceIds[0]);
+                provider.editing = false;
+                App.of(context)?.hideLoading();
+              } else if (provider.checkPlaceIds.length >= 2) {
+                BookmarkRemoveMultiplePlacesApi bookmarkRemoveMultiplePlacesApi = BookmarkRemoveMultiplePlacesApi();
+                App.of(context)?.showLoading();
+                await bookmarkRemoveMultiplePlacesApi.removeMultiplePlaces(placeIds: provider.checkPlaceIds);
+                provider.editing = false;
+                App.of(context)?.hideLoading();
+              }
+            },
+            icon: Icon(Icons.delete))
       ],
       titleSpacing: 0,
-      title: Row(
-        children: [
-          const SizedBox(width: ConfigConstant.margin1),
-          const CgAppBarTitle(title: "កំណត់ចំណាំ"),
-          const SizedBox(width: ConfigConstant.margin2 + 8),
-          Expanded(
-            child: CgDropDownField(
-              isExpanded: true,
-              outlineBorder: true,
-              items: provinces.map((e) => "${e.khmer}").toList(),
-              onChanged: (String? value) {
-                currentProvinceCode = provinces.where((element) => value == element.khmer).first.code!;
-              },
-            ),
-          ),
-        ],
-      ),
+      title: const CgAppBarTitle(title: "កំណត់ចំណាំ"),
       bottom: TabBar(
         controller: controller,
         tabs: [

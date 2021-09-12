@@ -212,10 +212,11 @@ abstract class BaseApi<T> {
   Future<dynamic> delete({
     String? id,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic> body = const {},
   }) {
     return _beforeExec(() async {
       String endpoint = objectNameUrlModel.deletelUrl(id: id, queryParameters: queryParameters);
-      response = await network?.http?.delete(Uri.parse(endpoint));
+      response = await network?.http?.delete(Uri.parse(endpoint), body: jsonEncode(body));
       dynamic json = jsonDecode(response?.body.toString() ?? "");
       if (json is Map<String, dynamic>) {
         if (json.containsKey('data')) json = useJapx ? Japx.decode(json) : json;
