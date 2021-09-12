@@ -244,7 +244,6 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
           String fahrenheit = "${NumberHelper.toKhmer(weather?.temperature?.fahrenheit?.toInt())} °F";
           // Weather image
           String? weatherImage;
-          print('weather Icon ; ${weather?.weatherIcon}');
           String icon = weather?.weatherIcon ?? '';
           if (weather?.weatherIcon != null) {
             weatherImage = "http://openweathermap.org/img/wn/$icon@2x.png";
