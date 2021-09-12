@@ -135,7 +135,9 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              
+            },
             icon: Icon(
               Icons.bookmark,
               color: colorScheme.primary,

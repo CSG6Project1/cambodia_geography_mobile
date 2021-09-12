@@ -5,6 +5,8 @@ import 'package:cambodia_geography/models/image_model.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'bookmark_model.dart';
 part 'place_model.g.dart';
 
 @JsonSerializable()
@@ -26,6 +28,7 @@ class PlaceModel {
     this.lon,
     this.body,
     this.id,
+    this.bookmark,
   });
 
   @JsonKey(name: 'create_at')
@@ -51,6 +54,7 @@ class PlaceModel {
   double? lon;
   String? body;
   String? id;
+  BookmarkModel? bookmark;
 
   String? page;
   void setPage(String? value) => this.page = value;
