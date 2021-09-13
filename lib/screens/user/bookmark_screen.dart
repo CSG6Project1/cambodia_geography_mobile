@@ -1,12 +1,13 @@
 import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
+import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/providers/bookmark_editing_provider.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
+import 'package:cambodia_geography/services/apis/base_api.dart';
 import 'package:cambodia_geography/services/apis/bookmarks/bookmark_api.dart';
-import 'package:cambodia_geography/services/apis/bookmarks/bookmark_remove_all_places_api.dart';
 import 'package:cambodia_geography/services/apis/bookmarks/bookmark_remove_multiple_places_api.dart';
 import 'package:cambodia_geography/services/apis/bookmarks/bookmark_remove_place_api.dart';
 import 'package:cambodia_geography/widgets/cg_scaffold.dart';
@@ -24,13 +25,32 @@ class BookmarkScreen extends StatefulWidget {
 class _BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProviderStateMixin, RouteAware {
   late TabController controller;
   late List<TbProvinceModel> provinces;
+  late Key placeKey;
+  late Key restaurantKey;
 
   @override
   void initState() {
     controller = TabController(length: 2, vsync: this);
     provinces = CambodiaGeography.instance.tbProvinces;
     _currentProvinceCode = provinces.first.code!;
+    placeKey = UniqueKey();
+    restaurantKey = UniqueKey();
     super.initState();
+  }
+
+  void setUniqueKey(BaseApi api){
+    if (api.success()) {
+      if (controller.index == 0) {
+        setState(() {
+          placeKey = UniqueKey();
+        });
+      }
+      else {
+        setState(() {
+          restaurantKey = UniqueKey();
+        });
+      }
+    }
   }
 
   @override
@@ -82,6 +102,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvid
       controller: controller,
       children: [
         PlaceList(
+          key: placeKey,
           type: PlaceType.place,
           basePlacesApi: BookmarkApi(),
           onTap: (place) {
@@ -92,6 +113,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvid
           },
         ),
         PlaceList(
+          key: restaurantKey,
           type: PlaceType.restaurant,
           basePlacesApi: BookmarkApi(),
           onTap: (place) {
@@ -116,23 +138,47 @@ class _BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvid
           },
           icon: Icon(Icons.settings),
         ),
-        IconButton(
-            onPressed: () async {
-              if (provider.checkPlaceIds.length == 1) {
-                BookmarkRemovePlaceApi bookmarkRemovePlaceApi = BookmarkRemovePlaceApi();
-                App.of(context)?.showLoading();
-                await bookmarkRemovePlaceApi.removePlace(id: provider.checkPlaceIds[0]);
-                provider.editing = false;
-                App.of(context)?.hideLoading();
-              } else if (provider.checkPlaceIds.length >= 2) {
-                BookmarkRemoveMultiplePlacesApi bookmarkRemoveMultiplePlacesApi = BookmarkRemoveMultiplePlacesApi();
-                App.of(context)?.showLoading();
-                await bookmarkRemoveMultiplePlacesApi.removeMultiplePlaces(placeIds: provider.checkPlaceIds);
-                provider.editing = false;
-                App.of(context)?.hideLoading();
-              }
-            },
-            icon: Icon(Icons.delete))
+        Container(
+          alignment: Alignment.center,
+          child: Consumer<BookmarkEditingProvider>(
+              child: Container(
+                width: kToolbarHeight,
+                height: kToolbarHeight,
+                child: IconButton(
+                  onPressed: () async {
+                    if (provider.checkPlaceIds.length == 1) {
+                      BookmarkRemovePlaceApi bookmarkRemovePlaceApi = BookmarkRemovePlaceApi();
+                      App.of(context)?.showLoading();
+                      await bookmarkRemovePlaceApi.removePlace(id: provider.checkPlaceIds[0]);
+                      provider.editing = false;
+                      App.of(context)?.hideLoading();
+                      setUniqueKey(bookmarkRemovePlaceApi);
+                    } else if (provider.checkPlaceIds.length >= 2) {
+                      BookmarkRemoveMultiplePlacesApi bookmarkRemoveMultiplePlacesApi =
+                          BookmarkRemoveMultiplePlacesApi();
+                      App.of(context)?.showLoading();
+                      await bookmarkRemoveMultiplePlacesApi.removeMultiplePlaces(placeIds: provider.checkPlaceIds);
+                      provider.editing = false;
+                      App.of(context)?.hideLoading();
+                      setUniqueKey(bookmarkRemoveMultiplePlacesApi);
+                    }
+                  },
+                  icon: Icon(Icons.delete),
+                ),
+              ),
+              builder: (context, provider, child) {
+                return AnimatedCrossFade(
+                  sizeCurve: Curves.ease,
+                  firstChild: child ?? SizedBox(),
+                  secondChild: SizedBox(
+                    height: kToolbarHeight,
+                  ),
+                  crossFadeState:
+                      provider.checkPlaceIds.length >= 1 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                  duration: ConfigConstant.fadeDuration,
+                );
+              }),
+        ),
       ],
       titleSpacing: 0,
       title: const CgAppBarTitle(title: "កំណត់ចំណាំ"),
