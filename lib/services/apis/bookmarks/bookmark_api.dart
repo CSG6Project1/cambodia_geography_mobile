@@ -33,8 +33,8 @@ class BookmarkApi extends BasePlacesApi {
     String? communeCode,
     String? page,
   }) {
-    print(type);
-    print(page);
+    // print(type);
+    // print(page);
     return this.fetchBookmark(type: type, page: page);
   }
 
