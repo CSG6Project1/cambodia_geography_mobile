@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
@@ -7,10 +8,12 @@ import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/place_detail/local_widgets/place_title.dart';
+import 'package:cambodia_geography/services/apis/bookmarks/bookmark_api.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PlaceDetailScreen extends StatefulWidget {
   const PlaceDetailScreen({
@@ -135,8 +138,19 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
             ),
           ),
           IconButton(
-            onPressed: () {
-              
+            onPressed: () async {
+              if (place.id == null) return;
+              BookmarkApi bookmarkApi = BookmarkApi();
+              await bookmarkApi.addPlace(place.id!);
+              if (bookmarkApi.success()) {
+                Fluttertoast.showToast(msg: "Place added to bookmark");
+              } else {
+                showOkAlertDialog(
+                  context: context,
+                  title: "Error",
+                  message: bookmarkApi.message() ?? "Add to bookmark fail",
+                );
+              }
             },
             icon: Icon(
               Icons.bookmark,
