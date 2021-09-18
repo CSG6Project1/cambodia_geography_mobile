@@ -14,6 +14,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class App extends StatefulWidget {
   const App({
@@ -85,6 +86,7 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
     themeProvider = Provider.of<ThemeProvider>(context, listen: true);
     localeProvider = Provider.of<LocaleProvider>(context, listen: true);
     return MaterialApp(
+      supportedLocales: context.supportedLocales,
       theme: theme,
       debugShowCheckedModeBanner: false,
       home: RouteConfig().routes[widget.initialRoute]?.screen ?? HomeScreen(),
@@ -97,6 +99,7 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+        ...context.localizationDelegates,
       ],
     );
   }
