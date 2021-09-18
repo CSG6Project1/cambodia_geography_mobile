@@ -8,10 +8,12 @@ class CgBottomNavWrapper extends StatefulWidget {
     Key? key,
     required this.child,
     this.visible = true,
+    this.padding,
   }) : super(key: key);
 
   final Widget child;
   final bool visible;
+  final EdgeInsets? padding;
 
   @override
   _CgBottomNavWrapperState createState() => _CgBottomNavWrapperState();
@@ -30,10 +32,11 @@ class _CgBottomNavWrapperState extends State<CgBottomNavWrapper> with CgMediaQue
         curve: Curves.ease,
         child: AnimatedContainer(
           duration: ConfigConstant.fadeDuration,
-          padding: EdgeInsets.symmetric(
-            horizontal: ConfigConstant.margin2,
-            vertical: ConfigConstant.margin1,
-          ),
+          padding: widget.padding ??
+              EdgeInsets.symmetric(
+                horizontal: ConfigConstant.margin2,
+                vertical: ConfigConstant.margin1,
+              ),
           transform: Matrix4.identity()..translate(0.0, widget.visible ? 0.0 : height),
           curve: Curves.ease,
           decoration: BoxDecoration(
