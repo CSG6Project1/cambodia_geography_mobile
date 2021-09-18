@@ -219,6 +219,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
         ),
       ),
       bottomNavigationBar: CgBottomNavWrapper(
+        padding: EdgeInsets.fromLTRB(ConfigConstant.margin2, ConfigConstant.margin1, 0, ConfigConstant.margin1),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -243,8 +244,8 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
             ),
             Expanded(
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
-                padding: EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
+                margin: EdgeInsets.only(left: ConfigConstant.margin2),
+                padding: EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
                 decoration: BoxDecoration(
                   color: colorScheme.background,
                   borderRadius: ConfigConstant.circlarRadius1,
@@ -286,17 +287,18 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
     required bool isLastIndex,
   }) {
     return Container(
-      color: colorScheme.surface,
-      padding: EdgeInsets.only(left: ConfigConstant.margin2),
       child: Column(
         children: [
-          Row(
-            children: [
-              buildProfilePic(comment?.user?.profileImg?.url),
-              loading && isLastIndex
-                  ? Expanded(child: CgCustomShimmer(child: buildCommentText(comment)))
-                  : Expanded(child: buildCommentText(comment)),
-            ],
+          ListTile(
+            contentPadding: EdgeInsets.symmetric(
+              vertical: ConfigConstant.margin1,
+              horizontal: ConfigConstant.margin2,
+            ),
+            tileColor: colorScheme.surface,
+            onLongPress: () => onTapCommentOption(comment),
+            leading: buildProfilePic(comment?.user?.profileImg?.url),
+            title:
+                loading && isLastIndex ? CgCustomShimmer(child: buildCommentText(comment)) : buildCommentText(comment),
           ),
           if (!isLastIndex) const Divider(height: 0),
         ],
@@ -306,49 +308,50 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
 
   Widget buildCommentText(CommentModel? comment) {
     String date = comment?.createdAt != null ? DateFormat('dd MMM, yyyy, hh:mm a').format(comment!.createdAt!) : "";
-    return ListTile(
-      onLongPress: () => onTapCommentOption(comment),
-      tileColor: colorScheme.surface,
-      title: AnimatedCrossFade(
-        duration: ConfigConstant.fadeDuration,
-        crossFadeState: comment != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-        firstChild: Text(
-          comment?.user?.username != null
-              ? (comment?.user?.username.toString() ?? '') + ' • ' + date
-              : "CamGeo's User" + ' • ' + date,
-          style: textTheme.caption,
-        ),
-        secondChild: CgCustomShimmer(
-          child: Row(
-            children: [
-              Container(
-                height: 12,
-                width: 100,
-                color: colorScheme.surface,
-              ),
-            ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AnimatedCrossFade(
+          duration: ConfigConstant.fadeDuration,
+          crossFadeState: comment != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+          firstChild: Text(
+            comment?.user?.username != null
+                ? (comment?.user?.username.toString() ?? '') + ' • ' + date
+                : "CamGeo's User" + ' • ' + date,
+            style: textTheme.caption,
+          ),
+          secondChild: CgCustomShimmer(
+            child: Row(
+              children: [
+                Container(
+                  height: 12,
+                  width: 100,
+                  color: colorScheme.surface,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      subtitle: AnimatedCrossFade(
-        duration: ConfigConstant.fadeDuration,
-        crossFadeState: comment?.comment != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-        firstChild: Text(
-          comment?.comment ?? '',
-          style: textTheme.bodyText2,
-        ),
-        secondChild: CgCustomShimmer(
-          child: Row(
-            children: [
-              Container(
-                height: 12,
-                width: 120,
-                color: colorScheme.surface,
-              ),
-            ],
+        AnimatedCrossFade(
+          duration: ConfigConstant.fadeDuration,
+          crossFadeState: comment?.comment != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+          firstChild: Text(
+            comment?.comment ?? '',
+            style: textTheme.bodyText2,
+          ),
+          secondChild: CgCustomShimmer(
+            child: Row(
+              children: [
+                Container(
+                  height: 12,
+                  width: 120,
+                  color: colorScheme.surface,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 
