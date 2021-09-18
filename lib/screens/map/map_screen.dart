@@ -179,7 +179,8 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
     );
   }
 
-  CgBottomNavWrapper buildBottomNavigationBar() {
+  Widget buildBottomNavigationBar() {
+    if (widget.settings.flowType != MapFlowType.pick) return SizedBox();
     return CgBottomNavWrapper(
       child: Column(
         children: [
