@@ -112,5 +112,10 @@
 	<array>
 		<string>camgeo</string>
 	</array>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>km</string>
+	</array>
 </dict>
 </plist>

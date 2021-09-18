@@ -38,14 +38,13 @@ class _BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvid
     super.initState();
   }
 
-  void setUniqueKey(BaseApi api){
+  void setUniqueKey(BaseApi api) {
     if (api.success()) {
       if (controller.index == 0) {
         setState(() {
           placeKey = UniqueKey();
         });
-      }
-      else {
+      } else {
         setState(() {
           restaurantKey = UniqueKey();
         });
@@ -141,43 +140,43 @@ class _BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvid
         Container(
           alignment: Alignment.center,
           child: Consumer<BookmarkEditingProvider>(
-              child: Container(
-                width: kToolbarHeight,
-                height: kToolbarHeight,
-                child: IconButton(
-                  onPressed: () async {
-                    if (provider.checkPlaceIds.length == 1) {
-                      BookmarkRemovePlaceApi bookmarkRemovePlaceApi = BookmarkRemovePlaceApi();
-                      App.of(context)?.showLoading();
-                      await bookmarkRemovePlaceApi.removePlace(id: provider.checkPlaceIds[0]);
-                      provider.editing = false;
-                      App.of(context)?.hideLoading();
-                      setUniqueKey(bookmarkRemovePlaceApi);
-                    } else if (provider.checkPlaceIds.length >= 2) {
-                      BookmarkRemoveMultiplePlacesApi bookmarkRemoveMultiplePlacesApi =
-                          BookmarkRemoveMultiplePlacesApi();
-                      App.of(context)?.showLoading();
-                      await bookmarkRemoveMultiplePlacesApi.removeMultiplePlaces(placeIds: provider.checkPlaceIds);
-                      provider.editing = false;
-                      App.of(context)?.hideLoading();
-                      setUniqueKey(bookmarkRemoveMultiplePlacesApi);
-                    }
-                  },
-                  icon: Icon(Icons.delete),
-                ),
+            child: Container(
+              width: kToolbarHeight,
+              height: kToolbarHeight,
+              child: IconButton(
+                onPressed: () async {
+                  if (provider.checkPlaceIds.length == 1) {
+                    BookmarkRemovePlaceApi bookmarkRemovePlaceApi = BookmarkRemovePlaceApi();
+                    App.of(context)?.showLoading();
+                    await bookmarkRemovePlaceApi.removePlace(id: provider.checkPlaceIds[0]);
+                    provider.editing = false;
+                    App.of(context)?.hideLoading();
+                    setUniqueKey(bookmarkRemovePlaceApi);
+                  } else if (provider.checkPlaceIds.length >= 2) {
+                    BookmarkRemoveMultiplePlacesApi bookmarkRemoveMultiplePlacesApi = BookmarkRemoveMultiplePlacesApi();
+                    App.of(context)?.showLoading();
+                    await bookmarkRemoveMultiplePlacesApi.removeMultiplePlaces(placeIds: provider.checkPlaceIds);
+                    provider.editing = false;
+                    App.of(context)?.hideLoading();
+                    setUniqueKey(bookmarkRemoveMultiplePlacesApi);
+                  }
+                },
+                icon: Icon(Icons.delete),
               ),
-              builder: (context, provider, child) {
-                return AnimatedCrossFade(
-                  sizeCurve: Curves.ease,
-                  firstChild: child ?? SizedBox(),
-                  secondChild: SizedBox(
-                    height: kToolbarHeight,
-                  ),
-                  crossFadeState:
-                      provider.checkPlaceIds.length >= 1 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                  duration: ConfigConstant.fadeDuration,
-                );
-              }),
+            ),
+            builder: (context, provider, child) {
+              return AnimatedCrossFade(
+                sizeCurve: Curves.ease,
+                firstChild: child ?? SizedBox(),
+                secondChild: SizedBox(
+                  height: kToolbarHeight,
+                ),
+                crossFadeState:
+                    provider.checkPlaceIds.length >= 1 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                duration: ConfigConstant.fadeDuration,
+              );
+            },
+          ),
         ),
       ],
       titleSpacing: 0,
