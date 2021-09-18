@@ -46,7 +46,7 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
         provider.updateLocale(Locale("en"));
         break;
       case "km":
-        provider.updateLocale(Locale("en"));
+        provider.updateLocale(Locale("km"));
         break;
       case "system":
         provider.useDefaultLocale();

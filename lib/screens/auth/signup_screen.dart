@@ -13,6 +13,7 @@ import 'package:cambodia_geography/screens/auth/login_screen.dart';
 import 'package:cambodia_geography/services/apis/users/confirmation_api.dart';
 import 'package:cambodia_geography/services/apis/users/user_register_api.dart';
 import 'package:cambodia_geography/services/authentications/auth_api.dart';
+import 'package:cambodia_geography/services/bypass/bookmark_bypass.dart';
 import 'package:cambodia_geography/services/storages/init_app_state_storage.dart';
 import 'package:cambodia_geography/types/app_state_type.dart';
 import 'package:cambodia_geography/widgets/cg_child_divider.dart';
@@ -52,6 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
     }
 
     if (error == null) {
+      BookmarkBypass().exec();
       await Provider.of<UserProvider>(context, listen: false).fetchCurrentUser();
       navigateToNextState(skip: socialAuth);
     } else {
