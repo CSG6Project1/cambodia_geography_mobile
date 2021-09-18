@@ -172,9 +172,9 @@ class CgSearchDelegate extends SearchDelegate<String> {
                   showResults(context);
                   searchHistoryStorage.readList().then(
                     (value) {
-                      if (query != suggestionList[0]) {
-                        value?.remove(query);
-                        value!.insert(0, query);
+                      if (query != suggestionList[0] && value != null) {
+                        value.remove(query);
+                        value.insert(0, query);
                         searchHistoryStorage.writeList(value);
                       } else {
                         return;
@@ -185,7 +185,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
                 onLongPress: () async {
                   OkCancelResult result = await showOkCancelAlertDialog(
                     context: context,
-                    title: tr("msg.are_you_sure_to_delete"),    
+                    title: tr("msg.are_you_sure_to_delete"),
                   );
                   if (result == OkCancelResult.ok) {
                     var selectedItem = suggestionList[index];
