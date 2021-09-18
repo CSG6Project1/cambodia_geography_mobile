@@ -9,6 +9,8 @@ class CgTextField extends StatefulWidget {
     this.value,
     this.labelText,
     this.hintText,
+    this.maxLines,
+    this.minLines,
     this.prefix,
     this.suffix,
     this.fillColor,
@@ -18,12 +20,16 @@ class CgTextField extends StatefulWidget {
     this.autocorrect = true,
     this.keyboardType,
     this.textInputAction,
+    this.borderSide,
   }) : super(key: key);
 
+  final BorderSide? borderSide;
   final TextEditingController? controller;
   final String? value;
   final String? labelText;
   final String? hintText;
+  final int? maxLines;
+  final int? minLines;
   final Widget? suffix;
   final Widget? prefix;
   final Color? fillColor;
@@ -59,12 +65,14 @@ class _CgTextFieldState extends State<CgTextField> with CgThemeMixin {
       keyboardAppearance: colorScheme.brightness,
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
-      controller: controller,
+      controller: widget.controller ?? controller,
       onChanged: widget.onChanged,
       onSubmitted: widget.onSubmitted,
       autocorrect: widget.autocorrect,
       obscureText: widget.obscureText,
       decoration: buildInputDecoration(colorScheme),
+      maxLines: widget.maxLines,
+      minLines: widget.minLines,
     );
   }
 
@@ -77,7 +85,7 @@ class _CgTextFieldState extends State<CgTextField> with CgThemeMixin {
       labelStyle: Theme.of(context).textTheme.bodyText2,
       border: UnderlineInputBorder(
         borderRadius: ConfigConstant.circlarRadiusTop1,
-        borderSide: BorderSide(color: colorScheme.primary),
+        borderSide: widget.borderSide ?? BorderSide(color: colorScheme.primary),
       ),
       contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       suffixIcon: widget.suffix,

@@ -42,21 +42,28 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   late bool loading;
 
+  late ValueNotifier<bool> isTextEmptyNotifier;
+
   @override
   void initState() {
     loading = false;
     textController = TextEditingController();
+    isTextEmptyNotifier = ValueNotifier(true);
     scrollController = ScrollController();
     commentApi = CommentApi(id: widget.place.id ?? '');
     crudCommentApi = CrudCommentApi();
     super.initState();
     load();
+
+    textController.addListener(() {
+      isTextEmptyNotifier.value = textController.text.trim().isEmpty;
+    });
   }
 
   @override
   void dispose() {
     scrollController.dispose();
-    textController.dispose();
+    isTextEmptyNotifier.dispose();
     super.dispose();
   }
 
@@ -219,61 +226,64 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
         ),
       ),
       bottomNavigationBar: CgBottomNavWrapper(
-        padding: EdgeInsets.fromLTRB(ConfigConstant.margin2, ConfigConstant.margin1, 0, ConfigConstant.margin1),
+        padding: const EdgeInsets.symmetric(
+          horizontal: ConfigConstant.margin2,
+          vertical: ConfigConstant.margin1,
+        ).copyWith(right: 0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Container(
-              margin: EdgeInsets.only(bottom: 2),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
-                child: Container(
-                  color: colorScheme.background,
-                  child: Consumer<UserProvider>(
-                    builder: (context, provider, child) {
-                      return CgNetworkImageLoader(
-                        imageUrl: provider.user?.profileImg?.url,
-                        width: ConfigConstant.objectHeight1,
-                        height: ConfigConstant.objectHeight1,
-                        fit: BoxFit.cover,
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
+            ClipRRect(
+              borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
               child: Container(
-                margin: EdgeInsets.only(left: ConfigConstant.margin2),
-                padding: EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
-                decoration: BoxDecoration(
-                  color: colorScheme.background,
-                  borderRadius: ConfigConstant.circlarRadius1,
-                ),
-                child: TextField(
-                  controller: textController,
-                  maxLines: 5,
-                  minLines: 1,
-                  decoration: InputDecoration(
-                    hintText: 'មតិយោបល់របស់អ្នក...',
-                    border: InputBorder.none,
-                  ),
-                  onSubmitted: (comment) {
-                    createComment(comment);
+                color: colorScheme.background,
+                child: Consumer<UserProvider>(
+                  builder: (context, provider, child) {
+                    return CgNetworkImageLoader(
+                      imageUrl: provider.user?.profileImg?.url,
+                      width: ConfigConstant.objectHeight1,
+                      height: ConfigConstant.objectHeight1,
+                      fit: BoxFit.cover,
+                    );
                   },
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(bottom: 2),
-              child: IconButton(
-                onPressed: () async {
-                  await createComment(textController.text);
+            Expanded(
+              child: CgTextField(
+                controller: textController,
+                hintText: 'មតិយោបល់របស់អ្នក...',
+                maxLines: 5,
+                minLines: 1,
+                fillColor: Colors.transparent,
+                borderSide: BorderSide.none,
+                onSubmitted: (comment) {
+                  createComment(comment);
                 },
-                icon: Icon(
-                  Icons.send,
-                  color: colorScheme.primary,
-                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: ValueListenableBuilder<bool>(
+                valueListenable: isTextEmptyNotifier,
+                builder: (context, isTextEmpty, child) {
+                  return AnimatedCrossFade(
+                    sizeCurve: Curves.ease,
+                    duration: ConfigConstant.fadeDuration,
+                    crossFadeState: isTextEmptyNotifier.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                    secondChild: const SizedBox(height: kToolbarHeight),
+                    firstChild: Container(
+                      width: kToolbarHeight,
+                      height: kToolbarHeight,
+                      child: IconButton(
+                        icon: Icon(Icons.send, color: colorScheme.primary),
+                        onPressed: () async {
+                          await createComment(textController.text);
+                        },
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ],
@@ -286,23 +296,20 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
     required CommentModel? comment,
     required bool isLastIndex,
   }) {
-    return Container(
-      child: Column(
-        children: [
-          ListTile(
-            contentPadding: EdgeInsets.symmetric(
-              vertical: ConfigConstant.margin1,
-              horizontal: ConfigConstant.margin2,
-            ),
-            tileColor: colorScheme.surface,
-            onLongPress: () => onTapCommentOption(comment),
-            leading: buildProfilePic(comment?.user?.profileImg?.url),
-            title:
-                loading && isLastIndex ? CgCustomShimmer(child: buildCommentText(comment)) : buildCommentText(comment),
+    return Column(
+      children: [
+        ListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: ConfigConstant.margin1,
+            horizontal: ConfigConstant.margin2,
           ),
-          if (!isLastIndex) const Divider(height: 0),
-        ],
-      ),
+          tileColor: colorScheme.surface,
+          onLongPress: () => onTapCommentOption(comment),
+          leading: buildProfilePic(comment?.user?.profileImg?.url),
+          title: loading && isLastIndex ? CgCustomShimmer(child: buildCommentText(comment)) : buildCommentText(comment),
+        ),
+        if (!isLastIndex) const Divider(height: 0),
+      ],
     );
   }
 
@@ -314,11 +321,14 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
         AnimatedCrossFade(
           duration: ConfigConstant.fadeDuration,
           crossFadeState: comment != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-          firstChild: Text(
-            comment?.user?.username != null
-                ? (comment?.user?.username.toString() ?? '') + ' • ' + date
-                : "CamGeo's User" + ' • ' + date,
-            style: textTheme.caption,
+          firstChild: Container(
+            width: double.infinity,
+            child: Text(
+              comment?.user?.username != null
+                  ? (comment?.user?.username.toString() ?? '') + ' • ' + date
+                  : "CamGeo's User" + ' • ' + date,
+              style: textTheme.caption,
+            ),
           ),
           secondChild: CgCustomShimmer(
             child: Row(
@@ -332,12 +342,19 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
             ),
           ),
         ),
+        AnimatedContainer(
+          duration: ConfigConstant.fadeDuration,
+          height: comment?.comment != null ? 0 : ConfigConstant.margin1,
+        ),
         AnimatedCrossFade(
           duration: ConfigConstant.fadeDuration,
           crossFadeState: comment?.comment != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-          firstChild: Text(
-            comment?.comment ?? '',
-            style: textTheme.bodyText2,
+          firstChild: Container(
+            width: double.infinity,
+            child: Text(
+              comment?.comment ?? '',
+              style: textTheme.bodyText2,
+            ),
           ),
           secondChild: CgCustomShimmer(
             child: Row(

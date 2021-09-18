@@ -237,7 +237,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
       future: weather,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          Map<String, dynamic>? json = snapshot.data?.toJson();
+          // Map<String, dynamic>? json = snapshot.data?.toJson();
           Weather? weather = snapshot.data;
           // Temparature
           String celsius = "${NumberHelper.toKhmer(weather?.temperature?.celsius?.toInt())} °C";
