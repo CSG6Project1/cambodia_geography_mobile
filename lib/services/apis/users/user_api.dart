@@ -48,7 +48,7 @@ class UserApi extends BaseResourceOwnerApi {
 
   @override
   UserModel? objectTransformer(Map<String, dynamic> json) {
-    if (json.containsKey('data')) {
+    if (json.containsKey('data') && json['data'] != null) {
       return UserModel.fromJson(json['data']);
     }
   }
