@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
@@ -90,7 +91,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
     } else {
       int sumIndex = visibleItems.reduce((value, element) => value + element);
       int middleIndex = sumIndex ~/ visibleItems.length;
-      if (tabController.index != middleIndex) tabController.animateTo(middleIndex);
+      if (tabController.index != middleIndex) {
+        tabController.animateTo(middleIndex);
+        try {
+          this.currentProvinceCode = CambodiaGeography.instance.tbProvinces[middleIndex].code;
+        } catch (e) {}
+      }
     }
     return false;
   }
@@ -141,14 +147,40 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
     return MorphingAppBar(
       leading: CgMenuLeadingButton(animationController: animationController),
       actions: [SearchButton(animationController: animationController)],
-      title: Wrap(
-        key: const Key("HomeTitle"),
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: [
-          Icon(Icons.map, color: themeData.colorScheme.onPrimary),
-          const SizedBox(width: 4.0),
-          const CgAppBarTitle(title: 'ប្រទេសកម្ពុជា')
-        ],
+      title: InkWell(
+        onTap: () async {
+          List<TbProvinceModel> provinces = CambodiaGeography.instance.tbProvinces;
+          String? selectedProvinceCode = await showConfirmationDialog(
+            context: context,
+            title: "Move to a province",
+            initialSelectedActionKey: currentProvinceCode,
+            actions: List.generate(
+              provinces.length,
+              (index) {
+                return AlertDialogAction(
+                  key: provinces[index].code!,
+                  label: provinces[index].khmer!,
+                );
+              },
+            ),
+          );
+          if (selectedProvinceCode != null) {
+            try {
+              int index = provinces.indexWhere((element) => element.code == selectedProvinceCode);
+              scrollController.scrollToIndex(index);
+            } catch (e) {}
+          }
+        },
+        child: Wrap(
+          key: const Key("HomeTitle"),
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Icon(Icons.map, color: themeData.colorScheme.onPrimary),
+            const SizedBox(width: 4.0),
+            const CgAppBarTitle(title: 'ប្រទេសកម្ពុជា'),
+            Icon(Icons.arrow_drop_down),
+          ],
+        ),
       ),
       bottom: TabBar(
         key: const Key("HomeTabBar"),
