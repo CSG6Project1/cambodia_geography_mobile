@@ -2,6 +2,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
+import 'package:cambodia_geography/helpers/date_helper.dart';
 import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/comment/comment_list_model.dart';
@@ -17,6 +18,7 @@ import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
 import 'package:cambodia_geography/widgets/cg_measure_size.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:cambodia_geography/widgets/cg_no_data_wrapper.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -271,10 +273,8 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
                     sizeCurve: Curves.ease,
                     duration: ConfigConstant.fadeDuration,
                     crossFadeState: isTextEmptyNotifier.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                    secondChild: const SizedBox(height: kToolbarHeight),
+                    secondChild: const SizedBox(height: ConfigConstant.objectHeight1),
                     firstChild: Container(
-                      width: kToolbarHeight,
-                      height: kToolbarHeight,
                       child: IconButton(
                         icon: Icon(Icons.send, color: colorScheme.primary),
                         onPressed: () async {
@@ -314,7 +314,9 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   }
 
   Widget buildCommentText(CommentModel? comment) {
-    String date = comment?.createdAt != null ? DateFormat('dd MMM, yyyy, hh:mm a').format(comment!.createdAt!) : "";
+    String date = comment?.createdAt != null
+        ? DateHelper.displayDateByDate(comment!.createdAt!, locale: context.locale.languageCode)
+        : "";
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -400,7 +402,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
           style: textTheme.bodyText1,
           children: [
             TextSpan(
-              text: '• ' + NumberHelper.toKhmer(widget.place.commentLength),
+              text: '• ' + NumberHelper.toKhmer(commentListModel?.meta?.totalCount ?? widget.place.commentLength),
               style: TextStyle(
                 color: textTheme.caption?.color,
               ),

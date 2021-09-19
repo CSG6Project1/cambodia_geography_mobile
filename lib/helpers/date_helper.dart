@@ -18,11 +18,11 @@ class DateHelper {
 
   static String displayDateByDate(DateTime date, {String locale = 'en'}) {
     String dateFormat = LocaleFormatService(locale).dateFormat();
-    return DateFormat(dateFormat, locale).format(date).toString();
+    return DateFormat(dateFormat, locale).format(date.toLocal()).toString();
   }
 
   static String displayDateByStr(String date, {String locale = 'en'}) {
     String dateFormat = LocaleFormatService(locale).dateFormat();
-    return DateFormat(dateFormat, locale).format(DateTime.parse(date)).toString();
+    return DateFormat(dateFormat, locale).format(DateTime.parse(date).toLocal()).toString();
   }
 }

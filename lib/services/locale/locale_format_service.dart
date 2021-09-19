@@ -3,7 +3,7 @@ class LocaleFormatService {
 
   LocaleFormatService(this.locale);
 
-  dateFormat() {
+  String dateFormat() {
     switch (this.locale) {
       case 'km':
         return 'dd MMM yyyy, hh:mm a';
