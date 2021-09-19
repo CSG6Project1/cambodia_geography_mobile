@@ -1,3 +1,4 @@
+import 'package:about/about.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
@@ -6,8 +7,13 @@ import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/user/user_model.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/screens/drawer/local_widgets/diagonal_path_clipper.dart';
+import 'package:cambodia_geography/services/storages/developer_mode_storage.dart';
+import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -33,9 +39,44 @@ class _Route {
   });
 }
 
+class _Memeber {
+  final String name;
+  final String title;
+
+  _Memeber({
+    required this.name,
+    required this.title,
+  });
+}
+
 class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMixin {
   late UserProvider? userProvider;
   UserModel? get user => this.userProvider?.user;
+
+  List<_Memeber> get members {
+    return [
+      _Memeber(
+        name: tr('member.thea.name'),
+        title: tr('member.thea.title'),
+      ),
+      _Memeber(
+        name: tr('member.panha.name'),
+        title: tr('member.panha.title'),
+      ),
+      _Memeber(
+        name: tr('member.darot.name'),
+        title: tr('member.darot.title'),
+      ),
+      _Memeber(
+        name: tr('member.sarak.name'),
+        title: tr('member.sarak.title'),
+      ),
+      _Memeber(
+        name: tr('member.vatanak.name'),
+        title: tr('member.vatanak.title'),
+      ),
+    ];
+  }
 
   List<_Route> get routes {
     return [
@@ -69,7 +110,95 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
         routeName: "",
         displayName: "About us",
         icon: Icons.info,
-        overrideOnTap: () {},
+        overrideOnTap: () async {
+          Navigator.of(context).pop();
+          PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+          int tapCounter = 0;
+          int maxStep = 7;
+
+          showAboutPage(
+            context: context,
+            values: {
+              'version': '1.0',
+              'year': DateTime.now().year.toString(),
+            },
+            applicationIcon: Container(
+              margin: const EdgeInsets.only(top: ConfigConstant.margin2),
+              child: Icon(
+                Icons.map,
+                color: colorScheme.primary,
+              ),
+            ),
+            applicationLegalese: 'Copyright © CADT, {{ year }}',
+            children: <Widget>[
+              Theme(
+                data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                child: ExpansionTile(
+                  leading: Icon(Icons.people),
+                  title: Text(tr('member.title')),
+                  children: [
+                    Wrap(
+                      children: List.generate(
+                        members.length,
+                        (index) {
+                          return Container(
+                            width: screenSize.width / 2,
+                            child: ListTile(
+                              minVerticalPadding: 0,
+                              title: Text(
+                                members[index].name,
+                                style: TextStyle(color: colorScheme.primary),
+                              ),
+                              subtitle: Text(members[index].title),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              LicensesPageListTile(
+                icon: Icon(Icons.favorite),
+              ),
+              GestureDetector(
+                onTapUp: (detal) {
+                  tapCounter = 0;
+                },
+                child: ListTile(
+                  onTap: () async {
+                    await Fluttertoast.cancel();
+
+                    DeveloperModeStorage storage = DeveloperModeStorage();
+                    bool? alreadyDeveloper = await storage.readBool();
+
+                    if (alreadyDeveloper == true) {
+                      Fluttertoast.showToast(msg: 'You are already a developer!');
+                      return;
+                    }
+
+                    if (tapCounter == maxStep) {
+                      Fluttertoast.showToast(msg: 'You are now a developer!');
+                      storage.writeBool(value: true);
+                      return;
+                    }
+
+                    tapCounter++;
+                    if (tapCounter > 3) {
+                      Fluttertoast.showToast(
+                        msg: 'You are now ${maxStep - tapCounter} steps away from being a developer',
+                      );
+                    }
+                  },
+                  leading: Icon(Icons.build),
+                  title: Text("Build"),
+                  subtitle: Text(packageInfo.buildNumber),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     ];
   }
@@ -158,6 +287,7 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                 title: Text(route.displayName),
                 leading: Icon(route.icon),
                 onTap: () async {
+                  if (route.overrideOnTap != null) route.overrideOnTap!();
                   if (route.routeName.isEmpty) return;
                   if (selected) return;
                   if (Scaffold.hasDrawer(context)) Navigator.of(context).pop();
