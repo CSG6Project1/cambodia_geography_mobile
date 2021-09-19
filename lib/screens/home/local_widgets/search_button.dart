@@ -24,7 +24,8 @@ class SearchButton extends StatelessWidget {
             onQueryChanged: (String query) async {
               if (query.isEmpty) {
                 SearchHistoryStorage storage = SearchHistoryStorage();
-                return storage.readList();
+                List<dynamic>? value = await storage.readList();
+                return value ?? [];
               } else {
                 var autoCompleterApi = SearchAutocompleteApi();
                 var result = await autoCompleterApi.fetchAutocompleters(keyword: query);
