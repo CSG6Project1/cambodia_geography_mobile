@@ -1,5 +1,25 @@
 {
-  "msg" : {
-    "are_you_sure_to_delete" : "Are you sure to delete?"
+  "member": {
+    "darot": {
+      "name": "Chen Darot",
+      "title": "Mobile Developer"
+    },
+    "panha": {
+      "name": "Kok Sophanha",
+      "title": "Web Team Lead"
+    },
+    "sarak": {
+      "name": "Kang Rotsarak",
+      "title": "API Developer"
+    },
+    "thea": {
+      "name": "Thea Choem",
+      "title": "Team Lead"
+    },
+    "title": "Team",
+    "vatanak": {
+      "name": "Chamreoun Vatanak",
+      "title": "Mobile Developer"
+    }
   }
 }

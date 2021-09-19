@@ -44,6 +44,12 @@ Widget build(BuildContext context) {
 }
 ```
 
+### Generation Translation from GoogleSheet
+We use Google Sheet as the source of our translation.
+Run this following command to generate the translation file. eg. `km.json`
+```
+./scripts/translation_gen/generate_localize_json_files.sh
+```
 
 ## Authors
 

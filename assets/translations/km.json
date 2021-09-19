@@ -1,6 +1,25 @@
 {
-  "msg" : {
-    "are_you_sure_to_delete" : "តើអ្នកប្រាកដថានឹងលុបឬទេ?"
+  "member": {
+    "darot": {
+      "name": "ចេន ដារ៉ូត",
+      "title": "Mobile Developer"
+    },
+    "panha": {
+      "name": "កុក សុបញ្ញា",
+      "title": "Web Team Lead"
+    },
+    "sarak": {
+      "name": "កង រ័ត្នសារៈ",
+      "title": "API Developer"
+    },
+    "thea": {
+      "name": "ជឹម ធា",
+      "title": "Team Lead"
+    },
+    "title": "សមាជិក",
+    "vatanak": {
+      "name": "ចំរើន វឌ្ឍនៈ",
+      "title": "Mobile Developer"
+    }
   }
-  
 }

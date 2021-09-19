@@ -34,7 +34,7 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
     var key = await showConfirmationDialog(
       context: context,
       title: "Language",
-      initialSelectedActionKey: "en",
+      initialSelectedActionKey: provider.locale?.languageCode,
       actions: [
         // AlertDialogAction(key: "system", label: "System"),
         AlertDialogAction(key: "en", label: "English"),
@@ -79,7 +79,7 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                       return SettingTile(
                         title: "Language",
                         iconData: Icons.language,
-                        subtitle: "English",
+                        subtitle: provider.locale?.languageCode,
                         showDivider: false,
                         onTap: () => showLanguageDialog(provider),
                       );
