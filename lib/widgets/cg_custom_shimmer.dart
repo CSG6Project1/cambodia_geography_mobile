@@ -9,8 +9,11 @@ class CgCustomShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       child: child,
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      highlightColor: Theme.of(context).colorScheme.surface,
+      baseColor: Theme.of(context)
+          .colorScheme
+          .background
+          .withOpacity(Theme.of(context).colorScheme.brightness == Brightness.dark ? 0.25 : 1),
     );
   }
 }

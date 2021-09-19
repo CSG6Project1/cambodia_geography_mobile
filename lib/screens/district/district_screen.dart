@@ -105,7 +105,7 @@ class DistrictScreen extends StatelessWidget {
         child: ListTile(
           title: Text(prefix + villages[index].khmer.toString()),
           subtitle: Text('លេខកូដ៖ ' + villages[index].code.toString()),
-          tileColor: index.isEven ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.surface,
+          tileColor: Theme.of(context).colorScheme.surface,
         ),
       );
     });

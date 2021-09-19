@@ -6,7 +6,6 @@ import 'package:cambodia_geography/helpers/app_helper.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
-import 'package:cambodia_geography/widgets/cg_text_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -45,14 +44,13 @@ class PlaceTitle extends StatelessWidget {
         children: [
           buildTitle(textTheme, colorScheme),
           buildSubtitle(colorScheme, province, textTheme),
-          if (!loading) buildMainButtons(colorScheme, context),
+          buildMainButtons(colorScheme, context),
         ],
       ),
     );
   }
 
   Widget buildTitle(TextTheme textTheme, ColorScheme colorScheme) {
-    if (loading) return CgTextShimmer();
     return Text(
       title,
       style: textTheme.headline6?.copyWith(color: colorScheme.primary, fontWeight: FontWeight.w700),
@@ -60,7 +58,6 @@ class PlaceTitle extends StatelessWidget {
   }
 
   Widget buildSubtitle(ColorScheme colorScheme, TbProvinceModel province, TextTheme textTheme) {
-    if (loading) return CgTextShimmer(height: 12, width: 200);
     return Row(
       children: [
         Icon(
@@ -85,31 +82,31 @@ class PlaceTitle extends StatelessWidget {
     if (lat != null || lon != null) {
       isLatLngValdated = AppHelper.isLatLngValdated(lat!, lon!);
     }
-
-    if (!isLatLngValdated) {
-      return const SizedBox(height: ConfigConstant.margin0);
-    }
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        CgButton(
-          labelText: 'ទិសដៅ',
-          iconData: Icons.map,
-          foregroundColor: colorScheme.secondary,
-          backgroundColor: colorScheme.secondary.withOpacity(0.1),
-          showBorder: true,
-          onPressed: () {
-            latLng = LatLng(lat!, lon!);
-            Navigator.of(context).pushNamed(
-              RouteConfig.MAP,
-              arguments: MapScreenSetting(
-                flowType: MapFlowType.view,
-                initialLatLng: latLng,
-                place: place,
-              ),
-            );
-          },
+        AnimatedCrossFade(
+          crossFadeState: isLatLngValdated ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+          secondChild: const SizedBox(height: ConfigConstant.margin0),
+          duration: ConfigConstant.fadeDuration,
+          firstChild: CgButton(
+            labelText: 'ទិសដៅ',
+            iconData: Icons.map,
+            foregroundColor: colorScheme.secondary,
+            backgroundColor: colorScheme.secondary.withOpacity(0.1),
+            showBorder: true,
+            onPressed: () {
+              latLng = LatLng(lat!, lon!);
+              Navigator.of(context).pushNamed(
+                RouteConfig.MAP,
+                arguments: MapScreenSetting(
+                  flowType: MapFlowType.view,
+                  initialLatLng: latLng,
+                  place: place,
+                ),
+              );
+            },
+          ),
         ),
       ],
     );

@@ -23,9 +23,9 @@ class ProvinceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
+    return Container(
       margin: margin,
+      color: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
           buildProvinceHeader(context),
@@ -59,6 +59,7 @@ class ProvinceCard extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.surface,
         initiallyExpanded: initiallyDistrictExpanded,
         onExpansionChanged: onDistrictExpansionChanged,
+        tilePadding: EdgeInsets.symmetric(vertical: ConfigConstant.margin1, horizontal: ConfigConstant.margin2),
         title: Text(
           isKhan ? 'ខណ្ឌ' : 'ស្រុក',
           style: Theme.of(context)
@@ -94,6 +95,7 @@ class ProvinceCard extends StatelessWidget {
               children: [
                 Divider(height: 0, color: Theme.of(context).dividerColor),
                 Material(
+                  color: Theme.of(context).colorScheme.surface,
                   child: ListTile(
                     title: Text(title),
                     subtitle: Text(subtitle),
@@ -120,13 +122,11 @@ class ProvinceCard extends StatelessWidget {
     String? title,
   }) {
     return Material(
-      color: Theme.of(context).colorScheme.surface,
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(vertical: ConfigConstant.margin1, horizontal: ConfigConstant.margin2),
         onTap: onTap,
         subtitle: subtitle != null ? Text(subtitle, style: Theme.of(context).textTheme.caption) : null,
         tileColor: Theme.of(context).colorScheme.surface,
-        selectedTileColor: Theme.of(context).colorScheme.surface,
         title: Text(
           title ?? '',
           style: Theme.of(context)
@@ -188,6 +188,8 @@ class ProvinceCard extends StatelessWidget {
   Widget buildProvinceHeader(BuildContext context) {
     List<TbDistrictModel> krongs = district.where((dist) => dist.type == "KRONG").toList();
     String krongTitle = "ក្រុង" + krongs.map((krong) => krong.khmer).toList().join(" និង ក្រុង");
+
+    Color? subtitleColor = Theme.of(context).textTheme.caption?.color;
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed(
@@ -223,10 +225,10 @@ class ProvinceCard extends StatelessWidget {
                         .headline6
                         ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
                   ),
-                  if (krongs.length > 0) Text(krongTitle, style: Theme.of(context).textTheme.caption),
+                  if (krongs.length > 0) Text(krongTitle, style: TextStyle(color: subtitleColor)),
                   Text(
                     'លេខកូដ៖ ' + NumberHelper.toKhmer(province.code),
-                    style: Theme.of(context).textTheme.caption,
+                    style: TextStyle(color: subtitleColor),
                   ),
                 ],
               ),

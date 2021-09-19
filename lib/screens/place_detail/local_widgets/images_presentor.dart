@@ -1,4 +1,5 @@
 import 'package:cambodia_geography/constants/config_constant.dart';
+import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/widgets/cg_images_viewer.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:flutter/material.dart';
@@ -38,21 +39,25 @@ class _ImagesPresentorState extends State<ImagesPresentor> {
       },
       child: Stack(
         children: [
-          PageView(
-            physics: const ClampingScrollPhysics(),
-            controller: widget.controller,
-            onPageChanged: (index) {
-              if (widget.onPageChanged != null) widget.onPageChanged!(index);
-              setState(() {
-                currentPage = index;
-              });
-            },
-            children: List.generate(widget.images.length, (index) {
-              return CgNetworkImageLoader(
-                imageUrl: widget.images[index],
-                fit: BoxFit.cover,
-              );
-            }),
+          AnimatedOpacity(
+            opacity: widget.images.isNotEmpty == true ? 1 : 0,
+            duration: ConfigConstant.fadeDuration,
+            child: PageView(
+              physics: const ClampingScrollPhysics(),
+              controller: widget.controller,
+              onPageChanged: (index) {
+                if (widget.onPageChanged != null) widget.onPageChanged!(index);
+                setState(() {
+                  currentPage = index;
+                });
+              },
+              children: List.generate(widget.images.length, (index) {
+                return CgNetworkImageLoader(
+                  imageUrl: widget.images[index],
+                  fit: BoxFit.cover,
+                );
+              }),
+            ),
           ),
           if (currentPage != null) buildPageIndicator(context),
         ],
@@ -66,7 +71,7 @@ class _ImagesPresentorState extends State<ImagesPresentor> {
       bottom: ConfigConstant.margin1,
       child: Container(
         child: Text(
-          "${currentPage! + 1}/${widget.images.length}",
+          NumberHelper.toKhmer("${currentPage! + 1}/${widget.images.length}"),
           style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
         ),
         padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),

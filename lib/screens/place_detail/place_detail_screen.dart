@@ -10,6 +10,7 @@ import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/place_detail/local_widgets/place_title.dart';
 import 'package:cambodia_geography/services/apis/bookmarks/bookmark_api.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
+import 'package:cambodia_geography/widgets/cg_markdown_body.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -61,9 +62,9 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
         controller: scrollController,
         slivers: [
           CgImageAppBar(
-            loading: false,
             expandedHeight: expandedHeight,
             pageController: pageController,
+            scrollController: scrollController,
             title: place.khmer.toString(),
             images: place.images?.map((e) => e.url ?? '').toList() ?? [],
           ),
@@ -87,21 +88,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
           color: colorScheme.surface,
           margin: const EdgeInsets.symmetric(vertical: ConfigConstant.margin2),
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: ConfigConstant.margin2),
-          child: MarkdownBody(
-            data: place.body.toString(),
-            selectable: true,
-            styleSheet: MarkdownStyleSheet.fromTheme(
-              themeData.copyWith(
-                textTheme: textTheme.apply(
-                  bodyColor: textTheme.caption?.color,
-                ),
-              ),
-            ),
-            onTapLink: (String text, String? href, String title) {
-              // TODO: handle on tap on link
-              print(href);
-            },
-          ),
+          child: CgMarkdownBody(place.body ?? ""),
         ),
         const SizedBox(height: ConfigConstant.objectHeight1)
       ]),
