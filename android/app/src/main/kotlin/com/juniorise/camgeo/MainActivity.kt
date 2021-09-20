@@ -1,4 +1,4 @@
-package com.cambodiageography.app
+package com.juniorise.camgeo
 
 import io.flutter.embedding.android.FlutterActivity
 

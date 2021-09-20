@@ -37,6 +37,7 @@ class _CgPasswordFieldState extends State<CgPasswordField> {
       onChanged: widget.onChanged,
       onSubmitted: widget.onSubmitted,
       obscureText: obscureText,
+      maxLines: 1,
       suffix: buildSuffix(),
     );
   }
