@@ -253,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
             ValueListenableBuilder(
               valueListenable: scrollOffsetNotifier,
               builder: (context, value, child) {
-                double collapsed = 36.5 + mediaQueryData.padding.top;
+                double collapsed = 34 + mediaQueryData.padding.top;
                 return IgnorePointer(
                   ignoring: scrollOffsetNotifier.value > collapsed,
                   child: AnimatedContainer(
