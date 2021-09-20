@@ -30,6 +30,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
   late AnimationController animationController;
   late CambodiaGeography geo;
 
+  late ValueNotifier<double> scrollOffsetNotifier;
+
   /// store provinces info whether
   /// it is expanded or not.
   ///
@@ -55,7 +57,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
     tabController = TabController(length: geo.tbProvinces.length, vsync: this);
     scrollController = AutoScrollController();
     animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
+    scrollOffsetNotifier = ValueNotifier(0.0);
     super.initState();
+
+    scrollController.addListener(() {
+      scrollOffsetNotifier.value = scrollController.offset;
+    });
   }
 
   @override
@@ -112,7 +119,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
   @override
   Widget build(BuildContext context) {
     return CgScaffold(
-      appBar: buildAppbar(),
       body: RectGetter(
         key: listViewKey,
         child: NotificationListener<ScrollNotification>(
@@ -124,64 +130,94 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
   }
 
   Widget buildCustomScrollView() {
-    return Column(
-      children: [
-        VerifyEmailBanner(),
-        Expanded(
-          child: ListView.builder(
-            controller: scrollController,
-            itemCount: tabController.length,
-            itemBuilder: (context, index) {
+    return CustomScrollView(
+      controller: scrollController,
+      slivers: [
+        buildAppbar(),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, _index) {
+              if (_index == 0) return VerifyEmailBanner();
+              int index = _index - 1;
               itemKeys[index] = RectGetter.createGlobalKey();
               final province = geo.tbProvinces[index];
               final districts = geo.districtsSearch(provinceCode: province.code ?? '');
               return buildProvinceCardItem(index, province, districts);
             },
+            childCount: tabController.length + 1,
           ),
-        ),
+        )
       ],
     );
   }
 
-  PreferredSizeWidget buildAppbar() {
-    return MorphingAppBar(
-      leading: CgMenuLeadingButton(animationController: animationController),
-      actions: [SearchButton(animationController: animationController)],
-      title: InkWell(
-        onTap: () async {
-          List<TbProvinceModel> provinces = CambodiaGeography.instance.tbProvinces;
-          String? selectedProvinceCode = await showConfirmationDialog(
-            context: context,
-            title: "Move to a province",
-            initialSelectedActionKey: currentProvinceCode,
-            actions: List.generate(
-              provinces.length,
-              (index) {
-                return AlertDialogAction(
-                  key: provinces[index].code!,
-                  label: provinces[index].khmer!,
-                );
-              },
-            ),
-          );
-          if (selectedProvinceCode != null) {
-            try {
-              int index = provinces.indexWhere((element) => element.code == selectedProvinceCode);
-              scrollController.scrollToIndex(index);
-            } catch (e) {}
-          }
-        },
-        child: Wrap(
-          key: const Key("HomeTitle"),
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: [
-            Icon(Icons.map, color: themeData.colorScheme.onPrimary),
-            const SizedBox(width: 4.0),
-            const CgAppBarTitle(title: 'ប្រទេសកម្ពុជា'),
-            Icon(Icons.arrow_drop_down),
-          ],
-        ),
+  Widget buildAppBarTitle() {
+    return InkWell(
+      onTap: () async {
+        List<TbProvinceModel> provinces = CambodiaGeography.instance.tbProvinces;
+        String? selectedProvinceCode = await showConfirmationDialog(
+          context: context,
+          title: "Move to a province",
+          initialSelectedActionKey: currentProvinceCode,
+          actions: List.generate(
+            provinces.length,
+            (index) {
+              return AlertDialogAction(
+                key: provinces[index].code!,
+                label: provinces[index].khmer!,
+              );
+            },
+          ),
+        );
+        if (selectedProvinceCode != null) {
+          try {
+            int index = provinces.indexWhere((element) => element.code == selectedProvinceCode);
+            scrollController.scrollToIndex(index);
+          } catch (e) {}
+        }
+      },
+      child: Wrap(
+        key: const Key("HomeTitle"),
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          Icon(Icons.map, color: themeData.colorScheme.onPrimary),
+          const SizedBox(width: 4.0),
+          const CgAppBarTitle(title: 'ប្រទេសកម្ពុជា'),
+          Icon(Icons.arrow_drop_down),
+        ],
       ),
+    );
+  }
+
+  SearchButton get searchButton {
+    return SearchButton(
+      animationController: animationController,
+    );
+  }
+
+  MorphingSliverAppBar buildAppbar() {
+    double searchTopMargin = kToolbarHeight + mediaQueryData.padding.top + 8;
+    return MorphingSliverAppBar(
+      leading: CgMenuLeadingButton(animationController: animationController),
+      automaticallyImplyLeading: false,
+      collapsedHeight: kToolbarHeight,
+      expandedHeight: searchTopMargin + kToolbarHeight + 32,
+      pinned: true,
+      stretch: true,
+      actions: [
+        ValueListenableBuilder(
+          valueListenable: scrollOffsetNotifier,
+          child: searchButton,
+          builder: (context, value, child) {
+            return Opacity(
+              opacity: scrollOffsetNotifier.value > 60 ? 1 : 0,
+              child: child,
+            );
+          },
+        ),
+      ],
+      title: buildAppBarTitle(),
+      flexibleSpace: buildFlexibleSpaceBar(searchTopMargin),
       bottom: TabBar(
         key: const Key("HomeTabBar"),
         controller: tabController,
@@ -200,6 +236,53 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildFlexibleSpaceBar(double searchTopMargin) {
+    return FlexibleSpaceBar(
+      collapseMode: CollapseMode.pin,
+      background: Container(
+        margin: EdgeInsets.only(top: searchTopMargin),
+        padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            ValueListenableBuilder(
+              valueListenable: scrollOffsetNotifier,
+              builder: (context, value, child) {
+                double collapsed = 36.5 + mediaQueryData.padding.top;
+                return IgnorePointer(
+                  ignoring: scrollOffsetNotifier.value > collapsed,
+                  child: AnimatedContainer(
+                    duration: ConfigConstant.fadeDuration,
+                    curve: Curves.ease,
+                    decoration: BoxDecoration(
+                      color: scrollOffsetNotifier.value > 8 ? colorScheme.primary : colorScheme.surface,
+                      borderRadius: ConfigConstant.circlarRadius1,
+                    ),
+                    child: CgTextField(
+                      borderSide: BorderSide.none,
+                      hintText: scrollOffsetNotifier.value > 8 ? "" : "ស្វែងរកទីកន្លែង...",
+                      fillColor: Colors.transparent,
+                      onTap: () => searchButton.onPressed(context),
+                      suffix: Opacity(
+                        opacity: scrollOffsetNotifier.value > collapsed ? 0 : 1,
+                        child: AnimatedContainer(
+                          duration: ConfigConstant.fadeDuration,
+                          curve: Curves.ease,
+                          transform: Matrix4.identity()..translate(scrollOffsetNotifier.value > 8 ? 16.0 : 0.0, 0.0),
+                          child: Icon(Icons.search, color: scrollOffsetNotifier.value > 8 ? colorScheme.surface : null),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

@@ -12,36 +12,38 @@ class SearchButton extends StatelessWidget {
 
   final AnimationController animationController;
 
+  void onPressed(BuildContext context) async {
+    animationController.forward();
+    await showSearch(
+      context: context,
+      delegate: CgSearchDelegate(
+        onQueryChanged: (String query) async {
+          if (query.isEmpty) {
+            SearchHistoryStorage storage = SearchHistoryStorage();
+            List<dynamic>? value = await storage.readList();
+            return value ?? [];
+          } else {
+            var autoCompleterApi = SearchAutocompleteApi();
+            var result = await autoCompleterApi.fetchAutocompleters(keyword: query);
+            if (autoCompleterApi.success() && result is AutocompleterListModel) {
+              bool khmer = result.items?[0].khmer?.contains("<b>") == true;
+              return result.items?.map((e) => khmer ? e.khmer : e.english).toList();
+            }
+          }
+        },
+        animationController: animationController,
+        context: context,
+        provinceCode: '',
+      ),
+    );
+    animationController.reverse();
+  }
+
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.search),
-      onPressed: () async {
-        animationController.forward();
-        await showSearch(
-          context: context,
-          delegate: CgSearchDelegate(
-            onQueryChanged: (String query) async {
-              if (query.isEmpty) {
-                SearchHistoryStorage storage = SearchHistoryStorage();
-                List<dynamic>? value = await storage.readList();
-                return value ?? [];
-              } else {
-                var autoCompleterApi = SearchAutocompleteApi();
-                var result = await autoCompleterApi.fetchAutocompleters(keyword: query);
-                if (autoCompleterApi.success() && result is AutocompleterListModel) {
-                  bool khmer = result.items?[0].khmer?.contains("<b>") == true;
-                  return result.items?.map((e) => khmer ? e.khmer : e.english).toList();
-                }
-              }
-            },
-            animationController: animationController,
-            context: context,
-            provinceCode: '',
-          ),
-        );
-        animationController.reverse();
-      },
+      icon: Icon(Icons.search, color: Theme.of(context).colorScheme.surface),
+      onPressed: () async => onPressed(context),
     );
   }
 }
