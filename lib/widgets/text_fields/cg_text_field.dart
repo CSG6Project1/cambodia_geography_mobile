@@ -21,6 +21,7 @@ class CgTextField extends StatefulWidget {
     this.keyboardType,
     this.textInputAction,
     this.borderSide,
+    this.onTap,
   }) : super(key: key);
 
   final BorderSide? borderSide;
@@ -39,6 +40,7 @@ class CgTextField extends StatefulWidget {
   final bool autocorrect;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  final void Function()? onTap;
 
   @override
   _CgTextFieldState createState() => _CgTextFieldState();
@@ -46,10 +48,12 @@ class CgTextField extends StatefulWidget {
 
 class _CgTextFieldState extends State<CgTextField> with CgThemeMixin {
   late TextEditingController controller;
+  late bool readOnly;
 
   @override
   void initState() {
     controller = widget.controller ?? TextEditingController(text: widget.value ?? "");
+    readOnly = widget.onTap != null;
     super.initState();
   }
 
@@ -73,6 +77,8 @@ class _CgTextFieldState extends State<CgTextField> with CgThemeMixin {
       decoration: buildInputDecoration(colorScheme),
       maxLines: widget.maxLines,
       minLines: widget.minLines,
+      onTap: widget.onTap,
+      readOnly: readOnly,
     );
   }
 

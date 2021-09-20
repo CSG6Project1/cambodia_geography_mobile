@@ -131,9 +131,11 @@ class _PlaceListState extends State<PlaceList> with AutomaticKeepAliveClientMixi
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    List<PlaceModel>? places = placeList?.items;
 
-    bool isNoData = !loading && places != null && places.isEmpty;
+    List<PlaceModel>? places = placeList?.items;
+    bool empty = places != null && places.isEmpty || places == null;
+    bool isNoData = !loading && empty;
+
     return RefreshIndicator(
       onRefresh: () async => load(),
       child: CgNoDataWrapper(
