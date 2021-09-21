@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
@@ -195,45 +197,23 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
     );
   }
 
-  MorphingSliverAppBar buildAppbar() {
-    double searchTopMargin = kToolbarHeight + mediaQueryData.padding.top + 8;
-    return MorphingSliverAppBar(
-      leading: CgMenuLeadingButton(animationController: animationController),
-      automaticallyImplyLeading: false,
-      collapsedHeight: kToolbarHeight,
-      expandedHeight: searchTopMargin + kToolbarHeight + 32,
-      pinned: true,
-      stretch: true,
-      actions: [
-        ValueListenableBuilder(
-          valueListenable: scrollOffsetNotifier,
-          child: searchButton,
-          builder: (context, value, child) {
-            return Opacity(
-              opacity: scrollOffsetNotifier.value > 60 ? 1 : 0,
-              child: child,
-            );
-          },
-        ),
-      ],
-      title: buildAppBarTitle(),
-      flexibleSpace: buildFlexibleSpaceBar(searchTopMargin),
-      bottom: TabBar(
-        key: const Key("HomeTabBar"),
-        controller: tabController,
-        isScrollable: true,
-        onTap: (int index) {
-          animateAndScrollTo(index);
-        },
-        tabs: List.generate(
-          geo.tbProvinces.length,
-          (index) => Tab(
-            key: Key("HomeTabItem$index"),
-            child: Text(
-              geo.tbProvinces[index].khmer.toString(),
-              style: TextStyle(
-                fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
-              ),
+  double get collapsedOffset => 36 + mediaQueryData.padding.top;
+  TabBar get tabBar {
+    return TabBar(
+      key: const Key("HomeTabBar"),
+      controller: tabController,
+      isScrollable: true,
+      onTap: (int index) {
+        animateAndScrollTo(index);
+      },
+      tabs: List.generate(
+        geo.tbProvinces.length,
+        (index) => Tab(
+          key: Key("HomeTabItem$index"),
+          child: Text(
+            geo.tbProvinces[index].khmer.toString(),
+            style: TextStyle(
+              fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
             ),
           ),
         ),
@@ -241,50 +221,62 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
     );
   }
 
+  MorphingSliverAppBar buildAppbar() {
+    double searchTopMargin = mediaQueryData.padding.top + kToolbarHeight + 8;
+    return MorphingSliverAppBar(
+      leading: CgMenuLeadingButton(animationController: animationController),
+      automaticallyImplyLeading: false,
+      collapsedHeight: kToolbarHeight,
+      expandedHeight: 176,
+      pinned: true,
+      stretch: true,
+      title: buildAppBarTitle(),
+      flexibleSpace: buildFlexibleSpaceBar(searchTopMargin),
+      bottom: tabBar,
+    );
+  }
+
   Widget buildFlexibleSpaceBar(double searchTopMargin) {
-    return FlexibleSpaceBar(
-      collapseMode: CollapseMode.pin,
-      background: Container(
-        margin: EdgeInsets.only(top: searchTopMargin),
-        padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            ValueListenableBuilder(
-              valueListenable: scrollOffsetNotifier,
-              builder: (context, value, child) {
-                double collapsed = 34 + mediaQueryData.padding.top;
-                return IgnorePointer(
-                  ignoring: scrollOffsetNotifier.value > collapsed,
-                  child: AnimatedContainer(
-                    duration: ConfigConstant.fadeDuration,
-                    curve: Curves.ease,
-                    decoration: BoxDecoration(
-                      color: scrollOffsetNotifier.value > 8 ? colorScheme.primary : colorScheme.surface,
-                      borderRadius: ConfigConstant.circlarRadius1,
-                    ),
-                    child: CgTextField(
-                      borderSide: BorderSide.none,
-                      hintText: scrollOffsetNotifier.value > 8 ? "" : "ស្វែងរកទីកន្លែង...",
-                      fillColor: Colors.transparent,
-                      onTap: () => searchButton.onPressed(context),
-                      suffix: Opacity(
-                        opacity: scrollOffsetNotifier.value > collapsed ? 0 : 1,
-                        child: AnimatedContainer(
-                          duration: ConfigConstant.fadeDuration,
-                          curve: Curves.ease,
-                          transform: Matrix4.identity()..translate(scrollOffsetNotifier.value > 8 ? 16.0 : 0.0, 0.0),
-                          child: Icon(Icons.search, color: scrollOffsetNotifier.value > 8 ? colorScheme.surface : null),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
+    return ValueListenableBuilder(
+      valueListenable: scrollOffsetNotifier,
+      builder: (context, value, child) {
+        double offset = min(searchTopMargin - mediaQueryData.padding.top - 4, scrollOffsetNotifier.value);
+        bool collapsed = scrollOffsetNotifier.value > collapsedOffset;
+
+        String hintText = "ស្វែងរកទីកន្លែង...";
+        bool animated = scrollOffsetNotifier.value > 8;
+
+        return Container(
+          margin: EdgeInsets.only(top: searchTopMargin - offset),
+          padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
+          child: AnimatedContainer(
+            duration: ConfigConstant.fadeDuration,
+            curve: Curves.ease,
+            decoration: BoxDecoration(
+              color: animated ? Colors.transparent : colorScheme.surface,
+              borderRadius: ConfigConstant.circlarRadius1,
             ),
-          ],
-        ),
-      ),
+            child: CgTextField(
+              borderSide: BorderSide.none,
+              hintText: hintText,
+              fillColor: Colors.transparent,
+              onTap: collapsed ? () {} : () => searchButton.onPressed(context),
+              hintColor: scrollOffsetNotifier.value > 8 ? Colors.transparent : themeData.hintColor,
+              suffix: AnimatedContainer(
+                duration: ConfigConstant.fadeDuration,
+                curve: Curves.ease,
+                transform: Matrix4.identity()..translate(animated ? 16.0 : 0.0, 0.0),
+                child: collapsed
+                    ? searchButton
+                    : Icon(
+                        Icons.search,
+                        color: animated ? colorScheme.onPrimary : themeData.hintColor,
+                      ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 

@@ -51,6 +51,13 @@ Run this following command to generate the translation file. eg. `km.json`
 ./scripts/translation_gen/generate_localize_json_files.sh
 ```
 
+## Check sign in report
+Get info such as `Variant, Config, Store, Alias, MD5, SHA1, SHA-256, Valid until` with following command:
+```shell
+cd android
+./gradlew signingReport
+```
+
 ## Authors
 
 **Group 4** - [CADT's students](http://www.cadt.edu.kh/).

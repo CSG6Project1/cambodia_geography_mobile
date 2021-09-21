@@ -42,7 +42,7 @@ class SearchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.search, color: Theme.of(context).colorScheme.surface),
+      icon: Icon(Icons.search, color: Theme.of(context).colorScheme.onPrimary),
       onPressed: () async => onPressed(context),
     );
   }

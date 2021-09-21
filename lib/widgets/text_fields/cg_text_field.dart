@@ -22,6 +22,7 @@ class CgTextField extends StatefulWidget {
     this.textInputAction,
     this.borderSide,
     this.onTap,
+    this.hintColor,
   }) : super(key: key);
 
   final BorderSide? borderSide;
@@ -34,6 +35,7 @@ class CgTextField extends StatefulWidget {
   final Widget? suffix;
   final Widget? prefix;
   final Color? fillColor;
+  final Color? hintColor;
   final bool obscureText;
   final void Function(String value)? onChanged;
   final void Function(String value)? onSubmitted;
@@ -88,6 +90,7 @@ class _CgTextFieldState extends State<CgTextField> with CgThemeMixin {
       hintText: widget.hintText,
       fillColor: widget.fillColor ?? colorScheme.background,
       filled: true,
+      hintStyle: TextStyle(color: widget.hintColor),
       labelStyle: Theme.of(context).textTheme.bodyText2,
       border: UnderlineInputBorder(
         borderRadius: ConfigConstant.circlarRadiusTop1,

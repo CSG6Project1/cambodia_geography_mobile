@@ -185,7 +185,8 @@ class CgSearchDelegate extends SearchDelegate<String> {
                 onLongPress: () async {
                   OkCancelResult result = await showOkCancelAlertDialog(
                     context: context,
-                    title: tr("msg.are_you_sure_to_delete"),
+                    title: "Are you sure to delete?",
+                    // tr("msg.are_you_sure_to_delete"),
                   );
                   if (result == OkCancelResult.ok) {
                     var selectedItem = suggestionList[index];

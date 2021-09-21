@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>cambodia_geography</string>
+	<string>Cambodia Geography</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -57,7 +57,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.726504066384-5g2sfmqs5n7rilaqudv4v683ed7khhm9</string>
+				<string>com.googleusercontent.apps.726504066384-v7f2oandgn10oe245q12f1rmap8tu5ho</string>
 				<string>fb905695696961498</string>
 			</array>
 		</dict>
