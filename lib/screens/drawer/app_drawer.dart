@@ -1,4 +1,3 @@
-import 'package:about/about.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
@@ -7,13 +6,9 @@ import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/user/user_model.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/screens/drawer/local_widgets/diagonal_path_clipper.dart';
-import 'package:cambodia_geography/services/storages/developer_mode_storage.dart';
-import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {

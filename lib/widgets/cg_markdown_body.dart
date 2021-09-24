@@ -1,5 +1,6 @@
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CgMarkdownBody extends StatelessWidget {
   const CgMarkdownBody(
@@ -22,9 +23,8 @@ class CgMarkdownBody extends StatelessWidget {
           ),
         ),
       ),
-      onTapLink: (String text, String? href, String title) {
-        // TODO: handle on tap on link
-        print(href);
+      onTapLink: (String url, String? href, String title) {
+        launch(url);
       },
     );
   }
