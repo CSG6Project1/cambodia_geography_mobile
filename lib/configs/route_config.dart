@@ -12,6 +12,7 @@ import 'package:cambodia_geography/screens/auth/signup_screen.dart';
 import 'package:cambodia_geography/screens/auth/confirmation_screen.dart';
 import 'package:cambodia_geography/screens/comment/comment_screen.dart';
 import 'package:cambodia_geography/screens/district/district_screen.dart';
+import 'package:cambodia_geography/screens/drawer/about_us_screen.dart';
 import 'package:cambodia_geography/screens/home/home_screen.dart';
 import 'package:cambodia_geography/screens/init/init_language_screen.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
@@ -73,6 +74,7 @@ class RouteConfig {
   static const String MAP = '/map';
   static const String COMMENT = '/comment';
   static const String NOTFOUND = '/404';
+  static const String ABOUT_US = '/about_us';
 
   /// List of route that use custom page route
   /// instead of `SwipeablePageRoute`
@@ -237,6 +239,13 @@ class RouteConfig {
         isRoot: false,
         title: "NOT FOUND",
         route: (context) => NotFoundScreen(),
+      ),
+      ABOUT_US: CgRouteSetting(
+        isRoot: false,
+        fullscreenDialog: true,
+        canSwap: false,
+        title: "ABOUT US",
+        route: (context) => AboutUsScreen(),
       ),
     };
   }

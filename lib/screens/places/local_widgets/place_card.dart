@@ -12,6 +12,7 @@ import 'package:cambodia_geography/providers/editing_provider.dart';
 import 'package:cambodia_geography/providers/user_location_provider.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/services/geography/distance_caculator_service.dart';
+import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:flutter/material.dart';
@@ -22,13 +23,17 @@ class PlaceCard extends StatelessWidget {
     this.place,
     required this.onTap,
     this.onDelete,
+    this.subtitle,
   });
 
   final PlaceModel? place;
+  final String? subtitle;
   final void Function() onTap;
   final void Function()? onDelete;
 
-  String getGeoInfo() {
+  String? getGeoInfo() {
+    if (place?.provinceCode == null) return null;
+
     List<String> geoInfo = [];
 
     TbProvinceModel? province;
@@ -85,7 +90,7 @@ class PlaceCard extends StatelessWidget {
           onTap: onTap,
           child: Row(
             children: [
-              buildCardInfo(colorScheme, textTheme),
+              buildCardInfo(colorScheme, textTheme, context),
               buildCardImage(context),
             ],
           ),
@@ -202,7 +207,9 @@ class PlaceCard extends StatelessWidget {
   Widget buildCardInfo(
     ColorScheme colorScheme,
     TextTheme textTheme,
+    BuildContext context,
   ) {
+    String? subtitle = this.subtitle ?? getGeoInfo();
     return Expanded(
       child: ListTile(
         title: buildAnimatedCrossFade(
@@ -211,7 +218,7 @@ class PlaceCard extends StatelessWidget {
             child: Container(height: 14, width: 200, color: colorScheme.surface),
           ),
           child: Text(
-            place?.khmer ?? "",
+            customTr(km: place?.khmer ?? "", en: place?.english ?? "", context: context),
             maxLines: 1,
             style: TextStyle(color: colorScheme.primary),
             overflow: TextOverflow.ellipsis,
@@ -221,7 +228,7 @@ class PlaceCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildAnimatedCrossFade(
-              loading: place?.provinceCode == null,
+              loading: subtitle == null,
               loadingWidget: Container(
                 width: double.infinity,
                 child: CgCustomShimmer(
@@ -235,24 +242,25 @@ class PlaceCard extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 child: Text(
-                  getGeoInfo(),
+                  subtitle ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),
             const SizedBox(height: ConfigConstant.margin0),
-            buildAnimatedCrossFade(
-              loading: place?.khmer == null,
-              loadingWidget: const SizedBox(width: double.infinity),
-              child: Row(
-                children: [
-                  buildComment(colorScheme, textTheme),
-                  const SizedBox(width: ConfigConstant.margin1),
-                  buildDistance(colorScheme, textTheme),
-                ],
+            if (place?.id != null)
+              buildAnimatedCrossFade(
+                loading: place?.khmer == null,
+                loadingWidget: const SizedBox(width: double.infinity),
+                child: Row(
+                  children: [
+                    buildComment(colorScheme, textTheme),
+                    const SizedBox(width: ConfigConstant.margin1),
+                    buildDistance(colorScheme, textTheme),
+                  ],
+                ),
               ),
-            ),
           ],
         ),
       ),
