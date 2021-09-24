@@ -62,6 +62,7 @@ dependencies:
   dio: ^4.0.0
   csv: ^5.0.0
   package_info: ^2.0.2
+  url_launcher: ^6.0.10
 
 dev_dependencies:
   build_runner: ^1.12.1
