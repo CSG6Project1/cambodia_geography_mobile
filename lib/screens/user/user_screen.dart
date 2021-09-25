@@ -12,7 +12,9 @@ import 'package:cambodia_geography/screens/user/local_widgets/theme_mode_tile.da
 import 'package:cambodia_geography/screens/user/local_widgets/user_infos_tile.dart';
 import 'package:cambodia_geography/screens/user/local_widgets/user_setting_app_bar.dart';
 import 'package:cambodia_geography/services/apis/users/user_api.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({Key? key}) : super(key: key);
@@ -87,16 +89,23 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                   ),
                   const SizedBox(height: ConfigConstant.margin2),
                   SettingTile(
-                    title: "Rate our app",
+                    title: "Rate us",
                     iconData: Icons.rate_review,
                     subtitle: "We’d love to hear your experience",
-                    onTap: () {},
+                    onTap: () async {
+                      final InAppReview inAppReview = InAppReview.instance;
+                      if (await inAppReview.isAvailable()) {
+                        inAppReview.requestReview();
+                      }
+                    },
                   ),
                   SettingTile(
                     title: "Policy & Privary",
                     iconData: Icons.privacy_tip,
                     showDivider: false,
-                    onTap: () {},
+                    onTap: () {
+                      launch('https://camgeo.netlify.com/assets/privacy-policy.pdf');
+                    },
                   ),
                   const SizedBox(height: ConfigConstant.objectHeight7),
                 ],
