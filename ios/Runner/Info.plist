@@ -12,6 +12,10 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>Cambodia Geography</string>
+	<key>CFBundleDisplayName</key>
+	<string>Cambodia Geography</string>
+	<key>CFBundleName</key>
+	<string>Cambodia Geography</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
