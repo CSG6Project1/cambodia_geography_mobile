@@ -24,35 +24,30 @@ class _CgBottomNavWrapperState extends State<CgBottomNavWrapper> with CgMediaQue
   Widget build(BuildContext context) {
     final bottomHeight = MediaQuery.of(context).viewPadding.bottom;
     final height = bottomHeight + ConfigConstant.margin2 + kBottomNavigationBarHeight;
-    return IgnorePointer(
-      ignoring: widget.visible == false,
-      child: AnimatedOpacity(
-        opacity: widget.visible ? 1 : 0,
-        duration: ConfigConstant.fadeDuration,
-        curve: Curves.ease,
-        child: AnimatedContainer(
+    return Material(
+      elevation: themeData.bottomNavigationBarTheme.elevation ?? 8.0,
+      color: colorScheme.surface,
+      child: IgnorePointer(
+        ignoring: widget.visible == false,
+        child: AnimatedOpacity(
+          opacity: widget.visible ? 1 : 0,
           duration: ConfigConstant.fadeDuration,
-          padding: widget.padding ??
-              EdgeInsets.symmetric(
-                horizontal: ConfigConstant.margin2,
-                vertical: ConfigConstant.margin1,
-              ),
-          transform: Matrix4.identity()..translate(0.0, widget.visible ? 0.0 : height),
           curve: Curves.ease,
-          decoration: BoxDecoration(
-            color: colorScheme.surface,
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0.0, -0.1),
-                color: colorScheme.secondary,
+          child: AnimatedContainer(
+            duration: ConfigConstant.fadeDuration,
+            padding: widget.padding ??
+                EdgeInsets.symmetric(
+                  horizontal: ConfigConstant.margin2,
+                  vertical: ConfigConstant.margin1,
+                ),
+            transform: Matrix4.identity()..translate(0.0, widget.visible ? 0.0 : height),
+            curve: Curves.ease,
+            child: SafeArea(
+              child: Wrap(
+                children: [
+                  widget.child,
+                ],
               ),
-            ],
-          ),
-          child: SafeArea(
-            child: Wrap(
-              children: [
-                widget.child,
-              ],
             ),
           ),
         ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
@@ -88,7 +89,7 @@ class RouteConfig {
     if (!routes.containsKey(name) || name == null) name = NOTFOUND;
     if (routesWithCustomTransitions.contains(name)) {
       return CgPageRoute.sharedAxis(
-        (context, animation, secondaryAnimation) => routes[name]?.screen ?? NotFoundScreen(),
+        builder: routes[name]!.route,
         fillColor: routes[name]?.fillColor,
       );
     } else {
@@ -171,7 +172,18 @@ class RouteConfig {
         title: "PLACEDETAIL",
         route: (context) {
           Object? arg = settings?.arguments;
-          if (arg is PlaceModel) return PlaceDetailScreen(place: arg);
+          if (arg is PlaceModel) {
+            if (arg.type == "province") {
+              return ProvinceDetailScreen(
+                info: arg,
+                province: CambodiaGeography.instance.tbProvinces.where((e) {
+                  return e.code == arg.provinceCode;
+                }).first,
+              );
+            } else {
+              return PlaceDetailScreen(place: arg);
+            }
+          }
           return NotFoundScreen();
         },
       ),

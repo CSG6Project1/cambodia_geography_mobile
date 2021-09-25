@@ -135,7 +135,7 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
               if (value == "connect" && onConnect != null) onConnect();
               if (value == "diconnect" && onDisconnect != null) onDisconnect();
             },
-            positinRight: 0,
+            positionRight: 0,
             items: [
               if (shouldShowDisconnectBtn)
                 PopupMenuItem<String>(

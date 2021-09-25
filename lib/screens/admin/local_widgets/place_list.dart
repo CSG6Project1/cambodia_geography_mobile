@@ -79,15 +79,14 @@ class _PlaceListState extends State<PlaceList> with AutomaticKeepAliveClientMixi
     );
 
     if (placesApi.success() && result != null) {
-      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-        setState(() {
-          loading = false;
-          if (placeList != null && loadMore) {
-            placeList?.add(result);
-          } else {
-            placeList = result;
-          }
-        });
+      if (!mounted) return;
+      setState(() {
+        loading = false;
+        if (placeList != null && loadMore) {
+          placeList?.add(result);
+        } else {
+          placeList = result;
+        }
       });
     }
   }

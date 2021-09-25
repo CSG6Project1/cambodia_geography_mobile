@@ -42,35 +42,32 @@ class _HelpScreenState extends State<HelpScreen> with CgThemeMixin, CgMediaQuery
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          buildAppBar(),
-          SliverFillRemaining(
-            child: WebView(
-              initialUrl: "https://camgeo.netlify.app",
-              javascriptMode: JavascriptMode.unrestricted,
-              onProgress: (int progress) {
-                loadingNotifier.value = progress;
-              },
-              onWebViewCreated: (WebViewController controller) async {
-                webViewController.complete(controller);
-                canGoBackNotifier.value = await controller.canGoBack();
-              },
-              onPageFinished: (String value) async {
-                canGoBackNotifier.value = await webViewController.future.then((value) => value.canGoBack());
-              },
-            ),
-          )
-        ],
+      appBar: buildAppBar(),
+      body: WebView(
+        initialUrl: "https://camgeo.netlify.app",
+        javascriptMode: JavascriptMode.unrestricted,
+        onProgress: (int progress) {
+          loadingNotifier.value = progress;
+        },
+        onWebViewCreated: (WebViewController controller) async {
+          webViewController.complete(controller);
+          canGoBackNotifier.value = await controller.canGoBack();
+        },
+        onPageFinished: (String value) async {
+          canGoBackNotifier.value = await webViewController.future.then((value) => value.canGoBack());
+        },
       ),
     );
   }
 
-  SliverAppBar buildAppBar() {
-    return SliverAppBar(
+  AppBar buildAppBar() {
+    const double progressBarHeight = ConfigConstant.margin0;
+    return AppBar(
       backgroundColor: colorScheme.surface,
-      iconTheme: IconThemeData(color: colorScheme.onSurface),
-      forceElevated: true,
+      leading: Container(
+        margin: const EdgeInsets.only(top: progressBarHeight),
+        child: BackButton(color: colorScheme.onSurface),
+      ),
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(4),
         child: ValueListenableBuilder(
@@ -80,18 +77,21 @@ class _HelpScreenState extends State<HelpScreen> with CgThemeMixin, CgMediaQuery
               ignoring: loadingNotifier.value == 100,
               child: AnimatedContainer(
                 duration: ConfigConstant.duration,
+                height: loadingNotifier.value == 100 ? 0 : progressBarHeight,
+                color: colorScheme.error,
                 margin: EdgeInsets.only(
                   right: (mediaQueryData.size.width - (loadingNotifier.value / 100) * mediaQueryData.size.width),
                 ),
-                color: Colors.red,
-                height: loadingNotifier.value == 100 ? 0 : 4.0,
               ),
             );
           },
         ),
       ),
       actions: [
-        buildMoreVertButton(),
+        Container(
+          margin: const EdgeInsets.only(top: progressBarHeight),
+          child: buildMoreVertButton(),
+        ),
       ],
     );
   }
@@ -102,7 +102,7 @@ class _HelpScreenState extends State<HelpScreen> with CgThemeMixin, CgMediaQuery
       builder: (context, value, child) {
         return CgPopupMenu(
           openOnLongPressed: false,
-          positinRight: 0,
+          positionRight: 0,
           items: [
             if (canGoBackNotifier.value)
               PopupMenuItem(

@@ -90,13 +90,14 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
           icon: Icons.admin_panel_settings,
           isRoot: true,
         ),
-      _Route(
-        isRoot: true,
-        routeName: RouteConfig.BOOKMARK,
-        displayName: "Bookmark",
-        icon: Icons.bookmark,
-        overrideOnTap: () {},
-      ),
+      if (this.userProvider?.isSignedIn == true)
+        _Route(
+          isRoot: false,
+          routeName: RouteConfig.BOOKMARK,
+          displayName: "Bookmark",
+          icon: Icons.bookmark,
+          overrideOnTap: () {},
+        ),
       _Route(
         isRoot: false,
         routeName: RouteConfig.USER,

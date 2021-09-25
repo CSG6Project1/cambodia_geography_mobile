@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
@@ -89,6 +90,13 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                     },
                   ),
                   const SizedBox(height: ConfigConstant.margin2),
+                  SettingTile(
+                    title: "Help",
+                    iconData: Icons.help,
+                    onTap: () async {
+                      Navigator.of(context).pushNamed(RouteConfig.HELP);
+                    },
+                  ),
                   SettingTile(
                     title: "Rate us",
                     iconData: Icons.rate_review,

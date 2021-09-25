@@ -92,7 +92,7 @@ class _CarouselPlaceListState extends State<CarouselPlaceList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.bottomCenter,
+      alignment: Alignment.topCenter,
       child: AnimatedCrossFade(
         crossFadeState: showCarousel ? CrossFadeState.showFirst : CrossFadeState.showSecond,
         duration: ConfigConstant.duration,
