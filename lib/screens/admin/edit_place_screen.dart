@@ -460,7 +460,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
       child: CgDropDownField(
         labelText: "ប្រភេទទីតាំង",
         key: Key(AppContant.placeType.join("")),
-        items: AppContant.placeType,
+        items: AppContant.placeType.map((e) => CgDropDownFieldItem(label: e, value: e)).toList(),
         initValue: place.type,
         onChanged: (String? value) {
           if (value == null) return;
@@ -474,12 +474,12 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     List<String> items = ["null", ...villages];
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
-      child: CgDropDownField(
+      child: CgDropDownField<String?>(
         initValue: items.contains(villagesInitValue) ? villagesInitValue : null,
         labelText: "ភូមិ",
         fillColor: colorScheme.background,
         key: Key(villages.join()),
-        items: items,
+        items: AppContant.placeType.map((e) => CgDropDownFieldItem(label: e, value: e)).toList(),
         onChanged: (value) {
           if (value == "null") {
             setState(() {
@@ -501,14 +501,14 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     List<String> items = ["null", ...communes];
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
-      child: CgDropDownField(
+      child: CgDropDownField<String?>(
         initValue: items.contains(communesInitValue) ? communesInitValue : null,
         labelText: "ឃុំ",
         fillColor: colorScheme.background,
         key: Key(communes.join()),
         items: [
-          "null",
-          ...communes,
+          CgDropDownFieldItem(label: 'null', value: null),
+          ...communes.map((e) => CgDropDownFieldItem(label: e, value: e)).toList(),
         ],
         onChanged: (value) {
           villages.clear();
@@ -533,19 +533,19 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     List<String> items = ["null", ...districts];
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
-      child: CgDropDownField(
+      child: CgDropDownField<String?>(
         initValue: items.contains(districtInitValue) ? districtInitValue : null,
         labelText: "ស្រុក",
         key: Key(districts.join()),
         items: [
-          "null",
-          ...districts,
+          CgDropDownFieldItem(label: 'null', value: null),
+          ...districts.map((e) => CgDropDownFieldItem(label: e, value: e)).toList(),
         ],
         onChanged: (value) {
           villages.clear();
           communes.clear();
 
-          if (value == "null") {
+          if (value == null) {
             setState(() {
               this.place.clearDistrictCode();
               this.place.clearCommuneCode();
@@ -555,7 +555,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
           }
 
           setState(() {
-            var selectedDistrict = geo.tbDistricts.where((e) => value?.contains(e.khmer.toString()) == true).toList();
+            var selectedDistrict = geo.tbDistricts.where((e) => value.contains(e.khmer.toString()) == true).toList();
             var _districtCode = selectedDistrict.first.code;
             setCommunes(_districtCode);
           });
@@ -568,10 +568,10 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     List<String> items = geo.tbProvinces.map((e) => e.khmer.toString() + " (${e.code.toString()})").toList();
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
-      child: CgDropDownField(
+      child: CgDropDownField<String?>(
         labelText: "ស្ថិតនៅខេត្ត",
         initValue: items.contains(provinceInitValue) ? provinceInitValue : null,
-        items: items,
+        items: items.map((e) => CgDropDownFieldItem(label: e, value: e)).toList(),
         onChanged: (value) {
           districts.clear();
           communes.clear();

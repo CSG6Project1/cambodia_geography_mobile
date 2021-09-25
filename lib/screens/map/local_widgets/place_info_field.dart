@@ -70,12 +70,13 @@ class _PlaceInfoFieldState extends State<PlaceInfoField> with CgThemeMixin, CgMe
   }
 
   Widget buildProvinceDropDown() {
-    return CgDropDownField(
+    return CgDropDownField<String?>(
       onChanged: widget.onProvinceChange,
       items: List.generate(
         CambodiaGeography.instance.tbProvinces.length,
         (index) {
-          return CambodiaGeography.instance.tbProvinces[index].khmer ?? "";
+          String label = CambodiaGeography.instance.tbProvinces[index].khmer ?? "";
+          return CgDropDownFieldItem(label: label, value: label);
         },
       ),
     );

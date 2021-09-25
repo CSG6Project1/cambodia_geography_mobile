@@ -3,7 +3,12 @@ import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
+import 'package:cambodia_geography/models/tb_commune_model.dart';
+import 'package:cambodia_geography/models/tb_district_model.dart';
+import 'package:cambodia_geography/models/tb_province_model.dart';
+import 'package:cambodia_geography/models/tb_village_model.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -21,12 +26,53 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
   String? _communeCode;
   String? _villageCode;
 
-  final geo = CambodiaGeography.instance;
-  List<String> provinces = [];
-  List<String> districts = [];
-  List<String> communes = [];
-  List<String> villages = [];
-  List<String> placeTypes = ["ទទេ", "តំបន់ទេសចរណ៍", "ភោជនីយដ្ឋាន"];
+  CambodiaGeography geo = CambodiaGeography.instance;
+  List<TbProvinceModel> provinces = [];
+  List<TbDistrictModel> districts = [];
+  List<TbCommuneModel> communes = [];
+  List<TbVillageModel> villages = [];
+
+  List<CgDropDownFieldItem<String?>> placeTypes = [
+    CgDropDownFieldItem(label: tr('place_type.empty'), value: null),
+    CgDropDownFieldItem(label: tr('place_type.restuarant'), value: 'restuarant'),
+    CgDropDownFieldItem(label: tr('place_type.place'), value: 'place'),
+  ];
+
+  List<CgDropDownFieldItem<String?>> get provinceDropDownItems {
+    return geo.tbProvinces.map((e) {
+      return CgDropDownFieldItem(
+        label: e.khmer.toString(),
+        value: e.code,
+      );
+    }).toList();
+  }
+
+  List<CgDropDownFieldItem<String?>> get districtsDropDownItems {
+    return districts.map((e) {
+      return CgDropDownFieldItem(
+        label: e.khmer.toString(),
+        value: e.code,
+      );
+    }).toList();
+  }
+
+  List<CgDropDownFieldItem<String?>> get communeDropDownItems {
+    return communes.map((e) {
+      return CgDropDownFieldItem(
+        label: e.khmer.toString(),
+        value: e.code,
+      );
+    }).toList();
+  }
+
+  List<CgDropDownFieldItem<String?>> get villageDropDownItems {
+    return villages.map((e) {
+      return CgDropDownFieldItem(
+        label: e.khmer.toString(),
+        value: e.code,
+      );
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,15 +91,13 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
         actions: [
           CgButton(
             onPressed: () {
-              Navigator.of(context).pop(
-                PlaceModel(
-                  type: _placeType,
-                  provinceCode: _provinceCode,
-                  districtCode: _districtCode,
-                  communeCode: _communeCode,
-                  villageCode: _villageCode,
-                ),
-              );
+              Navigator.of(context).pop(PlaceModel(
+                type: _placeType,
+                provinceCode: _provinceCode,
+                districtCode: _districtCode,
+                communeCode: _communeCode,
+                villageCode: _villageCode,
+              ));
             },
             labelText: "កំណត់",
             backgroundColor: colorScheme.surface,
@@ -64,136 +108,134 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
       body: ListView(
         padding: ConfigConstant.layoutPadding,
         children: [
-          CgDropDownField(
-            fillColor: colorScheme.background,
-            items: placeTypes,
-            onChanged: (value) {
-              setState(
-                () {
-                  if (value == placeTypes[0]) {
-                    _placeType = null;
-                  } else if (value == placeTypes[1]) {
-                    _placeType = "place";
-                  } else {
-                    _placeType = "restaurant";
-                  }
-                  print(_placeType);
-                },
-              );
-            },
-          ),
+          buildPlaceTypeDropDownField(),
           const SizedBox(height: ConfigConstant.margin1),
-          CgDropDownField(
-            labelText: "ខេត្ត",
-            fillColor: colorScheme.background,
-            items: ["ទទេ", ...geo.tbProvinces.map((e) => e.khmer.toString()).toList()],
-            onChanged: (value) {
-              if (value == "ទទេ") {
-                setState(
-                  () {
-                    districts.clear();
-                    communes.clear();
-                    villages.clear();
-                    _provinceCode = null;
-                  },
-                );
-                return;
-              }
-              setState(
-                () {
-                  var selectedProvince = geo.tbProvinces.where((e) => e.khmer == value).toList();
-                  _provinceCode = selectedProvince.first.code;
-                  districts = geo
-                      .districtsSearch(provinceCode: _provinceCode.toString())
-                      .map((e) => e.khmer.toString())
-                      .toList();
-                  print(districts);
-                },
-              );
-            },
-          ),
+          buildProvinceDropDownField(),
           const SizedBox(height: ConfigConstant.margin1),
-          if (districts.isNotEmpty)
-            CgDropDownField(
-              labelText: "ស្រុក",
-              fillColor: colorScheme.background,
-              key: Key(districts.join()),
-              items: ["ទទេ", ...districts],
-              onChanged: (value) {
-                if (value == "ទទេ") {
-                  setState(
-                    () {
-                      villages.clear();
-                      communes.clear();
-                      _districtCode = null;
-                    },
-                  );
-                  return;
-                }
-                setState(
-                  () {
-                    var selectedDistrict = geo.tbDistricts.where((e) => e.khmer == value).toList();
-                    _districtCode = selectedDistrict.first.code;
-                    communes = geo
-                        .communesSearch(districtCode: _districtCode.toString())
-                        .map((e) => e.khmer.toString())
-                        .toList();
-                    print(communes);
-                  },
-                );
-              },
-            ),
+          if (districts.isNotEmpty) buildDistrictDropDownField(),
           const SizedBox(height: ConfigConstant.margin1),
-          if (communes.isNotEmpty)
-            CgDropDownField(
-              labelText: "ឃុំ",
-              fillColor: colorScheme.background,
-              key: Key(communes.join()),
-              items: ["ទទេ", ...communes],
-              onChanged: (value) {
-                if (value == "ទទេ") {
-                  setState(
-                    () {
-                      villages.clear();
-                      _communeCode = null;
-                    },
-                  );
-                  return;
-                }
-                setState(
-                  () {
-                    var selectedCommune = geo.tbCommunes.where((e) => e.khmer == value).toList();
-                    _communeCode = selectedCommune.first.code;
-                    villages = geo
-                        .villagesSearch(communeCode: _communeCode.toString())
-                        .map((e) => e.khmer.toString())
-                        .toList();
-                  },
-                );
-              },
-            ),
+          if (communes.isNotEmpty) buildCommunesDropDownField(),
           const SizedBox(height: ConfigConstant.margin1),
-          if (villages.isNotEmpty)
-            CgDropDownField(
-              labelText: "ភូមិ",
-              fillColor: colorScheme.background,
-              key: Key(villages.join()),
-              items: ["ទទេ", ...villages],
-              onChanged: (value) {
-                if (value == "ទទេ") {
-                  _villageCode = null;
-                  return;
-                }
-                setState(
-                  () {
-                    var selectedVillage = geo.tbVillages.where((e) => e.khmer == value).toList();
-                    _villageCode = selectedVillage.first.code;
-                  },
-                );
-              },
-            ),
+          if (villages.isNotEmpty) buildVillageDropDownField(),
         ],
       ),
+    );
+  }
+
+  Widget buildVillageDropDownField() {
+    return CgDropDownField<String?>(
+      labelText: "ភូមិ",
+      fillColor: colorScheme.background,
+      key: Key(villages.join()),
+      items: [
+        CgDropDownFieldItem(label: 'ទទេ', value: null),
+        ...villageDropDownItems,
+      ],
+      onChanged: (String? villageCode) {
+        if (villageCode == null) {
+          _villageCode = null;
+          return;
+        }
+        setState(() {
+          _villageCode = villageCode;
+        });
+      },
+    );
+  }
+
+  Widget buildCommunesDropDownField() {
+    return CgDropDownField<String?>(
+      labelText: "ឃុំ",
+      fillColor: colorScheme.background,
+      key: Key(communes.join()),
+      items: [
+        CgDropDownFieldItem(label: 'ទទេ', value: null),
+        ...communeDropDownItems,
+      ],
+      onChanged: (String? communeCode) {
+        if (communeCode == null) {
+          setState(() {
+            villages.clear();
+            _communeCode = null;
+          });
+          return;
+        }
+        setState(() {
+          villages = geo.villagesSearch(communeCode: communeCode.toString());
+        });
+      },
+    );
+  }
+
+  Widget buildDistrictDropDownField() {
+    return CgDropDownField<String?>(
+      labelText: "ស្រុក",
+      fillColor: colorScheme.background,
+      key: Key(districts.join()),
+      items: [
+        CgDropDownFieldItem(label: 'ទទេ', value: null),
+        ...districtsDropDownItems,
+      ],
+      onChanged: (String? districtCode) {
+        if (districtCode == null) {
+          setState(() {
+            villages.clear();
+            communes.clear();
+            _districtCode = null;
+          });
+          return;
+        }
+        setState(() {
+          communes = geo.communesSearch(districtCode: _districtCode.toString());
+          print(communes);
+        });
+      },
+    );
+  }
+
+  Widget buildProvinceDropDownField() {
+    return CgDropDownField<String?>(
+      labelText: "ខេត្ត",
+      fillColor: colorScheme.background,
+      items: [
+        CgDropDownFieldItem(label: 'ទទេ', value: null),
+        ...provinceDropDownItems,
+      ],
+      onChanged: (provinceCode) {
+        if (provinceCode == null) {
+          setState(() {
+            districts.clear();
+            communes.clear();
+            villages.clear();
+            _provinceCode = null;
+          });
+          return;
+        }
+        setState(() {
+          _provinceCode = provinceCode;
+          districts = geo.districtsSearch(provinceCode: _provinceCode.toString());
+          print(districts);
+        });
+      },
+    );
+  }
+
+  Widget buildPlaceTypeDropDownField() {
+    return CgDropDownField<String?>(
+      fillColor: colorScheme.background,
+      items: placeTypes,
+      onChanged: (value) {
+        setState(() {
+          if (value == placeTypes[0].value) {
+            _placeType = null;
+          } else if (value == placeTypes[1].value) {
+            _placeType = "place";
+          } else {
+            _placeType = "restaurant";
+          }
+          print(_placeType);
+        });
+      },
     );
   }
 }
