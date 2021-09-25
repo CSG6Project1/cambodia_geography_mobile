@@ -20,7 +20,7 @@ class PlaceInfoField extends StatefulWidget {
 
   final MapScreen widget;
   final ValueNotifier<bool> expandedFilterNotifier;
-  final void Function(String?) onProvinceChange;
+  final void Function(dynamic) onProvinceChange;
   final List<Marker> markers;
   final TextEditingController latitudeController;
   final TextEditingController longitudeController;
@@ -70,7 +70,7 @@ class _PlaceInfoFieldState extends State<PlaceInfoField> with CgThemeMixin, CgMe
   }
 
   Widget buildProvinceDropDown() {
-    return CgDropDownField<String?>(
+    return CgDropDownField(
       onChanged: widget.onProvinceChange,
       items: List.generate(
         CambodiaGeography.instance.tbProvinces.length,

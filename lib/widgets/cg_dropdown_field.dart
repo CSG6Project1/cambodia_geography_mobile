@@ -1,9 +1,9 @@
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:flutter/material.dart';
 
-class CgDropDownFieldItem<T> {
+class CgDropDownFieldItem {
   final String label;
-  final T value;
+  final dynamic value;
 
   CgDropDownFieldItem({
     required this.label,
@@ -11,7 +11,7 @@ class CgDropDownFieldItem<T> {
   });
 }
 
-class CgDropDownField<T> extends StatefulWidget {
+class CgDropDownField extends StatefulWidget {
   const CgDropDownField({
     Key? key,
     this.fillColor,
@@ -34,15 +34,15 @@ class CgDropDownField<T> extends StatefulWidget {
   final Widget? prefix;
   final bool isExpanded;
   final bool outlineBorder;
-  final void Function(T? value)? onChanged;
-  final List<CgDropDownFieldItem<T>> items;
+  final void Function(dynamic value)? onChanged;
+  final List<CgDropDownFieldItem> items;
 
   @override
-  _CgDropDownFieldState<T> createState() => _CgDropDownFieldState<T>();
+  _CgDropDownFieldState createState() => _CgDropDownFieldState();
 }
 
-class _CgDropDownFieldState<T> extends State<CgDropDownField> with CgThemeMixin {
-  T? currentValue;
+class _CgDropDownFieldState extends State<CgDropDownField> with CgThemeMixin {
+  String? currentValue;
 
   @override
   void initState() {
@@ -50,32 +50,36 @@ class _CgDropDownFieldState<T> extends State<CgDropDownField> with CgThemeMixin 
     super.initState();
   }
 
-  void setCurrentValue(T? value) {
+  void setCurrentValue(String? value) {
     setState(() {
       currentValue = value;
     });
 
     if (widget.onChanged != null) {
-      widget.onChanged!(value);
+      if (value == "null") {
+        widget.onChanged!(null);
+      } else {
+        widget.onChanged!(value);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField<T>(
+    return DropdownButtonFormField(
       value: currentValue,
       items: buildItems(),
       isExpanded: widget.isExpanded,
       decoration: buildInputDecoration(context),
-      onChanged: (T? value) => setCurrentValue(value),
+      onChanged: (dynamic value) => setCurrentValue(value),
     );
   }
 
-  List<DropdownMenuItem<T>> buildItems() {
+  List<DropdownMenuItem> buildItems() {
     return widget.items.map((e) {
       return DropdownMenuItem(
         child: Text(e.label),
-        value: e.value as T,
+        value: e.value == null ? "null" : e.value,
       );
     }).toList();
   }

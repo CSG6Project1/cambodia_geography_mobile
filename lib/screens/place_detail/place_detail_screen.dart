@@ -125,6 +125,11 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
           ),
           IconButton(
             onPressed: () async {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("You pressed bookmark!"),
+                ),
+              );
               if (place.id == null) return;
               BookmarkApi bookmarkApi = BookmarkApi();
               await bookmarkApi.addPlace(place.id!);

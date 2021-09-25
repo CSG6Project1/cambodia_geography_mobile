@@ -82,7 +82,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
             child: IconButton(
               icon: Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
               onPressed: () {
-                Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER).then(
+                Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER, arguments: placeModel).then(
                   (value) {
                     if (value is PlaceModel) {
                       print(value.toJson());
@@ -127,7 +127,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     return PlaceList(
-      type: placeModel?.type == "restaurant" ? PlaceType.restaurant : PlaceType.place,
+      type: placeModel?.placeType(),
       provinceCode: placeModel?.provinceCode,
       districtCode: placeModel?.districtCode,
       villageCode: placeModel?.villageCode,
