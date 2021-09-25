@@ -199,7 +199,11 @@ class RouteConfig {
       SEARCHFILTER: CgRouteSetting(
         isRoot: false,
         title: "SEARCHFILTER",
-        route: (context) => SearchFilterScreen(),
+        route: (context) {
+          Object? arguments = settings?.arguments;
+          if (arguments is PlaceModel) return SearchFilterScreen(filter: arguments);
+          return SearchFilterScreen();
+        },
         fullscreenDialog: true,
       ),
       ADMIN: CgRouteSetting(

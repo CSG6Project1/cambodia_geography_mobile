@@ -462,7 +462,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
         key: Key(AppContant.placeType.join("")),
         items: AppContant.placeType.map((e) => CgDropDownFieldItem(label: e, value: e)).toList(),
         initValue: place.type,
-        onChanged: (String? value) {
+        onChanged: (dynamic value) {
           if (value == null) return;
           this.place = this.place.copyWith(type: value);
         },
@@ -474,7 +474,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     List<String> items = ["null", ...villages];
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
-      child: CgDropDownField<String?>(
+      child: CgDropDownField(
         initValue: items.contains(villagesInitValue) ? villagesInitValue : null,
         labelText: "ភូមិ",
         fillColor: colorScheme.background,
@@ -501,7 +501,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     List<String> items = ["null", ...communes];
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
-      child: CgDropDownField<String?>(
+      child: CgDropDownField(
         initValue: items.contains(communesInitValue) ? communesInitValue : null,
         labelText: "ឃុំ",
         fillColor: colorScheme.background,
@@ -533,7 +533,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     List<String> items = ["null", ...districts];
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
-      child: CgDropDownField<String?>(
+      child: CgDropDownField(
         initValue: items.contains(districtInitValue) ? districtInitValue : null,
         labelText: "ស្រុក",
         key: Key(districts.join()),
@@ -568,7 +568,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     List<String> items = geo.tbProvinces.map((e) => e.khmer.toString() + " (${e.code.toString()})").toList();
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
-      child: CgDropDownField<String?>(
+      child: CgDropDownField(
         labelText: "ស្ថិតនៅខេត្ត",
         initValue: items.contains(provinceInitValue) ? provinceInitValue : null,
         items: items.map((e) => CgDropDownFieldItem(label: e, value: e)).toList(),
