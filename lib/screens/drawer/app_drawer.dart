@@ -96,6 +96,13 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
         overrideOnTap: () {},
       ),
       _Route(
+        isRoot: false,
+        routeName: RouteConfig.USER,
+        displayName: "Setting",
+        icon: Icons.settings,
+        overrideOnTap: () {},
+      ),
+      _Route(
         routeName: "",
         displayName: "Rate us",
         icon: Icons.rate_review,
@@ -103,11 +110,11 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
       ),
       _Route(
         routeName: "",
-        displayName: "About us",
-        icon: Icons.info,
+        displayName: "Help",
+        icon: Icons.help,
         overrideOnTap: () async {
           Navigator.of(context).pop();
-          Navigator.of(context).pushNamed(RouteConfig.ABOUT_US);
+          Navigator.of(context).pushNamed(RouteConfig.HELP);
         },
       ),
     ];

@@ -15,6 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+@Deprecated('migration')
 class AboutUsScreen extends StatefulWidget {
   const AboutUsScreen({Key? key}) : super(key: key);
 
@@ -22,6 +23,7 @@ class AboutUsScreen extends StatefulWidget {
   _AboutUsScreenState createState() => _AboutUsScreenState();
 }
 
+@Deprecated('migration')
 class _AboutUsScreenState extends State<AboutUsScreen> with CgThemeMixin, CgMediaQueryMixin {
   late MemberApi memberApi;
   List<MemberModel>? members;
