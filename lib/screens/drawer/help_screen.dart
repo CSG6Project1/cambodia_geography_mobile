@@ -70,7 +70,6 @@ class _HelpScreenState extends State<HelpScreen> with CgThemeMixin, CgMediaQuery
     return SliverAppBar(
       backgroundColor: colorScheme.surface,
       iconTheme: IconThemeData(color: colorScheme.onSurface),
-      toolbarHeight: kToolbarHeight - 4,
       forceElevated: true,
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(4),

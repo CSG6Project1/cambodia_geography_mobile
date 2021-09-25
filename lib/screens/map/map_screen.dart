@@ -149,7 +149,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
             liteModeEnabled: false,
             tiltGesturesEnabled: true,
             myLocationEnabled: false,
-            myLocationButtonEnabled: true,
+            myLocationButtonEnabled: false,
             padding: const EdgeInsets.all(0),
             indoorViewEnabled: false,
             trafficEnabled: false,
@@ -169,10 +169,13 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
             onLongPress: (LatLng latLng) {},
           ),
           if (widget.settings.flowType == MapFlowType.view)
-            CarouselPlaceList(
-              initialPlace: widget.settings.place,
-              controller: controller,
-              onPageChanged: onCarouselPageChanged,
+            Container(
+              margin: EdgeInsets.only(bottom: mediaQueryData.padding.bottom),
+              child: CarouselPlaceList(
+                initialPlace: widget.settings.place,
+                controller: controller,
+                onPageChanged: onCarouselPageChanged,
+              ),
             )
         ],
       ),

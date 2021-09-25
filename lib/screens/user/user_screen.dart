@@ -13,6 +13,7 @@ import 'package:cambodia_geography/screens/user/local_widgets/user_infos_tile.da
 import 'package:cambodia_geography/screens/user/local_widgets/user_setting_app_bar.dart';
 import 'package:cambodia_geography/services/apis/users/user_api.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -93,10 +94,9 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                     iconData: Icons.rate_review,
                     subtitle: "We’d love to hear your experience",
                     onTap: () async {
-                      final InAppReview inAppReview = InAppReview.instance;
-                      if (await inAppReview.isAvailable()) {
-                        inAppReview.requestReview();
-                      }
+                      InAppReview inAppReview = InAppReview.instance;
+                      PackageInfo packageInfo = await PackageInfo.fromPlatform().then((value) => value);
+                      inAppReview.openStoreListing(appStoreId: packageInfo.packageName);
                     },
                   ),
                   SettingTile(
