@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
@@ -90,13 +92,21 @@ class RouteConfig {
         fillColor: routes[name]?.fillColor,
       );
     } else {
-      return SwipeablePageRoute(
-        canSwipe: routes[name]?.canSwap == true && !(routes[name]?.isRoot == true),
-        canOnlySwipeFromEdge: routes[name]?.canSwap == true && !(routes[name]?.isRoot == true),
-        settings: settings?.copyWith(arguments: routes[name]!),
-        builder: routes[name]!.route,
-        fullscreenDialog: routes[name]!.fullscreenDialog,
-      );
+      if (Platform.isIOS) {
+        return SwipeablePageRoute(
+          canSwipe: routes[name]?.canSwap == true && !(routes[name]?.isRoot == true),
+          canOnlySwipeFromEdge: routes[name]?.canSwap == true && !(routes[name]?.isRoot == true),
+          settings: settings?.copyWith(arguments: routes[name]!),
+          builder: routes[name]!.route,
+          fullscreenDialog: routes[name]!.fullscreenDialog,
+        );
+      } else {
+        return MaterialPageRoute(
+          settings: settings?.copyWith(arguments: routes[name]!),
+          builder: routes[name]!.route,
+          fullscreenDialog: routes[name]!.fullscreenDialog,
+        );
+      }
     }
   }
 

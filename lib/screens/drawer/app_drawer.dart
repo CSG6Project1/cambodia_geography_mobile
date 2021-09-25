@@ -9,6 +9,7 @@ import 'package:cambodia_geography/screens/drawer/local_widgets/diagonal_path_cl
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:in_app_review/in_app_review.dart';
 
@@ -109,10 +110,9 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
         icon: Icons.rate_review,
         overrideOnTap: () async {
           Navigator.of(context).pop();
-          final InAppReview inAppReview = InAppReview.instance;
-          if (await inAppReview.isAvailable()) {
-            inAppReview.requestReview();
-          }
+          InAppReview inAppReview = InAppReview.instance;
+          PackageInfo packageInfo = await PackageInfo.fromPlatform().then((value) => value);
+          inAppReview.openStoreListing(appStoreId: packageInfo.packageName);
         },
       ),
       _Route(
