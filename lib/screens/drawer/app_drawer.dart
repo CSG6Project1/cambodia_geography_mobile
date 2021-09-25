@@ -10,6 +10,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -106,7 +107,13 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
         routeName: "",
         displayName: "Rate us",
         icon: Icons.rate_review,
-        overrideOnTap: () {},
+        overrideOnTap: () async {
+          Navigator.of(context).pop();
+          final InAppReview inAppReview = InAppReview.instance;
+          if (await inAppReview.isAvailable()) {
+            inAppReview.requestReview();
+          }
+        },
       ),
       _Route(
         routeName: "",
