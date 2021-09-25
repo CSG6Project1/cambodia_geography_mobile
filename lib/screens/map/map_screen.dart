@@ -148,7 +148,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
             zoomGesturesEnabled: true,
             liteModeEnabled: false,
             tiltGesturesEnabled: true,
-            myLocationEnabled: false,
+            myLocationEnabled: true,
             myLocationButtonEnabled: false,
             padding: const EdgeInsets.all(0),
             indoorViewEnabled: false,
@@ -170,7 +170,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
           ),
           if (widget.settings.flowType == MapFlowType.view)
             Container(
-              margin: EdgeInsets.only(bottom: mediaQueryData.padding.bottom),
+              margin: const EdgeInsets.only(top: ConfigConstant.margin2),
               child: CarouselPlaceList(
                 initialPlace: widget.settings.place,
                 controller: controller,

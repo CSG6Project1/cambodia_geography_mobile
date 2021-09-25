@@ -8,16 +8,16 @@ class CgPopupMenu<T> extends StatefulWidget {
     required this.child,
     this.items = const [],
     this.openOnLongPressed = true,
-    this.positinLeft,
-    this.positinRight,
+    this.positionLeft,
+    this.positionRight,
     required this.onPressed,
   }) : super(key: key);
 
   final Widget child;
   final List<PopupMenuItem<T>> items;
   final bool openOnLongPressed;
-  final double? positinLeft;
-  final double? positinRight;
+  final double? positionLeft;
+  final double? positionRight;
   final void Function(dynamic value) onPressed;
 
   @override
@@ -25,24 +25,29 @@ class CgPopupMenu<T> extends StatefulWidget {
 }
 
 class _CgPopupMenuState<T> extends State<CgPopupMenu> with CgMediaQueryMixin {
-  Offset? _tapDownPosition;
-
   void onPressed(BuildContext context) async {
     if (widget.items.isEmpty) return;
-    dynamic overlay = Overlay.of(context)?.context.findRenderObject();
-    if (overlay is RenderBox) {
-      dynamic result = await showMenu<T>(
-        context: context,
-        items: widget.items as List<PopupMenuItem<T>>,
-        position: RelativeRect.fromLTRB(
-          widget.positinLeft ?? ConfigConstant.margin2,
-          _tapDownPosition?.dy ?? 0,
-          widget.positinRight ?? ConfigConstant.margin2,
-          overlay.size.height - (_tapDownPosition?.dy ?? 0),
-        ),
-      );
-      widget.onPressed(result);
-    }
+    Offset offset = Offset(0.0, 0.0);
+    final RenderBox button = context.findRenderObject()! as RenderBox;
+    final RenderBox overlay = Navigator.of(context).overlay!.context.findRenderObject()! as RenderBox;
+    final RelativeRect position = RelativeRect.fromRect(
+      Rect.fromPoints(
+        button.localToGlobal(offset, ancestor: overlay),
+        button.localToGlobal(button.size.bottomRight(Offset.zero) + offset, ancestor: overlay),
+      ),
+      Offset.zero & overlay.size,
+    );
+    T? result = await showMenu<T>(
+      context: context,
+      items: widget.items as List<PopupMenuItem<T>>,
+      position: RelativeRect.fromLTRB(
+        widget.positionLeft ?? (widget.positionRight != null ? ConfigConstant.margin0 : position.left),
+        position.top,
+        widget.positionRight ?? (widget.positionLeft != null ? ConfigConstant.margin0 : position.right),
+        position.bottom,
+      ),
+    );
+    widget.onPressed(result);
   }
 
   @override
@@ -50,7 +55,6 @@ class _CgPopupMenuState<T> extends State<CgPopupMenu> with CgMediaQueryMixin {
     return GestureDetector(
       child: widget.child,
       onTap: widget.openOnLongPressed ? null : () => onPressed(context),
-      onTapDown: (details) => _tapDownPosition = details.globalPosition,
       onLongPress: widget.openOnLongPressed ? () => onPressed(context) : null,
     );
   }

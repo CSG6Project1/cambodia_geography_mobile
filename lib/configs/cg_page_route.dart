@@ -2,15 +2,15 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 class CgPageRoute {
-  static Route<T> fadeThrough<T>(
-    RoutePageBuilder pageBuilder, {
+  static Route<T> fadeThrough<T>({
+    required WidgetBuilder builder,
     RouteSettings? settings,
     Color? fillColor,
     bool maintainState = true,
     bool fullscreenDialog = false,
   }) {
     return PageRouteBuilder<T>(
-      pageBuilder: pageBuilder,
+      pageBuilder: (context, animation, secondaryAnimation) => builder(context),
       settings: settings,
       maintainState: maintainState,
       fullscreenDialog: fullscreenDialog,
@@ -25,22 +25,22 @@ class CgPageRoute {
     );
   }
 
-  static Route<T> fadeScale<T>(
-    RoutePageBuilder pageBuilder, {
+  static Route<T> fadeScale<T>({
+    required WidgetBuilder builder,
     RouteSettings? settings,
     bool maintainState = true,
     bool fullscreenDialog = false,
   }) {
     return PageRouteBuilder<T>(
-      pageBuilder: pageBuilder,
+      pageBuilder: (context, animation, secondaryAnimation) => builder(context),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return FadeScaleTransition(animation: animation, child: child);
       },
     );
   }
 
-  static Route<T> sharedAxis<T>(
-    RoutePageBuilder pageBuilder, {
+  static Route<T> sharedAxis<T>({
+    required WidgetBuilder builder,
     RouteSettings? settings,
     Color? fillColor,
     bool maintainState = true,
@@ -48,7 +48,7 @@ class CgPageRoute {
     SharedAxisTransitionType type = SharedAxisTransitionType.scaled,
   }) {
     return PageRouteBuilder<T>(
-      pageBuilder: pageBuilder,
+      pageBuilder: (context, animation, secondaryAnimation) => builder(context),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return SharedAxisTransition(
           child: child,

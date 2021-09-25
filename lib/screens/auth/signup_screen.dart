@@ -1,6 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/app.dart';
-import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
@@ -9,7 +8,6 @@ import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/user/confirmation_model.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/screens/auth/local_widgets/social_buttons.dart';
-import 'package:cambodia_geography/screens/auth/login_screen.dart';
 import 'package:cambodia_geography/services/apis/users/confirmation_api.dart';
 import 'package:cambodia_geography/services/apis/users/user_register_api.dart';
 import 'package:cambodia_geography/services/authentications/auth_api.dart';
@@ -140,12 +138,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
   }
 
   void moveToLogin() {
-    Navigator.of(context).pushReplacement(
-      CgPageRoute.sharedAxis(
-        (context, animation, secondaryAnimation) => LoginScreen(),
-        fillColor: colorScheme.surface,
-      ),
-    );
+    Navigator.of(context).pushReplacementNamed(RouteConfig.LOGIN);
   }
 
   @override

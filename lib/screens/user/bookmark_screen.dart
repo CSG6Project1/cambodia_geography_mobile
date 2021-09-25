@@ -10,7 +10,6 @@ import 'package:cambodia_geography/services/apis/base_api.dart';
 import 'package:cambodia_geography/services/apis/bookmarks/bookmark_api.dart';
 import 'package:cambodia_geography/services/apis/bookmarks/bookmark_remove_multiple_places_api.dart';
 import 'package:cambodia_geography/services/apis/bookmarks/bookmark_remove_place_api.dart';
-import 'package:cambodia_geography/widgets/cg_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -90,7 +89,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    return CgScaffold(
+    return Scaffold(
       appBar: buildAppbar(),
       body: buildBody(),
     );
@@ -179,7 +178,6 @@ class _BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvid
           ),
         ),
       ],
-      titleSpacing: 0,
       title: const CgAppBarTitle(title: "កំណត់ចំណាំ"),
       bottom: TabBar(
         controller: controller,

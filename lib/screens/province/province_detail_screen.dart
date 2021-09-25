@@ -24,9 +24,11 @@ class ProvinceDetailScreen extends StatefulWidget {
   const ProvinceDetailScreen({
     Key? key,
     required this.province,
+    this.info,
   }) : super(key: key);
 
   final TbProvinceModel province;
+  final PlaceModel? info;
 
   @override
   _ProvinceDetailScreenState createState() => _ProvinceDetailScreenState();
@@ -67,6 +69,14 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
   }
 
   Future<void> loadProvince({bool loadMore = false}) async {
+    if (widget.info != null) {
+      if (!mounted) return;
+      setState(() {
+        placeList = PlaceListModel(items: [widget.info!]);
+      });
+      return;
+    }
+
     if (loadMore && !(this.placeList?.hasLoadMore() == true)) return;
     String? page = loadMore ? placeList?.links?.getPageNumber().next.toString() : null;
 
@@ -77,6 +87,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
     );
 
     if (placesApi.success()) {
+      if (!mounted) return;
       setState(() {
         if (placeList != null && loadMore) {
           placeList?.add(result);
