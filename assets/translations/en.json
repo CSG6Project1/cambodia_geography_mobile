@@ -30,7 +30,8 @@
     "verify": "Verify",
     "version_info": "Version Info",
     "view_on_app_store": "View in App Store",
-    "view_on_google_play": "View in Google Play Store"
+    "view_on_google_play": "View in Google Play Store",
+    "visit_their_reference": "Visit their reference page"
   },
   "geo": {
     "commune": "Commune",
@@ -43,7 +44,7 @@
     "lat_name": "Latitude: {LAT}",
     "lon_name": "Longtitude: {LON}",
     "postal_code": "Postal Code: {CODE}",
-    "sangkat": "Songkat",
+    "sangkat": "Sangkat",
     "sangkat_name": "Sangkat {SANGKAT}",
     "srok": "District",
     "srok_name": "Srok {SROK}",
@@ -70,6 +71,7 @@
     "village": "Village"
   },
   "msg": {
+    "404_not_found": "404 not found",
     "already_have_acc": "Already have an account?",
     "and": " and ",
     "are_you_sure_to_delete": "Are you sure to delete?",
@@ -87,6 +89,7 @@
     "create_place": {
       "successfully": "Created place successfully!"
     },
+    "data_collection_reference": "We collected the informations from NestCode GEO.",
     "discard_changes": "Discard changes?",
     "disconnect": {
       "fail": "Disconnect fail!"
@@ -115,6 +118,7 @@
     "place_added_to_bookmark": "Place added to bookmark!",
     "please_verify_email": "Please verify your email address",
     "register_fail": "Register failed",
+    "something_went_wrong": "Something went wrong...",
     "try_again": "Please try again!",
     "update_name": {
       "title": "Update name"
@@ -132,8 +136,7 @@
       "resend_fail": "Resend fail, please try again!",
       "send_to": "Sent to {EMAIL}. Please click Verify to verify this email."
     },
-    "version_info": "Version: {VERSION}\\nCopyright © CADT, {YEAR}.",
-    "404_not_found": "404 not found"
+    "version_info": "Version: {VERSION}\\nCopyright © CADT, {YEAR}."
   },
   "place_type": {
     "draft": "Draft",
@@ -147,36 +150,42 @@
       "many": "{} communes",
       "one": "1 commune",
       "other": "{} communes",
+      "two": "{} communes",
       "zero": "0 commune"
     },
     "khan": {
       "many": "{} khans",
       "one": "1 khan",
       "other": "{} khans",
+      "two": "{} khans",
       "zero": "0 khan"
     },
     "sangkat": {
-      "many": "{} songkats",
-      "one": "1 songkat",
-      "other": "{} songkats",
-      "zero": "0 songkat"
+      "many": "{} sangkats",
+      "one": "1 sangkat",
+      "other": "{} sangkats",
+      "two": "{} sangkats",
+      "zero": "0 sangkat"
     },
     "second": {
       "many": "{} seconds",
       "one": "1 seconds",
       "other": "{} seconds",
+      "two": "{} seconds",
       "zero": "0 seconds"
     },
     "srok": {
       "many": "{} districts",
       "one": "1 district",
       "other": "{} districts",
+      "two": "{} districts",
       "zero": "0 district"
     },
     "village": {
       "many": "{} villages",
       "one": "1 village",
       "other": "{} villages",
+      "two": "{} villages",
       "zero": "0 village"
     }
   },
@@ -186,6 +195,9 @@
     "system": "System"
   },
   "tile": {
+    "about_province": "About Province",
+    "direction": "Direction",
+    "east": "East",
     "email": "Email",
     "facebook": "Facebook",
     "google": "Google",
@@ -194,22 +206,19 @@
     "login": "Login",
     "logout": "Logout",
     "name": "Name",
+    "north": "North",
     "password": "Password",
     "policy": "Policy & Privary",
     "rate_us": {
       "subtitle": "We’d love to hear your experience",
       "title": "Rate us"
     },
-    "theme": "Theme",
-    "temperature": "Temperature",
-    "wind": "Wind",
-    "north": "North",
-    "east": "East",
     "south": "South",
+    "temperature": "Temperature",
+    "theme": "Theme",
+    "weather": "Weather",
     "west": "West",
-    "direction": "Direction",
-    "about_province": "About Province",
-    "weather": "Weather"
+    "wind": "Wind"
   },
   "title": {
     "about_place": "About place",
@@ -221,6 +230,8 @@
     "filter": "Filter",
     "home": "Home",
     "images": "Images",
+    "information": "Informations",
+    "reference": "Reference",
     "setting": "Setting",
     "verify_email": "Please confirm your email"
   },
