@@ -23,6 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class CommentScreen extends StatefulWidget {
   const CommentScreen({required this.place, Key? key}) : super(key: key);
@@ -105,22 +106,22 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
     );
     if (crudCommentApi.success()) {
       await load();
-      Fluttertoast.showToast(msg: 'Comment uploaded');
+      Fluttertoast.showToast(msg: tr('msg.comment.uploaded'));
       scrollController.animateTo(0, duration: ConfigConstant.duration, curve: Curves.ease);
     } else
-      showOkAlertDialog(context: context, title: 'Comment failed', message: crudCommentApi.message());
+      showOkAlertDialog(context: context, title: tr('msg.comment.fail'), message: crudCommentApi.message());
   }
 
   Future<void> onTapCommentOption(CommentModel? comment) async {
-    var userProvider = Provider.of<UserProvider>(context, listen: false);
+    UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
     if (userProvider.user?.id == null || comment?.user?.id == null) return;
     if (comment?.user?.id == userProvider.user!.id) {
-      var option = await showModalActionSheet<String>(
+      String? option = await showModalActionSheet<String>(
         context: context,
         actions: [
-          SheetAction(label: 'Edit', key: 'edit'),
+          SheetAction(label: tr('button.edit'), key: 'edit'),
           SheetAction(
-            label: 'Delete',
+            label: tr('button.delete'),
             key: 'delete',
             isDestructiveAction: true,
           ),
@@ -129,7 +130,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
       if (option == 'delete') {
         OkCancelResult result = await showOkCancelAlertDialog(
           context: context,
-          title: 'Delete comment',
+          title: tr('msg.are_you_sure_to_delete_this_comment'),
           isDestructiveAction: true,
           okLabel: 'Delete',
         );
@@ -139,15 +140,15 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
           await crudCommentApi.deleteComment(id: comment!.id.toString());
           if (crudCommentApi.success()) {
             await load();
-            Fluttertoast.showToast(msg: 'Comment deleted');
+            Fluttertoast.showToast(msg: tr('msg.comment.deleted'));
             App.of(context)?.hideLoading();
           } else
-            showOkAlertDialog(context: context, title: 'Comment failed');
+            showOkAlertDialog(context: context, title: tr('msg.comment.fail'));
         }
       } else if (option == 'edit') {
-        var commentUpdate = await showTextInputDialog(
+        List<String>? commentUpdate = await showTextInputDialog(
           context: context,
-          title: 'Edit comment',
+          title: tr('msg.edit_comment'),
           textFields: [
             DialogTextField(
               initialText: comment?.comment.toString(),
@@ -161,11 +162,11 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
         await crudCommentApi.updateComment(id: comment!.id!, comment: commentUpdate.first);
         if (crudCommentApi.success()) {
           await load();
-          Fluttertoast.showToast(msg: 'Comment updated');
+          Fluttertoast.showToast(msg: tr('msg.comment_updated'));
         } else {
           await showOkAlertDialog(
             context: context,
-            title: 'Comment failed',
+            title: tr('msg.comment_fail'),
             message: crudCommentApi.message(),
           );
         }
@@ -176,7 +177,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
         context: context,
         actions: [
           SheetAction(
-            label: 'Report',
+            label: tr('button.report'),
             isDestructiveAction: true,
           ),
         ],
@@ -253,7 +254,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
             Expanded(
               child: CgTextField(
                 controller: textController,
-                hintText: 'មតិយោបល់របស់អ្នក...',
+                hintText: tr('hint.comment'),
                 maxLines: 5,
                 minLines: 1,
                 fillColor: Colors.transparent,
@@ -313,8 +314,9 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   }
 
   Widget buildCommentText(CommentModel? comment) {
+    print(context.locale.languageCode);
     String date = comment?.createdAt != null
-        ? DateHelper.displayDateByDate(comment!.createdAt!, locale: context.locale.languageCode)
+        ? numberTr(timeago.format(comment!.createdAt!, locale: context.locale.languageCode))
         : "";
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -397,11 +399,11 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
       automaticallyImplyLeading: false,
       title: RichText(
         text: TextSpan(
-          text: 'មតិយោបល់ ',
+          text: tr('title.comment'),
           style: textTheme.bodyText1,
           children: [
             TextSpan(
-              text: '• ' + numberTr(commentListModel?.meta?.totalCount ?? widget.place.commentLength),
+              text: ' • ' + numberTr(commentListModel?.meta?.totalCount ?? widget.place.commentLength),
               style: TextStyle(
                 color: textTheme.caption?.color,
               ),

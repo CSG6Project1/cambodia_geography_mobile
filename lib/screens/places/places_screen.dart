@@ -5,6 +5,7 @@ import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_gps_button.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -84,7 +85,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
         tabs: [
           Tab(
             child: Text(
-              "តំបន់ទេសចរណ៍",
+              tr('place_type.place'),
               style: TextStyle(
                 fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
               ),
@@ -92,7 +93,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
           ),
           Tab(
             child: Text(
-              "ភោជនីយដ្ឋាន",
+              tr('place_type.restaurant'),
               style: TextStyle(
                 fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
               ),

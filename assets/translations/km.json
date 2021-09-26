@@ -1,10 +1,15 @@
 {
   "button": {
     "cancel": "បោះបង់",
+    "confirm": "បញ្ជាក់",
     "connect": "ភ្ជាប់",
+    "delete": "លុប",
     "disconnect": "ផ្តាច់",
+    "edit": "កែប្រែ",
     "filter": "កំណត់",
+    "map": "ផែនទី",
     "ok": "យល់ព្រម",
+    "report": "រាយការណ៍",
     "verify": "ផ្ទៀង​ផ្ទាត់"
   },
   "geo": {
@@ -12,6 +17,7 @@
     "commune_name": "ឃុំ{COMMUNE}",
     "khan": "ខណ្ឌ",
     "khan_name": "ខណ្ឌ{KHAN}",
+    "km": "{KM} គីឡូម៉ែត្រ",
     "krong": "ក្រុង",
     "krong_name": "ក្រុង{KRONG}",
     "postal_code": "លេខកូដ៖ {CODE}",
@@ -23,6 +29,7 @@
     "village_name": "ភូមិ{VILLAGE}"
   },
   "hint": {
+    "comment": "មតិយោបល់របស់អ្នក...",
     "new_name": "ឈ្មោះថ្មី",
     "new_password": "ពាក្យសម្ងាត់ថ្មី",
     "old_password": "ពាក្យសម្ងាត់ចាស់",
@@ -35,32 +42,16 @@
     "province": "ខេត្ត",
     "village": "ភូមិ"
   },
-  "member": {
-    "darot": {
-      "name": "ចេន ដារ៉ូត",
-      "title": "Mobile Developer"
-    },
-    "panha": {
-      "name": "កុក សុបញ្ញា",
-      "title": "Web Team Lead"
-    },
-    "sarak": {
-      "name": "កង រ័ត្នសារៈ",
-      "title": "API Developer"
-    },
-    "thea": {
-      "name": "ជឹម ធា",
-      "title": "Team Lead"
-    },
-    "title": "សមាជិក",
-    "vatanak": {
-      "name": "ចំរើន វឌ្ឍនៈ",
-      "title": "Mobile Developer"
-    }
-  },
   "msg": {
     "and": " និង ",
-    "are_you_sure_to_delete": "តំើអ្នកប្រាកដថាលុបឬទេ?",
+    "are_you_sure_to_delete": "តើអ្នកប្រាកដថាលុបឬទេ?",
+    "are_you_sure_to_delete_this_comment": "តើអ្នកប្រាកដថាមតិមួយនេះទេ?",
+    "are_you_sure_to_delete_this_place": "តើអ្នកប្រាកដថាលុបកន្លែងមួយនេះទេ?",
+    "comment": {
+      "deleted": "មតិបានលុប",
+      "fail": "បរាជ័យ",
+      "uploaded": "បានបញ្ចូលមតិយោបល់!"
+    },
     "connect": {
       "fail": "ការតភ្ជាប់បរាជ័យ!"
     },
@@ -68,12 +59,17 @@
     "disconnect": {
       "fail": "ការផ្តាច់ចេញបរាជ័យ!"
     },
+    "edit_comment": "ផ្លាស់ប្តូមាតិ",
+    "error": "មានបញ្ហា",
+    "fail": "បរាជ័យ",
     "logout": {
       "title": "តើអ្នកប្រាកដថាចាកចេញទេ?"
     },
     "move_to_province": "ផ្លាស់ប្តូទៅខេត្តណាមួយ",
     "name_must_not_empty": "ឈ្មោះអ្នកមិនត្រូវទទេឡើយ",
+    "no_data": "មិនមានទិន្នន័យ",
     "not_connected": "មិនបាន​តភ្ជាប់",
+    "place_added_to_bookmark": "កន្លែងត្រូវបានបន្ថែមទៅកន្លែងចំណាំ!",
     "please_verify_email": "សូមផ្ទៀងផ្ទាត់អាសយដ្ឋានអ៊ីមែលរបស់អ្នក",
     "update_name": {
       "title": "ផ្លាស់ប្តូឈ្មោះ"
@@ -85,11 +81,14 @@
       "fail": {
         "message": "បរាជ័យ! សូមព្យាយាមម្តងទៀត។"
       }
+    },
+    "geo": {
+      "latlng": "ចំណុច៖ {LATLNG}"
     }
   },
   "place_type": {
     "draft": "សេចក្តីព្រាង",
-    "empty": "",
+    "empty": "ទទេ",
     "place": "តំបន់ទេសចរណ៍",
     "province": "ខេត្ត",
     "restaurant": "ភោជនីយដ្ឋាន"
@@ -152,6 +151,7 @@
     "admin": "អេដមីន",
     "bookmark": "ចំណាំ",
     "cambodia": "ប្រទេសកម្ពុជា",
+    "comment": "មតិយោបល់",
     "filter": "ការកំណត់",
     "home": "ផ្ទះ",
     "setting": "ការកំណត់"

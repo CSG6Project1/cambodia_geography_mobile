@@ -9,6 +9,7 @@ import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/map/local_widgets/carousel_place_list.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -108,7 +109,9 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
     this.currentNameNotifier.value = null;
     placemarkFromCoordinates(latLng.latitude, latLng.longitude).then((placemarks) {
       this.currentNameNotifier.value = [
-        "LatLng: ${latLng.latitude}",
+        tr('msg.geo.latlng', namedArgs: {
+          'LATLNG': latLng.latitude.toString(),
+        }),
         latLng.longitude,
         placemarks.first.toJson().values.map((e) => e),
       ].join(", ");
@@ -204,7 +207,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
           Container(
             width: double.infinity,
             child: CgButton(
-              labelText: "Confirm",
+              labelText: tr('button.confirm'),
               foregroundColor: colorScheme.onPrimary,
               onPressed: () {
                 if (this.markers.isEmpty) return;
@@ -241,7 +244,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
           ? TextField(
               readOnly: true,
               decoration: InputDecoration(
-                hintText: "Search...",
+                hintText: tr('hint.search_for_places'),
                 border: InputBorder.none,
               ),
               onTap: () async {
@@ -261,7 +264,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
               },
             )
           : CgAppBarTitle(
-              title: "Map",
+              title: tr('button.map'),
               textStyle: TextStyle(color: colorScheme.onSurface),
             ),
       actions: [],
