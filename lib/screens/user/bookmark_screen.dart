@@ -10,6 +10,7 @@ import 'package:cambodia_geography/services/apis/base_api.dart';
 import 'package:cambodia_geography/services/apis/bookmarks/bookmark_api.dart';
 import 'package:cambodia_geography/services/apis/bookmarks/bookmark_remove_multiple_places_api.dart';
 import 'package:cambodia_geography/services/apis/bookmarks/bookmark_remove_place_api.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -178,13 +179,13 @@ class _BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvid
           ),
         ),
       ],
-      title: const CgAppBarTitle(title: "កំណត់ចំណាំ"),
+      title: CgAppBarTitle(title: tr('title.bookmark')),
       bottom: TabBar(
         controller: controller,
         tabs: [
           Tab(
             child: Text(
-              "តំបន់ទេសចរណ៍",
+              tr('place_type.place'),
               style: TextStyle(
                 fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
               ),
@@ -192,7 +193,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> with SingleTickerProvid
           ),
           Tab(
             child: Text(
-              "ភោជនីយដ្ឋាន",
+              tr('place_type.restaurant'),
               style: TextStyle(
                 fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
               ),
