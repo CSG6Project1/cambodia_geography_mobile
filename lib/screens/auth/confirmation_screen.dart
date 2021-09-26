@@ -16,6 +16,7 @@ import 'package:cambodia_geography/services/storages/init_app_state_storage.dart
 import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_headline_text.dart';
 import 'package:cambodia_geography/widgets/cg_list_view_spacer.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
@@ -136,7 +137,11 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
   Future<void> openMailApp() async {
     var result = await OpenMailApp.openMailApp();
     if (!result.didOpen && !result.canOpen) {
-      showOkAlertDialog(context: context, title: "Open Mail App", message: "No mail apps installed");
+      showOkAlertDialog(
+        context: context,
+        title: tr('button.open_mail'),
+        message: tr('msg.no_mail_app_installed'),
+      );
     } else if (!result.didOpen && result.canOpen) {
       if (!kIsWeb && Platform.isIOS) {
         showCupertinoDialog(
@@ -172,7 +177,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(confirmationApi.message() ?? "Resend fail, please try again!"),
+          content: Text(confirmationApi.message() ?? tr('msg.verify.resend_fail')),
         ),
       );
     }
@@ -194,7 +199,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
         actions: [
           CgButton(
             heroTag: Key("SkipAuthButton"),
-            labelText: "Skip",
+            labelText: tr('button.skip'),
             backgroundColor: Colors.transparent,
             foregroundColor: colorScheme.primary,
             onPressed: () => checkIsVerify(skip: true),
@@ -208,21 +213,21 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
               buildMailLogo(),
               const SizedBox(height: ConfigConstant.iconSize2),
               CgHeadlineText(
-                "សូមបញ្ញាក់អ៊ីមែលរបស់អ្នក",
+                tr('title.verify_email'),
                 color: colorScheme.primary,
               ),
               const SizedBox(height: ConfigConstant.iconSize2),
               Container(
                 constraints: BoxConstraints(maxWidth: 350),
                 child: Text(
-                  "សារបានផ្ងើរទៅ ${provider?.user?.email}។ សូមចុចផ្ទៀង​ផ្ទាត់ដើម្បីផ្ទៀងផ្តាត់អ៊ីមែលនេះ។",
+                  tr('msg.verify.send_to', namedArgs: {'EMAIL': provider?.user?.email ?? ""}),
                   style: TextStyle(),
                   textAlign: TextAlign.center,
                 ),
               ),
               const SizedBox(height: ConfigConstant.iconSize2),
               CgButton(
-                labelText: "បើកកម្មវិធីសំបុត្រ",
+                labelText: tr('button.open_mail'),
                 width: double.infinity,
                 foregroundColor: colorScheme.onPrimary,
                 backgroundColor: colorScheme.primary,
@@ -233,7 +238,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
                   this.isVerifyTimer.reset();
                 },
                 endWidget: CgButton(
-                  labelText: "ផ្ញើឡើងវិញ",
+                  labelText: tr('button.resend'),
                   width: double.infinity,
                   backgroundColor: colorScheme.background,
                   onPressed: () => onResend(),
@@ -290,14 +295,14 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
         textAlign: TextAlign.center,
         text: TextSpan(
           style: textTheme.bodyText2,
-          text: "មិនបានទទួលអ៊ីមែលទេ? សូមពិនិត្យមើលសារឥតបានការរបស់អ្នក (Spam)", // ឬ
+          text: tr('msg.verify.last_message'), // ឬ
           children: [
             // WidgetSpan(
             //   alignment: PlaceholderAlignment.middle,
             //   child: InkWell(
             //     onTap: () => onChangeEmailPressed(),
             //     child: Text(
-            //       "ផ្លាស់ប្តូរអ៊ីមែល",
+            //       tr('button.change_email'),
             //       style: TextStyle(color: colorScheme.primary),
             //     ),
             //   ),
@@ -313,7 +318,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
       endTime: endTime,
       onEnd: onEnd,
       widgetBuilder: (context, CurrentRemainingTime? remainingTime) {
-        String second = numberTr(remainingTime?.sec != null ? remainingTime!.sec : "0");
+        int second = remainingTime?.sec ?? 0;
         return AnimatedContainer(
           duration: ConfigConstant.fadeDuration,
           curve: Curves.ease,
@@ -324,7 +329,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
             sizeCurve: Curves.ease,
             duration: ConfigConstant.fadeDuration ~/ 2,
             crossFadeState: remainingTime != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-            firstChild: Text("$second វិនាទី"),
+            firstChild: Text(numberTr(plural('plural.second', second))),
             secondChild: endWidget,
           ),
         );

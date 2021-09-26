@@ -17,7 +17,10 @@
     "signup_with_facebook": "Sign up with Facebook",
     "signup_with_google": "Sign up with Google",
     "skip": "Skip",
-    "verify": "Verify"
+    "verify": "Verify",
+    "resend": "Resend",
+    "open_mail": "Open Mail",
+    "change_email": "Change email"
   },
   "geo": {
     "commune": "Commune",
@@ -102,7 +105,13 @@
       "fail": {
         "message": "Update fail, please try again!"
       }
-    }
+    },
+    "verify": {
+      "last_message": "Did not receive the email? Check Your Spam",
+      "send_to": "Sent to {EMAIL}. Please click Verify to verify this email.",
+      "resend_fail": "Resend fail, please try again!"
+    },
+    "no_mail_app_installed": "No mail app installed"
   },
   "place_type": {
     "draft": "Draft",
@@ -141,6 +150,12 @@
       "one": "1 village",
       "other": "{} villages",
       "zero": "0 village"
+    },
+    "second": {
+      "many": "{} seconds",
+      "one": "1 seconds",
+      "other": "{} seconds",
+      "zero": "0 seconds"
     }
   },
   "theme_mode": {
@@ -172,7 +187,8 @@
     "comment": "Comment",
     "filter": "Filter",
     "home": "Home",
-    "setting": "Setting"
+    "setting": "Setting",
+    "verify_email": "Please confirm your email"
   },
   "user_role": {
     "admin": "Admin",

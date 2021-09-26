@@ -331,6 +331,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
                   ? (comment?.user?.username.toString() ?? '') + ' • ' + date
                   : "CamGeo's User" + ' • ' + date,
               style: textTheme.caption,
+              maxLines: 1,
             ),
           ),
           secondChild: CgCustomShimmer(
