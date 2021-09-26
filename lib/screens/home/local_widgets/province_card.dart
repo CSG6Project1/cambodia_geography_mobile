@@ -3,6 +3,7 @@ import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/utils/translation_utils.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ProvinceCard extends StatelessWidget {
@@ -39,7 +40,7 @@ class ProvinceCard extends StatelessWidget {
           Divider(height: 0, color: Theme.of(context).dividerColor),
           buildTourPlaceListTile(
             context: context,
-            title: 'តំបន់ទេសចរណ៍',
+            title: tr('place_type.place'),
             onTap: () {
               Navigator.of(context).pushNamed(RouteConfig.PLACES, arguments: province);
             },
@@ -61,14 +62,14 @@ class ProvinceCard extends StatelessWidget {
         onExpansionChanged: onDistrictExpansionChanged,
         tilePadding: EdgeInsets.symmetric(vertical: ConfigConstant.margin1, horizontal: ConfigConstant.margin2),
         title: Text(
-          isKhan ? 'ខណ្ឌ' : 'ស្រុក',
+          isKhan ? tr('geo.khan') : tr('geo.srok'),
           style: Theme.of(context)
               .textTheme
               .headline6
               ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
         ),
         subtitle: Text(
-          isKhan ? numberTr(province.khan) + ' ខណ្ឌ' : numberTr(province.srok) + ' ស្រុក',
+          numberTr(isKhan ? plural('plural.khan', province.khan!) : plural('plural.srok', province.srok!)),
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface,
           ),
@@ -76,19 +77,19 @@ class ProvinceCard extends StatelessWidget {
         children: List.generate(
           district.length,
           (index) {
-            String sangkat = numberTr(district[index].sangkat) + 'សង្កាត់';
-            String commune = numberTr(district[index].commune) + 'ឃុំ';
-            String village = numberTr(district[index].village) + 'ភូមិ';
+            String sangkat = numberTr(plural('plural.sangkat', district[index].sangkat!));
+            String commune = numberTr(plural('plural.commune', district[index].commune!));
+            String village = numberTr(plural('plural.village', district[index].village!));
             bool isKrong = district[index].type == 'KRONG';
 
             String title;
             String subtitle;
             if (isKrong || isKhan) {
-              title = (isKrong ? 'ក្រុង' : 'ខណ្ឌ') + (district[index].nameTr ?? '');
-              subtitle = '$sangkat និង $village';
+              title = (isKrong ? tr('geo.krong') : tr('geo.khan')) + (district[index].nameTr ?? '');
+              subtitle = '$sangkat' + tr('msg.and') + '$village';
             } else {
-              title = 'ស្រុក' + (district[index].nameTr ?? '');
-              subtitle = '$commune និង $village';
+              title = tr('geo.srok') + (district[index].nameTr ?? '');
+              subtitle = '$commune' + tr('msg.and') + '$village';
             }
 
             return Column(
@@ -143,23 +144,23 @@ class ProvinceCard extends StatelessWidget {
     List<String> subtitles = [];
 
     if ((province.srok ?? 0) > 0) {
-      titles.add('ស្រុក');
+      titles.add(tr('geo.srok'));
       subtitles.add(numberTr(province.srok));
     }
     if ((province.khan ?? 0) > 0) {
-      titles.add('ខណ្ឌ');
+      titles.add(tr('geo.khan'));
       subtitles.add(numberTr(province.khan));
     }
     if ((province.sangkat ?? 0) > 0) {
-      titles.add('សង្កាត់');
+      titles.add(tr('geo.sangkat'));
       subtitles.add(numberTr(province.sangkat));
     }
     if ((province.commune ?? 0) > 0) {
-      titles.add('ឃុំ');
+      titles.add(tr('geo.commune'));
       subtitles.add(numberTr(province.commune));
     }
     if ((province.village ?? 0) > 0) {
-      titles.add('ភូមិ');
+      titles.add(tr('geo.village'));
       subtitles.add(numberTr(province.village));
     }
 
@@ -187,7 +188,14 @@ class ProvinceCard extends StatelessWidget {
 
   Widget buildProvinceHeader(BuildContext context) {
     List<TbDistrictModel> krongs = district.where((dist) => dist.type == "KRONG").toList();
-    String krongTitle = "ក្រុង" + krongs.map((krong) => krong.nameTr).toList().join(" និង ក្រុង");
+    String krongTitle = krongs
+        .map((krong) {
+          return tr('geo.krong_name', namedArgs: {
+            "KRONG": krong.nameTr ?? "",
+          });
+        })
+        .toList()
+        .join(tr('msg.and'));
 
     Color? subtitleColor = Theme.of(context).textTheme.caption?.color;
     return GestureDetector(
@@ -227,7 +235,10 @@ class ProvinceCard extends StatelessWidget {
                   ),
                   if (krongs.length > 0) Text(krongTitle, style: TextStyle(color: subtitleColor)),
                   Text(
-                    'លេខកូដ៖ ' + numberTr(province.code),
+                    tr(
+                      'geo.postal_code',
+                      namedArgs: {'CODE': numberTr(province.code ?? "")},
+                    ),
                     style: TextStyle(color: subtitleColor),
                   ),
                 ],

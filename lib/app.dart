@@ -87,14 +87,19 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
     themeProvider = Provider.of<ThemeProvider>(context, listen: true);
     localeProvider = Provider.of<LocaleProvider>(context, listen: true);
     App.locale = localeProvider?.locale;
+
+    if (localeProvider?.locale != null) {
+      context.setLocale(localeProvider!.locale!);
+    }
+
     return MaterialApp(
       supportedLocales: context.supportedLocales,
+      locale: context.locale,
       theme: theme,
       debugShowCheckedModeBanner: false,
       home: RouteConfig().routes[widget.initialRoute]?.screen ?? HomeScreen(),
       navigatorObservers: [HeroController(), App.routeObserver],
       onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
-      locale: localeProvider?.locale,
       themeMode: themeProvider?.themeMode,
       builder: (context, child) => AppBuilder(child: child),
       localizationsDelegates: [

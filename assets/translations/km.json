@@ -1,4 +1,22 @@
 {
+  "button": {
+    "cancel": "បោះបង់",
+    "ok": "យល់ព្រម",
+    "filter": "កំណត់"
+  },
+  "geo": {
+    "commune": "ឃុំ",
+    "khan": "ខណ្ឌ",
+    "krong": "ក្រុង",
+    "postal_code": "លេខកូដ៖ {CODE}",
+    "sangkat": "សង្កាត់",
+    "srok": "ស្រុក",
+    "village": "ភូមិ",
+    "krong_name": "ក្រុង{KRONG}"
+  },
+  "hint": {
+    "search_for_places": "ស្វែងរកទីកន្លែង..."
+  },
   "member": {
     "darot": {
       "name": "ចេន ដារ៉ូត",
@@ -21,5 +39,52 @@
       "name": "ចំរើន វឌ្ឍនៈ",
       "title": "Mobile Developer"
     }
+  },
+  "msg": {
+    "and": " និង ",
+    "move_to_province": "ផ្លាស់ប្តូទៅខេត្តណាមួយ",
+    "are_you_sure_to_delete": ""
+  },
+  "place_type": {
+    "draft": "សេចក្តីព្រាង",
+    "place": "តំបន់ទេសចរណ៍",
+    "province": "ខេត្ត",
+    "restaurant": "ភោជនីយដ្ឋាន"
+  },
+  "plural": {
+    "commune": {
+      "many": "{}ឃុំ",
+      "one": "1ឃុំ",
+      "other": "{}ឃុំ",
+      "zero": "0ឃុំ"
+    },
+    "khan": {
+      "many": "{}ខណ្ឌ",
+      "one": "1ខណ្ឌ",
+      "other": "{}ខណ្ឌ",
+      "zero": "0ខណ្ឌ"
+    },
+    "sangkat": {
+      "many": "{}សង្កាត់",
+      "one": "1សង្កាត់",
+      "other": "{}សង្កាត់",
+      "zero": "0សង្កាត់"
+    },
+    "srok": {
+      "many": "{}ស្រុក",
+      "one": "1ស្រុក",
+      "other": "{}ស្រុក",
+      "zero": "0ស្រុក"
+    },
+    "village": {
+      "many": "{}ភូមិ",
+      "one": "{}ភូមិ",
+      "other": "{}ភូមិ",
+      "zero": "0ភូមិ"
+    }
+  },
+  "title": {
+    "cambodia": "ប្រទេសកម្ពុជា",
+    "filter": "ការកំណត់"
   }
 }
