@@ -200,10 +200,18 @@
       "subtitle": "We’d love to hear your experience",
       "title": "Rate us"
     },
-    "theme": "Theme"
+    "theme": "Theme",
+    "temperature": "Temperature",
+    "wind": "Wind",
+    "north": "North",
+    "east": "East",
+    "south": "South",
+    "west": "West",
+    "direction": "Direction",
+    "about_province": "About Province",
+    "weather": "Weather"
   },
   "title": {
-    "404": 404,
     "about_place": "About place",
     "admin": "Admin",
     "body": "Body",

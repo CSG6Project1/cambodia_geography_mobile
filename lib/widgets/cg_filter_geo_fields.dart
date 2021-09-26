@@ -60,7 +60,7 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
 
   List<CgDropDownFieldItem> placeTypes = [
     CgDropDownFieldItem(label: tr('place_type.empty'), value: null),
-    CgDropDownFieldItem(label: tr('place_type.restuarant'), value: 'restaurant'),
+    CgDropDownFieldItem(label: tr('place_type.restaurant'), value: 'restaurant'),
     CgDropDownFieldItem(label: tr('place_type.place'), value: 'place'),
     CgDropDownFieldItem(label: tr('place_type.province'), value: 'province'),
     CgDropDownFieldItem(label: tr('place_type.draft'), value: 'draft'),
@@ -146,7 +146,7 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
       labelText: tr("label.province"),
       fillColor: colorScheme.background,
       items: [
-        CgDropDownFieldItem(label: tr("place_tpye.empty"), value: null),
+        CgDropDownFieldItem(label: tr("place_type.empty"), value: null),
         ...provinceDropDownItems,
       ],
       onChanged: (provinceCode) {

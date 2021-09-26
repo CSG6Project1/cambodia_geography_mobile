@@ -1,4 +1,5 @@
 import 'package:cambodia_geography/configs/route_config.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AppHelper<T> {
@@ -52,13 +53,19 @@ class AppHelper<T> {
     return json;
   }
 
-  static String getCompassDirection(double num, {bool isEnglish = false}) {
+  static String getCompassDirection(double num, BuildContext context) {
     List<String> directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
     List<String> directionsInKhmer = ['ជើង', 'ឦសាន្ត', 'កើត', 'អាគ្នេយ៍', 'ត្បូង', 'នីរតី', 'លិច', 'ពាយព្យ'];
     double val = (num / 45);
     int index = (val % 8).toInt();
-    if (isEnglish) return directions[index];
-    return directionsInKhmer[index];
+    switch (context.locale.languageCode) {
+      case "km":
+        return directionsInKhmer[index];
+      case "en":
+        return directions[index];
+      default:
+        return directionsInKhmer[index];
+    }
   }
 
   static IconData getDirectionIcon(double num) {
