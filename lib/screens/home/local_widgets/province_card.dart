@@ -1,9 +1,8 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
-import 'package:cambodia_geography/helpers/app_helper.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
+import 'package:cambodia_geography/screens/district/district_screen.dart';
 import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +33,9 @@ class ProvinceCard extends StatelessWidget {
           GestureDetector(
             child: buildProvinceHeader(context),
             onLongPress: () {
-              String message = AppHelper.jsonToDisplayNString(province.toJson());
-              showOkAlertDialog(
-                context: context,
-                title: tr('title.information'),
-                message: message,
+              showInfoModalBottomSheet(
+                context,
+                province.toJson(),
               );
             },
           ),
@@ -106,11 +103,9 @@ class ProvinceCard extends StatelessWidget {
 
             return GestureDetector(
               onLongPress: () {
-                String message = AppHelper.jsonToDisplayNString(district[index].toJson());
-                showOkAlertDialog(
-                  context: context,
-                  title: tr('title.information'),
-                  message: message,
+                showInfoModalBottomSheet(
+                  context,
+                  district[index].toJson(),
                 );
               },
               child: Column(

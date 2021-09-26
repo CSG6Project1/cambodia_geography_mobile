@@ -8,6 +8,7 @@ import 'package:cambodia_geography/services/apis/users/user_account_linkages_api
 import 'package:cambodia_geography/services/authentications/social_auth_service.dart';
 import 'package:cambodia_geography/widgets/cg_popup_menu.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -89,15 +90,21 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
     // print(provider.user?.providers);
     return Column(
       children: [
-        buildSocialTile(
-          title: tr('tile.facebook'),
-          iconData: FontAwesomeIcons.facebook,
-          subtitle: isConnected(provider, SocialProviderType.facebook) ? tr('msg.connected') : tr('msg.not_connected'),
-          onConnect: () => onConnect(SocialProviderType.facebook, provider),
-          onUpdate: () {},
-          onDisconnect: () => onDisconnect(SocialProviderType.facebook, provider),
-          isConnected: isConnected(provider, SocialProviderType.facebook),
-          provider: provider,
+        Consumer<RemoteConfig>(
+          builder: (context, remoteConfig, child) {
+            if (!remoteConfig.getBool('enable_facebook_auth')) return const SizedBox();
+            return buildSocialTile(
+              title: tr('tile.facebook'),
+              iconData: FontAwesomeIcons.facebook,
+              subtitle:
+                  isConnected(provider, SocialProviderType.facebook) ? tr('msg.connected') : tr('msg.not_connected'),
+              onConnect: () => onConnect(SocialProviderType.facebook, provider),
+              onUpdate: () {},
+              onDisconnect: () => onDisconnect(SocialProviderType.facebook, provider),
+              isConnected: isConnected(provider, SocialProviderType.facebook),
+              provider: provider,
+            );
+          },
         ),
         buildSocialTile(
           title: tr('tile.google'),

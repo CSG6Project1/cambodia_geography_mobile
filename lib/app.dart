@@ -9,6 +9,7 @@ import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/providers/locale_provider.dart';
 import 'package:cambodia_geography/providers/theme_provider.dart';
 import 'package:cambodia_geography/screens/home/home_screen.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -74,6 +75,21 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
       duration: ConfigConstant.fadeDuration,
     );
     super.initState();
+    remoteConfig();
+  }
+
+  void remoteConfig() async {
+    try {
+      RemoteConfig remoteConfig = Provider.of<RemoteConfig>(context, listen: false);
+      await remoteConfig.setDefaults(<String, dynamic>{
+        'enable_facebook_auth': false,
+      });
+      await remoteConfig.setConfigSettings(RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 5),
+        minimumFetchInterval: const Duration(hours: 12),
+      ));
+      remoteConfig.fetchAndActivate().then((value) => print(value));
+    } catch (e) {}
   }
 
   @override

@@ -1,8 +1,6 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
-import 'package:cambodia_geography/helpers/app_helper.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/tb_commune_model.dart';
@@ -12,6 +10,7 @@ import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:recase/recase.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -70,11 +69,9 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
       appBar: MorphingAppBar(
         title: GestureDetector(
           onLongPress: () {
-            String message = AppHelper.jsonToDisplayNString(widget.district.toJson());
-            showOkAlertDialog(
-              context: context,
-              title: tr('title.information'),
-              message: message,
+            showInfoModalBottomSheet(
+              context,
+              widget.district.toJson(),
             );
           },
           child: CgAppBarTitle(title: getTitle()),
@@ -147,11 +144,9 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
 
     return GestureDetector(
       onLongPress: () {
-        String message = AppHelper.jsonToDisplayNString(commune.toJson());
-        showOkAlertDialog(
-          context: context,
-          title: tr('title.information'),
-          message: message,
+        showInfoModalBottomSheet(
+          context,
+          commune.toJson(),
         );
       },
       child: AutoScrollTag(
@@ -258,11 +253,9 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
 
       return GestureDetector(
         onLongPress: () {
-          String message = AppHelper.jsonToDisplayNString(villages[index].toJson());
-          showOkAlertDialog(
-            context: context,
-            title: tr('title.information'),
-            message: message,
+          showInfoModalBottomSheet(
+            context,
+            villages[index].toJson(),
           );
         },
         child: Material(
@@ -321,4 +314,53 @@ class _ToggleValueBuilderState<T> extends State<ToggleValueBuilder> {
       valueNotifier,
     );
   }
+}
+
+Future<dynamic> showInfoModalBottomSheet(
+  BuildContext context,
+  Map<String, dynamic> json,
+) {
+  List<String> excepts = ['image'];
+  List<MapEntry<String, dynamic>> value = json.entries.where((e) {
+    return e.value != null && !excepts.contains(e.key);
+  }).toList();
+  return showModalBottomSheet(
+    context: context,
+    shape: RoundedRectangleBorder(borderRadius: ConfigConstant.circlarRadiusTop1),
+    builder: (context) {
+      return DraggableScrollableSheet(
+        expand: false,
+        builder: (context, controller) {
+          return Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              title: Text(
+                tr('title.information'),
+                style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+              ),
+              automaticallyImplyLeading: false,
+              actions: [CloseButton(color: Theme.of(context).colorScheme.onSurface)],
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              elevation: 0.5,
+            ),
+            body: ListView.builder(
+              controller: controller,
+              itemCount: value.length,
+              itemBuilder: (context, index) {
+                var item = value[index];
+                ReCase recase = ReCase(item.key);
+                return Material(
+                  color: Theme.of(context).colorScheme.surface,
+                  child: ListTile(
+                    title: Text(recase.titleCase),
+                    subtitle: Text("${item.value}"),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      );
+    },
+  );
 }

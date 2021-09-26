@@ -7,6 +7,7 @@ import 'package:cambodia_geography/providers/locale_provider.dart';
 import 'package:cambodia_geography/providers/theme_provider.dart';
 import 'package:cambodia_geography/providers/user_location_provider.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:provider/provider.dart';
 
 class ProviderScope extends StatelessWidget {
@@ -33,6 +34,7 @@ class ProviderScope extends StatelessWidget {
         ChangeNotifierProvider<UserLocationProvider>(create: (_) => UserLocationProvider()),
         ChangeNotifierProvider<EditingProvider>(create: (_) => EditingProvider()),
         ChangeNotifierProvider<BookmarkEditingProvider>(create: (_) => BookmarkEditingProvider()),
+        ChangeNotifierProvider<RemoteConfig>(create: (_) => RemoteConfig.instance),
       ],
       child: App(initialRoute: initialRoute),
     );
