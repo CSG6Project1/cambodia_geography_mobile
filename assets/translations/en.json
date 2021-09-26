@@ -7,9 +7,16 @@
     "disconnect": "Disconnect",
     "edit": "Edit",
     "filter": "Filter",
+    "login": "Login",
+    "login_with_facebook": "Login with Facebook",
+    "login_with_google": "Login with Google",
     "map": "Map",
     "ok": "Ok",
     "report": "Report",
+    "signup": "Sign up",
+    "signup_with_facebook": "Sign up with Facebook",
+    "signup_with_google": "Sign up with Google",
+    "skip": "Skip",
     "verify": "Verify"
   },
   "geo": {
@@ -30,9 +37,12 @@
   },
   "hint": {
     "comment": "Comment...",
+    "email": "Email",
+    "name": "Name",
     "new_name": "New name",
     "new_password": "New password",
     "old_password": "Old password",
+    "password": "Password",
     "search_for_places": "Search for places..."
   },
   "label": {
@@ -43,6 +53,7 @@
     "village": "Village"
   },
   "msg": {
+    "already_have_acc": "Already have an account?",
     "and": " and ",
     "are_you_sure_to_delete": "Are you sure to delete?",
     "are_you_sure_to_delete_this_comment": "Are you sure to delete this comment?",
@@ -59,18 +70,28 @@
     "disconnect": {
       "fail": "Disconnect fail!"
     },
+    "doesnt_have_acc": "Doesn't have account?",
     "edit_comment": "Edit comment",
+    "email_must_filled": "Email must be filled",
+    "enter_your_name": "Please enter your name",
     "error": "Error",
     "fail": "Fail",
+    "geo": {
+      "latlng": "LatLng: {LATLNG}"
+    },
     "logout": {
       "title": "Are you sure to logout?"
     },
     "move_to_province": "Move to a province",
+    "name_must_filled": "Name must be filled",
     "name_must_not_empty": "User name must not empty",
     "no_data": "No data",
     "not_connected": "Not connected",
+    "or": "Or",
+    "password_must_filled": "Password must be filled",
     "place_added_to_bookmark": "Place added to bookmark!",
     "please_verify_email": "Please verify your email address",
+    "register_fail": "Register failed",
     "update_name": {
       "title": "Update name"
     },
@@ -81,9 +102,6 @@
       "fail": {
         "message": "Update fail, please try again!"
       }
-    },
-    "geo": {
-      "latlng": "LatLng: {LATLNG}"
     }
   },
   "place_type": {

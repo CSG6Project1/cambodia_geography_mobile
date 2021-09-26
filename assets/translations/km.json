@@ -7,9 +7,16 @@
     "disconnect": "ផ្តាច់",
     "edit": "កែប្រែ",
     "filter": "កំណត់",
+    "login": "ចូលគណនី",
+    "login_with_facebook": "ចូល​ជា​មួយ​ហ្វេ​ស​ប៊ុ​ក",
+    "login_with_google": "ចូល​ជា​មួយ​Google",
     "map": "ផែនទី",
     "ok": "យល់ព្រម",
     "report": "រាយការណ៍",
+    "signup": "បង្កើតគណនី",
+    "signup_with_facebook": "ចុះឈ្មោះជាមួយហ្វេសប៊ុក",
+    "signup_with_google": "ចុះឈ្មោះជាមួយGoogle",
+    "skip": "រំលង",
     "verify": "ផ្ទៀង​ផ្ទាត់"
   },
   "geo": {
@@ -30,9 +37,12 @@
   },
   "hint": {
     "comment": "មតិយោបល់របស់អ្នក...",
+    "email": "អ៊ីមែល",
+    "name": "ឈ្មោះ​",
     "new_name": "ឈ្មោះថ្មី",
     "new_password": "ពាក្យសម្ងាត់ថ្មី",
     "old_password": "ពាក្យសម្ងាត់ចាស់",
+    "password": "ពាក្យសម្ងាត់",
     "search_for_places": "ស្វែងរកទីកន្លែង..."
   },
   "label": {
@@ -43,6 +53,7 @@
     "village": "ភូមិ"
   },
   "msg": {
+    "already_have_acc": "មានគណនីរួចហើយ?",
     "and": " និង ",
     "are_you_sure_to_delete": "តើអ្នកប្រាកដថាលុបឬទេ?",
     "are_you_sure_to_delete_this_comment": "តើអ្នកប្រាកដថាមតិមួយនេះទេ?",
@@ -59,18 +70,28 @@
     "disconnect": {
       "fail": "ការផ្តាច់ចេញបរាជ័យ!"
     },
+    "doesnt_have_acc": "មិនមានគណនី?",
     "edit_comment": "ផ្លាស់ប្តូមាតិ",
+    "email_must_filled": "ត្រូវបំពេញអ៊ីមែល",
+    "enter_your_name": "សូម​បញ្ចូល​ឈ្មោះ​របស់​អ្នក",
     "error": "មានបញ្ហា",
     "fail": "បរាជ័យ",
+    "geo": {
+      "latlng": "ចំណុច៖ {LATLNG}"
+    },
     "logout": {
       "title": "តើអ្នកប្រាកដថាចាកចេញទេ?"
     },
     "move_to_province": "ផ្លាស់ប្តូទៅខេត្តណាមួយ",
+    "name_must_filled": "ត្រូវបំពេញឈ្មោះ",
     "name_must_not_empty": "ឈ្មោះអ្នកមិនត្រូវទទេឡើយ",
     "no_data": "មិនមានទិន្នន័យ",
     "not_connected": "មិនបាន​តភ្ជាប់",
+    "or": "ឬ",
+    "password_must_filled": "ត្រូវបំពេញពាក្យសម្ងាត់",
     "place_added_to_bookmark": "កន្លែងត្រូវបានបន្ថែមទៅកន្លែងចំណាំ!",
     "please_verify_email": "សូមផ្ទៀងផ្ទាត់អាសយដ្ឋានអ៊ីមែលរបស់អ្នក",
+    "register_fail": "ការបង្កើតគណនីបានបរាជ័យ",
     "update_name": {
       "title": "ផ្លាស់ប្តូឈ្មោះ"
     },
@@ -81,9 +102,6 @@
       "fail": {
         "message": "បរាជ័យ! សូមព្យាយាមម្តងទៀត។"
       }
-    },
-    "geo": {
-      "latlng": "ចំណុច៖ {LATLNG}"
     }
   },
   "place_type": {

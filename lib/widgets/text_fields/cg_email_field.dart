@@ -1,5 +1,6 @@
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/widgets/text_fields/cg_text_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CgEmailField extends CgTextField {
   const CgEmailField({
@@ -12,7 +13,7 @@ class CgEmailField extends CgTextField {
   final void Function(String value)? onSubmitted;
 
   @override
-  String? get labelText => "អុីម៉េល";
+  String? get labelText => tr('hint.email');
 
   @override
   bool get autocorrect => false;
