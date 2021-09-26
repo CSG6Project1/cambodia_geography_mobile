@@ -122,7 +122,7 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
   Widget buildPlaceTypeDropDownField() {
     return CgDropDownField(
       initValue: _filter.type,
-      labelText: "ប្រភេទទីតាំង",
+      labelText: tr("label.place_type"),
       fillColor: colorScheme.background,
       items: placeTypes,
       onChanged: (value) {
@@ -143,10 +143,10 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
   Widget buildProvinceDropDownField() {
     return CgDropDownField(
       initValue: _filter.provinceCode,
-      labelText: "ខេត្ត",
+      labelText: tr("label.province"),
       fillColor: colorScheme.background,
       items: [
-        CgDropDownFieldItem(label: 'ទទេ', value: null),
+        CgDropDownFieldItem(label: tr("place_tpye.empty"), value: null),
         ...provinceDropDownItems,
       ],
       onChanged: (provinceCode) {
@@ -175,11 +175,11 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
   Widget buildDistrictDropDownField() {
     return CgDropDownField(
       initValue: _filter.districtCode,
-      labelText: "ស្រុក",
+      labelText: tr("label.district"),
       fillColor: colorScheme.background,
       key: Key(_filter.provinceCode ?? districts.join()),
       items: [
-        CgDropDownFieldItem(label: 'ទទេ', value: null),
+        CgDropDownFieldItem(label: tr("place_type.empty"), value: null),
         ...districtsDropDownItems,
       ],
       onChanged: (dynamic districtCode) {
@@ -207,11 +207,11 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
   Widget buildCommunesDropDownField() {
     return CgDropDownField(
       initValue: _filter.communeCode,
-      labelText: "ឃុំ",
+      labelText: tr("label.commune"),
       fillColor: colorScheme.background,
       key: Key(_filter.districtCode ?? communes.join()),
       items: [
-        CgDropDownFieldItem(label: 'ទទេ', value: null),
+        CgDropDownFieldItem(label: tr("place_type.empty"), value: null),
         ...communeDropDownItems,
       ],
       onChanged: (dynamic communeCode) {
@@ -236,11 +236,11 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
   Widget buildVillageDropDownField() {
     return CgDropDownField(
       initValue: _filter.villageCode,
-      labelText: "ភូមិ",
+      labelText: tr("label.village"),
       fillColor: colorScheme.background,
       key: Key(_filter.communeCode ?? villages.join()),
       items: [
-        CgDropDownFieldItem(label: 'ទទេ', value: null),
+        CgDropDownFieldItem(label: tr("place_type.empty"), value: null),
         ...villageDropDownItems,
       ],
       onChanged: (dynamic villageCode) {
