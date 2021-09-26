@@ -17,9 +17,6 @@
     "signup_with_facebook": "Sign up with Facebook",
     "signup_with_google": "Sign up with Google",
     "skip": "Skip",
-    "map": "Map",
-    "ok": "Ok",
-    "report": "Report",
     "verify": "Verify"
   },
   "geo": {
@@ -82,9 +79,6 @@
     "geo": {
       "latlng": "LatLng: {LATLNG}"
     },
-    "edit_comment": "Edit comment",
-    "error": "Error",
-    "fail": "Fail",
     "logout": {
       "title": "Are you sure to logout?"
     },
@@ -108,9 +102,6 @@
       "fail": {
         "message": "Update fail, please try again!"
       }
-    },
-    "geo": {
-      "latlng": "LatLng: {LATLNG}"
     }
   },
   "place_type": {

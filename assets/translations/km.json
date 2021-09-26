@@ -17,9 +17,6 @@
     "signup_with_facebook": "ចុះឈ្មោះជាមួយហ្វេសប៊ុក",
     "signup_with_google": "ចុះឈ្មោះជាមួយGoogle",
     "skip": "រំលង",
-    "map": "ផែនទី",
-    "ok": "យល់ព្រម",
-    "report": "រាយការណ៍",
     "verify": "ផ្ទៀង​ផ្ទាត់"
   },
   "geo": {
@@ -82,9 +79,6 @@
     "geo": {
       "latlng": "ចំណុច៖ {LATLNG}"
     },
-    "edit_comment": "ផ្លាស់ប្តូមាតិ",
-    "error": "មានបញ្ហា",
-    "fail": "បរាជ័យ",
     "logout": {
       "title": "តើអ្នកប្រាកដថាចាកចេញទេ?"
     },
@@ -108,9 +102,6 @@
       "fail": {
         "message": "បរាជ័យ! សូមព្យាយាមម្តងទៀត។"
       }
-    },
-    "geo": {
-      "latlng": "ចំណុច៖ {LATLNG}"
     }
   },
   "place_type": {
