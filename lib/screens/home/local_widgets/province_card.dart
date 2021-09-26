@@ -85,10 +85,13 @@ class ProvinceCard extends StatelessWidget {
             String title;
             String subtitle;
             if (isKrong || isKhan) {
-              title = (isKrong ? tr('geo.krong') : tr('geo.khan')) + (district[index].nameTr ?? '');
+              title = isKrong
+                  ? tr('geo.krong_name', namedArgs: {'KRONG': district[index].nameTr.toString()})
+                  : tr('geo.khan_name', namedArgs: {'KHAN': district[index].nameTr.toString()});
+
               subtitle = '$sangkat' + tr('msg.and') + '$village';
             } else {
-              title = tr('geo.srok') + (district[index].nameTr ?? '');
+              title = tr('geo.srok_name', namedArgs: {'SROK': district[index].nameTr.toString()});
               subtitle = '$commune' + tr('msg.and') + '$village';
             }
 

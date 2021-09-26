@@ -4,6 +4,7 @@ import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -15,21 +16,28 @@ class DistrictScreen extends StatelessWidget {
 
   final TbDistrictModel district;
 
-  String getPrefix() {
-    if (district.type == "KRONG") return 'ក្រុង';
-    if (district.type == "KHAN") return 'ខណ្ឌ';
-    return 'ស្រុក';
+  String getTitle() {
+    if (district.type == "KRONG") {
+      return tr('geo.krong_name', namedArgs: {
+        'KRONG': district.nameTr ?? "",
+      });
+    }
+    if (district.type == "KHAN") {
+      return tr('geo.khan_name', namedArgs: {
+        'KHAN': district.nameTr ?? "",
+      });
+    }
+    return '';
   }
 
   @override
   Widget build(BuildContext context) {
     CambodiaGeography geo = CambodiaGeography.instance;
     List<TbCommuneModel> communes = geo.communesSearch(districtCode: district.code.toString());
-    String prefix = getPrefix();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: MorphingAppBar(
-        title: CgAppBarTitle(title: prefix + district.nameTr.toString()),
+        title: CgAppBarTitle(title: getTitle()),
       ),
       body: buildCommuneList(
         communes: communes,
@@ -65,7 +73,25 @@ class DistrictScreen extends StatelessWidget {
     required TbCommuneModel commune,
     required List<TbVillageModel> villages,
   }) {
-    String communeTitle = (commune.type == "COMMUNE" ? 'ឃុំ' : 'សង្កាត់') + commune.nameTr.toString();
+    String communeTitle = "";
+    if (commune.type == "SANGKAT") {
+      communeTitle = tr(
+        'geo.sangkat_name',
+        namedArgs: {
+          'SANGKAT': commune.nameTr.toString(),
+        },
+      );
+    }
+
+    if (commune.type == "COMMUNE") {
+      communeTitle = tr(
+        'geo.commune_name',
+        namedArgs: {
+          'COMMUNE': commune.nameTr.toString(),
+        },
+      );
+    }
+
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
@@ -80,7 +106,7 @@ class DistrictScreen extends StatelessWidget {
               ?.copyWith(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.w700),
         ),
         subtitle: Text(
-          'លេខកូដ៖ ' + commune.code.toString(),
+          tr('geo.postal_code', namedArgs: {'CODE': commune.code.toString()}),
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface,
           ),
@@ -100,11 +126,19 @@ class DistrictScreen extends StatelessWidget {
     required List<TbVillageModel> villages,
   }) {
     return List.generate(commune.village ?? 0, (index) {
-      String prefix = villages[index].nameTr.toString().contains('ភូមិ') ? '' : 'ភូមិ ';
+      String title = tr(
+        'geo.village_name',
+        namedArgs: {
+          'VILLAGE': villages[index].nameTr.toString().replaceAll("ភូមិ", ""),
+        },
+      );
+
       return Material(
         child: ListTile(
-          title: Text(prefix + villages[index].nameTr.toString()),
-          subtitle: Text('លេខកូដ៖ ' + villages[index].code.toString()),
+          title: Text(title),
+          subtitle: Text(
+            tr('geo.postal_code', namedArgs: {'CODE': commune.code.toString()}),
+          ),
           tileColor: Theme.of(context).colorScheme.surface,
         ),
       );

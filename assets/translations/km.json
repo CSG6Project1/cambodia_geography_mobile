@@ -1,21 +1,33 @@
 {
   "button": {
     "cancel": "បោះបង់",
-    "ok": "យល់ព្រម",
-    "filter": "កំណត់"
+    "filter": "កំណត់",
+    "ok": "យល់ព្រម"
   },
   "geo": {
     "commune": "ឃុំ",
+    "commune_name": "ឃុំ{COMMUNE}",
     "khan": "ខណ្ឌ",
+    "khan_name": "ខណ្ឌ{KHAN}",
     "krong": "ក្រុង",
+    "krong_name": "ក្រុង{KRONG}",
     "postal_code": "លេខកូដ៖ {CODE}",
     "sangkat": "សង្កាត់",
+    "sangkat_name": "សង្កាត់{SANGKAT}",
     "srok": "ស្រុក",
+    "srok_name": "ស្រុក{SROK}",
     "village": "ភូមិ",
-    "krong_name": "ក្រុង{KRONG}"
+    "village_name": "ភូមិ{VILLAGE}"
   },
   "hint": {
     "search_for_places": "ស្វែងរកទីកន្លែង..."
+  },
+  "label": {
+    "commune": "ឃុំ",
+    "district": "ស្រុក",
+    "place_type": "ប្រភេទទីតាំង",
+    "province": "ខេត្ត",
+    "village": "ភូមិ"
   },
   "member": {
     "darot": {
@@ -42,8 +54,8 @@
   },
   "msg": {
     "and": " និង ",
-    "move_to_province": "ផ្លាស់ប្តូទៅខេត្តណាមួយ",
-    "are_you_sure_to_delete": ""
+    "are_you_sure_to_delete": "តំើអ្នកប្រាកដថាលុបឬទេ?",
+    "move_to_province": "ផ្លាស់ប្តូទៅខេត្តណាមួយ"
   },
   "place_type": {
     "draft": "សេចក្តីព្រាង",
