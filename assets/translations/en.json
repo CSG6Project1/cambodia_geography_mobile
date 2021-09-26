@@ -1,10 +1,15 @@
 {
   "button": {
     "cancel": "Cancel",
+    "confirm": "Confirm",
     "connect": "Connect",
+    "delete": "Delete",
     "disconnect": "Disconnect",
+    "edit": "Edit",
     "filter": "Filter",
+    "map": "Map",
     "ok": "Ok",
+    "report": "Report",
     "verify": "Verify"
   },
   "geo": {
@@ -12,6 +17,7 @@
     "commune_name": "{COMMUNE} commune",
     "khan": "Khan",
     "khan_name": "Krong {KHAN}",
+    "km": "{KM} KM",
     "krong": "City ",
     "krong_name": "{KRONG} City",
     "postal_code": "Postal Code: {CODE}",
@@ -23,6 +29,7 @@
     "village_name": "{VILLAGE} village"
   },
   "hint": {
+    "comment": "Comment...",
     "new_name": "New name",
     "new_password": "New password",
     "old_password": "Old password",
@@ -35,32 +42,16 @@
     "province": "Province",
     "village": "Village"
   },
-  "member": {
-    "darot": {
-      "name": "Chen Darot",
-      "title": "Mobile Developer"
-    },
-    "panha": {
-      "name": "Kok Sopanha",
-      "title": "Web Team Lead"
-    },
-    "sarak": {
-      "name": "Kang Rotsarak",
-      "title": "API Developer"
-    },
-    "thea": {
-      "name": "Thea Choem",
-      "title": "Team Lead"
-    },
-    "title": "Team",
-    "vatanak": {
-      "name": "Chamreoun Vatanak",
-      "title": "Mobile Developer"
-    }
-  },
   "msg": {
     "and": " and ",
     "are_you_sure_to_delete": "Are you sure to delete?",
+    "are_you_sure_to_delete_this_comment": "Are you sure to delete this comment?",
+    "are_you_sure_to_delete_this_place": "Are you sure to delete this place?",
+    "comment": {
+      "deleted": "Comment deleted",
+      "fail": "Comment fail!",
+      "uploaded": "Comment uploaded!"
+    },
     "connect": {
       "fail": "Connect fail!"
     },
@@ -68,12 +59,17 @@
     "disconnect": {
       "fail": "Disconnect fail!"
     },
+    "edit_comment": "Edit comment",
+    "error": "Error",
+    "fail": "Fail",
     "logout": {
       "title": "Are you sure to logout?"
     },
     "move_to_province": "Move to a province",
     "name_must_not_empty": "User name must not empty",
+    "no_data": "No data",
     "not_connected": "Not connected",
+    "place_added_to_bookmark": "Place added to bookmark!",
     "please_verify_email": "Please verify your email address",
     "update_name": {
       "title": "Update name"
@@ -85,6 +81,9 @@
       "fail": {
         "message": "Update fail, please try again!"
       }
+    },
+    "geo": {
+      "latlng": "LatLng: {LATLNG}"
     }
   },
   "place_type": {
@@ -152,6 +151,7 @@
     "admin": "Admin",
     "bookmark": "Bookmark",
     "cambodia": "Cambodia",
+    "comment": "Comment",
     "filter": "Filter",
     "home": "Home",
     "setting": "Setting"

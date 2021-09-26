@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
+import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:page_indicator/page_indicator.dart';
 import 'package:photo_view/photo_view.dart';
@@ -99,7 +100,7 @@ class _ImageViewerState extends State<ImagesViewer> {
                 centerTitle: true,
                 leading: CloseButton(),
                 title: Text(
-                  "${pageIndex + 1}/${widget.images?.length ?? widget.imagesUrl?.length}",
+                  numberTr("${pageIndex + 1}/${widget.images?.length ?? widget.imagesUrl?.length}"),
                   style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.white),
                 ),
               ),

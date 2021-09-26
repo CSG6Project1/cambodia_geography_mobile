@@ -1,4 +1,5 @@
 import 'package:cambodia_geography/constants/config_constant.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CgNoDataWrapper extends StatelessWidget {
@@ -56,7 +57,7 @@ class CgNoDataWrapper extends StatelessWidget {
                     color: colorScheme.primary,
                   ),
                   const SizedBox(height: ConfigConstant.margin1),
-                  Text("មិនមានទិន្នន័យ"),
+                  Text(tr('msg.no_data')),
                 ],
               ),
             ),

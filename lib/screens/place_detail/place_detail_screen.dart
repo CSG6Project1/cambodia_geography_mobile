@@ -11,6 +11,7 @@ import 'package:cambodia_geography/services/apis/bookmarks/bookmark_api.dart';
 import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:cambodia_geography/widgets/cg_markdown_body.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -116,30 +117,25 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
             style: textTheme.caption,
           ),
           const Spacer(),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.share,
-              color: colorScheme.primary,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: Icon(
+          //     Icons.share,
+          //     color: colorScheme.primary,
+          //   ),
+          // ),
           IconButton(
             onPressed: () async {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text("You pressed bookmark!"),
-                ),
-              );
               if (place.id == null) return;
               BookmarkApi bookmarkApi = BookmarkApi();
               await bookmarkApi.addPlace(place.id!);
               if (bookmarkApi.success()) {
-                Fluttertoast.showToast(msg: "Place added to bookmark");
+                Fluttertoast.showToast(msg: tr('msg.place_added_to_bookmark'));
               } else {
                 showOkAlertDialog(
                   context: context,
-                  title: "Error",
-                  message: bookmarkApi.message() ?? "Add to bookmark fail",
+                  title: tr('msg.error'),
+                  message: bookmarkApi.message() ?? tr('msg.fail'),
                 );
               }
             },

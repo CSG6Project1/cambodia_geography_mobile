@@ -14,6 +14,7 @@ import 'package:cambodia_geography/services/geography/distance_caculator_service
 import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -295,7 +296,7 @@ class PlaceCard extends StatelessWidget {
                 const SizedBox(width: ConfigConstant.margin0),
                 Expanded(
                   child: Text(
-                    distance != null ? numberTr(distance.toStringAsFixed(2) + " គីឡូម៉ែត្រ") : "",
+                    distance != null ? tr('geo.km', namedArgs: {'KM': numberTr(distance.toStringAsFixed(2))}) : "",
                     style: textTheme.caption,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

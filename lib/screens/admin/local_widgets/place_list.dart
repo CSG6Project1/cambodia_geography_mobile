@@ -9,6 +9,7 @@ import 'package:cambodia_geography/services/apis/admins/crud_places_api.dart';
 import 'package:cambodia_geography/services/apis/places/base_places_api.dart';
 import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
 import 'package:cambodia_geography/widgets/cg_no_data_wrapper.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 enum PlaceType {
@@ -97,7 +98,7 @@ class _PlaceListState extends State<PlaceList> with AutomaticKeepAliveClientMixi
 
       OkCancelResult result = await showOkCancelAlertDialog(
         context: context,
-        title: "Are you sure to delete this place?",
+        title: tr('msg.are_you_sure_to_delete_this_place'),
         message: place?.nameTr ?? "",
       );
 

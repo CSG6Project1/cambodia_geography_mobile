@@ -332,20 +332,20 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
             style: textTheme.caption,
           ),
           const Spacer(),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.share,
-              color: colorScheme.primary,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.bookmark,
-              color: colorScheme.primary,
-            ),
-          )
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: Icon(
+          //     Icons.share,
+          //     color: colorScheme.primary,
+          //   ),
+          // ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: Icon(
+          //     Icons.bookmark,
+          //     color: colorScheme.primary,
+          //   ),
+          // )
         ],
       ),
     );
