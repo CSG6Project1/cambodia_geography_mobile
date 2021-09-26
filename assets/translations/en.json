@@ -1,21 +1,33 @@
 {
   "button": {
     "cancel": "Cancel",
-    "ok": "Ok",
-    "filter": "Filter"
+    "filter": "Filter",
+    "ok": "Ok"
   },
   "geo": {
     "commune": "Commune",
+    "commune_name": "{COMMUNE} commune",
     "khan": "Khan",
+    "khan_name": "Krong {KHAN}",
     "krong": "City ",
+    "krong_name": "{KRONG} City",
     "postal_code": "Postal Code: {CODE}",
     "sangkat": "Songkat",
+    "sangkat_name": "Sangkat {SANGKAT}",
     "srok": "District",
+    "srok_name": "Srok {SROK}",
     "village": "Village",
-    "krong_name": "{KRONG}"
+    "village_name": "{VILLAGE} village"
   },
   "hint": {
     "search_for_places": "Search for places..."
+  },
+  "label": {
+    "commune": "Commune",
+    "district": "District",
+    "place_type": "Place Type",
+    "province": "Province",
+    "village": "Village"
   },
   "member": {
     "darot": {
@@ -42,8 +54,8 @@
   },
   "msg": {
     "and": " and ",
-    "move_to_province": "Move to a province",
-    "are_you_sure_to_delete": "Are you sure to delete?"
+    "are_you_sure_to_delete": "Are you sure to delete?",
+    "move_to_province": "Move to a province"
   },
   "place_type": {
     "draft": "Draft",
