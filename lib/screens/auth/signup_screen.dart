@@ -19,6 +19,7 @@ import 'package:cambodia_geography/widgets/cg_headline_text.dart';
 import 'package:cambodia_geography/widgets/cg_list_view_spacer.dart';
 import 'package:cambodia_geography/widgets/text_fields/cg_email_field.dart';
 import 'package:cambodia_geography/widgets/text_fields/cg_password_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
 
   Future<void> finishRegister(String? error, {required bool socialAuth}) async {
     if (userRegisterApi.success() && !authApi.success()) {
-      error = authApi.errorMessage() ?? "Log in fail";
+      error = authApi.errorMessage() ?? tr('msg.register_fail');
     }
 
     if (error == null) {
@@ -62,13 +63,13 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
 
   Future<void> onRegister() async {
     if (email.isEmpty) {
-      showOkAlertDialog(context: context, title: "Email must be filled");
+      showOkAlertDialog(context: context, title: tr('msg.email_must_filled'));
       return;
     } else if (password.isEmpty) {
-      showOkAlertDialog(context: context, title: "Password must be filled");
+      showOkAlertDialog(context: context, title: tr('msg.password_must_filled'));
       return;
     } else if (username.isEmpty) {
-      showOkAlertDialog(context: context, title: "Name must be filled");
+      showOkAlertDialog(context: context, title: tr('msg.name_must_filled'));
       return;
     }
 
@@ -85,7 +86,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
     if (userRegisterApi.success()) {
       await authApi.loginWithEmail(email: email, password: password);
     } else {
-      error = userRegisterApi.message() ?? "Register fail";
+      error = userRegisterApi.message() ?? tr('msg.register_fail');
     }
 
     finishRegister(error, socialAuth: false);
@@ -94,9 +95,9 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
   Future<void> onRegisterWithSocial(String idToken) async {
     List<String>? result = await showTextInputDialog(
       context: context,
-      title: "Please enter your name",
+      title: tr('msg.enter_your_name'),
       textFields: [
-        DialogTextField(hintText: "ឈ្មោះ"),
+        DialogTextField(hintText: tr('hint.name')),
       ],
     );
 
@@ -110,7 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
     if (userRegisterApi.success()) {
       await authApi.loginWithSocialAccount(idToken: idToken);
     } else {
-      error = userRegisterApi.message() ?? "Register fail, please try again!";
+      error = userRegisterApi.message() ?? tr('msg.register_fail');
     }
 
     finishRegister(error, socialAuth: true);
@@ -170,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
       actions: [
         CgButton(
           heroTag: Key("SkipAuthButton"),
-          labelText: "Skip",
+          labelText: tr('button.skip'),
           backgroundColor: Colors.transparent,
           foregroundColor: colorScheme.onSurface,
           onPressed: () => navigateToNextState(skip: true),
@@ -196,14 +197,14 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
             Hero(
               tag: Key("AuthTitle"),
               child: CgHeadlineText(
-                "ប្រទេសកម្ពុជា",
+                tr('title.cambodia'),
                 textAlign: TextAlign.center,
                 color: colorScheme.primary,
               ),
             ),
             const SizedBox(height: ConfigConstant.margin1),
             CgTextField(
-              labelText: "ឈ្មោះ",
+              labelText: tr('hint.name'),
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.name,
               onChanged: (String value) {
@@ -225,7 +226,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
             ),
             const SizedBox(height: ConfigConstant.margin1),
             CgButton(
-              labelText: "បង្កើតគណនី",
+              labelText: tr('button.signup'),
               backgroundColor: colorScheme.primary,
               foregroundColor: colorScheme.onPrimary,
               width: double.infinity,
@@ -233,7 +234,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
             ),
             const SizedBox(height: ConfigConstant.margin0),
             CgButton(
-              labelText: "មានគណនីរូចហើយ? ចូលគណនី",
+              labelText: tr('msg.already_have_acc') + " " + tr('button.login'),
               backgroundColor: colorScheme.surface,
               foregroundColor: colorScheme.onSurface,
               width: double.infinity,
@@ -245,7 +246,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
               child: CgChildDivider(
                 dividerColor: colorScheme.onSurface,
                 child: Text(
-                  "ឬ",
+                  tr('msg.or'),
                   textAlign: TextAlign.center,
                   style: textTheme.button?.copyWith(color: colorScheme.onSurface),
                 ),
@@ -255,6 +256,7 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
             Hero(
               tag: Key("AuthSocialButtons"),
               child: SocialButtons(
+                isSignUp: true,
                 onFetched: (idToken, provider) {
                   onRegisterWithSocial(idToken);
                 },

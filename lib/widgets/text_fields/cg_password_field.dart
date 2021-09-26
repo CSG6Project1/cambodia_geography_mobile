@@ -1,5 +1,6 @@
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CgPasswordField extends StatefulWidget {
   const CgPasswordField({
@@ -24,7 +25,7 @@ class _CgPasswordFieldState extends State<CgPasswordField> {
     super.initState();
   }
 
-  String? get labelText => "ពាក្យសម្ងាត់";
+  String? get labelText => tr('hint.password');
   TextInputAction? get textInputAction => TextInputAction.go;
   TextInputType? get keyboardType => TextInputType.visiblePassword;
 

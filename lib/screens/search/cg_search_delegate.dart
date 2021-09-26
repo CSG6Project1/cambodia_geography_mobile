@@ -7,6 +7,7 @@ import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/screens/search/search_history_storage.dart';
 import 'package:cambodia_geography/services/apis/search/search_filter_api.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,13 @@ class CgSearchDelegate extends SearchDelegate<String> {
   final Future<List<dynamic>?> Function(String) onQueryChanged;
   final SearchHistoryStorage searchHistoryStorage = SearchHistoryStorage();
 
+  static String get hintText => tr("hint.search_for_places");
+
   CgSearchDelegate({
     required this.onQueryChanged,
     required this.animationController,
     required this.context,
     required this.provinceCode,
-    String hintText = "ស្វែងរកទីកន្លែង...",
   }) : super(
           searchFieldLabel: hintText,
           keyboardType: TextInputType.text,
@@ -184,8 +186,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
                 onLongPress: () async {
                   OkCancelResult result = await showOkCancelAlertDialog(
                     context: context,
-                    title: "Are you sure to delete?",
-                    // tr("msg.are_you_sure_to_delete"),
+                    title: tr("msg.are_you_sure_to_delete"),
                   );
                   if (result == OkCancelResult.ok) {
                     var selectedItem = suggestionList[index];

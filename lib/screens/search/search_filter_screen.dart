@@ -4,6 +4,7 @@ import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_filter_geo_fields.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -36,7 +37,7 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
         ),
         backgroundColor: colorScheme.surface,
         title: CgAppBarTitle(
-          title: "ការកំណត់",
+          title: tr("title.filter"),
           textStyle: themeData.appBarTheme.titleTextStyle?.copyWith(color: colorScheme.onSurface),
         ),
         actions: [
@@ -44,7 +45,7 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
             onPressed: () {
               Navigator.of(context).pop(place);
             },
-            labelText: "កំណត់",
+            labelText: tr("button.filter"),
             backgroundColor: colorScheme.surface,
             foregroundColor: colorScheme.primary,
           ),

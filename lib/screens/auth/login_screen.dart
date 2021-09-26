@@ -17,6 +17,7 @@ import 'package:cambodia_geography/widgets/cg_headline_text.dart';
 import 'package:cambodia_geography/widgets/cg_list_view_spacer.dart';
 import 'package:cambodia_geography/widgets/text_fields/cg_email_field.dart';
 import 'package:cambodia_geography/widgets/text_fields/cg_password_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -51,10 +52,10 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
 
   Future<void> onLogin() async {
     if (email.isEmpty) {
-      showOkAlertDialog(context: context, title: "Email must be filled");
+      showOkAlertDialog(context: context, title: tr('msg.email_must_filled'));
       return;
     } else if (password.isEmpty) {
-      showOkAlertDialog(context: context, title: "Password must be filled");
+      showOkAlertDialog(context: context, title: tr('msg.password_must_filled'));
       return;
     }
 
@@ -132,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
       actions: [
         CgButton(
           heroTag: Key("SkipAuthButton"),
-          labelText: "Skip",
+          labelText: tr('button.skip'),
           backgroundColor: Colors.transparent,
           foregroundColor: colorScheme.onPrimary,
           onPressed: () => navigateToNextState(skip: true),
@@ -157,8 +158,8 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
             const SizedBox(height: ConfigConstant.margin1),
             Hero(
               tag: Key("AuthTitle"),
-              child: const CgHeadlineText(
-                "ប្រទេសកម្ពុជា",
+              child: CgHeadlineText(
+                tr('title.cambodia'),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -177,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
             ),
             const SizedBox(height: ConfigConstant.margin1),
             CgButton(
-              labelText: "ចូលគណនី",
+              labelText: tr('button.login'),
               backgroundColor: colorScheme.primaryVariant,
               foregroundColor: colorScheme.onPrimary,
               width: double.infinity,
@@ -185,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
             ),
             const SizedBox(height: ConfigConstant.margin0),
             CgButton(
-              labelText: "មិនមានគណនី? បង្កើតគណនី",
+              labelText: tr('msg.doesnt_have_acc') + " " + tr('button.signup'),
               backgroundColor: Colors.transparent,
               foregroundColor: colorScheme.onPrimary,
               width: double.infinity,
@@ -197,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
               child: CgChildDivider(
                 dividerColor: colorScheme.onPrimary,
                 child: Text(
-                  "ឬ",
+                  tr('msg.or'),
                   textAlign: TextAlign.center,
                   style: textTheme.button?.copyWith(color: colorScheme.onPrimary),
                 ),
@@ -207,6 +208,7 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
             Hero(
               tag: Key("AuthSocialButtons"),
               child: SocialButtons(
+                isSignUp: false,
                 onFetched: (idToken, provider) {
                   onLoginWithSocial(idToken);
                 },
