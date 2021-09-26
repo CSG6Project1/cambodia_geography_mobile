@@ -17,6 +17,7 @@ import 'package:cambodia_geography/services/apis/admins/crud_places_api.dart';
 import 'package:cambodia_geography/services/images/image_picker_service.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_filter_geo_fields.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -57,7 +58,6 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     geo = CambodiaGeography.instance;
     place = widget.place ?? PlaceModel.empty();
 
-    print(place.toJson());
     setFlowType();
     setInitImages();
     super.initState();
@@ -84,7 +84,6 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     App.of(context)?.showLoading();
     List<File> images = await _getFilesFromImages();
 
-    print(place.toJson());
     switch (flowType) {
       case EditPlaceFlowType.create:
         await api.createAPlace(images: images, place: place);
@@ -98,14 +97,13 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
         break;
     }
 
-    print(api.message());
     App.of(context)?.hideLoading();
     if (api.success()) {
       Navigator.of(context).pop(place);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(api.message() ?? "Please try again!"),
+          content: Text(api.message() ?? tr('msg.try_again')),
         ),
       );
     }
@@ -173,17 +171,17 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
         if (didUpdate) {
           OkCancelResult result = await showOkCancelAlertDialog(
             context: context,
-            title: "Discard changes?",
+            title: tr('msg.discard_changes'),
             message: place.khmer,
-            okLabel: "Discard",
+            okLabel: tr('button.discard'),
           );
           if (result == OkCancelResult.ok) Navigator.of(context).pop();
         } else if (didChangeImages) {
           OkCancelResult result = await showOkCancelAlertDialog(
             context: context,
-            title: "Discard changes?",
-            message: "Some images are updated",
-            okLabel: "Discard",
+            title: tr('msg.discard_changes'),
+            message: tr('msg.images_are_updated'),
+            okLabel: tr('button.discard'),
           );
           if (result == OkCancelResult.ok) Navigator.of(context).pop();
         } else {
@@ -196,14 +194,15 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
         backgroundColor: colorScheme.background,
         floatingActionButton: buildSaveButton(),
         appBar: MorphingAppBar(
-          title: CgAppBarTitle(title: widget.place == null ? "បន្ថែម" : "ផ្លាស់ប្តូ"),
+          title: CgAppBarTitle(title: widget.place == null ? tr('button.create') : tr('button.update')),
         ),
         body: ListView(
           children: [
             const SizedBox(height: ConfigConstant.margin2),
             buildSectionWrapper(
-              title: "អំពីរទីតាំង",
+              title: tr('title.about_place'),
               children: [
+                const SizedBox(height: ConfigConstant.margin0),
                 CgFilterGeoFields(
                   filter: place,
                   onChanged: (place) {
@@ -218,7 +217,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
             ),
             const SizedBox(height: ConfigConstant.margin2),
             buildSectionWrapper(
-              title: "ផែនទី",
+              title: tr('button.map'),
               children: [
                 buildMapButton(),
               ],
@@ -226,7 +225,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
             const SizedBox(height: ConfigConstant.margin2),
             buildSectionWrapper(
               padding: EdgeInsets.zero,
-              title: "រូបភាព",
+              title: tr('title.images'),
               children: [
                 buildImagePickerField(),
               ],
@@ -244,7 +243,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
       padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
       alignment: Alignment.centerLeft,
       child: CgButton(
-        labelText: "លុបទីតាំង",
+        labelText: tr('button.delete_place'),
         iconData: Icons.delete,
         backgroundColor: colorScheme.error.withOpacity(0.1),
         foregroundColor: colorScheme.error,
@@ -264,7 +263,11 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
         SizedBox(height: padding.top == 0 ? ConfigConstant.margin1 : 0),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: padding.left == 0 ? ConfigConstant.margin2 : 0),
-          child: Text(title, style: textTheme.subtitle1),
+          child: Text(
+            title,
+            style: textTheme.subtitle1,
+            strutStyle: StrutStyle.fromTextStyle(textTheme.subtitle1!, forceStrutHeight: true),
+          ),
         ),
       ]);
     }
@@ -283,7 +286,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgTextField(
-        labelText: "ឈ្មោះទីតាំង (ឡាតាំង)",
+        labelText: tr('hint.place_name_en'),
         fillColor: colorScheme.background,
         value: place.english,
         onChanged: (String value) {
@@ -297,7 +300,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgTextField(
-        labelText: "ឈ្មោះទីតាំង",
+        labelText: tr('hint.place_name_km'),
         fillColor: colorScheme.background,
         value: place.khmer,
         onChanged: (String value) {
@@ -318,11 +321,11 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
           trailing: const Icon(Icons.keyboard_arrow_right),
           shape: RoundedRectangleBorder(borderRadius: ConfigConstant.circlarRadius1),
           title: Text(
-            "អំពីរទីតាំង",
+            tr('title.about_place'),
             style: textTheme.bodyText1?.copyWith(color: colorScheme.onSurface),
           ),
           subtitle: Text(
-            place.body?.isNotEmpty == true ? place.body! : "មិនមានទិន្នន័យ",
+            place.body?.isNotEmpty == true ? place.body! : tr('msg.no_data'),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -348,11 +351,17 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("latitude: ${place.lat}", style: textTheme.caption),
-        Text("longtitude: ${place.lon}", style: textTheme.caption),
+        Text(
+          tr('geo.lat_name', namedArgs: {'LAT': '${place.lat}'}),
+          style: textTheme.caption,
+        ),
+        Text(
+          tr('geo.lon_name', namedArgs: {'LON': '${place.lon}'}),
+          style: textTheme.caption,
+        ),
         const SizedBox(height: ConfigConstant.margin1),
         CgButton(
-          labelText: "ជ្រើសទីតាំង",
+          labelText: tr('button.map'),
           iconData: Icons.map,
           backgroundColor: colorScheme.secondary.withOpacity(0.1),
           foregroundColor: colorScheme.secondary,
@@ -385,7 +394,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     return Container(
       margin: const EdgeInsets.only(top: ConfigConstant.margin1),
       child: CgDropDownField(
-        labelText: "ប្រភេទទីតាំង",
+        labelText: tr('label.place_type'),
         key: Key(AppContant.placeType.join("")),
         items: AppContant.placeType.map((e) => CgDropDownFieldItem(label: e, value: e)).toList(),
         initValue: place.type,
@@ -453,7 +462,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
                   ),
                 ),
                 buildImageDeleteButton(
-                  tooltipMessage: "Delete",
+                  tooltipMessage: tr('button.delete'),
                   onPressed: () {
                     setState(() {
                       images.remove(images[index]);

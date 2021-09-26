@@ -6,6 +6,7 @@ import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_gps_button.dart';
 import 'package:cambodia_geography/widgets/cg_scaffold.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +47,7 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
         onPressed: () {
           Navigator.of(context).pushNamed(RouteConfig.EDIT_PLACE).then((value) {
             if (value is PlaceModel) {
-              Fluttertoast.showToast(msg: 'Created place successfully');
+              Fluttertoast.showToast(msg: tr('msg.create_place.successfully'));
             }
           });
         },
@@ -77,7 +78,7 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
 
   MorphingAppBar buildAppbar() {
     return MorphingAppBar(
-      title: CgAppBarTitle(title: "Admin"),
+      title: CgAppBarTitle(title: tr('title.admin')),
       actions: [
         CgGpsButton(),
         IconButton(

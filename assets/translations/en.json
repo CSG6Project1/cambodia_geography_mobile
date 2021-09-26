@@ -1,6 +1,7 @@
 {
   "button": {
     "cancel": "Cancel",
+    "change_email": "Change email",
     "confirm": "Confirm",
     "connect": "Connect",
     "delete": "Delete",
@@ -12,15 +13,19 @@
     "login_with_google": "Login with Google",
     "map": "Map",
     "ok": "Ok",
+    "open_mail": "Open Mail",
     "report": "Report",
+    "resend": "Resend",
     "signup": "Sign up",
     "signup_with_facebook": "Sign up with Facebook",
     "signup_with_google": "Sign up with Google",
     "skip": "Skip",
     "verify": "Verify",
-    "resend": "Resend",
-    "open_mail": "Open Mail",
-    "change_email": "Change email"
+    "discard": "Discard",
+    "create": "Create",
+    "update": "Update",
+    "delete_place": "Delete place",
+    "save": "Save"
   },
   "geo": {
     "commune": "Commune",
@@ -36,7 +41,9 @@
     "srok": "District",
     "srok_name": "Srok {SROK}",
     "village": "Village",
-    "village_name": "{VILLAGE} village"
+    "village_name": "{VILLAGE} village",
+    "lat_name": "Latitude: {LAT}",
+    "lon_name": "Longtitude: {LON}"
   },
   "hint": {
     "comment": "Comment...",
@@ -46,7 +53,9 @@
     "new_password": "New password",
     "old_password": "Old password",
     "password": "Password",
-    "search_for_places": "Search for places..."
+    "search_for_places": "Search for places...",
+    "place_name_en": "Name (English)",
+    "place_name_km": "Name (Khmer)"
   },
   "label": {
     "commune": "Commune",
@@ -89,6 +98,7 @@
     "name_must_filled": "Name must be filled",
     "name_must_not_empty": "User name must not empty",
     "no_data": "No data",
+    "no_mail_app_installed": "No mail app installed",
     "not_connected": "Not connected",
     "or": "Or",
     "password_must_filled": "Password must be filled",
@@ -108,10 +118,15 @@
     },
     "verify": {
       "last_message": "Did not receive the email? Check Your Spam",
-      "send_to": "Sent to {EMAIL}. Please click Verify to verify this email.",
-      "resend_fail": "Resend fail, please try again!"
+      "resend_fail": "Resend fail, please try again!",
+      "send_to": "Sent to {EMAIL}. Please click Verify to verify this email."
     },
-    "no_mail_app_installed": "No mail app installed"
+    "create_place": {
+      "successfully": "Created place successfully!"
+    },
+    "try_again": "Please try again!",
+    "discard_changes": "Discard changes?",
+    "images_are_updated": "Some images are updated"
   },
   "place_type": {
     "draft": "Draft",
@@ -139,6 +154,12 @@
       "other": "{} songkats",
       "zero": "0 songkat"
     },
+    "second": {
+      "many": "{} seconds",
+      "one": "1 seconds",
+      "other": "{} seconds",
+      "zero": "0 seconds"
+    },
     "srok": {
       "many": "{} districts",
       "one": "1 district",
@@ -150,12 +171,6 @@
       "one": "1 village",
       "other": "{} villages",
       "zero": "0 village"
-    },
-    "second": {
-      "many": "{} seconds",
-      "one": "1 seconds",
-      "other": "{} seconds",
-      "zero": "0 seconds"
     }
   },
   "theme_mode": {
@@ -188,7 +203,10 @@
     "filter": "Filter",
     "home": "Home",
     "setting": "Setting",
-    "verify_email": "Please confirm your email"
+    "verify_email": "Please confirm your email",
+    "about_place": "About place",
+    "images": "Images",
+    "body": "Body"
   },
   "user_role": {
     "admin": "Admin",

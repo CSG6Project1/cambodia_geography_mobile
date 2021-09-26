@@ -111,9 +111,9 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
         buildProvinceDropDownField(),
         const SizedBox(height: ConfigConstant.margin1),
         if (districts.isNotEmpty) buildDistrictDropDownField(),
-        const SizedBox(height: ConfigConstant.margin1),
+        if (communes.isNotEmpty) const SizedBox(height: ConfigConstant.margin1),
         if (communes.isNotEmpty) buildCommunesDropDownField(),
-        const SizedBox(height: ConfigConstant.margin1),
+        if (villages.isNotEmpty) const SizedBox(height: ConfigConstant.margin1),
         if (villages.isNotEmpty) buildVillageDropDownField(),
       ],
     );
