@@ -6,6 +6,7 @@ import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/widgets/cg_popup_menu.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:package_info/package_info.dart';
 import 'package:store_redirect/store_redirect.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -97,6 +98,10 @@ class _HelpScreenState extends State<HelpScreen> with CgThemeMixin, CgMediaQuery
   }
 
   Widget buildMoreVertButton() {
+    print(tr('msg.version_info', namedArgs: {
+      'VERSION': "value.version",
+      'YEAR': DateTime.now().year.toString(),
+    }));
     return ValueListenableBuilder(
       valueListenable: canGoBackNotifier,
       builder: (context, value, child) {
@@ -106,19 +111,19 @@ class _HelpScreenState extends State<HelpScreen> with CgThemeMixin, CgMediaQuery
           items: [
             if (canGoBackNotifier.value)
               PopupMenuItem(
-                child: Text("Back"),
+                child: Text(tr('button.back')),
                 value: "back",
               ),
             PopupMenuItem(
-              child: Text(Platform.isAndroid ? "View in Google Play Store" : "View in App Store"),
+              child: Text(Platform.isIOS ? tr('button.view_on_app_store') : tr('button.view_on_google_play')),
               value: "store",
             ),
             PopupMenuItem(
-              child: Text("Version Info"),
+              child: Text(tr('button.version_info').replaceAll("\n", "")),
               value: "version",
             ),
             PopupMenuItem(
-              child: Text("Licenses"),
+              child: Text(tr('button.license')),
               value: "licenses",
             ),
           ],
@@ -155,7 +160,10 @@ class _HelpScreenState extends State<HelpScreen> with CgThemeMixin, CgMediaQuery
                 showOkAlertDialog(
                   context: context,
                   title: value.appName,
-                  message: "Version: ${value.version}\nCopyright © CADT, ${DateTime.now().year}.",
+                  message: tr('msg.version_info', namedArgs: {
+                    'VERSION': value.version,
+                    'YEAR': DateTime.now().year.toString(),
+                  }).replaceAll("\\n", "\n"),
                 );
                 break;
             }

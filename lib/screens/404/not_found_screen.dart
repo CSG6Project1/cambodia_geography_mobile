@@ -1,4 +1,6 @@
+import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -14,10 +16,14 @@ class _NotFoundScreenState extends State<NotFoundScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MorphingAppBar(
-        title: CgAppBarTitle(title: "404"),
+        title: CgAppBarTitle(
+          title: numberTr(404),
+        ),
       ),
       body: Center(
-        child: Text("404 Not Found"),
+        child: Text(
+          numberTr(tr('msg.404_not_found')),
+        ),
       ),
     );
   }

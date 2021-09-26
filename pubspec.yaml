@@ -67,6 +67,7 @@ dependencies:
   store_redirect: ^2.0.0
   in_app_review: ^2.0.3
   timeago: ^3.1.0
+  visibility_detector: ^0.2.0
 
 dev_dependencies:
   build_runner: ^1.12.1

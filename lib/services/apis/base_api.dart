@@ -160,7 +160,7 @@ abstract class BaseApi<T> {
   Future<dynamic> fetchAll({
     Map<String, dynamic>? queryParameters,
   }) async {
-    queryParameters = fetchAllQueryParameters(queryParameters);
+    queryParameters = buildFetchAlQueryParameters(queryParameters);
     return _beforeExec(() async {
       String endpoint = objectNameUrlModel.fetchAllUrl(queryParameters: queryParameters);
       response = await network?.http?.get(Uri.parse(endpoint));
@@ -262,7 +262,7 @@ abstract class BaseApi<T> {
     return result;
   }
 
-  Map<String, dynamic>? fetchAllQueryParameters(Map<String, dynamic>? queryParameters) {
+  Map<String, dynamic>? buildFetchAlQueryParameters(Map<String, dynamic>? queryParameters) {
     Map<String, dynamic> perPage = {"per_page": "10"};
     queryParameters ??= perPage;
     if (!queryParameters.containsKey('per_page')) {

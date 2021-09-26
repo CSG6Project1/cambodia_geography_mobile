@@ -17,6 +17,7 @@ import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_markdown_body.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:weather/weather.dart';
 
@@ -138,18 +139,18 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
             place: placeModel,
           ),
           buildContainer(
-            title: 'អាកាសធាតុ',
+            title: tr('tile.weather'),
             body: buildWeather(),
           ),
           buildContainer(
             margin: EdgeInsets.only(bottom: ConfigConstant.margin2),
-            title: 'អំពីខេត្ត',
+            title: tr('tile.about_province'),
             visible: placeList?.items?[0].body != null,
             body: buildAboutProvince(),
           ),
           buildContainer(
             margin: EdgeInsets.only(bottom: ConfigConstant.margin2),
-            title: 'ទិសដៅ',
+            title: tr('tile.direction'),
             body: buildProvinceDirection(),
           ),
         ],
@@ -162,22 +163,22 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildHeaderTile(
-          title: 'ខាងជើង',
+          title: tr('tile.north'),
           subtitle: widget.province.northTr,
           leading: Icon(Icons.north),
         ),
         buildHeaderTile(
-          title: 'ខាងកើត',
+          title: tr('tile.east'),
           subtitle: widget.province.eastTr,
           leading: Icon(Icons.east),
         ),
         buildHeaderTile(
-          title: 'ខាងត្បូង',
+          title: tr('tile.south'),
           subtitle: widget.province.southTr,
           leading: Icon(Icons.south),
         ),
         buildHeaderTile(
-          title: 'ខាងលិច',
+          title: tr('tile.west'),
           subtitle: widget.province.westTr,
           leading: Icon(Icons.west),
         ),
@@ -217,10 +218,6 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
     return FutureBuilder<Weather>(
       future: weather,
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Something went wrong...');
-        }
-
         // Map<String, dynamic>? json = snapshot.data?.toJson();
         Weather? weather = snapshot.data;
         // Temparature
@@ -235,20 +232,20 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
         // Wind
         String windSpeed = numberTr(weather?.windSpeed);
         String windDegree = numberTr(weather?.windDegree);
-        String windDir = AppHelper.getCompassDirection(weather?.windDegree ?? 0);
+        String windDir = AppHelper.getCompassDirection(weather?.windDegree ?? 0, context);
         IconData iconDirection = AppHelper.getDirectionIcon(weather?.windDegree ?? 0);
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildHeaderTile(
-              title: "សីតុណ្ហភាព",
+              title: tr('tile.temperature'),
               subtitle: snapshot.hasData ? '$celsius | $fahrenheit' : null,
               weatherImage: weatherImage,
             ),
             buildHeaderTile(
-              title: "ខ្យល់",
-              subtitle: snapshot.hasData ? '$windSpeed m/s | $windDir($windDegree°)' : null,
+              title: tr('tile.wind'),
+              subtitle: snapshot.hasData ? '$windSpeed m/s | $windDir ($windDegree°)' : null,
               leading: Icon(iconDirection),
             ),
           ],

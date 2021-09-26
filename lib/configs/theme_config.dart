@@ -27,7 +27,9 @@ class ThemeConfig {
         ),
       ),
       accentColor: scheme.secondary,
-      splashFactory: InkRipple.splashFactory, // InkSplash.splashFactory,
+      // splashFactory:
+      // InkRipple.splashFactory, //
+      // InkSplash.splashFactory,
       indicatorColor: scheme.onPrimary,
       textTheme: ThemeConstant.textTheme.apply(
         bodyColor: scheme.onSurface,

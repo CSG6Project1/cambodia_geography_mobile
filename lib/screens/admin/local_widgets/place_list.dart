@@ -90,6 +90,10 @@ class _PlaceListState extends State<PlaceList> with AutomaticKeepAliveClientMixi
         }
       });
     }
+
+    if (placeList?.hasLoadMore() == true && placeList!.items!.length < 10) {
+      load(loadMore: true);
+    }
   }
 
   Future<void> onDelete(PlaceModel? place) async {

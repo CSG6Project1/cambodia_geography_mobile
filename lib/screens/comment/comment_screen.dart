@@ -314,7 +314,6 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   }
 
   Widget buildCommentText(CommentModel? comment) {
-    print(context.locale.languageCode);
     String date = comment?.createdAt != null
         ? numberTr(timeago.format(comment!.createdAt!, locale: context.locale.languageCode))
         : "";
@@ -331,6 +330,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
                   ? (comment?.user?.username.toString() ?? '') + ' • ' + date
                   : "CamGeo's User" + ' • ' + date,
               style: textTheme.caption,
+              maxLines: 1,
             ),
           ),
           secondChild: CgCustomShimmer(

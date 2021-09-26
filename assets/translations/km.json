@@ -1,23 +1,36 @@
 {
   "button": {
+    "back": "ត្រលប់មកវិញ",
     "cancel": "បោះបង់",
+    "change_email": "ផ្លាស់ប្តូរអ៊ីមែល",
     "confirm": "បញ្ជាក់",
     "connect": "ភ្ជាប់",
+    "create": "បង្កើត",
     "delete": "លុប",
+    "delete_place": "លុបទីតាំង",
+    "discard": "បោះបង់",
     "disconnect": "ផ្តាច់",
     "edit": "កែប្រែ",
     "filter": "កំណត់",
+    "license": "អាជ្ញាប័ណ្ណ",
     "login": "ចូលគណនី",
     "login_with_facebook": "ចូល​ជា​មួយ​ហ្វេ​ស​ប៊ុ​ក",
     "login_with_google": "ចូល​ជា​មួយ​Google",
     "map": "ផែនទី",
     "ok": "យល់ព្រម",
+    "open_mail": "បើកកម្មវិធីសំបុត្រ",
     "report": "រាយការណ៍",
+    "resend": "ផ្ញើឡើងវិញ",
+    "save": "រក្សាទុក",
     "signup": "បង្កើតគណនី",
     "signup_with_facebook": "ចុះឈ្មោះជាមួយហ្វេសប៊ុក",
     "signup_with_google": "ចុះឈ្មោះជាមួយGoogle",
     "skip": "រំលង",
-    "verify": "ផ្ទៀង​ផ្ទាត់"
+    "update": "ផ្លាស់ប្តូ",
+    "verify": "ផ្ទៀង​ផ្ទាត់",
+    "version_info": "ព័ត៌មានកំណែ",
+    "view_on_app_store": "មើលនៅក្នុង App Store",
+    "view_on_google_play": "មើលនៅក្នុង Google Play Store"
   },
   "geo": {
     "commune": "ឃុំ",
@@ -27,6 +40,8 @@
     "km": "{KM} គីឡូម៉ែត្រ",
     "krong": "ក្រុង",
     "krong_name": "ក្រុង{KRONG}",
+    "lat_name": "រយ:ទទឹង៖ {LAT}",
+    "lon_name": "រយ:បណ្តោយ៖ {LON}",
     "postal_code": "លេខកូដ៖ {CODE}",
     "sangkat": "សង្កាត់",
     "sangkat_name": "សង្កាត់{SANGKAT}",
@@ -43,6 +58,8 @@
     "new_password": "ពាក្យសម្ងាត់ថ្មី",
     "old_password": "ពាក្យសម្ងាត់ចាស់",
     "password": "ពាក្យសម្ងាត់",
+    "place_name_en": "ឈ្មោះទីតាំង (ឡាតាំង)",
+    "place_name_km": "ឈ្មោះទីតាំង (ខ្មែរ)",
     "search_for_places": "ស្វែងរកទីកន្លែង..."
   },
   "label": {
@@ -67,6 +84,10 @@
       "fail": "ការតភ្ជាប់បរាជ័យ!"
     },
     "connected": "បានតភ្ជាប់",
+    "create_place": {
+      "successfully": "បានបង្កើតកន្លែងដោយជោគជ័យ!"
+    },
+    "discard_changes": "បោះបង់ការផ្លាស់ប្តូរ?",
     "disconnect": {
       "fail": "ការផ្តាច់ចេញបរាជ័យ!"
     },
@@ -79,6 +100,7 @@
     "geo": {
       "latlng": "ចំណុច៖ {LATLNG}"
     },
+    "images_are_updated": "រូបភាពខ្លះត្រូវបានធ្វើកែប្រែ",
     "logout": {
       "title": "តើអ្នកប្រាកដថាចាកចេញទេ?"
     },
@@ -86,12 +108,14 @@
     "name_must_filled": "ត្រូវបំពេញឈ្មោះ",
     "name_must_not_empty": "ឈ្មោះអ្នកមិនត្រូវទទេឡើយ",
     "no_data": "មិនមានទិន្នន័យ",
+    "no_mail_app_installed": "មិនបានដំឡើងកម្មវិធីអ៊ីមែលទេ",
     "not_connected": "មិនបាន​តភ្ជាប់",
     "or": "ឬ",
     "password_must_filled": "ត្រូវបំពេញពាក្យសម្ងាត់",
     "place_added_to_bookmark": "កន្លែងត្រូវបានបន្ថែមទៅកន្លែងចំណាំ!",
     "please_verify_email": "សូមផ្ទៀងផ្ទាត់អាសយដ្ឋានអ៊ីមែលរបស់អ្នក",
     "register_fail": "ការបង្កើតគណនីបានបរាជ័យ",
+    "try_again": "សូម​ព្យាយាម​ម្តង​ទៀត!",
     "update_name": {
       "title": "ផ្លាស់ប្តូឈ្មោះ"
     },
@@ -102,7 +126,14 @@
       "fail": {
         "message": "បរាជ័យ! សូមព្យាយាមម្តងទៀត។"
       }
-    }
+    },
+    "verify": {
+      "last_message": "មិនបានទទួលអ៊ីមែលទេ? សូមពិនិត្យមើលសារឥតបានការរបស់អ្នក (Spam)",
+      "resend_fail": "ការផ្ញើម្តងទៀតបរាជ័យ សូមព្យាយាមម្តងទៀត!",
+      "send_to": "សារបានផ្ងើរទៅ {EMAIL}។ សូមចុចផ្ទៀង​ផ្ទាត់ដើម្បីផ្ទៀងផ្តាត់អ៊ីមែលនេះ។"
+    },
+    "version_info": "កំណែ៖ {VERSION}\\nរក្សាសិទ្ធិ© CADT, {YEAR}",
+    "404_not_found": "404 រក​មិន​ឃើញ"
   },
   "place_type": {
     "draft": "សេចក្តីព្រាង",
@@ -129,6 +160,12 @@
       "one": "1សង្កាត់",
       "other": "{}សង្កាត់",
       "zero": "0សង្កាត់"
+    },
+    "second": {
+      "many": "{} វិនាទី",
+      "one": "1 វិនាទី",
+      "other": "{} វិនាទី",
+      "zero": "0 វិនាទី"
     },
     "srok": {
       "many": "{}ស្រុក",
@@ -163,16 +200,29 @@
       "subtitle": "យើងចង់ដឺងពីបទពិសោធន៍របស់អ្នក",
       "title": "វាយតម្លៃ"
     },
-    "theme": "ស្បែក"
+    "theme": "ស្បែក",
+    "temperature": "សីតុណ្ហភាព",
+    "wind": "ខ្យល់",
+    "north": "ខាងជើង",
+    "east": "ខាងកើត",
+    "south": "ខាងត្បូង",
+    "west": "ខាងលិច",
+    "direction": "ទិសដៅ",
+    "about_province": "អំពីខេត្ត",
+    "weather": "អាកាសធាតុ"
   },
   "title": {
+    "about_place": "អំពីរទីតាំង",
     "admin": "អេដមីន",
+    "body": "អំពី",
     "bookmark": "ចំណាំ",
     "cambodia": "ប្រទេសកម្ពុជា",
     "comment": "មតិយោបល់",
     "filter": "ការកំណត់",
     "home": "ផ្ទះ",
-    "setting": "ការកំណត់"
+    "images": "រូបភាព",
+    "setting": "ការកំណត់",
+    "verify_email": "សូមបញ្ញាក់អ៊ីមែលរបស់អ្នក"
   },
   "user_role": {
     "admin": "អេដមីន",

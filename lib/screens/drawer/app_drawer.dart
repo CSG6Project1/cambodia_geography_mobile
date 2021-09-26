@@ -272,6 +272,8 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                     firstChild: Text(
                       user?.username ?? "",
                       style: TextStyle(color: colorScheme.onPrimary),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     secondChild: Text(
                       "...",
@@ -284,6 +286,7 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
                           style: TextStyle(
                             color: colorScheme.onPrimary.withOpacity(0.5),
                           ),
+                          maxLines: 1,
                         )
                       : null,
                 ),

@@ -32,10 +32,7 @@ class ProvinceCard extends StatelessWidget {
           buildProvinceHeader(context),
           Divider(height: 0, color: Theme.of(context).dividerColor),
           const SizedBox(height: ConfigConstant.margin1),
-          Container(
-            height: 56,
-            child: buildInfoCount(context),
-          ),
+          buildInfoCount(context),
           const SizedBox(height: ConfigConstant.margin1),
           Divider(height: 0, color: Theme.of(context).dividerColor),
           buildTourPlaceListTile(
@@ -180,7 +177,10 @@ class ProvinceCard extends StatelessWidget {
                   titles[index],
                   style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Theme.of(context).colorScheme.primary),
                 ),
-                Text('${subtitles[index]}'),
+                const SizedBox(height: ConfigConstant.margin0),
+                Text(
+                  '${subtitles[index]}',
+                ),
               ],
             ),
           );

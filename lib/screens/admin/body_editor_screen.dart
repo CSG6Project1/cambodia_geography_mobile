@@ -4,6 +4,7 @@ import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:delta_markdown/delta_markdown.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -59,10 +60,10 @@ class _BodyEditorScreenState extends State<BodyEditorScreen> with CgThemeMixin, 
       child: Scaffold(
         backgroundColor: colorScheme.surface,
         appBar: MorphingAppBar(
-          title: Text("Body"),
+          title: Text(tr('title.body')),
           actions: [
             CgButton(
-              labelText: "Save",
+              labelText: tr('button.save'),
               foregroundColor: colorScheme.onPrimary,
               onPressed: () {
                 var json = jsonEncode(controller.document.toDelta().toJson());
@@ -98,6 +99,8 @@ class _BodyEditorScreenState extends State<BodyEditorScreen> with CgThemeMixin, 
               showUnderLineButton: false,
               showHorizontalRule: false,
               showStrikeThrough: false,
+              showVideoButton: false,
+              showImageButton: false,
             ),
           ),
         ),

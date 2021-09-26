@@ -105,6 +105,10 @@ class CgButton extends StatelessWidget {
         overlayColor = ColorHelper.darken(backgroundColor!);
       }
     }
+
+    if (overlayColor == null && showBorder) {
+      overlayColor = foregroundColor?.withOpacity(0.12);
+    }
     return TextButton.styleFrom(
       backgroundColor: onPressed == null ? Theme.of(context).colorScheme.background : backgroundColor,
     ).copyWith(
