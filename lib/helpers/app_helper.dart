@@ -1,6 +1,7 @@
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:recase/recase.dart';
 
 class AppHelper<T> {
   AppHelper._internal();
@@ -82,5 +83,12 @@ class AppHelper<T> {
     double val = (num / 45);
     int index = (val % 8).toInt();
     return directionIcons[index];
+  }
+
+  static String jsonToDisplayNString(Map<String, dynamic> json) {
+    return json.entries.where((e) => e.value != null).toList().map((e) {
+      ReCase recase = ReCase(e.key);
+      return "${recase.titleCase}: ${e.value}";
+    }).join("\n");
   }
 }

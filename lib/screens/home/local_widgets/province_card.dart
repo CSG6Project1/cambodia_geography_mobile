@@ -1,5 +1,7 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
+import 'package:cambodia_geography/helpers/app_helper.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/utils/translation_utils.dart';
@@ -29,7 +31,17 @@ class ProvinceCard extends StatelessWidget {
       color: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
-          buildProvinceHeader(context),
+          GestureDetector(
+            child: buildProvinceHeader(context),
+            onLongPress: () {
+              String message = AppHelper.jsonToDisplayNString(province.toJson());
+              showOkAlertDialog(
+                context: context,
+                title: tr('title.information'),
+                message: message,
+              );
+            },
+          ),
           Divider(height: 0, color: Theme.of(context).dividerColor),
           const SizedBox(height: ConfigConstant.margin1),
           buildInfoCount(context),
@@ -92,23 +104,33 @@ class ProvinceCard extends StatelessWidget {
               subtitle = '$commune' + tr('msg.and') + '$village';
             }
 
-            return Column(
-              children: [
-                Divider(height: 0, color: Theme.of(context).dividerColor),
-                Material(
-                  color: Theme.of(context).colorScheme.surface,
-                  child: ListTile(
-                    title: Text(title),
-                    subtitle: Text(subtitle),
-                    onTap: () {
-                      Navigator.of(context).pushNamed(
-                        RouteConfig.DISTRICT,
-                        arguments: district[index],
-                      );
-                    },
-                  ),
-                )
-              ],
+            return GestureDetector(
+              onLongPress: () {
+                String message = AppHelper.jsonToDisplayNString(district[index].toJson());
+                showOkAlertDialog(
+                  context: context,
+                  title: tr('title.information'),
+                  message: message,
+                );
+              },
+              child: Column(
+                children: [
+                  Divider(height: 0, color: Theme.of(context).dividerColor),
+                  Material(
+                    color: Theme.of(context).colorScheme.surface,
+                    child: ListTile(
+                      title: Text(title),
+                      subtitle: Text(subtitle),
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          RouteConfig.DISTRICT,
+                          arguments: district[index],
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
             );
           },
         ),

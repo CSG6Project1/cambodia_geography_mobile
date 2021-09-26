@@ -30,7 +30,8 @@
     "verify": "ផ្ទៀង​ផ្ទាត់",
     "version_info": "ព័ត៌មានកំណែ",
     "view_on_app_store": "មើលនៅក្នុង App Store",
-    "view_on_google_play": "មើលនៅក្នុង Google Play Store"
+    "view_on_google_play": "មើលនៅក្នុង Google Play Store",
+    "visit_their_reference": "ចូលទំព័រយោងរបស់ពួកគេ"
   },
   "geo": {
     "commune": "ឃុំ",
@@ -70,6 +71,7 @@
     "village": "ភូមិ"
   },
   "msg": {
+    "404_not_found": "404 រក​មិន​ឃើញ",
     "already_have_acc": "មានគណនីរួចហើយ?",
     "and": " និង ",
     "are_you_sure_to_delete": "តើអ្នកប្រាកដថាលុបឬទេ?",
@@ -87,6 +89,7 @@
     "create_place": {
       "successfully": "បានបង្កើតកន្លែងដោយជោគជ័យ!"
     },
+    "data_collection_reference": "យើងបានប្រមូលព័ត៌មានពី NestCode GEO។",
     "discard_changes": "បោះបង់ការផ្លាស់ប្តូរ?",
     "disconnect": {
       "fail": "ការផ្តាច់ចេញបរាជ័យ!"
@@ -115,6 +118,7 @@
     "place_added_to_bookmark": "កន្លែងត្រូវបានបន្ថែមទៅកន្លែងចំណាំ!",
     "please_verify_email": "សូមផ្ទៀងផ្ទាត់អាសយដ្ឋានអ៊ីមែលរបស់អ្នក",
     "register_fail": "ការបង្កើតគណនីបានបរាជ័យ",
+    "something_went_wrong": "មាន​អ្វីមួយ​មិន​ប្រក្រតី...",
     "try_again": "សូម​ព្យាយាម​ម្តង​ទៀត!",
     "update_name": {
       "title": "ផ្លាស់ប្តូឈ្មោះ"
@@ -132,8 +136,7 @@
       "resend_fail": "ការផ្ញើម្តងទៀតបរាជ័យ សូមព្យាយាមម្តងទៀត!",
       "send_to": "សារបានផ្ងើរទៅ {EMAIL}។ សូមចុចផ្ទៀង​ផ្ទាត់ដើម្បីផ្ទៀងផ្តាត់អ៊ីមែលនេះ។"
     },
-    "version_info": "កំណែ៖ {VERSION}\\nរក្សាសិទ្ធិ© CADT, {YEAR}",
-    "404_not_found": "404 រក​មិន​ឃើញ"
+    "version_info": "កំណែ៖ {VERSION}\\nរក្សាសិទ្ធិ© CADT, {YEAR}"
   },
   "place_type": {
     "draft": "សេចក្តីព្រាង",
@@ -147,36 +150,42 @@
       "many": "{}ឃុំ",
       "one": "1ឃុំ",
       "other": "{}ឃុំ",
+      "two": "{}ឃុំ",
       "zero": "0ឃុំ"
     },
     "khan": {
       "many": "{}ខណ្ឌ",
       "one": "1ខណ្ឌ",
       "other": "{}ខណ្ឌ",
+      "two": "{}ខណ្ឌ",
       "zero": "0ខណ្ឌ"
     },
     "sangkat": {
       "many": "{}សង្កាត់",
       "one": "1សង្កាត់",
       "other": "{}សង្កាត់",
+      "two": "{}សង្កាត់",
       "zero": "0សង្កាត់"
     },
     "second": {
       "many": "{} វិនាទី",
       "one": "1 វិនាទី",
       "other": "{} វិនាទី",
+      "two": "{} វិនាទី",
       "zero": "0 វិនាទី"
     },
     "srok": {
       "many": "{}ស្រុក",
       "one": "1ស្រុក",
       "other": "{}ស្រុក",
+      "two": "{}ស្រុក",
       "zero": "0ស្រុក"
     },
     "village": {
       "many": "{}ភូមិ",
       "one": "{}ភូមិ",
       "other": "{}ភូមិ",
+      "two": "{}ភូមិ",
       "zero": "0ភូមិ"
     }
   },
@@ -186,6 +195,9 @@
     "system": "ប្រព័ន្ធ"
   },
   "tile": {
+    "about_province": "អំពីខេត្ត",
+    "direction": "ទិសដៅ",
+    "east": "ខាងកើត",
     "email": "អ៊ីមែល",
     "facebook": "ហ្វេសប៊ុក",
     "google": "Google",
@@ -194,22 +206,19 @@
     "login": "ចូលគណនី",
     "logout": "ចាកចេញ",
     "name": "ឈ្មោះ",
+    "north": "ខាងជើង",
     "password": "ពាក្យសម្ងាត់",
     "policy": "ឯកជនភាព",
     "rate_us": {
       "subtitle": "យើងចង់ដឺងពីបទពិសោធន៍របស់អ្នក",
       "title": "វាយតម្លៃ"
     },
-    "theme": "ស្បែក",
-    "temperature": "សីតុណ្ហភាព",
-    "wind": "ខ្យល់",
-    "north": "ខាងជើង",
-    "east": "ខាងកើត",
     "south": "ខាងត្បូង",
+    "temperature": "សីតុណ្ហភាព",
+    "theme": "ស្បែក",
+    "weather": "អាកាសធាតុ",
     "west": "ខាងលិច",
-    "direction": "ទិសដៅ",
-    "about_province": "អំពីខេត្ត",
-    "weather": "អាកាសធាតុ"
+    "wind": "ខ្យល់"
   },
   "title": {
     "about_place": "អំពីរទីតាំង",
@@ -221,6 +230,8 @@
     "filter": "ការកំណត់",
     "home": "ផ្ទះ",
     "images": "រូបភាព",
+    "information": "ព័ត៌មាន",
+    "reference": "ឯកសារយោង",
     "setting": "ការកំណត់",
     "verify_email": "សូមបញ្ញាក់អ៊ីមែលរបស់អ្នក"
   },
