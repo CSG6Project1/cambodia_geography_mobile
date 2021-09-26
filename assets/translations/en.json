@@ -1,13 +1,18 @@
 {
   "button": {
+    "back": "Back",
     "cancel": "Cancel",
     "change_email": "Change email",
     "confirm": "Confirm",
     "connect": "Connect",
+    "create": "Create",
     "delete": "Delete",
+    "delete_place": "Delete place",
+    "discard": "Discard",
     "disconnect": "Disconnect",
     "edit": "Edit",
     "filter": "Filter",
+    "license": "Licenses",
     "login": "Login",
     "login_with_facebook": "Login with Facebook",
     "login_with_google": "Login with Google",
@@ -16,21 +21,16 @@
     "open_mail": "Open Mail",
     "report": "Report",
     "resend": "Resend",
+    "save": "Save",
     "signup": "Sign up",
     "signup_with_facebook": "Sign up with Facebook",
     "signup_with_google": "Sign up with Google",
     "skip": "Skip",
-    "verify": "Verify",
-    "discard": "Discard",
-    "create": "Create",
     "update": "Update",
-    "delete_place": "Delete place",
-    "save": "Save",
-    "back": "Back",
+    "verify": "Verify",
     "version_info": "Version Info",
-    "view_on_google_play": "View in Google Play Store",
     "view_on_app_store": "View in App Store",
-    "license": "Licenses"
+    "view_on_google_play": "View in Google Play Store"
   },
   "geo": {
     "commune": "Commune",
@@ -40,15 +40,15 @@
     "km": "{KM} KM",
     "krong": "City ",
     "krong_name": "{KRONG} City",
+    "lat_name": "Latitude: {LAT}",
+    "lon_name": "Longtitude: {LON}",
     "postal_code": "Postal Code: {CODE}",
     "sangkat": "Songkat",
     "sangkat_name": "Sangkat {SANGKAT}",
     "srok": "District",
     "srok_name": "Srok {SROK}",
     "village": "Village",
-    "village_name": "{VILLAGE} village",
-    "lat_name": "Latitude: {LAT}",
-    "lon_name": "Longtitude: {LON}"
+    "village_name": "{VILLAGE} village"
   },
   "hint": {
     "comment": "Comment...",
@@ -58,9 +58,9 @@
     "new_password": "New password",
     "old_password": "Old password",
     "password": "Password",
-    "search_for_places": "Search for places...",
     "place_name_en": "Name (English)",
-    "place_name_km": "Name (Khmer)"
+    "place_name_km": "Name (Khmer)",
+    "search_for_places": "Search for places..."
   },
   "label": {
     "commune": "Commune",
@@ -84,6 +84,10 @@
       "fail": "Connect fail!"
     },
     "connected": "Connected",
+    "create_place": {
+      "successfully": "Created place successfully!"
+    },
+    "discard_changes": "Discard changes?",
     "disconnect": {
       "fail": "Disconnect fail!"
     },
@@ -96,6 +100,7 @@
     "geo": {
       "latlng": "LatLng: {LATLNG}"
     },
+    "images_are_updated": "Some images are updated",
     "logout": {
       "title": "Are you sure to logout?"
     },
@@ -110,6 +115,7 @@
     "place_added_to_bookmark": "Place added to bookmark!",
     "please_verify_email": "Please verify your email address",
     "register_fail": "Register failed",
+    "try_again": "Please try again!",
     "update_name": {
       "title": "Update name"
     },
@@ -126,13 +132,8 @@
       "resend_fail": "Resend fail, please try again!",
       "send_to": "Sent to {EMAIL}. Please click Verify to verify this email."
     },
-    "create_place": {
-      "successfully": "Created place successfully!"
-    },
-    "try_again": "Please try again!",
-    "discard_changes": "Discard changes?",
-    "images_are_updated": "Some images are updated",
-    "version_info": "Version: {VERSION}\\nCopyright © CADT, {YEAR}."
+    "version_info": "Version: {VERSION}\\nCopyright © CADT, {YEAR}.",
+    "404_not_found": "404 not found"
   },
   "place_type": {
     "draft": "Draft",
@@ -202,17 +203,18 @@
     "theme": "Theme"
   },
   "title": {
+    "404": 404,
+    "about_place": "About place",
     "admin": "Admin",
+    "body": "Body",
     "bookmark": "Bookmark",
     "cambodia": "Cambodia",
     "comment": "Comment",
     "filter": "Filter",
     "home": "Home",
-    "setting": "Setting",
-    "verify_email": "Please confirm your email",
-    "about_place": "About place",
     "images": "Images",
-    "body": "Body"
+    "setting": "Setting",
+    "verify_email": "Please confirm your email"
   },
   "user_role": {
     "admin": "Admin",
