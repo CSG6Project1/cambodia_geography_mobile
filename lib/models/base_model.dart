@@ -1,8 +1,14 @@
 import 'package:cambodia_geography/app.dart';
 
 abstract class BaseModel {
+  bool get trim => true;
+
   String? get nameTr {
-    return tr(km, en);
+    String? result = tr(km, en);
+    if (trim) {
+      result = result?.replaceAll(" Province", "");
+    }
+    return result;
   }
 
   String? tr(String? km, String? en) {

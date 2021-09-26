@@ -1,9 +1,9 @@
 import 'package:cambodia_geography/exports/exports.dart';
-import 'package:cambodia_geography/main.dart';
 import 'package:cambodia_geography/models/apis/user_token_model.dart';
 import 'package:cambodia_geography/models/user/user_model.dart';
 import 'package:cambodia_geography/services/apis/users/user_api.dart';
 import 'package:cambodia_geography/services/storages/user_token_storage.dart';
+import 'package:cambodia_geography/utils/initialize_utils.dart';
 
 class UserProvider extends ChangeNotifier {
   late UserTokenStorage userTokenStorage;

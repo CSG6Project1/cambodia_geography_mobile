@@ -1,6 +1,6 @@
 import 'package:cambodia_geography/exports/exports.dart';
-import 'package:cambodia_geography/main.dart';
 import 'package:cambodia_geography/services/storages/theme_mode_storage.dart';
+import 'package:cambodia_geography/utils/initialize_utils.dart';
 
 class ThemeProvider extends ChangeNotifier {
   late bool isDarkMode;

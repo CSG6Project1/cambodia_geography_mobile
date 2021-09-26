@@ -12,6 +12,7 @@ import 'package:cambodia_geography/screens/home/local_widgets/verify_email_banne
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_menu_leading_button.dart';
 import 'package:cambodia_geography/widgets/cg_scaffold.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
@@ -159,8 +160,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
         List<TbProvinceModel> provinces = CambodiaGeography.instance.tbProvinces;
         String? selectedProvinceCode = await showConfirmationDialog(
           context: context,
-          title: "Move to a province",
+          title: tr('msg.move_to_province'),
           initialSelectedActionKey: currentProvinceCode,
+          cancelLabel: tr('button.cancel'),
+          okLabel: tr('button.ok'),
           actions: List.generate(
             provinces.length,
             (index) {
@@ -184,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
         children: [
           Icon(Icons.map, color: themeData.colorScheme.onPrimary),
           const SizedBox(width: 4.0),
-          const CgAppBarTitle(title: 'ប្រទេសកម្ពុជា'),
+          CgAppBarTitle(title: tr('title.cambodia')),
           Icon(Icons.arrow_drop_down),
         ],
       ),
@@ -243,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
         double offset = min(searchTopMargin - mediaQueryData.padding.top - 4, scrollOffsetNotifier.value);
         bool collapsed = scrollOffsetNotifier.value > collapsedOffset;
 
-        String hintText = "ស្វែងរកទីកន្លែង...";
+        String hintText = tr("hint.search_for_places");
         bool animated = scrollOffsetNotifier.value > 8;
 
         return Container(

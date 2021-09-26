@@ -1,11 +1,29 @@
 {
+  "button": {
+    "cancel": "Cancel",
+    "ok": "Ok",
+    "filter": "Filter"
+  },
+  "geo": {
+    "commune": "Commune",
+    "khan": "Khan",
+    "krong": "City ",
+    "postal_code": "Postal Code: {CODE}",
+    "sangkat": "Songkat",
+    "srok": "District",
+    "village": "Village",
+    "krong_name": "{KRONG}"
+  },
+  "hint": {
+    "search_for_places": "Search for places..."
+  },
   "member": {
     "darot": {
       "name": "Chen Darot",
       "title": "Mobile Developer"
     },
     "panha": {
-      "name": "Kok Sophanha",
+      "name": "Kok Sopanha",
       "title": "Web Team Lead"
     },
     "sarak": {
@@ -21,5 +39,52 @@
       "name": "Chamreoun Vatanak",
       "title": "Mobile Developer"
     }
+  },
+  "msg": {
+    "and": " and ",
+    "move_to_province": "Move to a province",
+    "are_you_sure_to_delete": "Are you sure to delete?"
+  },
+  "place_type": {
+    "draft": "Draft",
+    "place": "Places",
+    "province": "Province",
+    "restaurant": "Restaurant"
+  },
+  "plural": {
+    "commune": {
+      "many": "{} communes",
+      "one": "1 commune",
+      "other": "{} communes",
+      "zero": "0 commune"
+    },
+    "khan": {
+      "many": "{} khans",
+      "one": "1 khan",
+      "other": "{} khans",
+      "zero": "0 khan"
+    },
+    "sangkat": {
+      "many": "{} songkats",
+      "one": "1 songkat",
+      "other": "{} songkats",
+      "zero": "0 songkat"
+    },
+    "srok": {
+      "many": "{} districts",
+      "one": "1 district",
+      "other": "{} districts",
+      "zero": "0 district"
+    },
+    "village": {
+      "many": "{} villages",
+      "one": "1 village",
+      "other": "{} villages",
+      "zero": "0 village"
+    }
+  },
+  "title": {
+    "cambodia": "Cambodia",
+    "filter": "Filter"
   }
 }
