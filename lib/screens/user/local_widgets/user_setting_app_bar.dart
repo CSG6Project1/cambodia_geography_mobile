@@ -10,6 +10,7 @@ import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/services/apis/users/user_api.dart';
 import 'package:cambodia_geography/services/images/image_picker_service.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:provider/provider.dart';
 
@@ -58,7 +59,7 @@ class _UserSettingAppBarState extends State<UserSettingAppBar>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              userApi.message() ?? "Update fail, please try again!",
+              userApi.message() ?? tr('msg.update.fail.message'),
             ),
           ),
         );
@@ -211,7 +212,7 @@ class _UserSettingAppBarState extends State<UserSettingAppBar>
                                       color: colorScheme.primary,
                                     ),
                                     child: Text(
-                                      provider.user?.role ?? "",
+                                      tr('user_role.${provider.user?.role}'),
                                       style: TextStyle(
                                         color: colorScheme.onPrimary,
                                       ),

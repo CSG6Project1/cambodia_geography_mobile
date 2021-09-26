@@ -5,6 +5,7 @@ import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/models/user/confirmation_model.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/services/apis/users/confirmation_api.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 
 class VerifyEmailBanner extends StatelessWidget {
@@ -37,10 +38,10 @@ class VerifyEmailBanner extends StatelessWidget {
                 foregroundColor: colorScheme.onSecondary,
                 child: Icon(Icons.email),
               ),
-              content: Text("Please verify your email address"),
+              content: Text(tr('msg.please_verify_email')),
               actions: [
                 CgButton(
-                  labelText: "Verify".toUpperCase(),
+                  labelText: tr('button.verify'),
                   foregroundColor: colorScheme.primary,
                   backgroundColor: colorScheme.surface,
                   onPressed: () async {

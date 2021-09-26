@@ -36,57 +36,22 @@ class _Route {
   });
 }
 
-class _Memeber {
-  final String name;
-  final String title;
-
-  _Memeber({
-    required this.name,
-    required this.title,
-  });
-}
-
 class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMixin {
   late UserProvider? userProvider;
   UserModel? get user => this.userProvider?.user;
-
-  List<_Memeber> get members {
-    return [
-      _Memeber(
-        name: tr('member.thea.name'),
-        title: tr('member.thea.title'),
-      ),
-      _Memeber(
-        name: tr('member.panha.name'),
-        title: tr('member.panha.title'),
-      ),
-      _Memeber(
-        name: tr('member.darot.name'),
-        title: tr('member.darot.title'),
-      ),
-      _Memeber(
-        name: tr('member.sarak.name'),
-        title: tr('member.sarak.title'),
-      ),
-      _Memeber(
-        name: tr('member.vatanak.name'),
-        title: tr('member.vatanak.title'),
-      ),
-    ];
-  }
 
   List<_Route> get routes {
     return [
       _Route(
         routeName: RouteConfig.HOME,
-        displayName: "Home",
+        displayName: tr('title.home'),
         icon: Icons.home,
         isRoot: true,
       ),
       if (this.userProvider?.user?.role == "admin")
         _Route(
           routeName: RouteConfig.ADMIN,
-          displayName: "Admin",
+          displayName: tr('title.admin'),
           icon: Icons.admin_panel_settings,
           isRoot: true,
         ),
@@ -94,20 +59,20 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
         _Route(
           isRoot: false,
           routeName: RouteConfig.BOOKMARK,
-          displayName: "Bookmark",
+          displayName: tr('title.bookmark'),
           icon: Icons.bookmark,
           overrideOnTap: () {},
         ),
       _Route(
         isRoot: false,
         routeName: RouteConfig.USER,
-        displayName: "Setting",
+        displayName: tr('title.setting'),
         icon: Icons.settings,
         overrideOnTap: () {},
       ),
       _Route(
         routeName: "",
-        displayName: "Rate us",
+        displayName: tr('tile.rate_us.title'),
         icon: Icons.rate_review,
         overrideOnTap: () async {
           Navigator.of(context).pop();
@@ -118,7 +83,7 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
       ),
       _Route(
         routeName: "",
-        displayName: "Help",
+        displayName: tr('tile.help'),
         icon: Icons.help,
         overrideOnTap: () async {
           Navigator.of(context).pop();

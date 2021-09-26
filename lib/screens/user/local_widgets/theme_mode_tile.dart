@@ -3,6 +3,7 @@ import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/providers/theme_provider.dart';
 import 'package:cambodia_geography/screens/user/local_widgets/setting_tile.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 
 class ThemeModeTile extends StatelessWidget {
@@ -19,12 +20,12 @@ class ThemeModeTile extends StatelessWidget {
 
     String? key = await showConfirmationDialog(
       context: context,
-      title: "Theme",
+      title: tr('tile.theme'),
       initialSelectedActionKey: initialSelectedActionKey,
       actions: [
-        AlertDialogAction(key: "system", label: "System"),
-        AlertDialogAction(key: "dark", label: "Dark Mode"),
-        AlertDialogAction(key: "light", label: "Light Mode"),
+        AlertDialogAction(key: "system", label: tr('theme_mode.system')),
+        AlertDialogAction(key: "dark", label: tr('theme_mode.dark')),
+        AlertDialogAction(key: "light", label: tr('theme_mode.light')),
       ],
     );
 
@@ -50,15 +51,15 @@ class ThemeModeTile extends StatelessWidget {
           duration: ConfigConstant.fadeDuration,
           crossFadeState: provider.isDarkMode ? CrossFadeState.showSecond : CrossFadeState.showFirst,
           secondChild: SettingTile(
-            title: "Theme",
+            title: tr('tile.theme'),
             iconData: Icons.dark_mode,
-            subtitle: provider.systemTheme ? "System" : "Dark Mode",
+            subtitle: provider.systemTheme ? tr('theme_mode.system') : tr('theme_mode.dark'),
             onTap: () => showThemeModeDialog(provider, context),
           ),
           firstChild: SettingTile(
-            title: "Theme",
+            title: tr('tile.theme'),
             iconData: Icons.light_mode,
-            subtitle: provider.systemTheme ? "System" : "Light Mode",
+            subtitle: provider.systemTheme ? tr('theme_mode.system') : tr('theme_mode.light'),
             onTap: () => showThemeModeDialog(provider, context),
           ),
         );

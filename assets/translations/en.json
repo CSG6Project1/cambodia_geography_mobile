@@ -1,8 +1,11 @@
 {
   "button": {
     "cancel": "Cancel",
+    "connect": "Connect",
+    "disconnect": "Disconnect",
     "filter": "Filter",
-    "ok": "Ok"
+    "ok": "Ok",
+    "verify": "Verify"
   },
   "geo": {
     "commune": "Commune",
@@ -20,6 +23,9 @@
     "village_name": "{VILLAGE} village"
   },
   "hint": {
+    "new_name": "New name",
+    "new_password": "New password",
+    "old_password": "Old password",
     "search_for_places": "Search for places..."
   },
   "label": {
@@ -55,10 +61,35 @@
   "msg": {
     "and": " and ",
     "are_you_sure_to_delete": "Are you sure to delete?",
-    "move_to_province": "Move to a province"
+    "connect": {
+      "fail": "Connect fail!"
+    },
+    "connected": "Connected",
+    "disconnect": {
+      "fail": "Disconnect fail!"
+    },
+    "logout": {
+      "title": "Are you sure to logout?"
+    },
+    "move_to_province": "Move to a province",
+    "name_must_not_empty": "User name must not empty",
+    "not_connected": "Not connected",
+    "please_verify_email": "Please verify your email address",
+    "update_name": {
+      "title": "Update name"
+    },
+    "update_password": {
+      "title": "Change password"
+    },
+    "update": {
+      "fail": {
+        "message": "Update fail, please try again!"
+      }
+    }
   },
   "place_type": {
     "draft": "Draft",
+    "empty": "Empty",
     "place": "Places",
     "province": "Province",
     "restaurant": "Restaurant"
@@ -95,8 +126,38 @@
       "zero": "0 village"
     }
   },
+  "theme_mode": {
+    "dark": "Dark Mode",
+    "light": "Light Mode",
+    "system": "System"
+  },
+  "tile": {
+    "email": "Email",
+    "facebook": "Facebook",
+    "google": "Google",
+    "help": "Help",
+    "language": "Language",
+    "login": "Login",
+    "logout": "Logout",
+    "name": "Name",
+    "password": "Password",
+    "policy": "Policy & Privary",
+    "rate_us": {
+      "subtitle": "We’d love to hear your experience",
+      "title": "Rate us"
+    },
+    "theme": "Theme"
+  },
   "title": {
+    "admin": "Admin",
+    "bookmark": "Bookmark",
     "cambodia": "Cambodia",
-    "filter": "Filter"
+    "filter": "Filter",
+    "home": "Home",
+    "setting": "Setting"
+  },
+  "user_role": {
+    "admin": "Admin",
+    "user": "User"
   }
 }
