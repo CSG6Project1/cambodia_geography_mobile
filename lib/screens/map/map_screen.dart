@@ -79,7 +79,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
     return Marker(
       position: latLng,
       markerId: MarkerId(latLng.toString()),
-      infoWindow: InfoWindow(title: widget.settings.place?.khmer),
+      infoWindow: InfoWindow(title: widget.settings.place?.nameTr),
     );
   }
 

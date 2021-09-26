@@ -5,7 +5,6 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
-import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/user/confirmation_model.dart';
@@ -14,6 +13,7 @@ import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/services/apis/users/confirmation_api.dart';
 import 'package:cambodia_geography/services/apis/users/user_api.dart';
 import 'package:cambodia_geography/services/storages/init_app_state_storage.dart';
+import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_headline_text.dart';
 import 'package:cambodia_geography/widgets/cg_list_view_spacer.dart';
 import 'package:flutter/cupertino.dart';
@@ -313,7 +313,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
       endTime: endTime,
       onEnd: onEnd,
       widgetBuilder: (context, CurrentRemainingTime? remainingTime) {
-        String second = remainingTime?.sec != null ? NumberHelper.toKhmer(remainingTime?.sec) : "0";
+        String second = numberTr(remainingTime?.sec != null ? remainingTime!.sec : "0");
         return AnimatedContainer(
           duration: ConfigConstant.fadeDuration,
           curve: Curves.ease,

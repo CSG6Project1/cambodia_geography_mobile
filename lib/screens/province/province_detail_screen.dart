@@ -3,7 +3,6 @@ import 'package:cambodia_geography/constants/api_constant.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/helpers/app_helper.dart';
-import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/places/place_list_model.dart';
@@ -13,6 +12,7 @@ import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/screens/place_detail/local_widgets/place_title.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
+import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_markdown_body.dart';
@@ -116,7 +116,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
           CgImageAppBar(
             expandedHeight: expandedHeight,
             pageController: pageController,
-            title: widget.province.khmer ?? "Province",
+            title: widget.province.nameTr ?? "",
             images: images,
             scrollController: scrollController,
           ),
@@ -131,7 +131,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
       delegate: SliverChildListDelegate(
         [
           PlaceTitle(
-            title: widget.province.khmer.toString(),
+            title: widget.province.nameTr.toString(),
             provinceCode: widget.province.code,
             lat: double.tryParse(widget.province.latitude ?? '0'),
             lon: double.tryParse(widget.province.longitudes ?? '0'),
@@ -163,22 +163,22 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
       children: [
         buildHeaderTile(
           title: 'ខាងជើង',
-          subtitle: widget.province.northKh,
+          subtitle: widget.province.northTr,
           leading: Icon(Icons.north),
         ),
         buildHeaderTile(
           title: 'ខាងកើត',
-          subtitle: widget.province.eastKh,
+          subtitle: widget.province.eastTr,
           leading: Icon(Icons.east),
         ),
         buildHeaderTile(
           title: 'ខាងត្បូង',
-          subtitle: widget.province.southKh,
+          subtitle: widget.province.southTr,
           leading: Icon(Icons.south),
         ),
         buildHeaderTile(
           title: 'ខាងលិច',
-          subtitle: widget.province.westKh,
+          subtitle: widget.province.westTr,
           leading: Icon(Icons.west),
         ),
       ],
@@ -224,8 +224,8 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
         // Map<String, dynamic>? json = snapshot.data?.toJson();
         Weather? weather = snapshot.data;
         // Temparature
-        String celsius = "${NumberHelper.toKhmer(weather?.temperature?.celsius?.toInt())} °C";
-        String fahrenheit = "${NumberHelper.toKhmer(weather?.temperature?.fahrenheit?.toInt())} °F";
+        String celsius = "${numberTr(weather?.temperature?.celsius?.toInt())} °C";
+        String fahrenheit = "${numberTr(weather?.temperature?.fahrenheit?.toInt())} °F";
         // Weather image
         String? weatherImage;
         String icon = weather?.weatherIcon ?? '';
@@ -233,8 +233,8 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
           weatherImage = "http://openweathermap.org/img/wn/$icon@2x.png";
         }
         // Wind
-        String windSpeed = NumberHelper.toKhmer(weather?.windSpeed.toString());
-        String windDegree = NumberHelper.toKhmer(weather?.windDegree.toString());
+        String windSpeed = numberTr(weather?.windSpeed);
+        String windDegree = numberTr(weather?.windDegree);
         String windDir = AppHelper.getCompassDirection(weather?.windDegree ?? 0);
         IconData iconDirection = AppHelper.getDirectionIcon(weather?.windDegree ?? 0);
 
@@ -328,7 +328,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
             ),
           ),
           Text(
-            NumberHelper.toKhmer((placeList?.items?[0].commentLength ?? 0)),
+            numberTr((placeList?.items?[0].commentLength ?? 0)),
             style: textTheme.caption,
           ),
           const Spacer(),

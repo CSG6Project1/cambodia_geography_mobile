@@ -1,7 +1,6 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
-import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
@@ -59,19 +58,19 @@ class PlaceCard extends StatelessWidget {
 
     if (provinces.isNotEmpty) {
       province = provinces.first;
-      if (province.khmer != null) geoInfo.add(province.khmer ?? "");
+      if (province.nameTr != null) geoInfo.add(province.nameTr ?? "");
     }
     if (districts.isNotEmpty) {
       district = districts.first;
-      if (district.khmer != null) geoInfo.add(district.khmer ?? "");
+      if (district.nameTr != null) geoInfo.add(district.nameTr ?? "");
     }
     if (communes.isNotEmpty) {
       commune = communes.first;
-      if (commune.khmer != null) geoInfo.add(commune.khmer ?? "");
+      if (commune.nameTr != null) geoInfo.add(commune.nameTr ?? "");
     }
     if (villages.isNotEmpty) {
       village = villages.first;
-      if (village.khmer != null) geoInfo.add(village.khmer ?? "");
+      if (village.nameTr != null) geoInfo.add(village.nameTr ?? "");
     }
 
     return geoInfo.join(" ");
@@ -213,12 +212,12 @@ class PlaceCard extends StatelessWidget {
     return Expanded(
       child: ListTile(
         title: buildAnimatedCrossFade(
-          loading: place?.khmer == null,
+          loading: place?.nameTr == null,
           loadingWidget: CgCustomShimmer(
             child: Container(height: 14, width: 200, color: colorScheme.surface),
           ),
           child: Text(
-            customTr(km: place?.khmer ?? "", en: place?.english ?? "", context: context),
+            place?.nameTr ?? "",
             maxLines: 1,
             style: TextStyle(color: colorScheme.primary),
             overflow: TextOverflow.ellipsis,
@@ -251,7 +250,7 @@ class PlaceCard extends StatelessWidget {
             const SizedBox(height: ConfigConstant.margin0),
             if (place?.id != null)
               buildAnimatedCrossFade(
-                loading: place?.khmer == null,
+                loading: place?.nameTr == null,
                 loadingWidget: const SizedBox(width: double.infinity),
                 child: Row(
                   children: [
@@ -296,7 +295,7 @@ class PlaceCard extends StatelessWidget {
                 const SizedBox(width: ConfigConstant.margin0),
                 Expanded(
                   child: Text(
-                    distance != null ? NumberHelper.toKhmer(distance.toStringAsFixed(2) + " គីឡូម៉ែត្រ") : "",
+                    distance != null ? numberTr(distance.toStringAsFixed(2) + " គីឡូម៉ែត្រ") : "",
                     style: textTheme.caption,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -320,7 +319,7 @@ class PlaceCard extends StatelessWidget {
         ),
         const SizedBox(width: ConfigConstant.margin0),
         Text(
-          NumberHelper.toKhmer((place?.commentLength ?? 0).toString()),
+          numberTr(place?.commentLength ?? 0),
           style: textTheme.caption,
         ),
       ],

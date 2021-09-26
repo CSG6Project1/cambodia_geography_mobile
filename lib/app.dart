@@ -29,6 +29,7 @@ class App extends StatefulWidget {
   }
 
   static final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+  static Locale? locale;
 
   @override
   _AppState createState() => _AppState();
@@ -85,6 +86,7 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
   Widget build(BuildContext context) {
     themeProvider = Provider.of<ThemeProvider>(context, listen: true);
     localeProvider = Provider.of<LocaleProvider>(context, listen: true);
+    App.locale = localeProvider?.locale;
     return MaterialApp(
       supportedLocales: context.supportedLocales,
       theme: theme,

@@ -75,7 +75,7 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
 
   MorphingAppBar buildAppbar() {
     return MorphingAppBar(
-      title: CgAppBarTitle(title: widget.province.khmer ?? ''),
+      title: CgAppBarTitle(title: widget.province.nameTr ?? ''),
       actions: [
         CgGpsButton(),
       ],

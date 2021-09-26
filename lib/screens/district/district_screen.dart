@@ -29,7 +29,7 @@ class DistrictScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: MorphingAppBar(
-        title: CgAppBarTitle(title: prefix + district.khmer.toString()),
+        title: CgAppBarTitle(title: prefix + district.nameTr.toString()),
       ),
       body: buildCommuneList(
         communes: communes,
@@ -65,7 +65,7 @@ class DistrictScreen extends StatelessWidget {
     required TbCommuneModel commune,
     required List<TbVillageModel> villages,
   }) {
-    String communeTitle = (commune.type == "COMMUNE" ? 'ឃុំ' : 'សង្កាត់') + commune.khmer.toString();
+    String communeTitle = (commune.type == "COMMUNE" ? 'ឃុំ' : 'សង្កាត់') + commune.nameTr.toString();
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
@@ -100,10 +100,10 @@ class DistrictScreen extends StatelessWidget {
     required List<TbVillageModel> villages,
   }) {
     return List.generate(commune.village ?? 0, (index) {
-      String prefix = villages[index].khmer.toString().contains('ភូមិ') ? '' : 'ភូមិ ';
+      String prefix = villages[index].nameTr.toString().contains('ភូមិ') ? '' : 'ភូមិ ';
       return Material(
         child: ListTile(
-          title: Text(prefix + villages[index].khmer.toString()),
+          title: Text(prefix + villages[index].nameTr.toString()),
           subtitle: Text('លេខកូដ៖ ' + villages[index].code.toString()),
           tileColor: Theme.of(context).colorScheme.surface,
         ),

@@ -166,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
             (index) {
               return AlertDialogAction(
                 key: provinces[index].code!,
-                label: provinces[index].khmer!,
+                label: provinces[index].nameTr ?? "",
               );
             },
           ),
@@ -211,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
         (index) => Tab(
           key: Key("HomeTabItem$index"),
           child: Text(
-            geo.tbProvinces[index].khmer.toString(),
+            geo.tbProvinces[index].nameTr ?? "",
             style: TextStyle(
               fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
             ),

@@ -1,8 +1,9 @@
+import 'package:cambodia_geography/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'tb_province_model.g.dart';
 
 @JsonSerializable()
-class TbProvinceModel {
+class TbProvinceModel extends BaseModel {
   TbProvinceModel({
     this.id,
     this.code,
@@ -63,4 +64,15 @@ class TbProvinceModel {
 
   factory TbProvinceModel.fromJson(Map<String, dynamic> json) => _$TbProvinceModelFromJson(json);
   Map<String, dynamic> toJson() => _$TbProvinceModelToJson(this);
+
+  String? get eastTr => super.tr(eastKh, eastEn);
+  String? get westTr => super.tr(westKh, westEn);
+  String? get southTr => super.tr(southKh, southEn);
+  String? get northTr => super.tr(northKh, northEn);
+
+  @override
+  String? get en => this.english;
+
+  @override
+  String? get km => this.khmer;
 }

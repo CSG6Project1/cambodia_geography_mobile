@@ -1,8 +1,8 @@
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
-import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
+import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:flutter/material.dart';
 
 class ProvinceCard extends StatelessWidget {
@@ -68,7 +68,7 @@ class ProvinceCard extends StatelessWidget {
               ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
         ),
         subtitle: Text(
-          isKhan ? NumberHelper.toKhmer(province.khan) + ' ខណ្ឌ' : NumberHelper.toKhmer(province.srok) + ' ស្រុក',
+          isKhan ? numberTr(province.khan) + ' ខណ្ឌ' : numberTr(province.srok) + ' ស្រុក',
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface,
           ),
@@ -76,19 +76,19 @@ class ProvinceCard extends StatelessWidget {
         children: List.generate(
           district.length,
           (index) {
-            String sangkat = NumberHelper.toKhmer(district[index].sangkat) + 'សង្កាត់';
-            String commune = NumberHelper.toKhmer(district[index].commune) + 'ឃុំ';
-            String village = NumberHelper.toKhmer(district[index].village) + 'ភូមិ';
+            String sangkat = numberTr(district[index].sangkat) + 'សង្កាត់';
+            String commune = numberTr(district[index].commune) + 'ឃុំ';
+            String village = numberTr(district[index].village) + 'ភូមិ';
             bool isKrong = district[index].type == 'KRONG';
 
             String title;
             String subtitle;
             if (isKrong || isKhan) {
-              title = (isKrong ? 'ក្រុង' : 'ខណ្ឌ') + (district[index].khmer ?? '');
+              title = (isKrong ? 'ក្រុង' : 'ខណ្ឌ') + (district[index].nameTr ?? '');
               subtitle = '$sangkat និង $village';
             } else {
-              title = 'ស្រុក' + (district[index].khmer ?? '');
-              subtitle = '$commune និង $villageភូមិ';
+              title = 'ស្រុក' + (district[index].nameTr ?? '');
+              subtitle = '$commune និង $village';
             }
 
             return Column(
@@ -144,23 +144,23 @@ class ProvinceCard extends StatelessWidget {
 
     if ((province.srok ?? 0) > 0) {
       titles.add('ស្រុក');
-      subtitles.add(NumberHelper.toKhmer(province.srok));
+      subtitles.add(numberTr(province.srok));
     }
     if ((province.khan ?? 0) > 0) {
       titles.add('ខណ្ឌ');
-      subtitles.add(NumberHelper.toKhmer(province.khan));
+      subtitles.add(numberTr(province.khan));
     }
     if ((province.sangkat ?? 0) > 0) {
       titles.add('សង្កាត់');
-      subtitles.add(NumberHelper.toKhmer(province.sangkat));
+      subtitles.add(numberTr(province.sangkat));
     }
     if ((province.commune ?? 0) > 0) {
       titles.add('ឃុំ');
-      subtitles.add(NumberHelper.toKhmer(province.commune));
+      subtitles.add(numberTr(province.commune));
     }
     if ((province.village ?? 0) > 0) {
       titles.add('ភូមិ');
-      subtitles.add(NumberHelper.toKhmer(province.village));
+      subtitles.add(numberTr(province.village));
     }
 
     return Row(
@@ -187,7 +187,7 @@ class ProvinceCard extends StatelessWidget {
 
   Widget buildProvinceHeader(BuildContext context) {
     List<TbDistrictModel> krongs = district.where((dist) => dist.type == "KRONG").toList();
-    String krongTitle = "ក្រុង" + krongs.map((krong) => krong.khmer).toList().join(" និង ក្រុង");
+    String krongTitle = "ក្រុង" + krongs.map((krong) => krong.nameTr).toList().join(" និង ក្រុង");
 
     Color? subtitleColor = Theme.of(context).textTheme.caption?.color;
     return GestureDetector(
@@ -219,7 +219,7 @@ class ProvinceCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    province.khmer ?? '',
+                    province.nameTr ?? "",
                     style: Theme.of(context)
                         .textTheme
                         .headline6
@@ -227,7 +227,7 @@ class ProvinceCard extends StatelessWidget {
                   ),
                   if (krongs.length > 0) Text(krongTitle, style: TextStyle(color: subtitleColor)),
                   Text(
-                    'លេខកូដ៖ ' + NumberHelper.toKhmer(province.code),
+                    'លេខកូដ៖ ' + numberTr(province.code),
                     style: TextStyle(color: subtitleColor),
                   ),
                 ],

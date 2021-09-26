@@ -105,7 +105,7 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
           (index) => Tab(
             key: Key("HomeTabItem$index"),
             child: Text(
-              geo.tbProvinces[index].khmer.toString(),
+              geo.tbProvinces[index].nameTr.toString(),
               style: TextStyle(
                 fontFamilyFallback: Theme.of(context).textTheme.bodyText1?.fontFamilyFallback,
               ),

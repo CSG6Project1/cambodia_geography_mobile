@@ -43,7 +43,7 @@ class PlaceTitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildTitle(textTheme, colorScheme),
-          buildSubtitle(colorScheme, province, textTheme),
+          buildSubtitle(colorScheme, province, textTheme, context),
           buildMainButtons(colorScheme, context),
         ],
       ),
@@ -57,7 +57,12 @@ class PlaceTitle extends StatelessWidget {
     );
   }
 
-  Widget buildSubtitle(ColorScheme colorScheme, TbProvinceModel province, TextTheme textTheme) {
+  Widget buildSubtitle(
+    ColorScheme colorScheme,
+    TbProvinceModel province,
+    TextTheme textTheme,
+    BuildContext context,
+  ) {
     return Row(
       children: [
         Icon(
@@ -66,7 +71,7 @@ class PlaceTitle extends StatelessWidget {
           color: colorScheme.primary,
         ),
         Text(
-          subtitle ?? '${province.khmer}',
+          subtitle ?? '${province.nameTr}',
           style: textTheme.bodyText2?.copyWith(color: textTheme.caption?.color),
         ),
       ],

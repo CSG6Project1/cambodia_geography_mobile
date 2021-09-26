@@ -26,8 +26,8 @@ class SearchButton extends StatelessWidget {
             var autoCompleterApi = SearchAutocompleteApi();
             var result = await autoCompleterApi.fetchAutocompleters(keyword: query);
             if (autoCompleterApi.success() && result is AutocompleterListModel) {
-              bool khmer = result.items?[0].khmer?.contains("<b>") == true;
-              return result.items?.map((e) => khmer ? e.khmer : e.english).toList();
+              bool nameTr = result.items?[0].nameTr?.contains("<b>") == true;
+              return result.items?.map((e) => nameTr ? e.nameTr : e.english).toList();
             }
           }
         },

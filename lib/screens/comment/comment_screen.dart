@@ -3,7 +3,6 @@ import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/helpers/date_helper.dart';
-import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/comment/comment_list_model.dart';
 import 'package:cambodia_geography/models/comment/comment_model.dart';
@@ -12,6 +11,7 @@ import 'package:cambodia_geography/models/user/user_model.dart';
 import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/services/apis/comment/comment_api.dart';
 import 'package:cambodia_geography/services/apis/comment/crud_comment_api.dart';
+import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_load_more_list.dart';
@@ -401,7 +401,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
           style: textTheme.bodyText1,
           children: [
             TextSpan(
-              text: '• ' + NumberHelper.toKhmer(commentListModel?.meta?.totalCount ?? widget.place.commentLength),
+              text: '• ' + numberTr(commentListModel?.meta?.totalCount ?? widget.place.commentLength),
               style: TextStyle(
                 color: textTheme.caption?.color,
               ),

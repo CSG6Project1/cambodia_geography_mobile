@@ -1,5 +1,5 @@
 import 'package:cambodia_geography/constants/config_constant.dart';
-import 'package:cambodia_geography/helpers/number_helper.dart';
+import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_images_viewer.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +71,7 @@ class _ImagesPresentorState extends State<ImagesPresentor> {
       bottom: ConfigConstant.margin1,
       child: Container(
         child: Text(
-          NumberHelper.toKhmer("${currentPage! + 1}/${widget.images.length}"),
+          numberTr("${currentPage! + 1}/${widget.images.length}"),
           style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
         ),
         padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),

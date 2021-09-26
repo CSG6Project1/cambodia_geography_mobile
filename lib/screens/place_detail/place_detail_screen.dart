@@ -3,12 +3,12 @@ import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
-import 'package:cambodia_geography/helpers/number_helper.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/place_detail/local_widgets/place_title.dart';
 import 'package:cambodia_geography/services/apis/bookmarks/bookmark_api.dart';
+import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:cambodia_geography/widgets/cg_markdown_body.dart';
 import 'package:flutter/foundation.dart';
@@ -64,7 +64,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
             expandedHeight: expandedHeight,
             pageController: pageController,
             scrollController: scrollController,
-            title: place.khmer.toString(),
+            title: place.nameTr ?? "",
             images: place.images?.map((e) => e.url ?? '').toList() ?? [],
           ),
           buildBody(),
@@ -77,7 +77,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
     return SliverList(
       delegate: SliverChildListDelegate([
         PlaceTitle(
-          title: place.khmer.toString(),
+          title: place.nameTr ?? "",
           provinceCode: place.provinceCode,
           lat: place.lat,
           lon: place.lon,
@@ -112,7 +112,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
             ),
           ),
           Text(
-            NumberHelper.toKhmer((place.commentLength ?? 0).toString()),
+            numberTr(place.commentLength != null ? place.commentLength : "..."),
             style: textTheme.caption,
           ),
           const Spacer(),

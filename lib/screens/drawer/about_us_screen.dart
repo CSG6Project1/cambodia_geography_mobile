@@ -8,7 +8,6 @@ import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/places/local_widgets/place_card.dart';
 import 'package:cambodia_geography/services/apis/info/member_api.dart';
 import 'package:cambodia_geography/services/storages/developer_mode_storage.dart';
-import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_headline_text.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -100,11 +99,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> with CgThemeMixin, CgMedi
                       return Container(
                         margin: const EdgeInsets.only(bottom: ConfigConstant.margin1),
                         child: PlaceCard(
-                          subtitle: customTr(
-                            km: member?.roleKhmer ?? "",
-                            en: member?.roleEnglish ?? "",
-                            context: context,
-                          ),
+                          subtitle: member?.roleTr ?? "",
                           place: PlaceModel(
                             khmer: member?.khmer,
                             english: member?.english,

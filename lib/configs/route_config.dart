@@ -82,7 +82,7 @@ class RouteConfig {
 
   /// List of route that use custom page route
   /// instead of `SwipeablePageRoute`
-  static const List<String> routesWithCustomTransitions = [LOGIN, SIGNUP, USER];
+  static const List<String> routesWithCustomTransitions = [LOGIN, SIGNUP];
 
   Route<dynamic> generate() {
     String? name = settings?.name;

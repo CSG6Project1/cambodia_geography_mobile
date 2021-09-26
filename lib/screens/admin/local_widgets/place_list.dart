@@ -98,7 +98,7 @@ class _PlaceListState extends State<PlaceList> with AutomaticKeepAliveClientMixi
       OkCancelResult result = await showOkCancelAlertDialog(
         context: context,
         title: "Are you sure to delete this place?",
-        message: place?.khmer ?? place?.khmer ?? "",
+        message: place?.nameTr ?? "",
       );
 
       switch (result) {

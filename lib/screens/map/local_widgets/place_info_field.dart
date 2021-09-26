@@ -75,7 +75,7 @@ class _PlaceInfoFieldState extends State<PlaceInfoField> with CgThemeMixin, CgMe
       items: List.generate(
         CambodiaGeography.instance.tbProvinces.length,
         (index) {
-          String label = CambodiaGeography.instance.tbProvinces[index].khmer ?? "";
+          String label = CambodiaGeography.instance.tbProvinces[index].nameTr ?? "";
           return CgDropDownFieldItem(label: label, value: label);
         },
       ),

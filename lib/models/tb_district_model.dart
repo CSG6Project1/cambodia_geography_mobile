@@ -1,8 +1,9 @@
+import 'package:cambodia_geography/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'tb_district_model.g.dart';
 
 @JsonSerializable()
-class TbDistrictModel {
+class TbDistrictModel extends BaseModel {
   TbDistrictModel({
     this.id,
     this.provinceCode,
@@ -36,4 +37,10 @@ class TbDistrictModel {
 
   factory TbDistrictModel.fromJson(Map<String, dynamic> json) => _$TbDistrictModelFromJson(json);
   Map<String, dynamic> toJson() => _$TbDistrictModelToJson(this);
+
+  @override
+  String? get en => this.english;
+
+  @override
+  String? get km => this.khmer;
 }

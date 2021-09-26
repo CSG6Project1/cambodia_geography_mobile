@@ -1,8 +1,9 @@
+import 'package:cambodia_geography/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'member_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class MemberModel {
+class MemberModel extends BaseModel {
   final String? khmer;
   final String? english;
   final String? roleKhmer;
@@ -21,4 +22,12 @@ class MemberModel {
 
   factory MemberModel.fromJson(Map<String, dynamic> json) => _$MemberModelFromJson(json);
   Map<String, dynamic> toJson() => _$MemberModelToJson(this);
+
+  String? get roleTr => super.tr(roleKhmer, roleEnglish);
+
+  @override
+  String? get en => this.khmer;
+
+  @override
+  String? get km => this.khmer;
 }

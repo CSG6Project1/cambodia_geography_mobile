@@ -1,6 +1,7 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/constants/app_constant.dart';
 import 'package:cambodia_geography/helpers/app_helper.dart';
+import 'package:cambodia_geography/models/base_model.dart';
 import 'package:cambodia_geography/models/image_model.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
@@ -10,7 +11,7 @@ import 'bookmark_model.dart';
 part 'place_model.g.dart';
 
 @JsonSerializable()
-class PlaceModel {
+class PlaceModel extends BaseModel {
   PlaceModel({
     this.createdAt,
     this.updatedAt,
@@ -162,4 +163,10 @@ class PlaceModel {
 
   factory PlaceModel.fromJson(Map<String, dynamic> json) => _$PlaceModelFromJson(json);
   Map<String, dynamic> toJson() => _$PlaceModelToJson(this);
+
+  @override
+  String? get en => this.english;
+
+  @override
+  String? get km => this.khmer;
 }
