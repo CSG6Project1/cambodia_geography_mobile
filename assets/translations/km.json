@@ -25,7 +25,12 @@
     "create": "បង្កើត",
     "update": "ផ្លាស់ប្តូ",
     "delete_place": "លុបទីតាំង",
-    "save": "រក្សាទុក"
+    "save": "រក្សាទុក",
+    "back": "ត្រលប់មកវិញ",
+    "version_info": "ព័ត៌មានកំណែ",
+    "view_on_google_play": "មើលនៅក្នុង Google Play Store",
+    "view_on_app_store": "មើលនៅក្នុង App Store",
+    "license": "អាជ្ញាប័ណ្ណ"
   },
   "geo": {
     "commune": "ឃុំ",
@@ -126,7 +131,8 @@
     },
     "try_again": "សូម​ព្យាយាម​ម្តង​ទៀត!",
     "discard_changes": "បោះបង់ការផ្លាស់ប្តូរ?",
-    "images_are_updated": "រូបភាពខ្លះត្រូវបានធ្វើកែប្រែ"
+    "images_are_updated": "រូបភាពខ្លះត្រូវបានធ្វើកែប្រែ",
+    "version_info": "កំណែ៖ {VERSION}\\nរក្សាសិទ្ធិ© CADT, {YEAR}"
   },
   "place_type": {
     "draft": "សេចក្តីព្រាង",

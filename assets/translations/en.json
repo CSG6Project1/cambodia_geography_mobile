@@ -25,7 +25,12 @@
     "create": "Create",
     "update": "Update",
     "delete_place": "Delete place",
-    "save": "Save"
+    "save": "Save",
+    "back": "Back",
+    "version_info": "Version Info",
+    "view_on_google_play": "View in Google Play Store",
+    "view_on_app_store": "View in App Store",
+    "license": "Licenses"
   },
   "geo": {
     "commune": "Commune",
@@ -126,7 +131,8 @@
     },
     "try_again": "Please try again!",
     "discard_changes": "Discard changes?",
-    "images_are_updated": "Some images are updated"
+    "images_are_updated": "Some images are updated",
+    "version_info": "Version: {VERSION}\\nCopyright © CADT, {YEAR}."
   },
   "place_type": {
     "draft": "Draft",
