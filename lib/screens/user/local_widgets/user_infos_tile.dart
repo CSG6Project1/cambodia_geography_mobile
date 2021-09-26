@@ -8,6 +8,7 @@ import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/screens/user/local_widgets/setting_tile.dart';
 import 'package:cambodia_geography/screens/user/local_widgets/social_tiles.dart';
 import 'package:cambodia_geography/services/apis/users/user_api.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 
 class UserInfosTile extends StatefulWidget {
@@ -29,10 +30,10 @@ class _UserInfosTileState extends State<UserInfosTile> {
   Future<void> showUpdateNameDialog(UserProvider provider) async {
     List<String>? values = await showTextInputDialog(
       context: context,
-      title: "Update name",
+      title: tr('msg.update_name.title'),
       textFields: [
         DialogTextField(
-          hintText: "New name",
+          hintText: tr('hint.new_name'),
           initialText: provider.user?.username,
         ),
       ],
@@ -50,7 +51,7 @@ class _UserInfosTileState extends State<UserInfosTile> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              userApi.message() ?? "Update fail, please try again!",
+              userApi.message() ?? tr('msg.update.fail.message'),
             ),
           ),
         );
@@ -62,7 +63,7 @@ class _UserInfosTileState extends State<UserInfosTile> {
       if (values != null)
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("User name must not empty"),
+            content: Text(tr('msg.name_must_not_empty')),
           ),
         );
     }
@@ -71,14 +72,14 @@ class _UserInfosTileState extends State<UserInfosTile> {
   Future<void> showUpdatePasswordDialog(UserProvider provider) async {
     List<String>? values = await showTextInputDialog(
       context: context,
-      title: "Change password",
+      title: tr('msg.update_password.title'),
       textFields: [
         DialogTextField(
-          hintText: "Old password",
+          hintText: tr('hint.old_password'),
           obscureText: true,
         ),
         DialogTextField(
-          hintText: "new Password",
+          hintText: tr('hint.new_password'),
           obscureText: true,
         ),
       ],
@@ -101,7 +102,9 @@ class _UserInfosTileState extends State<UserInfosTile> {
           App.of(context)?.hideLoading();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(userApi.message() ?? "Update fail, please try again!"),
+              content: Text(
+                userApi.message() ?? tr('msg.update.fail.message'),
+              ),
             ),
           );
         } else {
@@ -121,7 +124,7 @@ class _UserInfosTileState extends State<UserInfosTile> {
       secondChild: Column(
         children: [
           SettingTile(
-            title: "Name",
+            title: tr('tile.name'),
             subtitle: provider.user?.username,
             iconData: Icons.person,
             onTap: () {
@@ -132,7 +135,7 @@ class _UserInfosTileState extends State<UserInfosTile> {
             duration: ConfigConstant.fadeDuration,
             crossFadeState: provider.user?.email != null ? CrossFadeState.showSecond : CrossFadeState.showFirst,
             secondChild: SettingTile(
-              title: "Email",
+              title: tr('tile.email'),
               iconData: Icons.mail,
               subtitle: provider.user?.email,
               onTap: () {},
@@ -141,18 +144,18 @@ class _UserInfosTileState extends State<UserInfosTile> {
           ),
           if (provider.user?.email != null)
             SettingTile(
-              title: "Password",
+              title: tr('tile.password'),
               iconData: Icons.remove_red_eye,
               onTap: () => showUpdatePasswordDialog(provider),
             ),
           SettingTile(
-            title: "Log Out",
+            title: tr('tile.logout'),
             iconData: Icons.logout,
             showDivider: false,
             onTap: () async {
               OkCancelResult result = await showOkCancelAlertDialog(
                 context: context,
-                title: "Are you sure to logout?",
+                title: tr('msg.logout.title'),
               );
               if (result == OkCancelResult.ok) {
                 provider.signOut();
@@ -164,7 +167,7 @@ class _UserInfosTileState extends State<UserInfosTile> {
         ],
       ),
       firstChild: SettingTile(
-        title: "Login",
+        title: tr('tile.login'),
         iconData: Icons.login,
         showDivider: false,
         onTap: () {

@@ -7,6 +7,7 @@ import 'package:cambodia_geography/providers/user_provider.dart';
 import 'package:cambodia_geography/services/apis/users/user_account_linkages_api.dart';
 import 'package:cambodia_geography/services/authentications/social_auth_service.dart';
 import 'package:cambodia_geography/widgets/cg_popup_menu.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -57,7 +58,7 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
     } else {
       print(userAccountLinkagesApi.response?.statusCode);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(userAccountLinkagesApi.message() ?? "Connect fail!")),
+        SnackBar(content: Text(userAccountLinkagesApi.message() ?? tr('msg.connect.fail'))),
       );
     }
     print(userAccountLinkagesApi.message());
@@ -71,7 +72,7 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
       await provider.fetchCurrentUser();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(userAccountLinkagesApi.message() ?? "Disconnect fail!")),
+        SnackBar(content: Text(userAccountLinkagesApi.message() ?? tr('msg.disconnect.fail'))),
       );
     }
     App.of(context)?.hideLoading();
@@ -89,9 +90,9 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
     return Column(
       children: [
         buildSocialTile(
-          title: "Facebook",
+          title: tr('tile.facebook'),
           iconData: FontAwesomeIcons.facebook,
-          subtitle: isConnected(provider, SocialProviderType.facebook) ? "Connected" : "Not connected",
+          subtitle: isConnected(provider, SocialProviderType.facebook) ? tr('msg.connected') : tr('msg.not_connected'),
           onConnect: () => onConnect(SocialProviderType.facebook, provider),
           onUpdate: () {},
           onDisconnect: () => onDisconnect(SocialProviderType.facebook, provider),
@@ -99,9 +100,9 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
           provider: provider,
         ),
         buildSocialTile(
-          title: "Google",
+          title: tr('tile.google'),
           iconData: FontAwesomeIcons.google,
-          subtitle: isConnected(provider, SocialProviderType.google) ? "Connected" : "Not connected",
+          subtitle: isConnected(provider, SocialProviderType.google) ? tr('msg.connected') : tr('msg.not_connected'),
           onConnect: () => onConnect(SocialProviderType.google, provider),
           onUpdate: () {},
           onDisconnect: () => onDisconnect(SocialProviderType.google, provider),
@@ -133,19 +134,19 @@ class _SocialTilesState extends State<SocialTiles> with CgThemeMixin, CgMediaQue
             onPressed: (value) {
               if (value == "update" && onUpdate != null) onUpdate();
               if (value == "connect" && onConnect != null) onConnect();
-              if (value == "diconnect" && onDisconnect != null) onDisconnect();
+              if (value == "disconnect" && onDisconnect != null) onDisconnect();
             },
             positionRight: 0,
             items: [
               if (shouldShowDisconnectBtn)
                 PopupMenuItem<String>(
-                  value: "diconnect",
-                  child: Text("Diconnect"),
+                  value: "disconnect",
+                  child: Text(tr('button.disconnect')),
                 ),
               if (!isConnected)
                 PopupMenuItem<String>(
                   value: "connect",
-                  child: Text("Connect"),
+                  child: Text(tr('button.connect')),
                 )
             ],
             child: ListTile(

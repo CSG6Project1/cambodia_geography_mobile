@@ -1,8 +1,11 @@
 {
   "button": {
     "cancel": "បោះបង់",
+    "connect": "ភ្ជាប់",
+    "disconnect": "ផ្តាច់",
     "filter": "កំណត់",
-    "ok": "យល់ព្រម"
+    "ok": "យល់ព្រម",
+    "verify": "ផ្ទៀង​ផ្ទាត់"
   },
   "geo": {
     "commune": "ឃុំ",
@@ -20,6 +23,9 @@
     "village_name": "ភូមិ{VILLAGE}"
   },
   "hint": {
+    "new_name": "ឈ្មោះថ្មី",
+    "new_password": "ពាក្យសម្ងាត់ថ្មី",
+    "old_password": "ពាក្យសម្ងាត់ចាស់",
     "search_for_places": "ស្វែងរកទីកន្លែង..."
   },
   "label": {
@@ -55,10 +61,35 @@
   "msg": {
     "and": " និង ",
     "are_you_sure_to_delete": "តំើអ្នកប្រាកដថាលុបឬទេ?",
-    "move_to_province": "ផ្លាស់ប្តូទៅខេត្តណាមួយ"
+    "connect": {
+      "fail": "ការតភ្ជាប់បរាជ័យ!"
+    },
+    "connected": "បានតភ្ជាប់",
+    "disconnect": {
+      "fail": "ការផ្តាច់ចេញបរាជ័យ!"
+    },
+    "logout": {
+      "title": "តើអ្នកប្រាកដថាចាកចេញទេ?"
+    },
+    "move_to_province": "ផ្លាស់ប្តូទៅខេត្តណាមួយ",
+    "name_must_not_empty": "ឈ្មោះអ្នកមិនត្រូវទទេឡើយ",
+    "not_connected": "មិនបាន​តភ្ជាប់",
+    "please_verify_email": "សូមផ្ទៀងផ្ទាត់អាសយដ្ឋានអ៊ីមែលរបស់អ្នក",
+    "update_name": {
+      "title": "ផ្លាស់ប្តូឈ្មោះ"
+    },
+    "update_password": {
+      "title": "ផ្លាស់ប្តូពាក្យសម្ងាត់"
+    },
+    "update": {
+      "fail": {
+        "message": "បរាជ័យ! សូមព្យាយាមម្តងទៀត។"
+      }
+    }
   },
   "place_type": {
     "draft": "សេចក្តីព្រាង",
+    "empty": "",
     "place": "តំបន់ទេសចរណ៍",
     "province": "ខេត្ត",
     "restaurant": "ភោជនីយដ្ឋាន"
@@ -95,8 +126,38 @@
       "zero": "0ភូមិ"
     }
   },
+  "theme_mode": {
+    "dark": "ស្បែកងងឹត",
+    "light": "ស្បែកពន្លឺ",
+    "system": "ប្រព័ន្ធ"
+  },
+  "tile": {
+    "email": "អ៊ីមែល",
+    "facebook": "ហ្វេសប៊ុក",
+    "google": "Google",
+    "help": "ជំនួយ",
+    "language": "ភាសា",
+    "login": "ចូលគណនី",
+    "logout": "ចាកចេញ",
+    "name": "ឈ្មោះ",
+    "password": "ពាក្យសម្ងាត់",
+    "policy": "ឯកជនភាព",
+    "rate_us": {
+      "subtitle": "យើងចង់ដឺងពីបទពិសោធន៍របស់អ្នក",
+      "title": "វាយតម្លៃ"
+    },
+    "theme": "ស្បែក"
+  },
   "title": {
+    "admin": "អេដមីន",
+    "bookmark": "ចំណាំ",
     "cambodia": "ប្រទេសកម្ពុជា",
-    "filter": "ការកំណត់"
+    "filter": "ការកំណត់",
+    "home": "ផ្ទះ",
+    "setting": "ការកំណត់"
+  },
+  "user_role": {
+    "admin": "អេដមីន",
+    "user": "អ្នកប្រើប្រាស់"
   }
 }

@@ -13,6 +13,7 @@ import 'package:cambodia_geography/screens/user/local_widgets/theme_mode_tile.da
 import 'package:cambodia_geography/screens/user/local_widgets/user_infos_tile.dart';
 import 'package:cambodia_geography/screens/user/local_widgets/user_setting_app_bar.dart';
 import 'package:cambodia_geography/services/apis/users/user_api.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -37,12 +38,12 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
   Future<void> showLanguageDialog(LocaleProvider provider) async {
     var key = await showConfirmationDialog(
       context: context,
-      title: "Language",
+      title: tr('tile.language'),
       initialSelectedActionKey: provider.locale?.languageCode,
       actions: [
         // AlertDialogAction(key: "system", label: "System"),
         AlertDialogAction(key: "en", label: "English"),
-        AlertDialogAction(key: "km", label: "Khmer"),
+        AlertDialogAction(key: "km", label: "ភាសាខ្មែរ"),
       ],
     );
     switch (key) {
@@ -81,7 +82,7 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                   Consumer<LocaleProvider>(
                     builder: (context, provider, child) {
                       return SettingTile(
-                        title: "Language",
+                        title: tr('tile.language'),
                         iconData: Icons.language,
                         subtitle: provider.locale?.languageCode,
                         showDivider: false,
@@ -91,16 +92,16 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                   ),
                   const SizedBox(height: ConfigConstant.margin2),
                   SettingTile(
-                    title: "Help",
+                    title: tr('tile.help'),
                     iconData: Icons.help,
                     onTap: () async {
                       Navigator.of(context).pushNamed(RouteConfig.HELP);
                     },
                   ),
                   SettingTile(
-                    title: "Rate us",
+                    title: tr('tile.rate_us.title'),
                     iconData: Icons.rate_review,
-                    subtitle: "We’d love to hear your experience",
+                    subtitle: tr('tile.rate_us.subtitle'),
                     onTap: () async {
                       InAppReview inAppReview = InAppReview.instance;
                       PackageInfo packageInfo = await PackageInfo.fromPlatform().then((value) => value);
@@ -108,7 +109,7 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                     },
                   ),
                   SettingTile(
-                    title: "Policy & Privary",
+                    title: tr('tile.policy'),
                     iconData: Icons.privacy_tip,
                     showDivider: false,
                     onTap: () {
