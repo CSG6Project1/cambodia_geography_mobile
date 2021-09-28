@@ -552,7 +552,7 @@ packages:
       name: fuzzy
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0"
+    version: "0.4.0-nullsafety.0"
   geocoding:
     dependency: "direct main"
     description:
@@ -785,7 +785,7 @@ packages:
       name: latinize
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2"
+    version: "0.1.0-nullsafety.0"
   list_diff:
     dependency: transitive
     description:

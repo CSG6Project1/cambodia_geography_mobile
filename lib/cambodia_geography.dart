@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:cambodia_geography/gen/assets.gen.dart';
 
 import './models/tb_commune_model.dart';
@@ -34,36 +35,45 @@ class CambodiaGeography {
   }
 
   Future<void> initilize() async {
-    _tbCommunes = await rootBundle.loadString(Assets.tbCommune).then((value) {
-      List<dynamic> json = jsonDecode(value);
-      return json.map((e) {
-        final data = TbCommuneModel.fromJson(e);
-        return data;
-      }).toList();
-    });
+    String tbCommune;
+    String tbDistrict;
+    String tbProvince;
+    String tbVillage;
 
-    _tbDistricts = await rootBundle.loadString(Assets.tbDistrict).then((value) {
-      List<dynamic> json = jsonDecode(value);
-      return json.map((e) {
-        final data = TbDistrictModel.fromJson(e);
-        return data;
-      }).toList();
-    });
+    if (Platform.environment.containsKey('FLUTTER_TEST')) {
+      tbCommune = await File(Assets.tbCommune).readAsString();
+      tbDistrict = await File(Assets.tbDistrict).readAsString();
+      tbProvince = await File(Assets.tbProvince).readAsString();
+      tbVillage = await File(Assets.tbVillage).readAsString();
+    } else {
+      tbCommune = await rootBundle.loadString(Assets.tbCommune);
+      tbDistrict = await rootBundle.loadString(Assets.tbDistrict);
+      tbProvince = await rootBundle.loadString(Assets.tbProvince);
+      tbVillage = await rootBundle.loadString(Assets.tbVillage);
+    }
 
-    _tbProvinces = await rootBundle.loadString(Assets.tbProvince).then((value) {
-      List<dynamic> json = jsonDecode(value);
-      return json.map((e) {
-        final data = TbProvinceModel.fromJson(e);
-        return data;
-      }).toList();
-    });
+    List<dynamic> tbCommuneJson = jsonDecode(tbCommune);
+    _tbCommunes = tbCommuneJson.map((e) {
+      final data = TbCommuneModel.fromJson(e);
+      return data;
+    }).toList();
 
-    _tbVillages = await rootBundle.loadString(Assets.tbVillage).then((value) {
-      List<dynamic> json = jsonDecode(value);
-      return json.map((e) {
-        final data = TbVillageModel.fromJson(e);
-        return data;
-      }).toList();
-    });
+    List<dynamic> tbDistrictJson = jsonDecode(tbDistrict);
+    _tbDistricts = tbDistrictJson.map((e) {
+      final data = TbDistrictModel.fromJson(e);
+      return data;
+    }).toList();
+
+    List<dynamic> tbProvinceJson = jsonDecode(tbProvince);
+    _tbProvinces = tbProvinceJson.map((e) {
+      final data = TbProvinceModel.fromJson(e);
+      return data;
+    }).toList();
+
+    List<dynamic> tbVillageJson = jsonDecode(tbVillage);
+    _tbVillages = tbVillageJson.map((e) {
+      final data = TbVillageModel.fromJson(e);
+      return data;
+    }).toList();
   }
 }
