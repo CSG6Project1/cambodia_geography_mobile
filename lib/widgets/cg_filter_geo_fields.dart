@@ -9,17 +9,20 @@ import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CgFilterGeoFields extends StatefulWidget {
   const CgFilterGeoFields({
     Key? key,
     this.filter,
+    this.isAdmin = false,
     required this.onChanged,
   }) : super(key: key);
 
   final PlaceModel? filter;
   final void Function(PlaceModel) onChanged;
+  final bool isAdmin;
 
   @override
   _CgFilterGeoFieldsState createState() => _CgFilterGeoFieldsState();
@@ -58,11 +61,12 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
   List<TbCommuneModel> communes = [];
   List<TbVillageModel> villages = [];
 
-  List<CgDropDownFieldItem> placeTypes = [
+  List<CgDropDownFieldItem> get placeTypes => [
     CgDropDownFieldItem(label: tr('place_type.empty'), value: null),
     CgDropDownFieldItem(label: tr('place_type.restaurant'), value: 'restaurant'),
     CgDropDownFieldItem(label: tr('place_type.place'), value: 'place'),
     CgDropDownFieldItem(label: tr('place_type.province'), value: 'province'),
+    if (widget.isAdmin == true)
     CgDropDownFieldItem(label: tr('place_type.draft'), value: 'draft'),
   ];
 
@@ -126,15 +130,11 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
       fillColor: colorScheme.background,
       items: placeTypes,
       onChanged: (value) {
-        setState(() {
-          if (value == placeTypes[0].value) {
-            _filter.type = null;
-          } else if (value == placeTypes[1].value) {
-            _filter.type = "place";
-          } else {
-            _filter.type = "restaurant";
-          }
-        });
+        setState(
+          () {
+            _filter.type = value;
+          },
+        );
         widget.onChanged(_filter);
       },
     );

@@ -204,6 +204,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
               children: [
                 const SizedBox(height: ConfigConstant.margin0),
                 CgFilterGeoFields(
+                  isAdmin: true,
                   filter: place,
                   onChanged: (place) {
                     print(place.toJson());
