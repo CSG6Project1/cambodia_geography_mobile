@@ -31,7 +31,7 @@
     "version_info": "ព័ត៌មានកំណែ",
     "view_on_app_store": "មើលនៅក្នុង App Store",
     "view_on_google_play": "មើលនៅក្នុង Google Play Store",
-    "visit_their_reference": "ចូលទំព័រយោងរបស់ពួកគេ"
+    "visit_their_reference": "ចូលទំព័រយោងរបស់ NestCode"
   },
   "geo": {
     "commune": "ឃុំ",
@@ -160,6 +160,13 @@
       "two": "{}ខណ្ឌ",
       "zero": "0ខណ្ឌ"
     },
+    "krong": {
+      "many": "{}ក្រុង",
+      "one": "1ក្រុង",
+      "other": "{}ក្រុង",
+      "two": "2ក្រុង",
+      "zero": "0ក្រុង"
+    },
     "sangkat": {
       "many": "{}សង្កាត់",
       "one": "1សង្កាត់",
@@ -168,11 +175,11 @@
       "zero": "0សង្កាត់"
     },
     "second": {
-      "many": "{} វិនាទី",
-      "one": "1 វិនាទី",
-      "other": "{} វិនាទី",
-      "two": "{} វិនាទី",
-      "zero": "0 វិនាទី"
+      "many": "{}វិនាទី",
+      "one": "1វិនាទី",
+      "other": "{}វិនាទី",
+      "two": "{}វិនាទី",
+      "zero": "0វិនាទី"
     },
     "srok": {
       "many": "{}ស្រុក",
