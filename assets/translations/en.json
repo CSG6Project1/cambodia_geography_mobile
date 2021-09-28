@@ -160,6 +160,13 @@
       "two": "{} khans",
       "zero": "0 khan"
     },
+    "krong": {
+      "many": "{} cities",
+      "one": "1 city",
+      "other": "{} cities",
+      "two": "2 cities",
+      "zero": "0 city"
+    },
     "sangkat": {
       "many": "{} sangkats",
       "one": "1 sangkat",

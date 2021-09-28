@@ -60,6 +60,12 @@ class ProvinceCard extends StatelessWidget {
 
   Widget buildDistrictExpansionTile(BuildContext context) {
     bool isKhan = province.khan != 0;
+    String subtitle = isKhan ? plural('plural.khan', province.khan!) : plural('plural.srok', province.srok!);
+
+    if (province.krong != null) {
+      subtitle += tr('msg.and') + plural('plural.krong', province.krong!);
+    }
+
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
@@ -75,7 +81,7 @@ class ProvinceCard extends StatelessWidget {
               ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
         ),
         subtitle: Text(
-          numberTr(isKhan ? plural('plural.khan', province.khan!) : plural('plural.srok', province.srok!)),
+          numberTr(subtitle),
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface,
           ),

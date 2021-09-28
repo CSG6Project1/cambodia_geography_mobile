@@ -243,7 +243,7 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
     required BuildContext context,
     required List<TbVillageModel> villages,
   }) {
-    return List.generate(commune.village ?? 0, (index) {
+    return List.generate(villages.length, (index) {
       String title = tr(
         'geo.village_name',
         namedArgs: {
@@ -252,7 +252,7 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
       );
 
       return GestureDetector(
-        onLongPress: () {
+        onTap: () {
           showInfoModalBottomSheet(
             context,
             villages[index].toJson(),
@@ -264,7 +264,7 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
             subtitle: Text(
               numberTr(tr(
                 'geo.postal_code',
-                namedArgs: {'CODE': commune.code.toString()},
+                namedArgs: {'CODE': villages[index].code.toString()},
               )),
             ),
             tileColor: themeData.colorScheme.surface,
