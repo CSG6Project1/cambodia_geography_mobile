@@ -7,6 +7,7 @@ import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/screens/search/search_history_storage.dart';
 import 'package:cambodia_geography/services/apis/search/search_filter_api.dart';
+import 'package:cambodia_geography/services/geography/geography_search_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
@@ -22,7 +23,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
 
   final AnimationController animationController;
   final BuildContext context;
-  final Future<List<dynamic>?> Function(String) onQueryChanged;
+  final Stream<List<dynamic>?> Function(String, PlaceType?) onQueryChanged;
   final SearchHistoryStorage searchHistoryStorage = SearchHistoryStorage();
 
   static String get hintText => tr("hint.search_for_places");
@@ -68,12 +69,6 @@ class CgSearchDelegate extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      IconButton(
-        icon: Icon(Icons.clear, color: Theme.of(context).colorScheme.primary),
-        onPressed: () {
-          query = "";
-        },
-      ),
       Container(
         alignment: Alignment.center,
         child: AnimatedCrossFade(
@@ -82,17 +77,9 @@ class CgSearchDelegate extends SearchDelegate<String> {
             width: kToolbarHeight,
             height: kToolbarHeight,
             child: IconButton(
-              icon: Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
+              icon: Icon(Icons.clear, color: Theme.of(context).colorScheme.primary),
               onPressed: () {
-                Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER, arguments: placeModel).then(
-                  (value) {
-                    if (value is PlaceModel) {
-                      print(value.toJson());
-                      placeModel = value;
-                      showResults(context);
-                    }
-                  },
-                );
+                query = "";
               },
             ),
           ),
@@ -102,6 +89,19 @@ class CgSearchDelegate extends SearchDelegate<String> {
           crossFadeState: query.isNotEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
           duration: ConfigConstant.fadeDuration,
         ),
+      ),
+      IconButton(
+        icon: Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
+        onPressed: () {
+          Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER, arguments: placeModel).then(
+            (value) {
+              if (value is PlaceModel) {
+                print(value.toJson());
+                placeModel = value;
+              }
+            },
+          );
+        },
       ),
     ];
   }
@@ -128,6 +128,26 @@ class CgSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
+    if (placeModel?.placeType() == PlaceType.geo) {
+      if (query.isNotEmpty) {
+        GeographySearchService service = GeographySearchService();
+        List<GeoSearchResult> localSearchResult = service.search(query, languageCode: context.locale.languageCode);
+        return ListView.builder(
+          padding: ConfigConstant.layoutPadding,
+          itemCount: localSearchResult.length,
+          itemBuilder: (context, index) {
+            GeoSearchResult item = localSearchResult[index];
+            return Card(
+              child: ListTile(
+                title: Text(item.nameTr ?? ""),
+                subtitle: Text(item.optionText ?? ""),
+                trailing: Icon(Icons.keyboard_arrow_right),
+              ),
+            );
+          },
+        );
+      }
+    }
     return PlaceList(
       type: placeModel?.placeType(),
       provinceCode: placeModel?.provinceCode,
@@ -155,14 +175,24 @@ class CgSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return FutureBuilder<List<dynamic>?>(
-      future: onQueryChanged(query),
+    return StreamBuilder<List<dynamic>?>(
+      stream: onQueryChanged(query, placeModel?.placeType()),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return SizedBox();
         }
         if (snapshot.hasData) {
-          var suggestionList = snapshot.data ?? [];
+          List<dynamic> suggestionList = [];
+          var data = snapshot.data;
+          if (data is List<List>) {
+            data.forEach(
+              (list) {
+                suggestionList.addAll(list);
+              },
+            );
+          } else {
+            suggestionList = data ?? [];
+          }
           return Container(
             color: Theme.of(context).colorScheme.surface,
             child: ListView.builder(

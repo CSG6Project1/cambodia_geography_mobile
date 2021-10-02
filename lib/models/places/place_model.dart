@@ -80,6 +80,8 @@ class PlaceModel extends BaseModel {
         return PlaceType.restaurant;
       case "province":
         return PlaceType.province;
+      case "geo":
+        return PlaceType.geo;
       default:
     }
   }

@@ -68,6 +68,7 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
     CgDropDownFieldItem(label: tr('place_type.province'), value: 'province'),
     if (widget.isAdmin == true)
     CgDropDownFieldItem(label: tr('place_type.draft'), value: 'draft'),
+    CgDropDownFieldItem(label: tr('place_type.geo'), value: 'geo')
   ];
 
   List<CgDropDownFieldItem> get provinceDropDownItems {
