@@ -17,6 +17,7 @@ enum PlaceType {
   restaurant,
   province,
   draft,
+  geo,
 }
 
 class PlaceList extends StatefulWidget {

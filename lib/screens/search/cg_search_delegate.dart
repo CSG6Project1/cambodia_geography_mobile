@@ -22,7 +22,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
 
   final AnimationController animationController;
   final BuildContext context;
-  final Future<List<dynamic>?> Function(String) onQueryChanged;
+  final Stream<List<dynamic>?> Function(String) onQueryChanged;
   final SearchHistoryStorage searchHistoryStorage = SearchHistoryStorage();
 
   static String get hintText => tr("hint.search_for_places");
@@ -128,6 +128,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
+    if (placeModel?.placeType() == PlaceType.geo) return ListView();
     return PlaceList(
       type: placeModel?.placeType(),
       provinceCode: placeModel?.provinceCode,
@@ -155,14 +156,25 @@ class CgSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return FutureBuilder<List<dynamic>?>(
-      future: onQueryChanged(query),
+    return StreamBuilder<List<dynamic>?>(
+      stream: onQueryChanged(query),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return SizedBox();
         }
         if (snapshot.hasData) {
-          var suggestionList = snapshot.data ?? [];
+          var suggestionList = [];
+          var data = snapshot.data;
+          if (data is List<List>) {
+            data.forEach(
+              (list) {
+                suggestionList.addAll(list);
+              },
+            );
+          } else if (data is List<String?>) {
+            suggestionList = data;
+          }
+          print(suggestionList);
           return Container(
             color: Theme.of(context).colorScheme.surface,
             child: ListView.builder(
