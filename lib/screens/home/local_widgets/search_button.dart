@@ -1,6 +1,8 @@
 import 'package:cambodia_geography/exports/exports.dart';
+import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/search/autocompleter_list_model.dart';
 import 'package:cambodia_geography/models/search/autocompleter_model.dart';
+import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/screens/search/cg_search_delegate.dart';
 import 'package:cambodia_geography/screens/search/search_history_storage.dart';
 import 'package:cambodia_geography/services/apis/search/search_autocomplete_api.dart';
@@ -19,33 +21,31 @@ class SearchButton extends StatelessWidget {
     await showSearch(
       context: context,
       delegate: CgSearchDelegate(
-        onQueryChanged: (String query) {
+        onQueryChanged: (String query, PlaceType? type) {
           if (query.isEmpty) {
             SearchHistoryStorage storage = SearchHistoryStorage();
             Future<List<dynamic>?> value = storage.readList();
             return Stream.fromFuture(value);
           } else {
-            GeographySearchService service = GeographySearchService();
-            List<AutocompleterModel> localResult = service.autocompletion(query);
-            List<String?> listLocalResult = localResult.map((e) => e.nameTr).toList();
-
-            SearchAutocompleteApi autoCompleterApi = SearchAutocompleteApi();
-            Future<List<String?>> listApiResult = autoCompleterApi.fetchAutocompleters(keyword: query).then(
-              (result) {
-                List<String?> autocompleteResult = [];
-                if (autoCompleterApi.success() && result is AutocompleterListModel) {
-                  bool nameTr = result.items?[0].nameTr?.contains("<b>") == true;
-                  autocompleteResult = result.items?.map((e) => nameTr ? e.nameTr : e.english).toList() ?? [];
-                }
-                List<String?> allList = [...listLocalResult, ...autocompleteResult];
-                return allList;
-              },
-            );
-
-            var futureListLocalResult = Future.value(listLocalResult);
-            var finalResult = Future.wait([futureListLocalResult, listApiResult]);
-
-            return Stream.fromFuture(finalResult);
+            if (type == PlaceType.geo) {
+              GeographySearchService service = GeographySearchService();
+              List<AutocompleterModel> localResult = service.autocompletion(query);
+              List<String?> listLocalResult = localResult.map((e) => e.nameTr).toList();
+              return Stream.fromFuture(Future.value(listLocalResult));
+            } else {
+              SearchAutocompleteApi autoCompleterApi = SearchAutocompleteApi();
+              Future<List<String?>> listApiResult = autoCompleterApi.fetchAutocompleters(keyword: query).then(
+                (result) {
+                  List<String?> autocompleteResult = [];
+                  if (autoCompleterApi.success() && result is AutocompleterListModel) {
+                    bool nameTr = result.items?[0].nameTr?.contains("<b>") == true;
+                    autocompleteResult = result.items?.map((e) => nameTr ? e.nameTr : e.english).toList() ?? [];
+                  }
+                  return autocompleteResult;
+                },
+              );
+              return Stream.fromFuture(listApiResult);
+            }
           }
         },
         animationController: animationController,
