@@ -5,7 +5,7 @@ import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
-import 'package:cambodia_geography/services/geography/geography_search_service.dart';
+import 'package:cambodia_geography/screens/district/district_screen.dart';
 
 class NavigatorToGeoService {
   void exec({
@@ -47,20 +47,30 @@ class NavigatorToGeoService {
         }
         break;
       case "COMMUNE":
-        Iterable<TbCommuneModel> result = CambodiaGeography.instance.tbCommunes.where((e) => e.code == code);
-        if (result.isNotEmpty) {
+        Iterable<TbCommuneModel> commune = CambodiaGeography.instance.tbCommunes.where((e) => e.code == code);
+        if (commune.isNotEmpty) {
+          TbDistrictModel? district = CambodiaGeography.instance.districtByCommuneCode(commune.first.code ?? "");
           Navigator.of(context).pushNamed(
             RouteConfig.DISTRICT,
-            arguments: result.first,
+            arguments: GeoModel(
+              district: district,
+              commune: commune.first,
+            ),
           );
         }
         break;
       case "VILLAGE":
-        Iterable<TbVillageModel> result = CambodiaGeography.instance.tbVillages.where((e) => e.code == code);
-        if (result.isNotEmpty) {
+        Iterable<TbVillageModel> village = CambodiaGeography.instance.tbVillages.where((e) => e.code == code);
+        if (village.isNotEmpty) {
+          TbCommuneModel? commune = CambodiaGeography.instance.communeByVillageCode(village.first.code ?? "");
+          TbDistrictModel? district = CambodiaGeography.instance.districtByCommuneCode(commune?.code ?? "");
           Navigator.of(context).pushNamed(
             RouteConfig.DISTRICT,
-            arguments: result.first,
+            arguments: GeoModel(
+              district: district,
+              commune: commune,
+              village: village.first,
+            ),
           );
         }
         break;

@@ -23,18 +23,24 @@ class GeographySearchService {
 
     if (searchInEnglish) {
       items = items.where((element) {
-        return element.english?.contains(keyword) == true;
+        String? lower = element.english;
+        String queryLower = keyword;
+        return lower?.contains(queryLower) == true;
       }).toList();
-      items = _maxList<AutocompleterModel>(items);
+      items = _maxList<AutocompleterModel>(items, 20);
       items = items.map((e) {
-        return e.copyWith(
-          english: surroundQueryText(
-            "<b>",
-            "</b>",
-            e.english ?? "",
-            keyword,
-          ),
-        );
+        if (e.english?.contains(keyword) == true) {
+          return e.copyWith(
+            english: surroundQueryText(
+              "<b>",
+              "</b>",
+              e.english ?? "",
+              keyword,
+            ),
+          );
+        } else {
+          return e;
+        }
       }).toList();
     } else if (searchInKhmer) {
       items = items.where((element) {

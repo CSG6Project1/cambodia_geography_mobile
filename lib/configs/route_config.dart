@@ -128,8 +128,14 @@ class RouteConfig {
         title: "DISTRICT",
         route: (context) {
           Object? arguments = settings?.arguments;
-          if (arguments is TbDistrictModel || arguments is TbCommuneModel || arguments is TbVillageModel) {
-            return DistrictScreen(geo: arguments);
+          if (arguments is TbDistrictModel) {
+            return DistrictScreen(
+              geo: GeoModel(district: arguments),
+            );
+          } else if (arguments is GeoModel) {
+            return DistrictScreen(
+              geo: arguments,
+            );
           }
           return NotFoundScreen();
         },

@@ -5,6 +5,7 @@ import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
+import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
 import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
@@ -14,13 +15,27 @@ import 'package:recase/recase.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
+class GeoModel {
+  TbProvinceModel? province;
+  TbDistrictModel? district;
+  TbCommuneModel? commune;
+  TbVillageModel? village;
+
+  GeoModel({
+    this.province,
+    this.district,
+    this.commune,
+    this.village,
+  });
+}
+
 class DistrictScreen extends StatefulWidget {
   const DistrictScreen({
     Key? key,
     required this.geo,
   }) : super(key: key);
 
-  final dynamic geo;
+  final GeoModel geo;
 
   @override
   _DistrictScreenState createState() => _DistrictScreenState();
@@ -52,29 +67,17 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
     return '';
   }
 
-  dynamic get geo => widget.geo;
+  GeoModel get geo => widget.geo;
 
   @override
   void initState() {
     scrollController = AutoScrollController();
     super.initState();
 
-    initialCode = geo.code;
-    if (geo is TbDistrictModel) {
-      district = geo;
-    }
-    if (geo is TbCommuneModel) {
-      TbDistrictModel? result = CambodiaGeography.instance.districtByCommuneCode(geo.code);
-      district = result!;
-    }
-    if (geo is TbVillageModel) {
-      TbCommuneModel? village = CambodiaGeography.instance.communeByVillageCode(geo.code);
-      TbDistrictModel? result = CambodiaGeography.instance.districtByCommuneCode(village?.code ?? "");
-      district = result!;
-    }
+    district = geo.district!;
+    initialCode = geo.village?.code ?? geo.commune?.code ?? district.code!;
 
     communes = CambodiaGeography.instance.communesSearch(districtCode: district.code.toString());
-
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       try {
         int index = communes.indexWhere((e) {
@@ -83,7 +86,7 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
             CambodiaGeography.instance.villagesSearch(communeCode: e.code ?? ""),
           );
         });
-        scrollController.scrollToIndex(index);
+        scrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.middle);
       } catch (e) {}
     });
   }
@@ -296,11 +299,6 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
       );
 
       bool isSelected = initialCode == villages[index].code;
-      if (isSelected) {
-        print(isSelected);
-        print(initialCode);
-      }
-
       Widget child = ListTile(
         title: Text(title),
         subtitle: Text(
@@ -318,9 +316,9 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
           );
         },
         child: TweenAnimationBuilder<Color?>(
-          duration: ConfigConstant.duration * 10,
+          duration: ConfigConstant.duration * 5,
           tween: ColorTween(
-            begin: isSelected ? colorScheme.secondary : colorScheme.surface,
+            begin: isSelected ? themeData.splashColor : colorScheme.surface,
             end: colorScheme.surface,
           ),
           child: child,

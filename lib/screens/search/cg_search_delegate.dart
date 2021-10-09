@@ -9,6 +9,7 @@ import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/screens/search/search_history_storage.dart';
 import 'package:cambodia_geography/services/apis/search/search_filter_api.dart';
 import 'package:cambodia_geography/services/geography/navigator_to_geo_service.dart';
+import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
@@ -183,10 +184,18 @@ class CgSearchDelegate extends SearchDelegate<String> {
                   String? nameTr = item?.english?.contains("<b>") == true ? item?.english : item?.khmer;
                   String? type = suggestionList[index]?.type?.toLowerCase();
 
+                  Text? subtitle = type != null && item?.shouldDisplayType == true
+                      ? Text(
+                          tr('geo.' + type) + ": " + numberTr(item!.id.toString()),
+                        )
+                      : null;
+
                   return Material(
+                    color: Theme.of(context).colorScheme.surface,
                     child: ListTile(
                       onTap: () => onSuggestionPressed(nameTr, item, context, suggestionList),
-                      onLongPress: () => onSuggestionLongPress(context, suggestionList, index),
+                      onLongPress:
+                          item?.type == "recent" ? () => onSuggestionLongPress(context, suggestionList, index) : null,
                       leading: item?.type == "recent"
                           ? Icon(Icons.history)
                           : Icon(isGeoSearch ? Icons.explore_outlined : Icons.search),
@@ -200,7 +209,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
                           ),
                         },
                       ),
-                      subtitle: type != null && item?.shouldDisplayType == true ? Text(tr('geo.' + type)) : null,
+                      subtitle: subtitle,
                       trailing: const Icon(Icons.keyboard_arrow_right),
                     ),
                   );
@@ -218,8 +227,6 @@ class CgSearchDelegate extends SearchDelegate<String> {
   bool get isGeoSearch => placeModel?.placeType() == PlaceType.geo;
 
   Future<void> onSuggestionLongPress(BuildContext context, List<dynamic> suggestionList, int index) async {
-    print(suggestionList);
-    print(index);
     if (query.isEmpty) {
       OkCancelResult result = await showOkCancelAlertDialog(
         context: context,
@@ -242,13 +249,10 @@ class CgSearchDelegate extends SearchDelegate<String> {
     BuildContext context,
     List<dynamic> suggestionList,
   ) {
-    print(nameTr);
-    print(item?.toJson());
-
-    if (nameTr == null) return;
     if (placeModel?.placeType() == PlaceType.geo && item?.id != null) {
       NavigatorToGeoService().exec(context: context, code: item!.id!);
     } else {
+      if (nameTr == null) return;
       query = removeAllHtmlTags(nameTr);
       showResults(context);
       searchHistoryStorage.readList().then(
