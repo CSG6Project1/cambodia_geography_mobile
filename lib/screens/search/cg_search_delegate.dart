@@ -162,9 +162,16 @@ class CgSearchDelegate extends SearchDelegate<String> {
     return FutureBuilder<List?>(
       future: onQueryChanged(query, placeModel?.placeType()),
       builder: (context, snapshot) {
-        if (snapshot.hasError) return SizedBox();
         if (snapshot.hasData) {
           List<dynamic> suggestionList = snapshot.data ?? [];
+          AutocompleterModel? item = suggestionList.isNotEmpty ? suggestionList.first : null;
+
+          if (item?.type == "recent" && query.isNotEmpty) {
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          }
+
           return Container(
             color: Theme.of(context).colorScheme.surface,
             child: ListView.builder(
@@ -172,48 +179,17 @@ class CgSearchDelegate extends SearchDelegate<String> {
               itemBuilder: (context, index) {
                 if (suggestionList[index] is AutocompleterModel?) {
                   AutocompleterModel? item = suggestionList[index];
+
                   String? nameTr = item?.english?.contains("<b>") == true ? item?.english : item?.khmer;
                   String? type = suggestionList[index]?.type?.toLowerCase();
-                  return GestureDetector(
-                    onTap: () {
-                      if (nameTr == null) return;
 
-                      if (placeModel?.placeType() == PlaceType.geo && item?.id != null) {
-                        NavigatorToGeoService().exec(context: context, code: item!.id!);
-                      } else {
-                        query = removeAllHtmlTags(nameTr);
-                        showResults(context);
-                        searchHistoryStorage.readList().then(
-                          (value) {
-                            if (query != suggestionList[0]?.nameTr && value != null) {
-                              value.remove(query);
-                              value.insert(0, query);
-                              searchHistoryStorage.writeList(value);
-                            }
-                          },
-                        );
-                      }
-                    },
-                    onLongPress: () async {
-                      if (query.isEmpty) {
-                        OkCancelResult result = await showOkCancelAlertDialog(
-                          context: context,
-                          title: tr("msg.are_you_sure_to_delete"),
-                        );
-                        if (result == OkCancelResult.ok) {
-                          String? selectedItem = suggestionList[index]?.nameTr;
-                          List<dynamic>? list = await searchHistoryStorage.readList();
-                          if (list?.contains(selectedItem) == true) {
-                            list?.removeWhere((e) => e == selectedItem);
-                            await searchHistoryStorage.writeList(list ?? []);
-                          }
-                        }
-                      }
-                    },
+                  return Material(
                     child: ListTile(
+                      onTap: () => onSuggestionPressed(nameTr, item, context, suggestionList),
+                      onLongPress: () => onSuggestionLongPress(context, suggestionList, index),
                       leading: item?.type == "recent"
                           ? Icon(Icons.history)
-                          : Icon(placeModel?.placeType() == PlaceType.geo ? Icons.explore_outlined : Icons.search),
+                          : Icon(isGeoSearch ? Icons.explore_outlined : Icons.search),
                       title: StyledText(
                         text: nameTr ?? "",
                         style: TextStyle(),
@@ -229,15 +205,61 @@ class CgSearchDelegate extends SearchDelegate<String> {
                     ),
                   );
                 }
-
-                return SizedBox();
+                return const SizedBox();
               },
             ),
           );
-        } else {
-          return Center(child: CircularProgressIndicator.adaptive());
         }
+        return SizedBox();
       },
     );
+  }
+
+  bool get isGeoSearch => placeModel?.placeType() == PlaceType.geo;
+
+  Future<void> onSuggestionLongPress(BuildContext context, List<dynamic> suggestionList, int index) async {
+    print(suggestionList);
+    print(index);
+    if (query.isEmpty) {
+      OkCancelResult result = await showOkCancelAlertDialog(
+        context: context,
+        title: tr("msg.are_you_sure_to_delete"),
+      );
+      if (result == OkCancelResult.ok) {
+        String? selectedItem = suggestionList[index]?.nameTr;
+        List<dynamic>? list = await searchHistoryStorage.readList();
+        if (list?.contains(selectedItem) == true) {
+          list?.removeWhere((e) => e == selectedItem);
+          await searchHistoryStorage.writeList(list ?? []);
+        }
+      }
+    }
+  }
+
+  void onSuggestionPressed(
+    String? nameTr,
+    AutocompleterModel? item,
+    BuildContext context,
+    List<dynamic> suggestionList,
+  ) {
+    print(nameTr);
+    print(item?.toJson());
+
+    if (nameTr == null) return;
+    if (placeModel?.placeType() == PlaceType.geo && item?.id != null) {
+      NavigatorToGeoService().exec(context: context, code: item!.id!);
+    } else {
+      query = removeAllHtmlTags(nameTr);
+      showResults(context);
+      searchHistoryStorage.readList().then(
+        (value) {
+          if (query != suggestionList[0]?.nameTr && value != null) {
+            value.remove(query);
+            value.insert(0, query);
+            searchHistoryStorage.writeList(value);
+          }
+        },
+      );
+    }
   }
 }

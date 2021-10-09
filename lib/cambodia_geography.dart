@@ -34,6 +34,30 @@ class CambodiaGeography {
     return _tbVillages.where((e) => e.communeCode == communeCode).toList();
   }
 
+  TbProvinceModel? provinceByDistrictCode(String districtCode) {
+    Iterable<TbDistrictModel> district = tbDistricts.where((e) => e.code == districtCode);
+    if (district.isNotEmpty) {
+      Iterable<TbProvinceModel> provinces = tbProvinces.where((e) => e.code == district.first.provinceCode);
+      return provinces.isNotEmpty ? provinces.first : null;
+    }
+  }
+
+  TbDistrictModel? districtByCommuneCode(String communeCode) {
+    Iterable<TbCommuneModel> commune = tbCommunes.where((e) => e.code == communeCode);
+    if (commune.isNotEmpty) {
+      Iterable<TbDistrictModel> districts = tbDistricts.where((e) => e.code == commune.first.districtCode);
+      return districts.isNotEmpty ? districts.first : null;
+    }
+  }
+
+  TbCommuneModel? communeByVillageCode(String villageCode) {
+    Iterable<TbVillageModel> villages = tbVillages.where((e) => e.code == villageCode);
+    if (villages.isNotEmpty) {
+      Iterable<TbCommuneModel> communes = tbCommunes.where((e) => e.code == villages.first.communeCode);
+      return communes.isNotEmpty ? communes.first : null;
+    }
+  }
+
   Future<void> initilize() async {
     String tbCommune;
     String tbDistrict;
