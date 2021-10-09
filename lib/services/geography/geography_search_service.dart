@@ -5,14 +5,11 @@ import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
-import 'package:fuzzy/data/result.dart';
 import 'package:fuzzy/fuzzy.dart';
 
 class GeographySearchService {
   List<AutocompleterModel> autocompletion(String keyword) {
     List<AutocompleterModel> items = [];
-    bool searchInEnglish = _isSearchInEnglish(keyword);
-    bool searchInKhmer = _isSearchInKhmer(keyword);
 
     items = [
       ..._geoToAutocompleterModelList(_provinces()),
@@ -21,62 +18,49 @@ class GeographySearchService {
       ..._geoToAutocompleterModelList(_villages()),
     ];
 
-    Fuzzy? fuzzy;
-
-    if (searchInEnglish) {
-      fuzzy = Fuzzy(items.map((e) => e.english).toList(), options: _fuzzyOptions());
-      List<Result<dynamic>>? result = fuzzy.search(keyword);
-      items = result.map((e) {
-        return items.where((model) => model.english == e.item).first;
-      }).toList();
-    } else if (searchInKhmer) {
-      fuzzy = Fuzzy(items.map((e) => e.khmer).toList(), options: _fuzzyOptions());
-      List<Result<dynamic>>? result = fuzzy.search(keyword)
-        ..sort((a, b) {
-          return a.score.compareTo(b.score);
-        });
-      items = result.map((e) {
-        return items.where((model) => model.khmer == e.item).first;
-      }).toList();
-    }
-
-    return _maxList<AutocompleterModel>(items);
-  }
-
-  List<GeoSearchResult> search(String keyword, {required String languageCode}) {
-    List<GeoSearchResult> items = [];
     bool searchInEnglish = _isSearchInEnglish(keyword);
     bool searchInKhmer = _isSearchInKhmer(keyword);
 
-    items = [
-      ...geoToGeoSearchResult(_districts(), languageCode: languageCode),
-      ...geoToGeoSearchResult(_communes(), languageCode: languageCode),
-      ...geoToGeoSearchResult(_villages(), languageCode: languageCode),
-      ...geoToGeoSearchResult(_provinces(), languageCode: languageCode),
-    ];
-
-    Fuzzy? fuzzy;
-
     if (searchInEnglish) {
-      fuzzy = Fuzzy(items.map((e) => e.english).toList(), options: _fuzzyOptions());
-      List<Result<dynamic>>? result = fuzzy.search(keyword);
-      List<List<GeoSearchResult>> searchResult = result.map((e) {
-        return items.where((model) => model.english == e.item).toList();
+      items = items.where((element) {
+        return element.english?.contains(keyword) == true;
       }).toList();
-      items = _listOfListToList<GeoSearchResult>(searchResult);
+      items = _maxList<AutocompleterModel>(items);
+      items = items.map((e) {
+        return e.copyWith(
+          english: surroundQueryText(
+            "<b>",
+            "</b>",
+            e.english ?? "",
+            keyword,
+          ),
+        );
+      }).toList();
     } else if (searchInKhmer) {
-      fuzzy = Fuzzy(items.map((e) => e.khmer).toList(), options: _fuzzyOptions());
-      List<Result<dynamic>>? result = fuzzy.search(keyword)
-        ..sort((a, b) {
-          return a.score.compareTo(b.score);
-        });
-      List<List<GeoSearchResult>> searchResult = result.map((e) {
-        return items.where((model) => model.khmer == e.item).toList();
+      items = items.where((element) {
+        return element.khmer?.contains(keyword) == true;
       }).toList();
-      items = _listOfListToList<GeoSearchResult>(searchResult);
+      items = _maxList<AutocompleterModel>(items);
+      items = items.map((e) {
+        return e.copyWith(
+          english: surroundQueryText(
+            "<b>",
+            "</b>",
+            e.khmer ?? "",
+            keyword,
+          ),
+        );
+      }).toList();
     }
 
-    return _maxList(items, 10);
+    return items;
+  }
+
+  String surroundQueryText(String left, String right, String nameTr, String query) {
+    String textBefore = nameTr.substring(0, nameTr.indexOf(query));
+    String textAfter = nameTr.substring(nameTr.lastIndexOf(query) + query.length);
+    String newTextValue = textBefore + '$left$query$right' + textAfter;
+    return newTextValue;
   }
 
   bool _isSearchInKhmer(String keyword) {
@@ -87,7 +71,7 @@ class GeographySearchService {
     return keyword.codeUnitAt(0) >= 48 && keyword.codeUnitAt(0) < 130;
   }
 
-  List<T> _maxList<T>(List<T> list, [int maxLength = 5]) {
+  List<T> _maxList<T>(List<T> list, [int maxLength = 10]) {
     if (list.length <= maxLength) return list;
     return List.generate(maxLength, (index) => list[index]);
   }
@@ -96,17 +80,30 @@ class GeographySearchService {
     if (list.isEmpty) return [];
     dynamic first = list.first;
     assert(first is TbProvinceModel || first is TbDistrictModel || first is TbCommuneModel || first is TbVillageModel);
+
     return list.map((e) {
+      String? type;
+      if (e is TbProvinceModel) {
+        type = "PROVINCE";
+      } else if (e is TbDistrictModel && e.provinceCode != null) {
+        type = e.type;
+      } else if (e is TbCommuneModel) {
+        type = e.type;
+      } else if (e is TbVillageModel) {
+        type = "VILLAGE";
+      }
+
       return AutocompleterModel(
         id: e.code,
         khmer: e.khmer,
         english: e.english,
-        type: 'geo',
+        type: type,
+        shouldDisplayType: true,
       );
     }).toList();
   }
 
-  String? _getProvinceDisplayRoute(String? provinceCode, String languageCode) {
+  String? getProvinceDisplayRoute(String? provinceCode, String languageCode) {
     Iterable<TbProvinceModel> list = CambodiaGeography.instance.tbProvinces.where((p) => p.code == provinceCode);
     if (list.isEmpty) return null;
 
@@ -119,12 +116,12 @@ class GeographySearchService {
     }
   }
 
-  String? _getDistrictDisplayRoute(String districtCode, String languageCode) {
+  String? getDistrictDisplayRoute(String districtCode, String languageCode) {
     Iterable<TbDistrictModel> list = CambodiaGeography.instance.tbDistricts.where((p) => p.code == districtCode);
     if (list.isEmpty) return null;
 
     TbDistrictModel result = list.first;
-    String? province = _getProvinceDisplayRoute(result.provinceCode, languageCode);
+    String? province = getProvinceDisplayRoute(result.provinceCode, languageCode);
 
     switch (languageCode) {
       case "km":
@@ -134,12 +131,12 @@ class GeographySearchService {
     }
   }
 
-  String? _getCommuneDisplayRoute(String communeCode, String languageCode) {
+  String? getCommuneDisplayRoute(String communeCode, String languageCode) {
     Iterable<TbCommuneModel> list = CambodiaGeography.instance.tbCommunes.where((p) => p.code == communeCode);
     if (list.isEmpty) return null;
 
     TbCommuneModel result = list.first;
-    String? district = _getDistrictDisplayRoute(result.districtCode!, languageCode);
+    String? district = getDistrictDisplayRoute(result.districtCode!, languageCode);
 
     switch (languageCode) {
       case "km":
@@ -149,6 +146,7 @@ class GeographySearchService {
     }
   }
 
+  @Deprecated('migration')
   List<GeoSearchResult> geoToGeoSearchResult(Iterable<dynamic> list, {required String languageCode}) {
     if (list.isEmpty) return [];
     dynamic first = list.first;
@@ -161,13 +159,13 @@ class GeographySearchService {
         optionText = "/";
         type = "PROVINCE";
       } else if (e is TbDistrictModel && e.provinceCode != null) {
-        optionText = _getProvinceDisplayRoute(e.provinceCode!, languageCode);
+        optionText = getProvinceDisplayRoute(e.provinceCode!, languageCode);
         type = e.type;
       } else if (e is TbCommuneModel) {
-        optionText = _getDistrictDisplayRoute(e.districtCode!, languageCode);
+        optionText = getDistrictDisplayRoute(e.districtCode!, languageCode);
         type = e.type;
       } else if (e is TbVillageModel) {
-        optionText = _getCommuneDisplayRoute(e.communeCode!, languageCode);
+        optionText = getCommuneDisplayRoute(e.communeCode!, languageCode);
         type = "VILLAGE";
       }
 
@@ -181,7 +179,7 @@ class GeographySearchService {
     }).toList();
   }
 
-  List<T> _listOfListToList<T>(List<List<T>> list) {
+  List<T> listOfListToList<T>(List<List<T>> list) {
     List<T> result = [];
     list.forEach((element) {
       result.addAll(element);
@@ -189,7 +187,7 @@ class GeographySearchService {
     return result;
   }
 
-  FuzzyOptions<dynamic> _fuzzyOptions() => FuzzyOptions(isCaseSensitive: false);
+  FuzzyOptions<dynamic> fuzzyOptions() => FuzzyOptions(isCaseSensitive: false);
 
   Iterable<TbProvinceModel> _provinces() => CambodiaGeography.instance.tbProvinces;
   Iterable<TbDistrictModel> _districts() => CambodiaGeography.instance.tbDistricts;

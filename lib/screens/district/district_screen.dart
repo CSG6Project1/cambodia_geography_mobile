@@ -17,10 +17,10 @@ import 'package:swipeable_page_route/swipeable_page_route.dart';
 class DistrictScreen extends StatefulWidget {
   const DistrictScreen({
     Key? key,
-    required this.district,
+    required this.geo,
   }) : super(key: key);
 
-  final TbDistrictModel district;
+  final dynamic geo;
 
   @override
   _DistrictScreenState createState() => _DistrictScreenState();
@@ -28,30 +28,64 @@ class DistrictScreen extends StatefulWidget {
 
 class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMediaQueryMixin {
   late AutoScrollController scrollController;
+  late TbDistrictModel district;
+  late List<TbCommuneModel> communes;
+
+  late String initialCode;
 
   String getTitle() {
-    if (widget.district.type == "KRONG") {
+    if (district.type == "KRONG") {
       return tr('geo.krong_name', namedArgs: {
-        'KRONG': widget.district.nameTr ?? "",
+        'KRONG': district.nameTr ?? "",
       });
     }
-    if (widget.district.type == "KHAN") {
+    if (district.type == "KHAN") {
       return tr('geo.khan_name', namedArgs: {
-        'KHAN': widget.district.nameTr ?? "",
+        'KHAN': district.nameTr ?? "",
       });
     }
-    if (widget.district.type == "SROK") {
+    if (district.type == "SROK") {
       return tr('geo.srok_name', namedArgs: {
-        'SROK': widget.district.nameTr ?? "",
+        'SROK': district.nameTr ?? "",
       });
     }
     return '';
   }
 
+  dynamic get geo => widget.geo;
+
   @override
   void initState() {
     scrollController = AutoScrollController();
     super.initState();
+
+    initialCode = geo.code;
+    if (geo is TbDistrictModel) {
+      district = geo;
+    }
+    if (geo is TbCommuneModel) {
+      TbDistrictModel? result = CambodiaGeography.instance.districtByCommuneCode(geo.code);
+      district = result!;
+    }
+    if (geo is TbVillageModel) {
+      TbCommuneModel? village = CambodiaGeography.instance.communeByVillageCode(geo.code);
+      TbDistrictModel? result = CambodiaGeography.instance.districtByCommuneCode(village?.code ?? "");
+      district = result!;
+    }
+
+    communes = CambodiaGeography.instance.communesSearch(districtCode: district.code.toString());
+
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      try {
+        int index = communes.indexWhere((e) {
+          return shouldExpandCommune(
+            e.code ?? "",
+            CambodiaGeography.instance.villagesSearch(communeCode: e.code ?? ""),
+          );
+        });
+        scrollController.scrollToIndex(index);
+      } catch (e) {}
+    });
   }
 
   @override
@@ -62,8 +96,6 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
 
   @override
   Widget build(BuildContext context) {
-    CambodiaGeography geo = CambodiaGeography.instance;
-    List<TbCommuneModel> communes = geo.communesSearch(districtCode: widget.district.code.toString());
     return Scaffold(
       backgroundColor: themeData.colorScheme.background,
       appBar: MorphingAppBar(
@@ -71,7 +103,7 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
           onLongPress: () {
             showInfoModalBottomSheet(
               context,
-              widget.district.toJson(),
+              district.toJson(),
             );
           },
           child: CgAppBarTitle(title: getTitle()),
@@ -86,14 +118,14 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
           ),
         ],
       ),
-      body: buildCommuneList(communes: communes, geo: geo),
+      body: buildCommuneList(communes: communes),
     );
   }
 
   Widget buildCommuneList({
     required List<TbCommuneModel> communes,
-    required CambodiaGeography geo,
   }) {
+    CambodiaGeography geo = CambodiaGeography.instance;
     return ListView.builder(
       padding: EdgeInsets.only(
         top: ConfigConstant.margin1,
@@ -113,6 +145,10 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
         );
       },
     );
+  }
+
+  bool shouldExpandCommune(String communeCode, List<TbVillageModel> villages) {
+    return initialCode == communeCode || villages.map((e) => e.code).toList().contains(initialCode);
   }
 
   Widget buildCommuneTile({
@@ -142,6 +178,7 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
       );
     }
 
+    bool _shouldExpandCommune = shouldExpandCommune(commune.code ?? "", villages);
     return GestureDetector(
       onLongPress: () {
         showInfoModalBottomSheet(
@@ -154,10 +191,17 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
         key: ValueKey(index),
         index: index,
         child: ToggleValueBuilder(
-          initialValue: false,
+          initialValue: _shouldExpandCommune,
           builder: (context, valueNotifier) {
             return ValueListenableBuilder(
-              child: buildExpansonTile(valueNotifier, index, communeTitle, commune, context, villages),
+              child: buildExpansonTile(
+                valueNotifier,
+                index,
+                communeTitle,
+                commune,
+                villages,
+                _shouldExpandCommune,
+              ),
               valueListenable: valueNotifier,
               builder: (context, value, child) {
                 double padding = value == false ? ConfigConstant.margin2 : 0;
@@ -200,11 +244,11 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
     int index,
     String communeTitle,
     TbCommuneModel commune,
-    BuildContext context,
     List<TbVillageModel> villages,
+    bool shouldExpandCommune,
   ) {
     return ExpansionTile(
-      initiallyExpanded: false,
+      initiallyExpanded: shouldExpandCommune,
       tilePadding: EdgeInsets.symmetric(vertical: ConfigConstant.margin1, horizontal: ConfigConstant.margin2),
       collapsedBackgroundColor: Colors.transparent,
       backgroundColor: Colors.transparent,
@@ -251,6 +295,21 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
         },
       );
 
+      bool isSelected = initialCode == villages[index].code;
+      if (isSelected) {
+        print(isSelected);
+        print(initialCode);
+      }
+
+      Widget child = ListTile(
+        title: Text(title),
+        subtitle: Text(
+          numberTr(tr(
+            'geo.postal_code',
+            namedArgs: {'CODE': villages[index].code.toString()},
+          )),
+        ),
+      );
       return GestureDetector(
         onTap: () {
           showInfoModalBottomSheet(
@@ -258,17 +317,19 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
             villages[index].toJson(),
           );
         },
-        child: Material(
-          child: ListTile(
-            title: Text(title),
-            subtitle: Text(
-              numberTr(tr(
-                'geo.postal_code',
-                namedArgs: {'CODE': villages[index].code.toString()},
-              )),
-            ),
-            tileColor: themeData.colorScheme.surface,
+        child: TweenAnimationBuilder<Color?>(
+          duration: ConfigConstant.duration * 10,
+          tween: ColorTween(
+            begin: isSelected ? colorScheme.secondary : colorScheme.surface,
+            end: colorScheme.surface,
           ),
+          child: child,
+          builder: (context, color, widget) {
+            return Material(
+              color: color,
+              child: widget,
+            );
+          },
         ),
       );
     });

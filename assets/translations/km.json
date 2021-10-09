@@ -44,6 +44,7 @@
     "lat_name": "រយ:ទទឹង៖ {LAT}",
     "lon_name": "រយ:បណ្តោយ៖ {LON}",
     "postal_code": "លេខកូដ៖ {CODE}",
+    "province": "ខេត្ត",
     "sangkat": "សង្កាត់",
     "sangkat_name": "សង្កាត់{SANGKAT}",
     "srok": "ស្រុក",
@@ -141,9 +142,9 @@
   "place_type": {
     "draft": "សេចក្តីព្រាង",
     "empty": "ទទេ",
+    "geo": "ទីតាំងភូមិសាស្ដ្រ",
     "place": "តំបន់ទេសចរណ៍",
     "province": "ខេត្ត",
-    "geo": "ទីតាំងភូមិសាស្ដ្រ",
     "restaurant": "ភោជនីយដ្ឋាន"
   },
   "plural": {
