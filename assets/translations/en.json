@@ -44,6 +44,7 @@
     "lat_name": "Latitude: {LAT}",
     "lon_name": "Longtitude: {LON}",
     "postal_code": "Postal Code: {CODE}",
+    "province": "Province",
     "sangkat": "Sangkat",
     "sangkat_name": "Sangkat {SANGKAT}",
     "srok": "District",
@@ -141,9 +142,9 @@
   "place_type": {
     "draft": "Draft",
     "empty": "Empty",
+    "geo": "Geo",
     "place": "Places",
     "province": "Province",
-    "geo": "Geo",
     "restaurant": "Restaurant"
   },
   "plural": {

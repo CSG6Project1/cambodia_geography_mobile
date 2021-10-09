@@ -39,10 +39,10 @@ void main() async {
 
   group('GeographySearchService.search', () {
     test('return correct auto place', () async {
-      var searchResultKm = service.search("កណ្តាល", languageCode: "en");
-      print(searchResultKm.map((e) => e.optionText).toList());
-      print(searchResultKm.map((e) => e.type).toList());
-      print(searchResultKm.map((e) => e.code).toList());
+      // var searchResultKm = service.search("កណ្តាល", languageCode: "en");
+      // print(searchResultKm.map((e) => e.optionText).toList());
+      // print(searchResultKm.map((e) => e.type).toList());
+      // print(searchResultKm.map((e) => e.code).toList());
     });
   });
 }

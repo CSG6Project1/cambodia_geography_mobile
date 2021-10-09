@@ -9,6 +9,7 @@ class AutocompleterModel extends BaseModel {
     this.khmer,
     this.english,
     this.id,
+    this.shouldDisplayType = false,
   });
 
   @JsonKey(name: "_id")
@@ -16,6 +17,7 @@ class AutocompleterModel extends BaseModel {
   String? khmer;
   String? english;
   String? type;
+  bool? shouldDisplayType;
 
   factory AutocompleterModel.fromJson(Map<String, dynamic> json) => _$AutocompleterModelFromJson(json);
   Map<String, dynamic> toJson() => _$AutocompleterModelToJson(this);

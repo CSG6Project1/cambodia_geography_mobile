@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/models/base_model.dart';
 import 'package:cambodia_geography/models/search/autocompleter_model.dart';
@@ -11,8 +13,6 @@ import 'package:fuzzy/fuzzy.dart';
 class GeographySearchService {
   List<AutocompleterModel> autocompletion(String keyword) {
     List<AutocompleterModel> items = [];
-    bool searchInEnglish = _isSearchInEnglish(keyword);
-    bool searchInKhmer = _isSearchInKhmer(keyword);
 
     items = [
       ..._geoToAutocompleterModelList(_provinces()),
@@ -21,62 +21,20 @@ class GeographySearchService {
       ..._geoToAutocompleterModelList(_villages()),
     ];
 
-    Fuzzy? fuzzy;
+    Fuzzy? fuzzy = Fuzzy(items.map((e) => jsonEncode(e.toJson())).toList(), options: _fuzzyOptions());
+    List<Result<dynamic>>? result = fuzzy.search(keyword);
+    items = result.map((e) => AutocompleterModel.fromJson(jsonDecode(e.item))).toList();
 
-    if (searchInEnglish) {
-      fuzzy = Fuzzy(items.map((e) => e.english).toList(), options: _fuzzyOptions());
-      List<Result<dynamic>>? result = fuzzy.search(keyword);
-      items = result.map((e) {
-        return items.where((model) => model.english == e.item).first;
-      }).toList();
-    } else if (searchInKhmer) {
-      fuzzy = Fuzzy(items.map((e) => e.khmer).toList(), options: _fuzzyOptions());
-      List<Result<dynamic>>? result = fuzzy.search(keyword)
-        ..sort((a, b) {
-          return a.score.compareTo(b.score);
-        });
-      items = result.map((e) {
-        return items.where((model) => model.khmer == e.item).first;
-      }).toList();
-    }
-
-    return _maxList<AutocompleterModel>(items);
-  }
-
-  List<GeoSearchResult> search(String keyword, {required String languageCode}) {
-    List<GeoSearchResult> items = [];
     bool searchInEnglish = _isSearchInEnglish(keyword);
     bool searchInKhmer = _isSearchInKhmer(keyword);
 
-    items = [
-      ...geoToGeoSearchResult(_districts(), languageCode: languageCode),
-      ...geoToGeoSearchResult(_communes(), languageCode: languageCode),
-      ...geoToGeoSearchResult(_villages(), languageCode: languageCode),
-      ...geoToGeoSearchResult(_provinces(), languageCode: languageCode),
-    ];
-
-    Fuzzy? fuzzy;
-
     if (searchInEnglish) {
-      fuzzy = Fuzzy(items.map((e) => e.english).toList(), options: _fuzzyOptions());
-      List<Result<dynamic>>? result = fuzzy.search(keyword);
-      List<List<GeoSearchResult>> searchResult = result.map((e) {
-        return items.where((model) => model.english == e.item).toList();
-      }).toList();
-      items = _listOfListToList<GeoSearchResult>(searchResult);
     } else if (searchInKhmer) {
-      fuzzy = Fuzzy(items.map((e) => e.khmer).toList(), options: _fuzzyOptions());
-      List<Result<dynamic>>? result = fuzzy.search(keyword)
-        ..sort((a, b) {
-          return a.score.compareTo(b.score);
-        });
-      List<List<GeoSearchResult>> searchResult = result.map((e) {
-        return items.where((model) => model.khmer == e.item).toList();
-      }).toList();
-      items = _listOfListToList<GeoSearchResult>(searchResult);
+    } else {
+      items = [];
     }
 
-    return _maxList(items, 10);
+    return _maxList<AutocompleterModel>(items);
   }
 
   bool _isSearchInKhmer(String keyword) {
@@ -96,12 +54,25 @@ class GeographySearchService {
     if (list.isEmpty) return [];
     dynamic first = list.first;
     assert(first is TbProvinceModel || first is TbDistrictModel || first is TbCommuneModel || first is TbVillageModel);
+
     return list.map((e) {
+      String? type;
+      if (e is TbProvinceModel) {
+        type = "PROVINCE";
+      } else if (e is TbDistrictModel && e.provinceCode != null) {
+        type = e.type;
+      } else if (e is TbCommuneModel) {
+        type = e.type;
+      } else if (e is TbVillageModel) {
+        type = "VILLAGE";
+      }
+
       return AutocompleterModel(
         id: e.code,
         khmer: e.khmer,
         english: e.english,
-        type: 'geo',
+        type: type,
+        shouldDisplayType: true,
       );
     }).toList();
   }
@@ -149,6 +120,7 @@ class GeographySearchService {
     }
   }
 
+  @Deprecated('migration')
   List<GeoSearchResult> geoToGeoSearchResult(Iterable<dynamic> list, {required String languageCode}) {
     if (list.isEmpty) return [];
     dynamic first = list.first;
@@ -181,13 +153,13 @@ class GeographySearchService {
     }).toList();
   }
 
-  List<T> _listOfListToList<T>(List<List<T>> list) {
-    List<T> result = [];
-    list.forEach((element) {
-      result.addAll(element);
-    });
-    return result;
-  }
+  // List<T> _listOfListToList<T>(List<List<T>> list) {
+  //   List<T> result = [];
+  //   list.forEach((element) {
+  //     result.addAll(element);
+  //   });
+  //   return result;
+  // }
 
   FuzzyOptions<dynamic> _fuzzyOptions() => FuzzyOptions(isCaseSensitive: false);
 

@@ -9,7 +9,6 @@ import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CgFilterGeoFields extends StatefulWidget {
@@ -62,14 +61,13 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
   List<TbVillageModel> villages = [];
 
   List<CgDropDownFieldItem> get placeTypes => [
-    CgDropDownFieldItem(label: tr('place_type.empty'), value: null),
-    CgDropDownFieldItem(label: tr('place_type.restaurant'), value: 'restaurant'),
-    CgDropDownFieldItem(label: tr('place_type.place'), value: 'place'),
-    CgDropDownFieldItem(label: tr('place_type.province'), value: 'province'),
-    if (widget.isAdmin == true)
-    CgDropDownFieldItem(label: tr('place_type.draft'), value: 'draft'),
-    CgDropDownFieldItem(label: tr('place_type.geo'), value: 'geo')
-  ];
+        CgDropDownFieldItem(label: tr('place_type.empty'), value: null),
+        CgDropDownFieldItem(label: tr('place_type.restaurant'), value: 'restaurant'),
+        CgDropDownFieldItem(label: tr('place_type.place'), value: 'place'),
+        CgDropDownFieldItem(label: tr('place_type.province'), value: 'province'),
+        if (widget.isAdmin == true) CgDropDownFieldItem(label: tr('place_type.draft'), value: 'draft'),
+        CgDropDownFieldItem(label: tr('place_type.geo'), value: 'geo')
+      ];
 
   List<CgDropDownFieldItem> get provinceDropDownItems {
     return geo.tbProvinces.map((e) {
