@@ -194,8 +194,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
                     color: Theme.of(context).colorScheme.surface,
                     child: ListTile(
                       onTap: () => onSuggestionPressed(nameTr, item, context, suggestionList),
-                      onLongPress:
-                          item?.type == "recent" ? () => onSuggestionLongPress(context, suggestionList, index) : null,
+                      onLongPress: () => onSuggestionLongPress(nameTr, item, context, suggestionList),
                       leading: item?.type == "recent"
                           ? Icon(Icons.history)
                           : Icon(isGeoSearch ? Icons.explore_outlined : Icons.search),
@@ -226,20 +225,27 @@ class CgSearchDelegate extends SearchDelegate<String> {
 
   bool get isGeoSearch => placeModel?.placeType() == PlaceType.geo;
 
-  Future<void> onSuggestionLongPress(BuildContext context, List<dynamic> suggestionList, int index) async {
+  Future<void> onSuggestionLongPress(
+    String? nameTr,
+    AutocompleterModel? item,
+    BuildContext context,
+    List<dynamic> suggestionList,
+  ) async {
     if (query.isEmpty) {
       OkCancelResult result = await showOkCancelAlertDialog(
         context: context,
         title: tr("msg.are_you_sure_to_delete"),
       );
       if (result == OkCancelResult.ok) {
-        String? selectedItem = suggestionList[index]?.nameTr;
+        String? selectedItem = item?.nameTr;
         List<dynamic>? list = await searchHistoryStorage.readList();
         if (list?.contains(selectedItem) == true) {
           list?.removeWhere((e) => e == selectedItem);
           await searchHistoryStorage.writeList(list ?? []);
         }
       }
+    } else {
+      onSuggestionPressed(nameTr, item, context, suggestionList);
     }
   }
 

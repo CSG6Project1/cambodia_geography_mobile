@@ -60,6 +60,7 @@ class SearchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      tooltip: MaterialLocalizations.of(context).searchFieldLabel,
       icon: Icon(Icons.search, color: Theme.of(context).colorScheme.onPrimary),
       onPressed: () async => onPressed(context),
     );

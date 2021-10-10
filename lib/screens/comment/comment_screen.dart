@@ -411,13 +411,7 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
         ),
       ),
       actions: [
-        IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: Icon(
-            Icons.close,
-            color: colorScheme.primary,
-          ),
-        )
+        CloseButton(color: colorScheme.primary),
       ],
     );
   }

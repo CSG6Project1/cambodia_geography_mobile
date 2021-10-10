@@ -83,6 +83,7 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
         CgGpsButton(),
         IconButton(
           icon: Icon(Icons.settings),
+          tooltip: tr('title.setting'),
           onPressed: () {
             EditingProvider provider = Provider.of<EditingProvider>(context, listen: false);
             provider.editing = !provider.editing;
@@ -91,6 +92,7 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
       ],
       leading: Builder(builder: (context) {
         return IconButton(
+          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
           icon: Icon(Icons.menu),
           onPressed: () {
             Scaffold.of(context).openDrawer();

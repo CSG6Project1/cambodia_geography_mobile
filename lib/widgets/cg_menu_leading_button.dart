@@ -14,6 +14,7 @@ class CgMenuLeadingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!kIsWeb && Platform.isAndroid) {
       return IconButton(
+        tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
         icon: AnimatedIcon(
           icon: AnimatedIcons.menu_arrow,
           progress: animationController,
@@ -25,6 +26,7 @@ class CgMenuLeadingButton extends StatelessWidget {
     } else {
       return IconButton(
         icon: Icon(Icons.menu),
+        tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
         onPressed: () {
           Scaffold.of(context).openDrawer();
         },
