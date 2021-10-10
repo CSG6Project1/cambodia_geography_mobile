@@ -59,10 +59,10 @@ class ProvinceCard extends StatelessWidget {
   }
 
   Widget buildDistrictExpansionTile(BuildContext context) {
-    bool isKhan = province.khan != 0;
+    bool isKhan = province.khan != null && province.khan! > 0;
     String subtitle = isKhan ? plural('plural.khan', province.khan!) : plural('plural.srok', province.srok!);
 
-    if (province.krong != null) {
+    if (province.krong != null && province.krong! > 0) {
       subtitle += tr('msg.and') + plural('plural.krong', province.krong!);
     }
 
@@ -93,6 +93,7 @@ class ProvinceCard extends StatelessWidget {
             String commune = numberTr(plural('plural.commune', district[index].commune!));
             String village = numberTr(plural('plural.village', district[index].village!));
             bool isKrong = district[index].type == 'KRONG';
+            bool isKhan = district[index].type == 'KHAN';
 
             String title;
             String subtitle;
