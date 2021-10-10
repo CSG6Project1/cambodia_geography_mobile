@@ -51,6 +51,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   late CambodiaGeography geo;
 
   List<ImageProvider> images = [];
+  List<ImageModel> imagesToRemove = [];
   late EditPlaceFlowType flowType;
 
   @override
@@ -92,7 +93,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
         await api.updatePlace(
           images: images,
           place: place,
-          removeImages: removeImages,
+          removeImages: imagesToRemove.map((e) => "${e.id}").toList(),
         );
         break;
     }
@@ -120,25 +121,23 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
     }
   }
 
-  List<String> removeImages = [];
-
   Future<List<File>> _getFilesFromImages() async {
     List<File> files = [];
-    removeImages = [];
+    List<String?> imagesUrlToRemove = imagesToRemove.map((e) => e.url).toList();
+    List<String?> placeImages = place.images?.map((e) => e.url).toList() ?? [];
 
-    for (var image in images) {
+    Set<String?> exceptImages = Set();
+    exceptImages.addAll(imagesUrlToRemove);
+    exceptImages.addAll(placeImages);
+
+    for (ImageProvider<Object> image in images) {
       if (image is FileImage) files.add(image.file);
-      if (image is CachedNetworkImageProvider) {
+      if (image is CachedNetworkImageProvider && !exceptImages.contains(image.url)) {
         File? file = await _getCacheFile(image.url);
         if (file != null) files.add(file);
-        List<ImageModel>? imagesToDelete = widget.place?.images?.where((_image) => _image.url == image.url).toList();
-        if (imagesToDelete?.isNotEmpty == true && imagesToDelete?.first.id != null) {
-          removeImages.add(imagesToDelete!.first.id!);
-        }
       }
     }
 
-    if (files.isEmpty) removeImages = widget.place?.images?.map((e) => "${e.id}").toList() ?? [];
     return files;
   }
 
@@ -410,6 +409,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   Widget buildSaveButton() {
     return FloatingActionButton(
       child: Icon(Icons.save),
+      tooltip: MaterialLocalizations.of(context).saveButtonLabel,
       onPressed: () => onSave(),
     );
   }
@@ -465,9 +465,19 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
                 buildImageDeleteButton(
                   tooltipMessage: tr('button.delete'),
                   onPressed: () {
+                    ImageProvider<Object> image = images[index];
                     setState(() {
-                      images.remove(images[index]);
+                      images.remove(image);
                     });
+
+                    if (image is CachedNetworkImageProvider) {
+                      Iterable<ImageModel>? imageToRemove = place.images?.where((e) => e.url == image.url);
+                      if (imageToRemove?.isNotEmpty == true && imageToRemove?.first.id != null) {
+                        imagesToRemove.add(imageToRemove!.first);
+                      }
+                    }
+
+                    print(imagesToRemove.map((e) => e.toJson()).join('\n'));
                   },
                 )
               ],

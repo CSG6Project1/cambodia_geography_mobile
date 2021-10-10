@@ -8,23 +8,37 @@ class CgGpsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserLocationProvider userLocationProvider = Provider.of<UserLocationProvider>(context, listen: true);
-    String tooltip = userLocationProvider.currentPosition.toString() + "\n";
+    String tooltip = userLocationProvider.currentPosition.toString();
     if (userLocationProvider.placemarks?.isNotEmpty == true) {
-      tooltip = tooltip + userLocationProvider.placemarks!.first.toString();
+      tooltip = tooltip + "\n" + userLocationProvider.placemarks!.first.toString();
     }
-    return IconButton(
-      tooltip: tooltip,
-      icon: Icon(Icons.gps_fixed),
-      onPressed: () async {
-        await userLocationProvider.determinePosition();
-        if (userLocationProvider.errorMessage != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(userLocationProvider.errorMessage!),
-            ),
-          );
-        }
-      },
+    return GestureDetector(
+      onLongPress: userLocationProvider.currentPosition == null
+          ? () async {
+              await userLocationProvider.determinePosition();
+              if (userLocationProvider.errorMessage != null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(userLocationProvider.errorMessage!),
+                  ),
+                );
+              }
+            }
+          : null,
+      child: IconButton(
+        tooltip: tooltip != 'null' ? tooltip : null,
+        icon: Icon(Icons.gps_fixed),
+        onPressed: () async {
+          await userLocationProvider.determinePosition();
+          if (userLocationProvider.errorMessage != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(userLocationProvider.errorMessage!),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }
