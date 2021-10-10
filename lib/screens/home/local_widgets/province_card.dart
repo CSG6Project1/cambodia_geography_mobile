@@ -66,75 +66,83 @@ class ProvinceCard extends StatelessWidget {
       subtitle += tr('msg.and') + plural('plural.krong', province.krong!);
     }
 
-    return Theme(
-      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-      child: ExpansionTile(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        initiallyExpanded: initiallyDistrictExpanded,
-        onExpansionChanged: onDistrictExpansionChanged,
-        tilePadding: EdgeInsets.symmetric(vertical: ConfigConstant.margin1, horizontal: ConfigConstant.margin2),
-        title: Text(
-          isKhan ? tr('geo.khan') : tr('geo.srok'),
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
-        ),
-        subtitle: Text(
-          numberTr(subtitle),
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
+    return GestureDetector(
+      onLongPress: () {
+        showInfoModalBottomSheet(
+          context,
+          province.toJson(),
+        );
+      },
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          initiallyExpanded: initiallyDistrictExpanded,
+          onExpansionChanged: onDistrictExpansionChanged,
+          tilePadding: EdgeInsets.symmetric(vertical: ConfigConstant.margin1, horizontal: ConfigConstant.margin2),
+          title: Text(
+            isKhan ? tr('geo.khan') : tr('geo.srok'),
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
           ),
-        ),
-        children: List.generate(
-          district.length,
-          (index) {
-            String sangkat = numberTr(plural('plural.sangkat', district[index].sangkat!));
-            String commune = numberTr(plural('plural.commune', district[index].commune!));
-            String village = numberTr(plural('plural.village', district[index].village!));
-            bool isKrong = district[index].type == 'KRONG';
-            bool isKhan = district[index].type == 'KHAN';
+          subtitle: Text(
+            numberTr(subtitle),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+          children: List.generate(
+            district.length,
+            (index) {
+              String sangkat = numberTr(plural('plural.sangkat', district[index].sangkat!));
+              String commune = numberTr(plural('plural.commune', district[index].commune!));
+              String village = numberTr(plural('plural.village', district[index].village!));
+              bool isKrong = district[index].type == 'KRONG';
+              bool isKhan = district[index].type == 'KHAN';
 
-            String title;
-            String subtitle;
-            if (isKrong || isKhan) {
-              title = isKrong
-                  ? tr('geo.krong_name', namedArgs: {'KRONG': district[index].nameTr.toString()})
-                  : tr('geo.khan_name', namedArgs: {'KHAN': district[index].nameTr.toString()});
+              String title;
+              String subtitle;
+              if (isKrong || isKhan) {
+                title = isKrong
+                    ? tr('geo.krong_name', namedArgs: {'KRONG': district[index].nameTr.toString()})
+                    : tr('geo.khan_name', namedArgs: {'KHAN': district[index].nameTr.toString()});
 
-              subtitle = '$sangkat' + tr('msg.and') + '$village';
-            } else {
-              title = tr('geo.srok_name', namedArgs: {'SROK': district[index].nameTr.toString()});
-              subtitle = '$commune' + tr('msg.and') + '$village';
-            }
+                subtitle = '$sangkat' + tr('msg.and') + '$village';
+              } else {
+                title = tr('geo.srok_name', namedArgs: {'SROK': district[index].nameTr.toString()});
+                subtitle = '$commune' + tr('msg.and') + '$village';
+              }
 
-            return GestureDetector(
-              onLongPress: () {
-                showInfoModalBottomSheet(
-                  context,
-                  district[index].toJson(),
-                );
-              },
-              child: Column(
-                children: [
-                  Divider(height: 0, color: Theme.of(context).dividerColor),
-                  Material(
-                    color: Theme.of(context).colorScheme.surface,
-                    child: ListTile(
-                      title: Text(title),
-                      subtitle: Text(subtitle),
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                          RouteConfig.DISTRICT,
-                          arguments: district[index],
-                        );
-                      },
-                    ),
-                  )
-                ],
-              ),
-            );
-          },
+              return GestureDetector(
+                onLongPress: () {
+                  showInfoModalBottomSheet(
+                    context,
+                    district[index].toJson(),
+                  );
+                },
+                child: Column(
+                  children: [
+                    Divider(height: 0, color: Theme.of(context).dividerColor),
+                    Material(
+                      color: Theme.of(context).colorScheme.surface,
+                      child: ListTile(
+                        title: Text(title),
+                        subtitle: Text(subtitle),
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            RouteConfig.DISTRICT,
+                            arguments: district[index],
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

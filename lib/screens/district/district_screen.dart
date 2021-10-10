@@ -78,6 +78,11 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
     initialCode = geo.village?.code ?? geo.commune?.code ?? district.code!;
 
     communes = CambodiaGeography.instance.communesSearch(districtCode: district.code.toString());
+
+    initPosition();
+  }
+
+  void initPosition() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       try {
         int index = communes.indexWhere((e) {
@@ -86,7 +91,30 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
             CambodiaGeography.instance.villagesSearch(communeCode: e.code ?? ""),
           );
         });
-        scrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.middle);
+
+        AutoScrollPosition preferPosition = AutoScrollPosition.begin;
+
+        try {
+          if (geo.village != null) {
+            List<TbVillageModel> villages =
+                CambodiaGeography.instance.villagesSearch(communeCode: communes[index].code!);
+            int villageIndex = villages.indexWhere((e) => geo.village?.code == e.code);
+
+            double perPosition = villages.length / 3;
+            if (villageIndex >= perPosition * 2) {
+              preferPosition = AutoScrollPosition.end;
+            } else if (villageIndex >= perPosition) {
+              preferPosition = AutoScrollPosition.middle;
+            } else if (villageIndex >= 0) {
+              preferPosition = AutoScrollPosition.begin;
+            }
+          }
+        } catch (e) {}
+
+        scrollController.scrollToIndex(
+          index,
+          preferPosition: preferPosition,
+        );
       } catch (e) {}
     });
   }
@@ -300,6 +328,18 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
 
       bool isSelected = initialCode == villages[index].code;
       Widget child = ListTile(
+        onTap: () {
+          showInfoModalBottomSheet(
+            context,
+            villages[index].toJson(),
+          );
+        },
+        onLongPress: () {
+          showInfoModalBottomSheet(
+            context,
+            villages[index].toJson(),
+          );
+        },
         title: Text(title),
         subtitle: Text(
           numberTr(tr(
@@ -308,27 +348,20 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
           )),
         ),
       );
-      return GestureDetector(
-        onTap: () {
-          showInfoModalBottomSheet(
-            context,
-            villages[index].toJson(),
+
+      return TweenAnimationBuilder<Color?>(
+        duration: ConfigConstant.duration * 5,
+        tween: ColorTween(
+          begin: isSelected ? themeData.splashColor : colorScheme.surface,
+          end: colorScheme.surface,
+        ),
+        child: child,
+        builder: (context, color, widget) {
+          return Material(
+            color: color,
+            child: widget,
           );
         },
-        child: TweenAnimationBuilder<Color?>(
-          duration: ConfigConstant.duration * 5,
-          tween: ColorTween(
-            begin: isSelected ? themeData.splashColor : colorScheme.surface,
-            end: colorScheme.surface,
-          ),
-          child: child,
-          builder: (context, color, widget) {
-            return Material(
-              color: color,
-              child: widget,
-            );
-          },
-        ),
       );
     });
   }
@@ -386,39 +419,36 @@ Future<dynamic> showInfoModalBottomSheet(
   return showModalBottomSheet(
     context: context,
     shape: RoundedRectangleBorder(borderRadius: ConfigConstant.circlarRadiusTop1),
+    clipBehavior: Clip.antiAliasWithSaveLayer,
+    backgroundColor: Theme.of(context).colorScheme.surface,
     builder: (context) {
-      return DraggableScrollableSheet(
-        expand: false,
-        builder: (context, controller) {
-          return Scaffold(
-            extendBodyBehindAppBar: true,
-            appBar: AppBar(
-              title: Text(
-                tr('title.information'),
-                style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+      return Scaffold(
+        extendBodyBehindAppBar: true,
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text(
+            tr('title.information'),
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+          ),
+          automaticallyImplyLeading: false,
+          actions: [CloseButton(color: Theme.of(context).colorScheme.onSurface)],
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          elevation: 0.5,
+        ),
+        body: ListView.builder(
+          itemCount: value.length,
+          itemBuilder: (context, index) {
+            var item = value[index];
+            ReCase recase = ReCase(item.key);
+            return Material(
+              color: Theme.of(context).colorScheme.surface,
+              child: ListTile(
+                title: Text(recase.titleCase),
+                subtitle: Text("${item.value}"),
               ),
-              automaticallyImplyLeading: false,
-              actions: [CloseButton(color: Theme.of(context).colorScheme.onSurface)],
-              backgroundColor: Theme.of(context).colorScheme.surface,
-              elevation: 0.5,
-            ),
-            body: ListView.builder(
-              controller: controller,
-              itemCount: value.length,
-              itemBuilder: (context, index) {
-                var item = value[index];
-                ReCase recase = ReCase(item.key);
-                return Material(
-                  color: Theme.of(context).colorScheme.surface,
-                  child: ListTile(
-                    title: Text(recase.titleCase),
-                    subtitle: Text("${item.value}"),
-                  ),
-                );
-              },
-            ),
-          );
-        },
+            );
+          },
+        ),
       );
     },
   );
