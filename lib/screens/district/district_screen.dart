@@ -46,6 +46,8 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
   late TbDistrictModel district;
   late List<TbCommuneModel> communes;
 
+  TbProvinceModel? province;
+
   late String initialCode;
 
   String getTitle() {
@@ -75,6 +77,8 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
     super.initState();
 
     district = geo.district!;
+    province = geo.province;
+
     initialCode = geo.village?.code ?? geo.commune?.code ?? district.code!;
 
     communes = CambodiaGeography.instance.communesSearch(districtCode: district.code.toString());
@@ -111,10 +115,12 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
           }
         } catch (e) {}
 
-        scrollController.scrollToIndex(
-          index,
-          preferPosition: preferPosition,
-        );
+        scrollController
+            .scrollToIndex(
+              index,
+              preferPosition: preferPosition,
+            )
+            .then((value) {});
       } catch (e) {}
     });
   }
@@ -144,7 +150,12 @@ class _DistrictScreenState extends State<DistrictScreen> with CgThemeMixin, CgMe
             icon: Icon(Icons.info),
             tooltip: tr('title.reference'),
             onPressed: () {
-              Navigator.of(context).pushNamed(RouteConfig.REFERENCE);
+              Navigator.of(context).pushNamed(
+                RouteConfig.REFERENCE,
+                arguments: GeoModel(
+                  district: district,
+                ),
+              );
             },
           ),
         ],
@@ -418,37 +429,69 @@ Future<dynamic> showInfoModalBottomSheet(
   }).toList();
   return showModalBottomSheet(
     context: context,
-    shape: RoundedRectangleBorder(borderRadius: ConfigConstant.circlarRadiusTop1),
-    clipBehavior: Clip.antiAliasWithSaveLayer,
-    backgroundColor: Theme.of(context).colorScheme.surface,
+    backgroundColor: Colors.transparent,
     builder: (context) {
-      return Scaffold(
-        extendBodyBehindAppBar: true,
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          title: Text(
-            tr('title.information'),
-            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
-          ),
-          automaticallyImplyLeading: false,
-          actions: [CloseButton(color: Theme.of(context).colorScheme.onSurface)],
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          elevation: 0.5,
-        ),
-        body: ListView.builder(
-          itemCount: value.length,
-          itemBuilder: (context, index) {
-            var item = value[index];
-            ReCase recase = ReCase(item.key);
-            return Material(
-              color: Theme.of(context).colorScheme.surface,
-              child: ListTile(
-                title: Text(recase.titleCase),
-                subtitle: Text("${item.value}"),
+      String code = json.containsKey('code') ? json['code'] : '';
+      String type = '';
+
+      if (code.length == 2) {
+        type = json['abbreviation'] == 'PNP' ? 'KRONG' : "PROVINCE";
+      }
+      if (code.length == 4) {
+        type = json['type'];
+      }
+      if (code.length == 6) {
+        type = json['type'];
+      }
+      if (code.length == 8) {
+        type = "VILLAGE";
+      }
+
+      return DraggableScrollableSheet(
+        builder: (context, controller) {
+          return ClipRRect(
+            borderRadius: ConfigConstant.circlarRadiusTop1,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Scaffold(
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              extendBodyBehindAppBar: true,
+              appBar: AppBar(
+                title: RichText(
+                  text: TextSpan(
+                    text: tr('title.information'),
+                    style: Theme.of(context).textTheme.bodyText1,
+                    children: [
+                      TextSpan(
+                        text: ' • ' + tr('geo.${type.toLowerCase()}'),
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.caption?.color,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                automaticallyImplyLeading: false,
+                actions: [CloseButton(color: Theme.of(context).colorScheme.onSurface)],
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                elevation: 0.5,
               ),
-            );
-          },
-        ),
+              body: ListView.builder(
+                controller: controller,
+                itemCount: value.length,
+                itemBuilder: (context, index) {
+                  MapEntry<String, dynamic> item = value[index];
+                  return Material(
+                    color: Theme.of(context).colorScheme.surface,
+                    child: ListTile(
+                      title: Text(tr('geo_info.' + item.key)),
+                      subtitle: Text(numberTr("${item.value}")),
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        },
       );
     },
   );

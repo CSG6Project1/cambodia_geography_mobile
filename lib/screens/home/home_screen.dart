@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
@@ -240,44 +241,54 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
   }
 
   Widget buildFlexibleSpaceBar(double searchTopMargin) {
-    return ValueListenableBuilder(
-      valueListenable: scrollOffsetNotifier,
-      builder: (context, value, child) {
-        double offset = min(searchTopMargin - mediaQueryData.padding.top - 4, scrollOffsetNotifier.value);
-        bool collapsed = scrollOffsetNotifier.value > collapsedOffset;
+    return TweenAnimationBuilder<int>(
+      duration: ConfigConstant.fadeDuration,
+      tween: IntTween(begin: 0, end: 100),
+      child: ValueListenableBuilder(
+        valueListenable: scrollOffsetNotifier,
+        builder: (context, value, child) {
+          double offset = min(searchTopMargin - mediaQueryData.padding.top - 4, scrollOffsetNotifier.value);
+          bool collapsed = scrollOffsetNotifier.value > collapsedOffset;
 
-        String hintText = tr("hint.search_for_places");
-        bool animated = scrollOffsetNotifier.value > 8;
+          String hintText = tr("hint.search_for_places");
+          bool animated = scrollOffsetNotifier.value > 8;
 
-        return Container(
-          margin: EdgeInsets.only(top: searchTopMargin - offset),
-          padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
-          child: AnimatedContainer(
-            duration: ConfigConstant.fadeDuration,
-            curve: Curves.ease,
-            decoration: BoxDecoration(
-              color: animated ? Colors.transparent : colorScheme.surface,
-              borderRadius: ConfigConstant.circlarRadius1,
-            ),
-            child: CgTextField(
-              borderSide: BorderSide.none,
-              hintText: hintText,
-              fillColor: Colors.transparent,
-              onTap: collapsed ? () {} : () => searchButton.onPressed(context),
-              hintColor: scrollOffsetNotifier.value > 8 ? Colors.transparent : themeData.hintColor,
-              suffix: AnimatedContainer(
-                duration: ConfigConstant.fadeDuration,
-                curve: Curves.ease,
-                transform: Matrix4.identity()..translate(animated ? 16.0 : 0.0, 0.0),
-                child: collapsed
-                    ? searchButton
-                    : Icon(
-                        Icons.search,
-                        color: animated ? colorScheme.onPrimary : themeData.hintColor,
-                      ),
+          return Container(
+            margin: EdgeInsets.only(top: searchTopMargin - offset),
+            padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin2),
+            child: AnimatedContainer(
+              duration: ConfigConstant.fadeDuration,
+              curve: Curves.ease,
+              decoration: BoxDecoration(
+                color: animated ? Colors.transparent : colorScheme.surface,
+                borderRadius: ConfigConstant.circlarRadius1,
+              ),
+              child: CgTextField(
+                borderSide: BorderSide.none,
+                hintText: hintText,
+                fillColor: Colors.transparent,
+                onTap: collapsed ? () {} : () => searchButton.onPressed(context),
+                hintColor: scrollOffsetNotifier.value > 8 ? Colors.transparent : themeData.hintColor,
+                suffix: AnimatedContainer(
+                  duration: ConfigConstant.fadeDuration,
+                  curve: Curves.ease,
+                  transform: Matrix4.identity()..translate(animated ? 16.0 : 0.0, 0.0),
+                  child: collapsed
+                      ? searchButton
+                      : Icon(
+                          Icons.search,
+                          color: animated ? colorScheme.onPrimary : themeData.hintColor,
+                        ),
+                ),
               ),
             ),
-          ),
+          );
+        },
+      ),
+      builder: (context, opacity, child) {
+        return Opacity(
+          opacity: opacity / 100,
+          child: child,
         );
       },
     );

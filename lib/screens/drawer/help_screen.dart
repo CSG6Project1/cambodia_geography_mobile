@@ -69,6 +69,7 @@ class _HelpScreenState extends State<HelpScreen> with CgThemeMixin, CgMediaQuery
         margin: const EdgeInsets.only(top: progressBarHeight),
         child: BackButton(color: colorScheme.onSurface),
       ),
+      toolbarHeight: kToolbarHeight,
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(4),
         child: ValueListenableBuilder(

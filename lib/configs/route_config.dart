@@ -1,12 +1,9 @@
 import 'dart:io';
-
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/cg_page_route.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
-import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
-import 'package:cambodia_geography/models/tb_village_model.dart';
 import 'package:cambodia_geography/models/user/confirmation_model.dart';
 import 'package:cambodia_geography/screens/404/not_found_screen.dart';
 import 'package:cambodia_geography/screens/admin/admin_screen.dart';
@@ -298,7 +295,11 @@ class RouteConfig {
         fullscreenDialog: false,
         canSwap: false,
         title: "REFERENCE",
-        route: (context) => ReferenceScreen(),
+        route: (context) {
+          Object? arguments = settings?.arguments;
+          if (arguments is GeoModel) return ReferenceScreen(geo: arguments);
+          return NotFoundScreen();
+        },
       ),
     };
   }

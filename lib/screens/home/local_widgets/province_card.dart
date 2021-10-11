@@ -133,7 +133,10 @@ class ProvinceCard extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).pushNamed(
                             RouteConfig.DISTRICT,
-                            arguments: district[index],
+                            arguments: GeoModel(
+                              province: province,
+                              district: district[index],
+                            ),
                           );
                         },
                       ),

@@ -11,6 +11,7 @@ class CgImageAppBar extends StatefulWidget {
     required this.title,
     required this.images,
     required this.scrollController,
+    this.actions = const [],
   }) : super(key: key);
 
   final double expandedHeight;
@@ -18,6 +19,7 @@ class CgImageAppBar extends StatefulWidget {
   final ScrollController scrollController;
   final String title;
   final List<String> images;
+  final List<Widget> actions;
 
   @override
   _CgImageAppBarState createState() => _CgImageAppBarState();
@@ -53,6 +55,7 @@ class _CgImageAppBarState extends State<CgImageAppBar> with CgMediaQueryMixin {
       stretch: true,
       title: buildAppBarTitle(),
       flexibleSpace: buildFlexibleSpace(context),
+      actions: widget.actions,
     );
   }
 

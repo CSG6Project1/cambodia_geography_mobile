@@ -9,6 +9,7 @@ import 'package:cambodia_geography/models/places/place_list_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
+import 'package:cambodia_geography/screens/district/district_screen.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/screens/place_detail/local_widgets/place_title.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
@@ -120,6 +121,17 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
             title: widget.province.nameTr ?? "",
             images: images,
             scrollController: scrollController,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.info),
+                onPressed: () {
+                  showInfoModalBottomSheet(
+                    context,
+                    widget.province.toJson(),
+                  );
+                },
+              ),
+            ],
           ),
           buildBody(),
         ],
