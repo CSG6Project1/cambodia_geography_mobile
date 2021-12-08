@@ -101,6 +101,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> with CgThemeMixin
         children: [
           IconButton(
             onPressed: () async {
+              if (place.id == null) return;
               await Navigator.pushNamed(
                 context,
                 RouteConfig.COMMENT,

@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/app.dart';
+import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
@@ -87,28 +88,49 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
   Future<void> createComment(String commentMsg) async {
     if (widget.place.id == null) return;
     if (commentMsg.length == 0) return;
+
     UserModel? user = context.read<UserProvider>().user;
+    if (user == null) {
+      OkCancelResult result = await showOkAlertDialog(
+        context: context,
+        title: tr('msg.please_sign_in_to_comment'),
+      );
+      if (result == OkCancelResult.ok) {
+        Navigator.of(context).pushNamed(RouteConfig.LOGIN);
+      }
+      return;
+    }
+
     CommentModel cmm = CommentModel(
       comment: commentMsg,
       user: user,
       createdAt: DateTime.now(),
     );
+
     setState(() {
       commentListModel?.items?.insert(commentListModel?.items?.length ?? 0, cmm);
       loading = true;
     });
+
     textController.clear();
     FocusScope.of(context).unfocus();
     await crudCommentApi.createComment(
       placeId: widget.place.id!,
       comment: commentMsg,
     );
+
     if (crudCommentApi.success()) {
       await load();
       Fluttertoast.showToast(msg: tr('msg.comment.uploaded'));
       scrollController.animateTo(0, duration: ConfigConstant.duration, curve: Curves.ease);
-    } else
+    } else {
+      commentListModel?.items?.removeWhere((element) => cmm == element);
       showOkAlertDialog(context: context, title: tr('msg.comment.fail'), message: crudCommentApi.message());
+    }
+
+    setState(() {
+      loading = false;
+    });
   }
 
   Future<void> onTapCommentOption(CommentModel? comment) async {

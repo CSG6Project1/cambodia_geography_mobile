@@ -327,6 +327,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
         children: [
           IconButton(
             onPressed: () async {
+              if (placeList?.items?[0].id == null) return;
               await Navigator.pushNamed(
                 context,
                 RouteConfig.COMMENT,
