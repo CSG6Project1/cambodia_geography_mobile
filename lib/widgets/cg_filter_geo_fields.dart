@@ -8,6 +8,7 @@ import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
+import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -129,17 +130,26 @@ class _CgFilterGeoFieldsState extends State<CgFilterGeoFields> with CgThemeMixin
       fillColor: colorScheme.background,
       items: placeTypes,
       onChanged: (value) {
-        setState(
-          () {
-            _filter.type = value;
-          },
-        );
+        setState(() {
+          _filter.type = value;
+          if (_filter.placeType() == PlaceType.geo) {
+            _filter.provinceCode = null;
+            _filter.districtCode = null;
+            _filter.communeCode = null;
+            _filter.villageCode = null;
+            provinces.clear();
+            districts.clear();
+            communes.clear();
+            villages.clear();
+          }
+        });
         widget.onChanged(_filter);
       },
     );
   }
 
   Widget buildProvinceDropDownField() {
+    if (_filter.placeType() == PlaceType.geo) return const SizedBox();
     return CgDropDownField(
       initValue: _filter.provinceCode,
       labelText: tr("label.province"),
