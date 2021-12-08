@@ -69,16 +69,22 @@ class _ImagesPresentorState extends State<ImagesPresentor> {
     return Positioned(
       right: ConfigConstant.margin2,
       bottom: ConfigConstant.margin1,
-      child: Container(
-        child: Text(
-          numberTr("${currentPage! + 1}/${widget.images.length}"),
-          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+      child: AnimatedCrossFade(
+        duration: ConfigConstant.duration,
+        crossFadeState: widget.images.length > 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+        sizeCurve: Curves.ease,
+        firstChild: Container(
+          child: Text(
+            numberTr("${currentPage! + 1}/${widget.images.length}"),
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
+            color: Theme.of(context).colorScheme.surface.withOpacity(0.5),
+          ),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
-          color: Theme.of(context).colorScheme.surface.withOpacity(0.5),
-        ),
+        secondChild: const SizedBox(width: ConfigConstant.objectHeight1),
       ),
     );
   }

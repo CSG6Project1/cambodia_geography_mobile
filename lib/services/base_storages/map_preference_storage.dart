@@ -2,16 +2,16 @@ import 'dart:convert';
 
 import 'package:cambodia_geography/services/base_storages/share_preference_storage.dart';
 
-abstract class ListPreferenceStorage<T> extends SharePreferenceStorage {
-  Future<void> writeList(List<T> value) async {
+abstract class MapPreferenceStorage<T, U> extends SharePreferenceStorage {
+  Future<void> writeMap(Map<T, U> value) async {
     await super.write(jsonEncode(value));
   }
 
-  Future<List<T>?> readList() async {
+  Future<Map<T, U>?> readMap() async {
     String? value = await super.read();
     if (value == null) return null;
     try {
-      List<T> result = jsonDecode("$value");
+      Map<T, U> result = jsonDecode(value);
       return result;
     } catch (e) {
       return null;
