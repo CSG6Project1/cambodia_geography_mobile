@@ -446,51 +446,57 @@ Future<dynamic> showInfoModalBottomSheet(
         type = "VILLAGE";
       }
 
-      return DraggableScrollableSheet(
-        builder: (context, controller) {
-          return ClipRRect(
-            borderRadius: ConfigConstant.circlarRadiusTop1,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            child: Scaffold(
-              backgroundColor: Theme.of(context).colorScheme.surface,
-              extendBodyBehindAppBar: true,
-              appBar: AppBar(
-                title: RichText(
-                  text: TextSpan(
-                    text: tr('title.information'),
-                    style: Theme.of(context).textTheme.bodyText1,
-                    children: [
-                      TextSpan(
-                        text: ' • ' + tr('geo.${type.toLowerCase()}'),
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.caption?.color,
-                        ),
+      return GestureDetector(
+        onTap: () => Navigator.of(context).pop(),
+        child: Container(
+          color: Colors.transparent,
+          child: DraggableScrollableSheet(
+            builder: (context, controller) {
+              return ClipRRect(
+                borderRadius: ConfigConstant.circlarRadiusTop1,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: Scaffold(
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  extendBodyBehindAppBar: true,
+                  appBar: AppBar(
+                    title: RichText(
+                      text: TextSpan(
+                        text: tr('title.information'),
+                        style: Theme.of(context).textTheme.bodyText1,
+                        children: [
+                          TextSpan(
+                            text: ' • ' + tr('geo.${type.toLowerCase()}'),
+                            style: TextStyle(
+                              color: Theme.of(context).textTheme.caption?.color,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
+                    automaticallyImplyLeading: false,
+                    actions: [CloseButton(color: Theme.of(context).colorScheme.onSurface)],
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    elevation: 0.5,
+                  ),
+                  body: ListView.builder(
+                    controller: controller,
+                    itemCount: value.length,
+                    itemBuilder: (context, index) {
+                      MapEntry<String, dynamic> item = value[index];
+                      return Material(
+                        color: Theme.of(context).colorScheme.surface,
+                        child: ListTile(
+                          title: Text(tr('geo_info.' + item.key)),
+                          subtitle: Text(numberTr("${item.value}")),
+                        ),
+                      );
+                    },
                   ),
                 ),
-                automaticallyImplyLeading: false,
-                actions: [CloseButton(color: Theme.of(context).colorScheme.onSurface)],
-                backgroundColor: Theme.of(context).colorScheme.surface,
-                elevation: 0.5,
-              ),
-              body: ListView.builder(
-                controller: controller,
-                itemCount: value.length,
-                itemBuilder: (context, index) {
-                  MapEntry<String, dynamic> item = value[index];
-                  return Material(
-                    color: Theme.of(context).colorScheme.surface,
-                    child: ListTile(
-                      title: Text(tr('geo_info.' + item.key)),
-                      subtitle: Text(numberTr("${item.value}")),
-                    ),
-                  );
-                },
-              ),
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ),
       );
     },
   );

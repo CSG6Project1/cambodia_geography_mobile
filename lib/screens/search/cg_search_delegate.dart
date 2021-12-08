@@ -35,6 +35,7 @@ class CgSearchDelegate extends SearchDelegate<String> {
     required this.animationController,
     required this.context,
     required this.provinceCode,
+    required this.placeModel,
   }) : super(
           searchFieldLabel: hintText,
           keyboardType: TextInputType.text,

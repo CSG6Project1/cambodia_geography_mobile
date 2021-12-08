@@ -247,6 +247,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
         String windDir = AppHelper.getCompassDirection(weather?.windDegree ?? 0, context);
         IconData iconDirection = AppHelper.getDirectionIcon(weather?.windDegree ?? 0);
 
+        if (snapshot.hasError) return SizedBox();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -295,7 +296,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
 
   Widget buildTextCrossFade(String? text, {Color? color, double? shimmerWidth}) {
     return AnimatedCrossFade(
-      duration: ConfigConstant.fadeDuration,
+      duration: ConfigConstant.duration,
       crossFadeState: text != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
       sizeCurve: Curves.ease,
       firstChild: Container(
@@ -320,11 +321,13 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
   }
 
   Widget buildBottomNavigationBar() {
+    PlaceModel? item = placeList?.items?[0];
     return CgBottomNavWrapper(
       child: Row(
         children: [
           IconButton(
             onPressed: () async {
+              if (placeList?.items?[0].id == null) return;
               await Navigator.pushNamed(
                 context,
                 RouteConfig.COMMENT,
@@ -336,9 +339,22 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
               color: colorScheme.primary,
             ),
           ),
-          Text(
-            numberTr((placeList?.items?[0].commentLength ?? 0)),
-            style: textTheme.caption,
+          AnimatedCrossFade(
+            duration: ConfigConstant.duration,
+            crossFadeState: item != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            sizeCurve: Curves.ease,
+            firstChild: Container(
+              child: Text(
+                numberTr((item?.commentLength ?? 0)),
+                style: textTheme.caption,
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: ConfigConstant.margin1),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
+                color: Theme.of(context).colorScheme.surface.withOpacity(0.5),
+              ),
+            ),
+            secondChild: const SizedBox(width: ConfigConstant.iconSize2),
           ),
           const Spacer(),
           // IconButton(
