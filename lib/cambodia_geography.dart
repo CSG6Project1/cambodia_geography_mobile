@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:cambodia_geography/gen/assets.gen.dart';
+import 'package:flutter/foundation.dart';
 
 import './models/tb_commune_model.dart';
 import './models/tb_district_model.dart';
@@ -76,28 +77,37 @@ class CambodiaGeography {
       tbVillage = await rootBundle.loadString(Assets.tbVillage);
     }
 
-    List<dynamic> tbCommuneJson = jsonDecode(tbCommune);
-    _tbCommunes = tbCommuneJson.map((e) {
-      final data = TbCommuneModel.fromJson(e);
-      return data;
-    }).toList();
-
-    List<dynamic> tbDistrictJson = jsonDecode(tbDistrict);
-    _tbDistricts = tbDistrictJson.map((e) {
-      final data = TbDistrictModel.fromJson(e);
-      return data;
-    }).toList();
-
-    List<dynamic> tbProvinceJson = jsonDecode(tbProvince);
-    _tbProvinces = tbProvinceJson.map((e) {
-      final data = TbProvinceModel.fromJson(e);
-      return data;
-    }).toList();
-
-    List<dynamic> tbVillageJson = jsonDecode(tbVillage);
-    _tbVillages = tbVillageJson.map((e) {
-      final data = TbVillageModel.fromJson(e);
-      return data;
-    }).toList();
+    _tbCommunes = await compute<String, List<TbCommuneModel>>(_getCommunes, tbCommune);
+    _tbDistricts = await compute<String, List<TbDistrictModel>>(_getDistricts, tbDistrict);
+    _tbProvinces = await compute<String, List<TbProvinceModel>>(_getProvinces, tbProvince);
+    _tbVillages = await compute<String, List<TbVillageModel>>(_getVillages, tbVillage);
   }
+}
+
+List<TbCommuneModel> _getCommunes(String tbCommune) {
+  List<dynamic> tbCommuneJson = jsonDecode(tbCommune);
+  return tbCommuneJson.map((e) {
+    return TbCommuneModel.fromJson(e);
+  }).toList();
+}
+
+List<TbDistrictModel> _getDistricts(String tbDistrict) {
+  List<dynamic> tbDistrictJson = jsonDecode(tbDistrict);
+  return tbDistrictJson.map((e) {
+    return TbDistrictModel.fromJson(e);
+  }).toList();
+}
+
+List<TbProvinceModel> _getProvinces(String tbProvince) {
+  List<dynamic> tbProvinceJson = jsonDecode(tbProvince);
+  return tbProvinceJson.map((e) {
+    return TbProvinceModel.fromJson(e);
+  }).toList();
+}
+
+List<TbVillageModel> _getVillages(String tbVillage) {
+  List<dynamic> tbVillageJson = jsonDecode(tbVillage);
+  return tbVillageJson.map((e) {
+    return TbVillageModel.fromJson(e);
+  }).toList();
 }

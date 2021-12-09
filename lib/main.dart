@@ -1,4 +1,3 @@
-import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/constants/theme_constant.dart';
 import 'package:cambodia_geography/splash_screen.dart';
 import 'package:cambodia_geography/utils/initialize_utils.dart';
@@ -9,7 +8,6 @@ import 'package:timeago/timeago.dart' as timeago;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await CambodiaGeography.instance.initilize();
 
   timeago.setLocaleMessages('km', timeago.KmMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
