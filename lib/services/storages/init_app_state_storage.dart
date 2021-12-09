@@ -18,7 +18,7 @@ class InitAppStateStorage extends SharePreferenceStorage {
     String route;
     switch (type) {
       case AppStateType.setLangauge:
-        route = RouteConfig.INIT_LANG;
+        route = RouteConfig.HOME;
         break;
       case AppStateType.skippedAuth:
         route = RouteConfig.HOME;

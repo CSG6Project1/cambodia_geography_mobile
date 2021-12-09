@@ -1,4 +1,3 @@
-import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/app_constant.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/widgets_exports.dart';
@@ -74,7 +73,7 @@ class _InitLanguageScreenState extends State<InitLanguageScreen> with CgMediaQue
 
   Future<void> onSubmit(Locale locale) async {
     await Provider.of<LocaleProvider>(context, listen: false).updateLocale(locale);
-    appStateStorage.setCurrentState(AppStateType.setLangauge);
+    await appStateStorage.setCurrentState(AppStateType.setLangauge);
 
     appStateStorage.getInitialRouteName().then((nextRouteName) {
       Navigator.of(context).pushReplacementNamed(nextRouteName);

@@ -1,9 +1,9 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
-import 'package:cambodia_geography/services/geography/geography_search_service.dart';
+// import 'package:cambodia_geography/services/geography/geography_search_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() async {
-  GeographySearchService service = GeographySearchService();
+  // GeographySearchService service = GeographySearchService();
   await CambodiaGeography.instance.initilize();
 
   // group('GeographySearchService#isSearchInKhmer', () {
@@ -46,10 +46,10 @@ void main() async {
     });
   });
 
-  group('GeographySearchService#surroundQueryText', () {
-    test('return correct auto place', () async {
-      String query = service.surroundQueryText("<b>", "</b>", "Kandal", "Kan");
-      print(query);
-    });
-  });
+  // group('GeographySearchService#surroundQueryText', () {
+  //   test('return correct auto place', () async {
+  //     String query = service.surroundQueryText("<b>", "</b>", "Kandal", "Kan");
+  //     print(query);
+  //   });
+  // });
 }

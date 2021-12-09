@@ -11,7 +11,7 @@ class NavigatorToGeoService {
   void exec({
     required BuildContext context,
     required String code,
-  }) {
+  }) async {
     String? type;
 
     if (code.length == 2) {
@@ -49,7 +49,8 @@ class NavigatorToGeoService {
       case "COMMUNE":
         Iterable<TbCommuneModel> commune = CambodiaGeography.instance.tbCommunes.where((e) => e.code == code);
         if (commune.isNotEmpty) {
-          TbDistrictModel? district = CambodiaGeography.instance.districtByCommuneCode(commune.first.code ?? "");
+          TbDistrictModel? district = await CambodiaGeography.instance.districtByCommuneCode(commune.first.code ?? "");
+          if (district == null) return;
           Navigator.of(context).pushNamed(
             RouteConfig.DISTRICT,
             arguments: GeoModel(
@@ -62,8 +63,9 @@ class NavigatorToGeoService {
       case "VILLAGE":
         Iterable<TbVillageModel> village = CambodiaGeography.instance.tbVillages.where((e) => e.code == code);
         if (village.isNotEmpty) {
-          TbCommuneModel? commune = CambodiaGeography.instance.communeByVillageCode(village.first.code ?? "");
-          TbDistrictModel? district = CambodiaGeography.instance.districtByCommuneCode(commune?.code ?? "");
+          TbCommuneModel? commune = await CambodiaGeography.instance.communeByVillageCode(village.first.code ?? "");
+          TbDistrictModel? district = await CambodiaGeography.instance.districtByCommuneCode(commune?.code ?? "");
+          if (district == null) return;
           Navigator.of(context).pushNamed(
             RouteConfig.DISTRICT,
             arguments: GeoModel(
