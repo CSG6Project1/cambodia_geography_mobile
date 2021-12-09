@@ -90,27 +90,50 @@ class _ImagesPresentorState extends State<ImagesPresentor> {
   }
 
   Future<void> onViewImages(List<String> images) async {
-    return showModalBottomSheet(
+    BuildContext parentContext = context;
+    showGeneralDialog(
+      barrierLabel: "Label",
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.9),
       context: context,
-      useRootNavigator: true,
-      isScrollControlled: true,
-      backgroundColor: Colors.black,
-      barrierColor: Colors.transparent,
-      builder: (context) {
-        return ImagesViewer(
-          imagesUrl: images,
-          statusBarHeight: MediaQuery.of(context).padding.top,
-          currentImageIndex: currentPage ?? 0,
-          onPageChanged: (index) {
-            widget.controller.animateToPage(
-              index,
-              duration: ConfigConstant.duration,
-              curve: Curves.easeIn,
-            );
-            if (widget.onPageChanged != null) {
-              widget.onPageChanged!(index);
-            }
-          },
+      transitionDuration: ConfigConstant.fadeDuration,
+      pageBuilder: (context, anim1, anim2) {
+        return Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: true,
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            elevation: 0.0,
+            automaticallyImplyLeading: true,
+            backgroundColor: Colors.transparent,
+            centerTitle: true,
+            leading: const CloseButton(),
+          ),
+          body: Dismissible(
+            direction: DismissDirection.vertical,
+            key: const Key('key'),
+            onDismissed: (_) => Navigator.of(context).pop(),
+            child: Theme(
+              data: Theme.of(parentContext),
+              child: CgImagesViewer(
+                imagesUrl: images,
+                openAnimation: anim1,
+                closeAnimation: anim2,
+                statusBarHeight: MediaQuery.of(context).padding.top,
+                currentImageIndex: currentPage ?? 0,
+                onPageChanged: (index) {
+                  widget.controller.animateToPage(
+                    index,
+                    duration: ConfigConstant.duration,
+                    curve: Curves.easeIn,
+                  );
+                  if (widget.onPageChanged != null) {
+                    widget.onPageChanged!(index);
+                  }
+                },
+              ),
+            ),
+          ),
         );
       },
     );
