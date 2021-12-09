@@ -42,7 +42,7 @@ class SearchButton extends StatelessWidget {
           } else {
             if (type == PlaceType.geo) {
               GeographySearchService service = GeographySearchService();
-              List<AutocompleterModel> localResult = service.autocompletion(query);
+              List<AutocompleterModel> localResult = await service.autocompletion(query);
               return localResult;
             } else {
               SearchAutocompleteApi autoCompleterApi = SearchAutocompleteApi();

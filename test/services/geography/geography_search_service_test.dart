@@ -46,10 +46,10 @@ void main() async {
     });
   });
 
-  group('GeographySearchService#surroundQueryText', () {
-    test('return correct auto place', () async {
-      String query = service.surroundQueryText("<b>", "</b>", "Kandal", "Kan");
-      print(query);
-    });
-  });
+  // group('GeographySearchService#surroundQueryText', () {
+  //   test('return correct auto place', () async {
+  //     String query = service.surroundQueryText("<b>", "</b>", "Kandal", "Kan");
+  //     print(query);
+  //   });
+  // });
 }
