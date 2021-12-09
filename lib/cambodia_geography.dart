@@ -35,28 +35,16 @@ class CambodiaGeography {
     return _tbVillages.where((e) => e.communeCode == communeCode).toList();
   }
 
-  TbProvinceModel? provinceByDistrictCode(String districtCode) {
-    Iterable<TbDistrictModel> district = tbDistricts.where((e) => e.code == districtCode);
-    if (district.isNotEmpty) {
-      Iterable<TbProvinceModel> provinces = tbProvinces.where((e) => e.code == district.first.provinceCode);
-      return provinces.isNotEmpty ? provinces.first : null;
-    }
+  Future<TbProvinceModel?> provinceByDistrictCode(String districtCode) async {
+    return await compute<List, TbProvinceModel?>(_provinceByDistrictCode, [districtCode, tbDistricts, tbProvinces]);
   }
 
-  TbDistrictModel? districtByCommuneCode(String communeCode) {
-    Iterable<TbCommuneModel> commune = tbCommunes.where((e) => e.code == communeCode);
-    if (commune.isNotEmpty) {
-      Iterable<TbDistrictModel> districts = tbDistricts.where((e) => e.code == commune.first.districtCode);
-      return districts.isNotEmpty ? districts.first : null;
-    }
+  Future<TbDistrictModel?> districtByCommuneCode(String communeCode) async {
+    return await compute<List, TbDistrictModel?>(_districtByCommuneCode, [communeCode, tbCommunes, tbDistricts]);
   }
 
-  TbCommuneModel? communeByVillageCode(String villageCode) {
-    Iterable<TbVillageModel> villages = tbVillages.where((e) => e.code == villageCode);
-    if (villages.isNotEmpty) {
-      Iterable<TbCommuneModel> communes = tbCommunes.where((e) => e.code == villages.first.communeCode);
-      return communes.isNotEmpty ? communes.first : null;
-    }
+  Future<TbCommuneModel?> communeByVillageCode(String villageCode) async {
+    return await compute<List, TbCommuneModel?>(_communeByVillageCode, [villageCode, tbVillages, tbCommunes]);
   }
 
   Future<void> initilize() async {
@@ -110,4 +98,43 @@ List<TbVillageModel> _getVillages(String tbVillage) {
   return tbVillageJson.map((e) {
     return TbVillageModel.fromJson(e);
   }).toList();
+}
+
+TbCommuneModel? _communeByVillageCode(List params) {
+  String villageCode = params[0];
+  List<TbVillageModel> tbVillages = params[1];
+  List<TbCommuneModel> tbCommunes = params[2];
+  Iterable<TbVillageModel> villages = tbVillages.where((e) => e.code == villageCode);
+  if (villages.isNotEmpty) {
+    Iterable<TbCommuneModel> communes = tbCommunes.where((e) {
+      return e.code == villages.first.communeCode;
+    });
+    return communes.isNotEmpty ? communes.first : null;
+  }
+}
+
+TbDistrictModel? _districtByCommuneCode(List params) {
+  String communeCode = params[0];
+  List<TbCommuneModel> tbCommunes = params[1];
+  List<TbDistrictModel> tbDistricts = params[2];
+  Iterable<TbCommuneModel> commune = tbCommunes.where((e) => e.code == communeCode);
+  if (commune.isNotEmpty) {
+    Iterable<TbDistrictModel> districts = tbDistricts.where((e) {
+      return e.code == commune.first.districtCode;
+    });
+    return districts.isNotEmpty ? districts.first : null;
+  }
+}
+
+TbProvinceModel? _provinceByDistrictCode(List params) {
+  String districtCode = params[0];
+  List<TbDistrictModel> tbDistricts = params[1];
+  List<TbProvinceModel> tbProvinces = params[2];
+  Iterable<TbDistrictModel> district = tbDistricts.where((e) => e.code == districtCode);
+  if (district.isNotEmpty) {
+    Iterable<TbProvinceModel> provinces = tbProvinces.where((e) {
+      return e.code == district.first.provinceCode;
+    });
+    return provinces.isNotEmpty ? provinces.first : null;
+  }
 }

@@ -33,7 +33,13 @@ class _ReferenceScreenState extends State<ReferenceScreen> with CgThemeMixin, Cg
     if (widget.geo.province != null) {
       this.province = widget.geo.province;
     } else if (widget.geo.district?.code != null) {
-      this.province = CambodiaGeography.instance.provinceByDistrictCode(widget.geo.district!.code!);
+      CambodiaGeography.instance.provinceByDistrictCode(widget.geo.district!.code!).then((value) {
+        WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+          setState(() {
+            this.province = value;
+          });
+        });
+      });
     }
   }
 
