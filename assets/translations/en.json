@@ -31,7 +31,8 @@
     "version_info": "Version Info",
     "view_on_app_store": "View in App Store",
     "view_on_google_play": "View in Google Play Store",
-    "visit_their_reference": "Visit their reference page"
+    "visit_their_reference": "Visit their reference page",
+    "download": "Download"
   },
   "geo_info": {
     "abbreviation": "Abbreviation",
@@ -169,7 +170,8 @@
       "resend_fail": "Resend fail, please try again!",
       "send_to": "Sent to {EMAIL}. Please click Verify to verify this email."
     },
-    "version_info": "Version: {VERSION}\\nCopyright © CADT, {YEAR}."
+    "version_info": "Version: {VERSION}\\nCopyright © CADT, {YEAR}.",
+    "update_available": "New update available!"
   },
   "place_type": {
     "draft": "Draft",

@@ -71,6 +71,7 @@ dependencies:
   recase: ^4.0.0
   firebase_remote_config: ^0.11.0
   connectivity: ^3.0.6
+  in_app_update: ^2.0.0
 
 dev_dependencies:
   build_runner: ^1.12.1
