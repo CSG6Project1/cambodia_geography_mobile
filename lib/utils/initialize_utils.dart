@@ -47,5 +47,7 @@ void initialRemoteConfig() async {
       minimumFetchInterval: const Duration(hours: 12),
     ));
     remoteConfig.fetchAndActivate().then((value) => print(value));
-  } catch (e) {}
+  } catch (e) {
+    print("ERROR: $e");
+  }
 }

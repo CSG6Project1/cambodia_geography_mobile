@@ -10,6 +10,7 @@
     "delete_place": "លុបទីតាំង",
     "discard": "បោះបង់",
     "disconnect": "ផ្តាច់",
+    "download": " ដំឡើង",
     "edit": "កែប្រែ",
     "filter": "កំណត់",
     "license": "អាជ្ញាប័ណ្ណ",
@@ -31,8 +32,7 @@
     "version_info": "ព័ត៌មានកំណែ",
     "view_on_app_store": "មើលនៅក្នុង App Store",
     "view_on_google_play": "មើលនៅក្នុង Google Play Store",
-    "visit_their_reference": "ចូលទំព័រយោងរបស់ NestCode",
-    "download": " ដំឡើង"
+    "visit_their_reference": "ចូលទំព័រយោងរបស់ NestCode"
   },
   "geo_info": {
     "abbreviation": "អក្សរកាត់",
@@ -154,6 +154,7 @@
     "register_fail": "ការបង្កើតគណនីបានបរាជ័យ",
     "something_went_wrong": "មាន​អ្វីមួយ​មិន​ប្រក្រតី...",
     "try_again": "សូម​ព្យាយាម​ម្តង​ទៀត!",
+    "update_available": "មានកំណែរទម្រង់ថ្មី!",
     "update_name": {
       "title": "ផ្លាស់ប្តូឈ្មោះ"
     },
@@ -170,8 +171,7 @@
       "resend_fail": "ការផ្ញើម្តងទៀតបរាជ័យ សូមព្យាយាមម្តងទៀត!",
       "send_to": "សារបានផ្ងើរទៅ {EMAIL}។ សូមចុចផ្ទៀង​ផ្ទាត់ដើម្បីផ្ទៀងផ្តាត់អ៊ីមែលនេះ។"
     },
-    "version_info": "កំណែ៖ {VERSION}\\nរក្សាសិទ្ធិ© CADT, {YEAR}",
-    "update_available": "មានកំណែរទម្រង់ថ្មី!"
+    "version_info": "កំណែ៖ {VERSION} ({BUILD_NUMBER})\\nរក្សាសិទ្ធិ© CADT, {YEAR}"
   },
   "place_type": {
     "draft": "សេចក្តីព្រាង",

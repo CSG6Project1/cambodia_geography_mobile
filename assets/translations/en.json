@@ -10,6 +10,7 @@
     "delete_place": "Delete place",
     "discard": "Discard",
     "disconnect": "Disconnect",
+    "download": "Download",
     "edit": "Edit",
     "filter": "Filter",
     "license": "Licenses",
@@ -31,8 +32,7 @@
     "version_info": "Version Info",
     "view_on_app_store": "View in App Store",
     "view_on_google_play": "View in Google Play Store",
-    "visit_their_reference": "Visit their reference page",
-    "download": "Download"
+    "visit_their_reference": "Visit their reference page"
   },
   "geo_info": {
     "abbreviation": "Abbreviation",
@@ -154,6 +154,7 @@
     "register_fail": "Register failed",
     "something_went_wrong": "Something went wrong...",
     "try_again": "Please try again!",
+    "update_available": "New update available!",
     "update_name": {
       "title": "Update name"
     },
@@ -170,8 +171,7 @@
       "resend_fail": "Resend fail, please try again!",
       "send_to": "Sent to {EMAIL}. Please click Verify to verify this email."
     },
-    "version_info": "Version: {VERSION}\\nCopyright © CADT, {YEAR}.",
-    "update_available": "New update available!"
+    "version_info": "Version: {VERSION} ({BUILD_NUMBER})\\nCopyright © CADT, {YEAR}."
   },
   "place_type": {
     "draft": "Draft",
