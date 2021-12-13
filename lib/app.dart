@@ -97,11 +97,12 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
       locale: context.locale,
       theme: theme,
       debugShowCheckedModeBanner: false,
-      home: RouteConfig().routes[widget.initialRoute]?.screen ?? HomeScreen(),
+      initialRoute: widget.initialRoute,
       navigatorObservers: [HeroController(), App.routeObserver],
       onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
       themeMode: themeProvider?.themeMode,
       builder: (context, child) => AppBuilder(child: child),
+      darkTheme: ThemeConfig(true).themeData,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
