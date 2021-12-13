@@ -1,3 +1,4 @@
+import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/exports/exports.dart';
@@ -63,8 +64,11 @@ class NavigatorToGeoService {
       case "VILLAGE":
         Iterable<TbVillageModel> village = CambodiaGeography.instance.tbVillages.where((e) => e.code == code);
         if (village.isNotEmpty) {
+          App.of(context)?.showLoading();
           TbCommuneModel? commune = await CambodiaGeography.instance.communeByVillageCode(village.first.code ?? "");
           TbDistrictModel? district = await CambodiaGeography.instance.districtByCommuneCode(commune?.code ?? "");
+          App.of(context)?.hideLoading();
+
           if (district == null) return;
           Navigator.of(context).pushNamed(
             RouteConfig.DISTRICT,
