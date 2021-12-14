@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
+import 'package:cambodia_geography/constants/theme_constant.dart';
 import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:page_indicator/page_indicator.dart';
