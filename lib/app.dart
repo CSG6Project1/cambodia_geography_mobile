@@ -8,7 +8,6 @@ import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/providers/locale_provider.dart';
 import 'package:cambodia_geography/providers/theme_provider.dart';
-import 'package:cambodia_geography/screens/home/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -40,6 +39,8 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
   LocaleProvider? localeProvider;
   bool _loading = false;
   late AnimationController _loadingController;
+
+  String? get initialRoute => widget.initialRoute;
 
   Future<T?> showLoading<T>({void Function()? onCancel, void Function()? onComplete}) async {
     if (_loading) return null;
@@ -97,7 +98,7 @@ class _AppState extends State<App> with CgMediaQueryMixin, CgThemeMixin, SingleT
       locale: context.locale,
       theme: theme,
       debugShowCheckedModeBanner: false,
-      initialRoute: widget.initialRoute,
+      home: RouteConfig(context: context).routes[widget.initialRoute]?.screen,
       navigatorObservers: [HeroController(), App.routeObserver],
       onGenerateRoute: (setting) => RouteConfig(settings: setting).generate(),
       themeMode: themeProvider?.themeMode,

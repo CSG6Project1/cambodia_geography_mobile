@@ -8,7 +8,6 @@ import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PlaceTitle extends StatelessWidget {
   const PlaceTitle({

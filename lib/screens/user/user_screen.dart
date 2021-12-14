@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
@@ -144,7 +143,7 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                       );
                     },
                   ),
-                  const SizedBox(height: ConfigConstant.margin2),
+                  const SizedBox(height: ConfigConstant.margin2 * 2),
                   buildAppVersion(),
                   const SizedBox(height: ConfigConstant.objectHeight7),
                 ],
@@ -173,6 +172,7 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                 }).replaceAll("\\n", "\n"),
               ),
               textAlign: TextAlign.center,
+              style: TextStyle(color: textTheme.caption?.color),
             ),
             builder: (context, provider, child) {
               String url = provider.getString('facebook_page_url');

@@ -20,7 +20,6 @@ import 'package:cambodia_geography/widgets/cg_list_view_spacer.dart';
 import 'package:cambodia_geography/widgets/text_fields/cg_email_field.dart';
 import 'package:cambodia_geography/widgets/text_fields/cg_password_field.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -165,7 +164,6 @@ class _SignUpScreenState extends State<SignUpScreen> with CgThemeMixin, CgMediaQ
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       leading: buildLeading(),
-      brightness: Brightness.light,
       elevation: 0.0,
       backgroundColor: Colors.transparent,
       actions: [

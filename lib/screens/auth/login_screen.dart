@@ -127,7 +127,6 @@ class _LoginScreenState extends State<LoginScreen> with CgThemeMixin, CgMediaQue
   AppBar buildAppBar() {
     return AppBar(
       leading: buildLeading(),
-      brightness: Brightness.dark,
       elevation: 0.0,
       backgroundColor: Colors.transparent,
       actions: [

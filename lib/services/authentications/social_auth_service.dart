@@ -3,25 +3,6 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class SocialAuthService {
-  socialLoginWithToken({
-    required String idToken,
-    required String provider,
-  }) {
-    //TODO: handle with backend
-  }
-
-  logInWithGoogle() async {
-    String? idToken = await getGoogleIdToken();
-    if (idToken == null) return;
-    await socialLoginWithToken(idToken: idToken, provider: 'Google');
-  }
-
-  loginWithFacebook() async {
-    String? idToken = await getFacebookIdToken();
-    if (idToken == null) return;
-    await socialLoginWithToken(idToken: idToken, provider: 'Facebook');
-  }
-
   Future<String?> getFacebookIdToken() async {
     final LoginResult result = await FacebookAuth.instance.login(loginBehavior: LoginBehavior.webOnly);
     if (result.status == LoginStatus.success) {

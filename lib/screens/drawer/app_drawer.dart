@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
@@ -159,7 +160,7 @@ class _AppDrawerState extends State<AppDrawer> with CgMediaQueryMixin, CgThemeMi
   }
 
   Widget buildListTiles() {
-    final currentRoute = ModalRoute.of(context)?.settings.name;
+    final currentRoute = ModalRoute.of(context)?.settings.name ?? App.of(context)?.initialRoute;
     return Container(
       color: colorScheme.surface,
       child: Column(

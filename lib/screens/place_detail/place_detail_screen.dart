@@ -12,7 +12,6 @@ import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:cambodia_geography/widgets/cg_markdown_body.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
