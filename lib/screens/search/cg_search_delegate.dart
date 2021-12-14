@@ -255,9 +255,9 @@ class CgSearchDelegate extends SearchDelegate<String> {
     AutocompleterModel? item,
     BuildContext context,
     List<dynamic> suggestionList,
-  ) {
-    if (placeModel?.placeType() == PlaceType.geo && item?.id != null) {
-      NavigatorToGeoService().exec(context: context, code: item!.id!);
+  ) async {
+    if (placeModel?.placeType() == PlaceType.geo && item?.id != null && item?.type != "recent") {
+      await NavigatorToGeoService().exec(context: context, code: item!.id!);
     } else {
       if (nameTr == null) return;
       query = removeAllHtmlTags(nameTr);
