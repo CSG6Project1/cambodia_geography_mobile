@@ -247,7 +247,6 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
       types: [],
       strictbounds: false,
       components: [],
-      strutStyle: StrutStyle(forceStrutHeight: true),
       startText: initialKeyword ?? "",
     );
     return prediction;
