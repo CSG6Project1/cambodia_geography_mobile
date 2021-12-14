@@ -20,13 +20,7 @@ class ThemeConfig {
         iconTheme: IconThemeData(color: scheme.onPrimary),
         titleTextStyle: ThemeConstant.textTheme.headline6?.copyWith(color: scheme.onPrimary),
         foregroundColor: scheme.onPrimary,
-        textTheme: ThemeConstant.textTheme.apply(
-          bodyColor: scheme.onPrimary,
-          displayColor: scheme.onPrimary,
-          decorationColor: scheme.onPrimary,
-        ),
       ),
-      accentColor: scheme.secondary,
       // splashFactory:
       // InkRipple.splashFactory, //
       // InkSplash.splashFactory,

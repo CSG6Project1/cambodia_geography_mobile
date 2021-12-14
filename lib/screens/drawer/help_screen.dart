@@ -5,6 +5,7 @@ import 'package:cambodia_geography/constants/config_constant.dart';
 import 'package:cambodia_geography/exports/exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
+import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_popup_menu.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:package_info/package_info.dart';
@@ -161,10 +162,13 @@ class _HelpScreenState extends State<HelpScreen> with CgThemeMixin, CgMediaQuery
                 showOkAlertDialog(
                   context: context,
                   title: value.appName,
-                  message: tr('msg.version_info', namedArgs: {
-                    'VERSION': value.version,
-                    'YEAR': DateTime.now().year.toString(),
-                  }).replaceAll("\\n", "\n"),
+                  message: numberTr(
+                    tr('msg.version_info', namedArgs: {
+                      'VERSION': value.version,
+                      'BUILD_NUMBER': value.buildNumber,
+                      'YEAR': DateTime.now().year.toString(),
+                    }).replaceAll("\\n", "\n"),
+                  ),
                 );
                 break;
             }

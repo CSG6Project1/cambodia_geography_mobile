@@ -1,3 +1,4 @@
+import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/exports/exports.dart';
@@ -8,7 +9,7 @@ import 'package:cambodia_geography/models/tb_village_model.dart';
 import 'package:cambodia_geography/screens/district/district_screen.dart';
 
 class NavigatorToGeoService {
-  void exec({
+  Future<dynamic> exec({
     required BuildContext context,
     required String code,
   }) async {
@@ -31,7 +32,7 @@ class NavigatorToGeoService {
       case "PROVINCE":
         Iterable<TbProvinceModel> result = CambodiaGeography.instance.tbProvinces.where((e) => e.code == code);
         if (result.isNotEmpty) {
-          Navigator.of(context).pushNamed(
+          return Navigator.of(context).pushNamed(
             RouteConfig.PROVINCE_DETAIL,
             arguments: result.first,
           );
@@ -40,7 +41,7 @@ class NavigatorToGeoService {
       case "DISTRICT":
         Iterable<TbDistrictModel> result = CambodiaGeography.instance.tbDistricts.where((e) => e.code == code);
         if (result.isNotEmpty) {
-          Navigator.of(context).pushNamed(
+          return Navigator.of(context).pushNamed(
             RouteConfig.DISTRICT,
             arguments: result.first,
           );
@@ -51,7 +52,7 @@ class NavigatorToGeoService {
         if (commune.isNotEmpty) {
           TbDistrictModel? district = await CambodiaGeography.instance.districtByCommuneCode(commune.first.code ?? "");
           if (district == null) return;
-          Navigator.of(context).pushNamed(
+          return Navigator.of(context).pushNamed(
             RouteConfig.DISTRICT,
             arguments: GeoModel(
               district: district,
@@ -63,10 +64,13 @@ class NavigatorToGeoService {
       case "VILLAGE":
         Iterable<TbVillageModel> village = CambodiaGeography.instance.tbVillages.where((e) => e.code == code);
         if (village.isNotEmpty) {
+          App.of(context)?.showLoading();
           TbCommuneModel? commune = await CambodiaGeography.instance.communeByVillageCode(village.first.code ?? "");
           TbDistrictModel? district = await CambodiaGeography.instance.districtByCommuneCode(commune?.code ?? "");
+          App.of(context)?.hideLoading();
+
           if (district == null) return;
-          Navigator.of(context).pushNamed(
+          return Navigator.of(context).pushNamed(
             RouteConfig.DISTRICT,
             arguments: GeoModel(
               district: district,

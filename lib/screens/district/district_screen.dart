@@ -1,3 +1,4 @@
+import 'package:cambodia_geography/app.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
@@ -7,10 +8,14 @@ import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
+import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -474,14 +479,46 @@ Future<dynamic> showInfoModalBottomSheet(
                       ),
                     ),
                     automaticallyImplyLeading: false,
-                    actions: [CloseButton(color: Theme.of(context).colorScheme.onSurface)],
+                    actions: [
+                      CloseButton(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ],
                     backgroundColor: Theme.of(context).colorScheme.surface,
                     elevation: 0.5,
                   ),
                   body: ListView.builder(
                     controller: controller,
-                    itemCount: value.length,
+                    itemCount: value.length + 1,
                     itemBuilder: (context, index) {
+                      if (index == 0) {
+                        if (json.containsKey('english') && json.containsKey('khmer')) {
+                          return Material(
+                            color: Theme.of(context).colorScheme.surface,
+                            child: ListTile(
+                              title: Text(
+                                tr('button.map'),
+                              ),
+                              trailing: Icon(Icons.keyboard_arrow_right),
+                              onTap: () async {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pushNamed(
+                                  RouteConfig.MAP,
+                                  arguments: MapScreenSetting(
+                                    flowType: MapFlowType.pick,
+                                    initialSearchKeyword: [
+                                      json['english'],
+                                      json['khmer'],
+                                    ].join(", "),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        }
+                        return SizedBox();
+                      }
+                      index = index - 1;
                       MapEntry<String, dynamic> item = value[index];
                       return Material(
                         color: Theme.of(context).colorScheme.surface,
@@ -500,4 +537,8 @@ Future<dynamic> showInfoModalBottomSheet(
       );
     },
   );
+}
+
+Future<List<Location>> _locationFromAddress(String address) async {
+  return locationFromAddress(address);
 }

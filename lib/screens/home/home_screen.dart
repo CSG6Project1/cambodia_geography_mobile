@@ -1,6 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
@@ -10,7 +8,7 @@ import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/screens/home/local_widgets/verify_email_banner.dart';
-import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
+import 'package:cambodia_geography/screens/home/local_widgets/version_update_banner.dart';
 import 'package:cambodia_geography/widgets/cg_menu_leading_button.dart';
 import 'package:cambodia_geography/widgets/cg_scaffold.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -142,13 +140,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
           delegate: SliverChildBuilderDelegate(
             (context, _index) {
               if (_index == 0) return VerifyEmailBanner();
-              int index = _index - 1;
+              if (_index == 1) return VersionUpdateBanner();
+              int index = _index - 2;
               itemKeys[index] = RectGetter.createGlobalKey();
               final province = geo.tbProvinces[index];
               final districts = geo.districtsSearch(provinceCode: province.code ?? '');
               return buildProvinceCardItem(index, province, districts);
             },
-            childCount: tabController.length + 1,
+            childCount: tabController.length + 2,
           ),
         )
       ],
@@ -312,6 +311,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
               provinceExpansionTileInfo.containsKey(index) ? provinceExpansionTileInfo[index] == true : false,
           onDistrictExpansionChanged: (bool value) {
             provinceExpansionTileInfo[index] = value;
+            if (value && index == tabController.length - 1) {
+              Future.delayed(ConfigConstant.duration).then((value) async {
+                scrollController.scrollToIndex(index);
+              });
+            }
           },
         ),
       ),

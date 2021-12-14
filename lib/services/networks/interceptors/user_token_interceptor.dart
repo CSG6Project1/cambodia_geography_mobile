@@ -1,6 +1,5 @@
 import 'package:cambodia_geography/models/apis/user_token_model.dart';
 import 'package:cambodia_geography/services/authentications/auth_api.dart';
-import 'package:http_interceptor/http/interceptor_contract.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 
 class UserTokenInterceptor implements InterceptorContract {

@@ -25,7 +25,6 @@ import 'package:cambodia_geography/screens/province/province_detail_screen.dart'
 import 'package:cambodia_geography/screens/search/search_filter_screen.dart';
 import 'package:cambodia_geography/screens/user/bookmark_screen.dart';
 import 'package:cambodia_geography/screens/user/user_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -58,7 +57,7 @@ class RouteConfig {
     this.context,
   });
 
-  static const String HOME = '/home';
+  static const String HOME = '/';
   static const String DISTRICT = '/district';
   static const String LOGIN = '/auth/login';
   static const String INIT_LANG = '/init_lang';

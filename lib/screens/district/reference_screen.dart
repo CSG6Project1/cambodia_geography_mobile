@@ -121,11 +121,15 @@ class _ReferenceScreenState extends State<ReferenceScreen> with CgThemeMixin, Cg
                           const SizedBox(width: ConfigConstant.margin0),
                           Material(
                             elevation: 8.0,
-                            child: Image.asset(
-                              province!.image!,
-                              height: ConfigConstant.objectHeight4,
-                              fit: BoxFit.cover,
-                            ),
+                            child: province?.image != null
+                                ? Image.asset(
+                                    province!.image!,
+                                    height: ConfigConstant.objectHeight4,
+                                    fit: BoxFit.cover,
+                                  )
+                                : SizedBox(
+                                    height: ConfigConstant.objectHeight4,
+                                  ),
                           )
                         ],
                       ),

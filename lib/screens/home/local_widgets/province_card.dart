@@ -223,11 +223,13 @@ class ProvinceCard extends StatelessWidget {
               children: [
                 Text(
                   titles[index],
+                  maxLines: 1,
                   style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Theme.of(context).colorScheme.primary),
                 ),
                 const SizedBox(height: ConfigConstant.margin0),
                 Text(
                   '${subtitles[index]}',
+                  maxLines: 1,
                 ),
               ],
             ),
@@ -283,13 +285,20 @@ class ProvinceCard extends StatelessWidget {
                         .textTheme
                         .headline6
                         ?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
+                    maxLines: 1,
                   ),
-                  if (krongs.length > 0) Text(krongTitle, style: TextStyle(color: subtitleColor)),
+                  if (krongs.length > 0)
+                    Text(
+                      krongTitle,
+                      style: TextStyle(color: subtitleColor),
+                      maxLines: 1,
+                    ),
                   Text(
                     tr(
                       'geo.postal_code',
                       namedArgs: {'CODE': numberTr(province.code ?? "")},
                     ),
+                    maxLines: 1,
                     style: TextStyle(color: subtitleColor),
                   ),
                 ],

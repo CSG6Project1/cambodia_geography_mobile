@@ -1,5 +1,4 @@
 import 'package:cambodia_geography/exports/exports.dart';
-import 'package:cambodia_geography/widgets/text_fields/cg_text_field.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class CgEmailField extends CgTextField {

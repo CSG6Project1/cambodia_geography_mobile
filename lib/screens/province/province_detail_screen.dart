@@ -19,7 +19,6 @@ import 'package:cambodia_geography/widgets/cg_custom_shimmer.dart';
 import 'package:cambodia_geography/widgets/cg_markdown_body.dart';
 import 'package:cambodia_geography/widgets/cg_network_image_loader.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:weather/weather.dart';
 
 class ProvinceDetailScreen extends StatefulWidget {

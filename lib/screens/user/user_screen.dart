@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
@@ -13,7 +12,9 @@ import 'package:cambodia_geography/screens/user/local_widgets/theme_mode_tile.da
 import 'package:cambodia_geography/screens/user/local_widgets/user_infos_tile.dart';
 import 'package:cambodia_geography/screens/user/local_widgets/user_setting_app_bar.dart';
 import 'package:cambodia_geography/services/apis/users/user_api.dart';
+import 'package:cambodia_geography/utils/translation_utils.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -108,14 +109,42 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
                       inAppReview.openStoreListing(appStoreId: packageInfo.packageName);
                     },
                   ),
-                  SettingTile(
-                    title: tr('tile.policy'),
-                    iconData: Icons.privacy_tip,
-                    showDivider: false,
-                    onTap: () {
-                      launch('https://camgeo.netlify.com/assets/privacy-policy.pdf');
+                  Consumer<RemoteConfig>(
+                    builder: (context, provider, child) {
+                      String url = provider.getString('privacy_policy_url');
+                      return AnimatedCrossFade(
+                        firstChild: SettingTile(
+                          title: tr('tile.policy'),
+                          iconData: Icons.privacy_tip,
+                          showDivider: false,
+                          onTap: () => launch(url),
+                        ),
+                        secondChild: SizedBox(),
+                        crossFadeState: url.trim().isNotEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                        duration: ConfigConstant.fadeDuration,
+                      );
                     },
                   ),
+                  SettingTile(
+                    title: MaterialLocalizations.of(context).licensesPageTitle,
+                    iconData: Icons.policy,
+                    showDivider: false,
+                    onTap: () async {
+                      showLicensePage(
+                        context: context,
+                        applicationVersion: await PackageInfo.fromPlatform().then((value) => value.version),
+                        applicationIcon: Container(
+                          child: Icon(
+                            Icons.map,
+                            color: colorScheme.primary,
+                            size: ConfigConstant.objectHeight1,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: ConfigConstant.margin2 * 2),
+                  buildAppVersion(),
                   const SizedBox(height: ConfigConstant.objectHeight7),
                 ],
               ),
@@ -123,6 +152,42 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
           ],
         ),
       ),
+    );
+  }
+
+  FutureBuilder<PackageInfo> buildAppVersion() {
+    return FutureBuilder<PackageInfo>(
+      future: PackageInfo.fromPlatform(),
+      builder: (context, snapshot) {
+        String? buildNumber = snapshot.data?.buildNumber;
+        String? version = snapshot.data?.version;
+        if (version != null && buildNumber != null) {
+          return Consumer<RemoteConfig>(
+            child: Text(
+              numberTr(
+                tr('msg.version_info', namedArgs: {
+                  'VERSION': version,
+                  'BUILD_NUMBER': buildNumber,
+                  'YEAR': DateTime.now().year.toString(),
+                }).replaceAll("\\n", "\n"),
+              ),
+              textAlign: TextAlign.center,
+              style: TextStyle(color: textTheme.caption?.color),
+            ),
+            builder: (context, provider, child) {
+              String url = provider.getString('facebook_page_url');
+              return InkWell(
+                onTap: url.trim().isNotEmpty ? () => launch(url) : null,
+                child: Tooltip(
+                  message: url,
+                  child: child,
+                ),
+              );
+            },
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 }

@@ -9,7 +9,6 @@ import 'package:cambodia_geography/screens/places/local_widgets/place_card.dart'
 import 'package:cambodia_geography/services/apis/places/base_places_api.dart';
 import 'package:cambodia_geography/services/apis/places/places_api.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 export 'package:google_maps_flutter/google_maps_flutter.dart';

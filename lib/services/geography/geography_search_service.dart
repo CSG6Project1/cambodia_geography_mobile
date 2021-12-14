@@ -4,9 +4,7 @@ import 'package:cambodia_geography/models/tb_commune_model.dart';
 import 'package:cambodia_geography/models/tb_district_model.dart';
 import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
-import 'package:cambodia_geography/services/geography/geo_search_result.dart';
 import 'package:flutter/foundation.dart';
-import 'package:fuzzy/fuzzy.dart';
 
 class GeographySearchService {
   static List<AutocompleterModel> _provincesAc = [];
@@ -25,6 +23,16 @@ class GeographySearchService {
         await compute<Iterable<TbVillageModel>, List<AutocompleterModel>>(_geoToAutocompleterModelList, _villages());
   }
 
+  _SupportLangs? getLang(String keyword) {
+    bool searchInEnglish = _isSearchInEnglish(keyword);
+    bool searchInKhmer = _isSearchInKhmer(keyword);
+    if (searchInEnglish) {
+      return _SupportLangs.en;
+    } else if (searchInKhmer) {
+      return _SupportLangs.km;
+    }
+  }
+
   Future<List<AutocompleterModel>> autocompletion(String keyword) async {
     if (_provincesAc.isEmpty) await initilize();
 
@@ -36,21 +44,15 @@ class GeographySearchService {
       ..._villagesAc,
     ];
 
-    bool searchInEnglish = _isSearchInEnglish(keyword);
-    bool searchInKhmer = _isSearchInKhmer(keyword);
+    _SupportLangs? lang = getLang(keyword);
+    if (lang == null) return [];
 
-    if (searchInEnglish) {
-      items = await compute<List<dynamic>, List<AutocompleterModel>>(
-        _transformAutoCompletions,
-        [items, keyword, _SupportLangs.en],
-      );
-    } else if (searchInKhmer) {
-      items = await compute<List<dynamic>, List<AutocompleterModel>>(
-        _transformAutoCompletions,
-        [items, keyword, _SupportLangs.km],
-      );
-    }
+    items = await compute<List<dynamic>, List<AutocompleterModel>>(
+      _performSearch,
+      [items, keyword, lang],
+    );
 
+    // items = _performSearch([items, keyword, lang]);
     return items;
   }
 
@@ -90,64 +92,6 @@ class GeographySearchService {
     }
   }
 
-  String? getCommuneDisplayRoute(String communeCode, String languageCode) {
-    Iterable<TbCommuneModel> list = CambodiaGeography.instance.tbCommunes.where((p) => p.code == communeCode);
-    if (list.isEmpty) return null;
-
-    TbCommuneModel result = list.first;
-    String? district = getDistrictDisplayRoute(result.districtCode!, languageCode);
-
-    switch (languageCode) {
-      case "km":
-        return district ?? "" + "/" + result.khmer!;
-      case "en":
-        return district ?? "" + "/" + result.english!;
-    }
-  }
-
-  @Deprecated('migration')
-  List<GeoSearchResult> geoToGeoSearchResult(Iterable<dynamic> list, {required String languageCode}) {
-    if (list.isEmpty) return [];
-    dynamic first = list.first;
-    assert(first is TbProvinceModel || first is TbDistrictModel || first is TbCommuneModel || first is TbVillageModel);
-    return list.map((e) {
-      String? optionText;
-      String? type;
-
-      if (e is TbProvinceModel) {
-        optionText = "/";
-        type = "PROVINCE";
-      } else if (e is TbDistrictModel && e.provinceCode != null) {
-        optionText = getProvinceDisplayRoute(e.provinceCode!, languageCode);
-        type = e.type;
-      } else if (e is TbCommuneModel) {
-        optionText = getDistrictDisplayRoute(e.districtCode!, languageCode);
-        type = e.type;
-      } else if (e is TbVillageModel) {
-        optionText = getCommuneDisplayRoute(e.communeCode!, languageCode);
-        type = "VILLAGE";
-      }
-
-      return GeoSearchResult(
-        khmer: e.khmer,
-        english: e.english,
-        code: e.code,
-        optionText: optionText,
-        type: type,
-      );
-    }).toList();
-  }
-
-  List<T> listOfListToList<T>(List<List<T>> list) {
-    List<T> result = [];
-    list.forEach((element) {
-      result.addAll(element);
-    });
-    return result;
-  }
-
-  FuzzyOptions<dynamic> fuzzyOptions() => FuzzyOptions(isCaseSensitive: false);
-
   static Iterable<TbProvinceModel> _provinces() => CambodiaGeography.instance.tbProvinces;
   static Iterable<TbDistrictModel> _districts() => CambodiaGeography.instance.tbDistricts;
   static Iterable<TbCommuneModel> _communes() => CambodiaGeography.instance.tbCommunes;
@@ -181,16 +125,14 @@ List<AutocompleterModel> _geoToAutocompleterModelList(Iterable<dynamic> list) {
   }).toList();
 }
 
-enum _SupportLangs {
-  en,
-  km,
-}
-
-List<AutocompleterModel> _transformAutoCompletions(List params) {
+List<AutocompleterModel> _performSearch(List params) {
   List<AutocompleterModel> items = params[0];
   String keyword = params[1];
   _SupportLangs lang = params[2];
+  return _searchGeography(items, keyword, lang);
+}
 
+List<AutocompleterModel> _searchGeography(List<AutocompleterModel> items, String keyword, _SupportLangs lang) {
   if (lang == _SupportLangs.en) {
     items = items.where((element) {
       String? lower = element.english;
@@ -222,8 +164,12 @@ List<AutocompleterModel> _transformAutoCompletions(List params) {
     }).toList();
     return items;
   }
-
   return [];
+}
+
+enum _SupportLangs {
+  en,
+  km,
 }
 
 List<T> _maxList<T>(List<T> list, [int maxLength = 10]) {

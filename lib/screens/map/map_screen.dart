@@ -7,7 +7,6 @@ import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/screens/map/local_widgets/carousel_place_list.dart';
-import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:cambodia_geography/widgets/cg_bottom_nav_wrapper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -15,7 +14,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 export 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
@@ -25,6 +23,7 @@ class MapScreenSetting {
   final LatLng? initialLatLng;
   final MapFlowType flowType;
   final PlaceModel? place;
+  final String? initialSearchKeyword;
 
   static LatLng defaultLatLng = LatLng(11.5564, 104.9282);
 
@@ -32,6 +31,7 @@ class MapScreenSetting {
     required this.flowType,
     this.initialLatLng,
     this.place,
+    this.initialSearchKeyword,
   });
 }
 
@@ -71,6 +71,10 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
 
     if (widget.settings.initialLatLng != null) {
       setMarker(widget.settings.initialLatLng!);
+    } else if (widget.settings.initialSearchKeyword != null) {
+      Future.delayed(ConfigConstant.duration).then((e) {
+        openPlacesAutocomplete(initialKeyword: widget.settings.initialSearchKeyword);
+      });
     }
 
     super.initState();
@@ -235,6 +239,19 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
     }
   }
 
+  Future<Prediction?> openPlacesAutocomplete({String? initialKeyword}) async {
+    Prediction? prediction = await PlacesAutocomplete.show(
+      context: context,
+      apiKey: ApiConstant.googleMapApiKey,
+      mode: Mode.overlay, // Mode.fullscreen
+      types: [],
+      strictbounds: false,
+      components: [],
+      startText: initialKeyword ?? "",
+    );
+    return prediction;
+  }
+
   MorphingAppBar buildAppBar() {
     return MorphingAppBar(
       elevation: 0.0,
@@ -248,14 +265,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
                 border: InputBorder.none,
               ),
               onTap: () async {
-                Prediction? prediction = await PlacesAutocomplete.show(
-                  context: context,
-                  apiKey: ApiConstant.googleMapApiKey,
-                  mode: Mode.overlay, // Mode.fullscreen
-                  types: [],
-                  strictbounds: false,
-                  components: [],
-                );
+                Prediction? prediction = await openPlacesAutocomplete();
                 LatLng? latLng = await getLatLng(prediction);
                 if (latLng != null) {
                   setMarker(latLng);
