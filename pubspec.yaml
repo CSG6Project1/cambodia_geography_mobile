@@ -56,7 +56,8 @@ dependencies:
   google_maps_flutter: ^2.0.8
   carousel_slider: ^4.0.0
   uni_links: ^0.5.1
-  flutter_google_places: ^0.3.0
+  flutter_google_places: # ^0.3.0
+    path: flutter_google_places
   easy_localization: ^3.0.0
   about: ^2.0.1
   dio: ^4.0.0

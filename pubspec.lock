@@ -485,10 +485,10 @@ packages:
   flutter_google_places:
     dependency: "direct main"
     description:
-      name: flutter_google_places
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.0"
+      path: flutter_google_places
+      relative: true
+    source: path
+    version: "0.3.1"
   flutter_inappwebview:
     dependency: transitive
     description:
@@ -762,7 +762,7 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.3"
+    version: "0.13.4"
   http_interceptor:
     dependency: "direct main"
     description:
@@ -1163,7 +1163,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.26.0"
+    version: "0.27.3"
   scroll_to_index:
     dependency: "direct main"
     description:

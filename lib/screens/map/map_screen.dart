@@ -23,6 +23,7 @@ class MapScreenSetting {
   final LatLng? initialLatLng;
   final MapFlowType flowType;
   final PlaceModel? place;
+  final String? initialSearchKeyword;
 
   static LatLng defaultLatLng = LatLng(11.5564, 104.9282);
 
@@ -30,6 +31,7 @@ class MapScreenSetting {
     required this.flowType,
     this.initialLatLng,
     this.place,
+    this.initialSearchKeyword,
   });
 }
 
@@ -69,6 +71,10 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
 
     if (widget.settings.initialLatLng != null) {
       setMarker(widget.settings.initialLatLng!);
+    } else if (widget.settings.initialSearchKeyword != null) {
+      Future.delayed(ConfigConstant.duration).then((e) {
+        openPlacesAutocomplete(initialKeyword: widget.settings.initialSearchKeyword);
+      });
     }
 
     super.initState();
@@ -233,6 +239,20 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
     }
   }
 
+  Future<Prediction?> openPlacesAutocomplete({String? initialKeyword}) async {
+    Prediction? prediction = await PlacesAutocomplete.show(
+      context: context,
+      apiKey: ApiConstant.googleMapApiKey,
+      mode: Mode.overlay, // Mode.fullscreen
+      types: [],
+      strictbounds: false,
+      components: [],
+      strutStyle: StrutStyle(forceStrutHeight: true),
+      startText: initialKeyword ?? "",
+    );
+    return prediction;
+  }
+
   MorphingAppBar buildAppBar() {
     return MorphingAppBar(
       elevation: 0.0,
@@ -246,14 +266,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
                 border: InputBorder.none,
               ),
               onTap: () async {
-                Prediction? prediction = await PlacesAutocomplete.show(
-                  context: context,
-                  apiKey: ApiConstant.googleMapApiKey,
-                  mode: Mode.overlay, // Mode.fullscreen
-                  types: [],
-                  strictbounds: false,
-                  components: [],
-                );
+                Prediction? prediction = await openPlacesAutocomplete();
                 LatLng? latLng = await getLatLng(prediction);
                 if (latLng != null) {
                   setMarker(latLng);
