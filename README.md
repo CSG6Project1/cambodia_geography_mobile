@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-In this project, we use flutter 2.2.3. If you have different version, you should consider [install FVM](https://soksereyphon8.medium.com/flutter-version-management-3c318c4ff97d).
+In this project, we use flutter `2.8.0`. If you have different version, you should consider [install FVM](https://soksereyphon8.medium.com/flutter-version-management-3c318c4ff97d).
 
 ### Prerequisites
 
@@ -14,7 +14,7 @@ fvm flutter run
 ```
 ## Built with
 
-* [Flutter 2.2.3](https://flutter.dev) - The framework used
+* [Flutter](https://flutter.dev) - The framework used
 * [Dart](https://dart.dev/) - The language used
 
 ## Data use
