@@ -4,7 +4,7 @@ import 'package:cambodia_geography/models/search/autocompleter_list_model.dart';
 import 'package:cambodia_geography/models/search/autocompleter_model.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
 import 'package:cambodia_geography/screens/search/cg_search_delegate.dart';
-import 'package:cambodia_geography/screens/search/search_history_storage.dart';
+import 'package:cambodia_geography/services/storages/search_history_storage.dart';
 import 'package:cambodia_geography/services/apis/search/search_autocomplete_api.dart';
 import 'package:cambodia_geography/services/geography/geography_search_service.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';

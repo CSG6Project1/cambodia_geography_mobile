@@ -6,7 +6,7 @@ import 'package:cambodia_geography/models/places/place_list_model.dart';
 import 'package:cambodia_geography/models/places/place_model.dart';
 import 'package:cambodia_geography/models/search/autocompleter_model.dart';
 import 'package:cambodia_geography/screens/admin/local_widgets/place_list.dart';
-import 'package:cambodia_geography/screens/search/search_history_storage.dart';
+import 'package:cambodia_geography/services/storages/search_history_storage.dart';
 import 'package:cambodia_geography/services/apis/search/search_filter_api.dart';
 import 'package:cambodia_geography/services/geography/navigator_to_geo_service.dart';
 import 'package:cambodia_geography/utils/translation_utils.dart';

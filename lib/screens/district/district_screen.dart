@@ -1,6 +1,7 @@
 import 'package:cambodia_geography/cambodia_geography.dart';
 import 'package:cambodia_geography/configs/route_config.dart';
 import 'package:cambodia_geography/constants/config_constant.dart';
+import 'package:cambodia_geography/exports/widgets_exports.dart';
 import 'package:cambodia_geography/mixins/cg_media_query_mixin.dart';
 import 'package:cambodia_geography/mixins/cg_theme_mixin.dart';
 import 'package:cambodia_geography/models/tb_commune_model.dart';
@@ -9,9 +10,10 @@ import 'package:cambodia_geography/models/tb_province_model.dart';
 import 'package:cambodia_geography/models/tb_village_model.dart';
 import 'package:cambodia_geography/screens/map/map_screen.dart';
 import 'package:cambodia_geography/utils/translation_utils.dart';
-import 'package:cambodia_geography/widgets/cg_app_bar_title.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
@@ -476,6 +478,26 @@ Future<dynamic> showInfoModalBottomSheet(
                     ),
                     automaticallyImplyLeading: false,
                     actions: [
+                      if (json.containsKey('english') && json.containsKey('khmer'))
+                        CgButton(
+                          labelText: "Map",
+                          iconData: Icons.map,
+                          backgroundColor: Theme.of(context).colorScheme.surface,
+                          foregroundColor: Theme.of(context).colorScheme.secondary,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pushNamed(
+                              RouteConfig.MAP,
+                              arguments: MapScreenSetting(
+                                flowType: MapFlowType.pick,
+                                initialSearchKeyword: [
+                                  json['english'],
+                                  json['khmer'],
+                                ].join(", "),
+                              ),
+                            );
+                          },
+                        ),
                       CloseButton(
                         color: Theme.of(context).colorScheme.onSurface,
                       ),
@@ -485,42 +507,23 @@ Future<dynamic> showInfoModalBottomSheet(
                   ),
                   body: ListView.builder(
                     controller: controller,
-                    itemCount: value.length + 1,
+                    itemCount: value.length,
                     itemBuilder: (context, index) {
-                      if (index == 0) {
-                        if (json.containsKey('english') && json.containsKey('khmer')) {
-                          return Material(
-                            color: Theme.of(context).colorScheme.surface,
-                            child: ListTile(
-                              title: Text(
-                                tr('button.map'),
-                              ),
-                              trailing: Icon(Icons.keyboard_arrow_right),
-                              onTap: () async {
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pushNamed(
-                                  RouteConfig.MAP,
-                                  arguments: MapScreenSetting(
-                                    flowType: MapFlowType.pick,
-                                    initialSearchKeyword: [
-                                      json['english'],
-                                      json['khmer'],
-                                    ].join(", "),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        }
-                        return SizedBox();
-                      }
-                      index = index - 1;
                       MapEntry<String, dynamic> item = value[index];
+                      String text = numberTr("${item.value}");
                       return Material(
                         color: Theme.of(context).colorScheme.surface,
                         child: ListTile(
                           title: Text(tr('geo_info.' + item.key)),
-                          subtitle: Text(numberTr("${item.value}")),
+                          subtitle: Text(text),
+                          trailing: IconButton(
+                            icon: Icon(Icons.copy),
+                            tooltip: MaterialLocalizations.of(context).copyButtonLabel,
+                            onPressed: () async {
+                              await Clipboard.setData(ClipboardData(text: text));
+                              Fluttertoast.showToast(msg: text);
+                            },
+                          ),
                         ),
                       );
                     },
