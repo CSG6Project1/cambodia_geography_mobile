@@ -143,51 +143,7 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
-        PlaceModel initPlace = widget.place ?? PlaceModel.empty();
-        Map<String, dynamic> initPlaceMap = AppHelper.filterOutNull(initPlace.toJson());
-        Map<String, dynamic> placeMap = AppHelper.filterOutNull(place.toJson());
-
-        bool didNoUpdate = "$initPlaceMap" == "$placeMap";
-        bool didUpdate = !didNoUpdate;
-
-        List<String> initialImages = [];
-        List<String?> images = widget.place?.images?.map((e) => e.url).toList() ?? [];
-
-        this.images.forEach((image) {
-          if (image is CachedNetworkImageProvider) {
-            initialImages.add(image.url);
-          }
-          if (image is FileImage) {
-            initialImages.add(image.file.path);
-          }
-        });
-
-        bool didNotChangeImages = listEquals(initialImages, images);
-        bool didChangeImages = !didNotChangeImages;
-
-        if (didUpdate) {
-          OkCancelResult result = await showOkCancelAlertDialog(
-            context: context,
-            title: tr('msg.discard_changes'),
-            message: place.khmer,
-            okLabel: tr('button.discard'),
-          );
-          if (result == OkCancelResult.ok) Navigator.of(context).pop();
-        } else if (didChangeImages) {
-          OkCancelResult result = await showOkCancelAlertDialog(
-            context: context,
-            title: tr('msg.discard_changes'),
-            message: tr('msg.images_are_updated'),
-            okLabel: tr('button.discard'),
-          );
-          if (result == OkCancelResult.ok) Navigator.of(context).pop();
-        } else {
-          Navigator.of(context).pop();
-        }
-
-        return false;
-      },
+      onWillPop: () => onWillPop(context),
       child: Scaffold(
         backgroundColor: colorScheme.background,
         floatingActionButton: buildSaveButton(),
@@ -235,6 +191,52 @@ class _EditPlaceScreenState extends State<EditPlaceScreen> with CgMediaQueryMixi
         ),
       ),
     );
+  }
+
+  Future<bool> onWillPop(BuildContext context) async {
+    PlaceModel initPlace = widget.place ?? PlaceModel.empty();
+    Map<String, dynamic> initPlaceMap = AppHelper.filterOutNull(initPlace.toJson());
+    Map<String, dynamic> placeMap = AppHelper.filterOutNull(place.toJson());
+
+    bool didNoUpdate = "$initPlaceMap" == "$placeMap";
+    bool didUpdate = !didNoUpdate;
+
+    List<String> initialImages = [];
+    List<String?> images = widget.place?.images?.map((e) => e.url).toList() ?? [];
+
+    this.images.forEach((image) {
+      if (image is CachedNetworkImageProvider) {
+        initialImages.add(image.url);
+      }
+      if (image is FileImage) {
+        initialImages.add(image.file.path);
+      }
+    });
+
+    bool didNotChangeImages = listEquals(initialImages, images);
+    bool didChangeImages = !didNotChangeImages;
+
+    if (didUpdate) {
+      OkCancelResult result = await showOkCancelAlertDialog(
+        context: context,
+        title: tr('msg.discard_changes'),
+        message: place.khmer,
+        okLabel: tr('button.discard'),
+      );
+      if (result == OkCancelResult.ok) Navigator.of(context).pop();
+    } else if (didChangeImages) {
+      OkCancelResult result = await showOkCancelAlertDialog(
+        context: context,
+        title: tr('msg.discard_changes'),
+        message: tr('msg.images_are_updated'),
+        okLabel: tr('button.discard'),
+      );
+      if (result == OkCancelResult.ok) Navigator.of(context).pop();
+    } else {
+      Navigator.of(context).pop();
+    }
+
+    return false;
   }
 
   Widget buildDeleteButton() {

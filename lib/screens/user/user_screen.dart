@@ -71,86 +71,87 @@ class _UserScreenState extends State<UserScreen> with CgMediaQueryMixin, CgTheme
           return provider.fetchCurrentUser();
         },
         child: CustomScrollView(
-          slivers: [
-            UserSettingAppBar(),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  VerifyEmailBanner(margin: const EdgeInsets.symmetric(vertical: 1)),
-                  UserInfosTile(),
-                  const SizedBox(height: ConfigConstant.margin2),
-                  ThemeModeTile(),
-                  Consumer<LocaleProvider>(
-                    builder: (context, provider, child) {
-                      return SettingTile(
-                        title: tr('tile.language'),
-                        iconData: Icons.language,
-                        subtitle: provider.locale?.languageCode,
-                        showDivider: false,
-                        onTap: () => showLanguageDialog(provider),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: ConfigConstant.margin2),
-                  SettingTile(
-                    title: tr('tile.help'),
-                    iconData: Icons.help,
-                    onTap: () async {
-                      Navigator.of(context).pushNamed(RouteConfig.HELP);
-                    },
-                  ),
-                  SettingTile(
-                    title: tr('tile.rate_us.title'),
-                    iconData: Icons.rate_review,
-                    subtitle: tr('tile.rate_us.subtitle'),
-                    onTap: () async {
-                      InAppReview inAppReview = InAppReview.instance;
-                      PackageInfo packageInfo = await PackageInfo.fromPlatform().then((value) => value);
-                      inAppReview.openStoreListing(appStoreId: packageInfo.packageName);
-                    },
-                  ),
-                  Consumer<RemoteConfig>(
-                    builder: (context, provider, child) {
-                      String url = provider.getString('privacy_policy_url');
-                      return AnimatedCrossFade(
-                        firstChild: SettingTile(
-                          title: tr('tile.policy'),
-                          iconData: Icons.privacy_tip,
-                          showDivider: false,
-                          onTap: () => launch(url),
-                        ),
-                        secondChild: SizedBox(),
-                        crossFadeState: url.trim().isNotEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                        duration: ConfigConstant.fadeDuration,
-                      );
-                    },
-                  ),
-                  SettingTile(
-                    title: MaterialLocalizations.of(context).licensesPageTitle,
-                    iconData: Icons.policy,
-                    showDivider: false,
-                    onTap: () async {
-                      showLicensePage(
-                        context: context,
-                        applicationVersion: await PackageInfo.fromPlatform().then((value) => value.version),
-                        applicationIcon: Container(
-                          child: Icon(
-                            Icons.map,
-                            color: colorScheme.primary,
-                            size: ConfigConstant.objectHeight1,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: ConfigConstant.margin2 * 2),
-                  buildAppVersion(),
-                  const SizedBox(height: ConfigConstant.objectHeight7),
-                ],
-              ),
-            )
-          ],
+          slivers: [UserSettingAppBar(), buildBodyList(context)],
         ),
+      ),
+    );
+  }
+
+  Widget buildBodyList(BuildContext context) {
+    return SliverList(
+      delegate: SliverChildListDelegate(
+        [
+          VerifyEmailBanner(margin: const EdgeInsets.symmetric(vertical: 1)),
+          UserInfosTile(),
+          const SizedBox(height: ConfigConstant.margin2),
+          ThemeModeTile(),
+          Consumer<LocaleProvider>(
+            builder: (context, provider, child) {
+              return SettingTile(
+                title: tr('tile.language'),
+                iconData: Icons.language,
+                subtitle: provider.locale?.languageCode,
+                showDivider: false,
+                onTap: () => showLanguageDialog(provider),
+              );
+            },
+          ),
+          const SizedBox(height: ConfigConstant.margin2),
+          SettingTile(
+            title: tr('tile.help'),
+            iconData: Icons.help,
+            onTap: () async {
+              Navigator.of(context).pushNamed(RouteConfig.HELP);
+            },
+          ),
+          SettingTile(
+            title: tr('tile.rate_us.title'),
+            iconData: Icons.rate_review,
+            subtitle: tr('tile.rate_us.subtitle'),
+            onTap: () async {
+              InAppReview inAppReview = InAppReview.instance;
+              PackageInfo packageInfo = await PackageInfo.fromPlatform().then((value) => value);
+              inAppReview.openStoreListing(appStoreId: packageInfo.packageName);
+            },
+          ),
+          Consumer<RemoteConfig>(
+            builder: (context, provider, child) {
+              String url = provider.getString('privacy_policy_url');
+              return AnimatedCrossFade(
+                firstChild: SettingTile(
+                  title: tr('tile.policy'),
+                  iconData: Icons.privacy_tip,
+                  showDivider: false,
+                  onTap: () => launch(url),
+                ),
+                secondChild: SizedBox(),
+                crossFadeState: url.trim().isNotEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                duration: ConfigConstant.fadeDuration,
+              );
+            },
+          ),
+          SettingTile(
+            title: MaterialLocalizations.of(context).licensesPageTitle,
+            iconData: Icons.policy,
+            showDivider: false,
+            onTap: () async {
+              showLicensePage(
+                context: context,
+                applicationVersion: await PackageInfo.fromPlatform().then((value) => value.version),
+                applicationIcon: Container(
+                  child: Icon(
+                    Icons.map,
+                    color: colorScheme.primary,
+                    size: ConfigConstant.objectHeight1,
+                  ),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: ConfigConstant.margin2 * 2),
+          buildAppVersion(),
+          const SizedBox(height: ConfigConstant.objectHeight7),
+        ],
       ),
     );
   }

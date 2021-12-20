@@ -169,7 +169,7 @@ class _ProvinceDetailScreenState extends State<ProvinceDetailScreen> with CgThem
     );
   }
 
-  Column buildProvinceDirection() {
+  Widget buildProvinceDirection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

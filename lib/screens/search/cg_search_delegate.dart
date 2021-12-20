@@ -72,41 +72,49 @@ class CgSearchDelegate extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      Container(
-        alignment: Alignment.center,
-        child: AnimatedCrossFade(
-          sizeCurve: Curves.ease,
-          firstChild: Container(
-            width: kToolbarHeight,
-            height: kToolbarHeight,
-            child: IconButton(
-              icon: Icon(Icons.clear, color: Theme.of(context).colorScheme.primary),
-              onPressed: () {
-                query = "";
-              },
-            ),
-          ),
-          secondChild: SizedBox(
-            height: kToolbarHeight,
-          ),
-          crossFadeState: query.isNotEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-          duration: ConfigConstant.fadeDuration,
-        ),
-      ),
-      IconButton(
-        icon: Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
-        onPressed: () {
-          Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER, arguments: placeModel).then(
-            (value) {
-              if (value is PlaceModel) {
-                print(value.toJson());
-                placeModel = value;
-              }
-            },
-          );
-        },
-      ),
+      buildClearQueryButton(context),
+      buildFilterButton(context),
     ];
+  }
+
+  Widget buildFilterButton(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
+      onPressed: () {
+        Navigator.of(context).pushNamed(RouteConfig.SEARCHFILTER, arguments: placeModel).then(
+          (value) {
+            if (value is PlaceModel) {
+              print(value.toJson());
+              placeModel = value;
+            }
+          },
+        );
+      },
+    );
+  }
+
+  Widget buildClearQueryButton(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: AnimatedCrossFade(
+        sizeCurve: Curves.ease,
+        firstChild: Container(
+          width: kToolbarHeight,
+          height: kToolbarHeight,
+          child: IconButton(
+            icon: Icon(Icons.clear, color: Theme.of(context).colorScheme.primary),
+            onPressed: () {
+              query = "";
+            },
+          ),
+        ),
+        secondChild: SizedBox(
+          height: kToolbarHeight,
+        ),
+        crossFadeState: query.isNotEmpty ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+        duration: ConfigConstant.fadeDuration,
+      ),
+    );
   }
 
   @override

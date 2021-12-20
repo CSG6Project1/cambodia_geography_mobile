@@ -209,105 +209,125 @@ class _CommentScreenState extends State<CommentScreen> with CgThemeMixin {
     comments = commentListModel?.items;
     return Scaffold(
       appBar: buildAppBar(context),
-      body: RefreshIndicator(
-        onRefresh: () => load(),
-        child: CgNoDataWrapper(
-          isNoData: comments?.isEmpty == true,
-          child: CgLoadMoreList(
-            onEndScroll: () => load(loadMore: true),
-            child: CgMeasureSize(
-              onChange: (size) {
-                if (size.height < MediaQuery.of(context).size.height) load(loadMore: true);
-              },
-              child: ListView.builder(
-                key: listKey,
-                shrinkWrap: true,
-                physics: const AlwaysScrollableScrollPhysics(),
-                controller: scrollController,
-                itemCount: comments?.length ?? 10,
-                itemBuilder: (context, index) {
-                  if (comments?.length == index) {
-                    return Visibility(
-                      key: Key('$index'),
-                      visible: commentListModel?.hasLoadMore() == true,
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: ConfigConstant.layoutPadding,
-                        child: const CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-                  return buildComment(
-                    comment: comments?[index],
-                    isLastIndex: index == (comments?.length ?? 0) - 1,
+      body: buildBody(context),
+      bottomNavigationBar: buildBottomNavigationBar(),
+    );
+  }
+
+  Widget buildBody(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () => load(),
+      child: CgNoDataWrapper(
+        isNoData: comments?.isEmpty == true,
+        child: CgLoadMoreList(
+          onEndScroll: () => load(loadMore: true),
+          child: CgMeasureSize(
+            onChange: (size) {
+              if (size.height < MediaQuery.of(context).size.height) load(loadMore: true);
+            },
+            child: ListView.builder(
+              key: listKey,
+              shrinkWrap: true,
+              physics: const AlwaysScrollableScrollPhysics(),
+              controller: scrollController,
+              itemCount: comments?.length ?? 10,
+              itemBuilder: (context, index) {
+                if (comments?.length == index) {
+                  return Visibility(
+                    key: Key('$index'),
+                    visible: commentListModel?.hasLoadMore() == true,
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: ConfigConstant.layoutPadding,
+                      child: const CircularProgressIndicator(),
+                    ),
                   );
-                },
-              ),
+                }
+                return buildComment(
+                  comment: comments?[index],
+                  isLastIndex: index == (comments?.length ?? 0) - 1,
+                );
+              },
             ),
           ),
         ),
       ),
-      bottomNavigationBar: CgBottomNavWrapper(
-        padding: const EdgeInsets.symmetric(
-          horizontal: ConfigConstant.margin2,
-          vertical: ConfigConstant.margin1,
-        ).copyWith(right: 0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
-              child: Container(
-                color: colorScheme.background,
-                child: Consumer<UserProvider>(
-                  builder: (context, provider, child) {
-                    return CgNetworkImageLoader(
-                      imageUrl: provider.user?.profileImg?.url,
-                      width: ConfigConstant.objectHeight1,
-                      height: ConfigConstant.objectHeight1,
-                      fit: BoxFit.cover,
-                    );
-                  },
-                ),
-              ),
-            ),
-            Expanded(
-              child: CgTextField(
-                controller: textController,
-                hintText: tr('hint.comment'),
-                maxLines: 5,
-                minLines: 1,
-                fillColor: Colors.transparent,
-                borderSide: BorderSide.none,
-                onSubmitted: (comment) {
-                  createComment(comment);
-                },
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              child: ValueListenableBuilder<bool>(
-                valueListenable: isTextEmptyNotifier,
-                builder: (context, isTextEmpty, child) {
-                  return AnimatedCrossFade(
-                    sizeCurve: Curves.ease,
-                    duration: ConfigConstant.fadeDuration,
-                    crossFadeState: isTextEmptyNotifier.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                    secondChild: const SizedBox(height: ConfigConstant.objectHeight1),
-                    firstChild: Container(
-                      child: IconButton(
-                        icon: Icon(Icons.send, color: colorScheme.primary),
-                        onPressed: () async {
-                          await createComment(textController.text);
-                        },
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
+    );
+  }
+
+  Widget buildBottomNavigationBar() {
+    return CgBottomNavWrapper(
+      padding: const EdgeInsets.symmetric(
+        horizontal: ConfigConstant.margin2,
+        vertical: ConfigConstant.margin1,
+      ).copyWith(right: 0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          buildUserProfile(),
+          buildCommentField(),
+          buildSendButton(),
+        ],
+      ),
+    );
+  }
+
+  Widget buildUserProfile() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(ConfigConstant.objectHeight1),
+      child: Container(
+        color: colorScheme.background,
+        child: Consumer<UserProvider>(
+          builder: (context, provider, child) {
+            return CgNetworkImageLoader(
+              imageUrl: provider.user?.profileImg?.url,
+              width: ConfigConstant.objectHeight1,
+              height: ConfigConstant.objectHeight1,
+              fit: BoxFit.cover,
+            );
+          },
         ),
+      ),
+    );
+  }
+
+  Widget buildSendButton() {
+    return Container(
+      alignment: Alignment.center,
+      child: ValueListenableBuilder<bool>(
+        valueListenable: isTextEmptyNotifier,
+        builder: (context, isTextEmpty, child) {
+          return AnimatedCrossFade(
+            sizeCurve: Curves.ease,
+            duration: ConfigConstant.fadeDuration,
+            crossFadeState: isTextEmptyNotifier.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+            secondChild: const SizedBox(height: ConfigConstant.objectHeight1),
+            firstChild: Container(
+              child: IconButton(
+                icon: Icon(Icons.send, color: colorScheme.primary),
+                onPressed: () async {
+                  await createComment(textController.text);
+                },
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget buildCommentField() {
+    return Expanded(
+      child: CgTextField(
+        controller: textController,
+        hintText: tr('hint.comment'),
+        maxLines: 5,
+        minLines: 1,
+        fillColor: Colors.transparent,
+        borderSide: BorderSide.none,
+        onSubmitted: (comment) {
+          createComment(comment);
+        },
       ),
     );
   }
