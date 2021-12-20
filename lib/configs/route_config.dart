@@ -253,6 +253,7 @@ class RouteConfig {
         isRoot: false,
         title: "USER",
         screen: UserScreen(),
+        fullscreenDialog: true,
         route: (context) => UserScreen(),
         fillColor: context != null ? Theme.of(context!).colorScheme.surface : null,
       ),
@@ -290,7 +291,7 @@ class RouteConfig {
       // ),
       HELP: CgRouteSetting(
         isRoot: false,
-        fullscreenDialog: false,
+        fullscreenDialog: true,
         canSwap: false,
         title: "HELP ABOUT",
         route: (context) => HelpScreen(),
