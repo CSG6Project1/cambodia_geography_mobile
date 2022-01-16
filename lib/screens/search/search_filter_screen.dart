@@ -39,14 +39,7 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
           textStyle: themeData.appBarTheme.titleTextStyle?.copyWith(color: colorScheme.onSurface),
         ),
         actions: [
-          CgButton(
-            onPressed: () {
-              Navigator.of(context).pop(place);
-            },
-            labelText: tr("button.filter"),
-            backgroundColor: colorScheme.surface,
-            foregroundColor: colorScheme.primary,
-          ),
+          buildApplyFilterBtn(context),
         ],
       ),
       body: ListView(
@@ -60,6 +53,17 @@ class _SearchFilterScreenState extends State<SearchFilterScreen> with CgThemeMix
           )
         ],
       ),
+    );
+  }
+
+  Widget buildApplyFilterBtn(BuildContext context) {
+    return CgButton(
+      onPressed: () {
+        Navigator.of(context).pop(place);
+      },
+      labelText: tr("button.filter"),
+      backgroundColor: colorScheme.surface,
+      foregroundColor: colorScheme.primary,
     );
   }
 }

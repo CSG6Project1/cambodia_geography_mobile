@@ -48,7 +48,9 @@ class _ReferenceScreenState extends State<ReferenceScreen> with CgThemeMixin, Cg
     return Scaffold(
       appBar: MorphingAppBar(
         automaticallyImplyLeading: true,
-        title: Text(tr('title.reference')),
+        title: CgAppBarTitle(
+          title: tr('title.reference'),
+        ),
       ),
       body: ListView(
         children: [

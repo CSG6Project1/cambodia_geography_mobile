@@ -57,7 +57,7 @@ class RouteConfig {
     this.context,
   });
 
-  static const String HOME = '/';
+  static const String HOME = '/home';
   static const String DISTRICT = '/district';
   static const String LOGIN = '/auth/login';
   static const String INIT_LANG = '/init_lang';
@@ -113,6 +113,12 @@ class RouteConfig {
 
   Map<String, CgRouteSetting> get routes {
     return {
+      '/': CgRouteSetting(
+        isRoot: true,
+        title: "HOME",
+        screen: HomeScreen(),
+        route: (context) => HomeScreen(),
+      ),
       HOME: CgRouteSetting(
         isRoot: true,
         title: "HOME",
@@ -247,6 +253,7 @@ class RouteConfig {
         isRoot: false,
         title: "USER",
         screen: UserScreen(),
+        fullscreenDialog: true,
         route: (context) => UserScreen(),
         fillColor: context != null ? Theme.of(context!).colorScheme.surface : null,
       ),
@@ -284,7 +291,7 @@ class RouteConfig {
       // ),
       HELP: CgRouteSetting(
         isRoot: false,
-        fullscreenDialog: false,
+        fullscreenDialog: true,
         canSwap: false,
         title: "HELP ABOUT",
         route: (context) => HelpScreen(),

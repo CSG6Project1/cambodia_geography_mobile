@@ -47,30 +47,38 @@ class _PlacesScreenState extends State<PlacesScreen> with SingleTickerProviderSt
       body: TabBarView(
         controller: controller,
         children: [
-          PlaceList(
-            provinceCode: provinceCode!,
-            type: PlaceType.place,
-            basePlacesApi: PlacesApi(),
-            onTap: (place) {
-              Navigator.of(context).pushNamed(
-                RouteConfig.PLACEDETAIL,
-                arguments: place,
-              );
-            },
-          ),
-          PlaceList(
-            provinceCode: provinceCode!,
-            type: PlaceType.restaurant,
-            basePlacesApi: PlacesApi(),
-            onTap: (place) {
-              Navigator.of(context).pushNamed(
-                RouteConfig.PLACEDETAIL,
-                arguments: place,
-              );
-            },
-          ),
+          buildPlaceListTab(context),
+          buildRestuarantTab(context),
         ],
       ),
+    );
+  }
+
+  Widget buildRestuarantTab(BuildContext context) {
+    return PlaceList(
+      provinceCode: provinceCode!,
+      type: PlaceType.restaurant,
+      basePlacesApi: PlacesApi(),
+      onTap: (place) {
+        Navigator.of(context).pushNamed(
+          RouteConfig.PLACEDETAIL,
+          arguments: place,
+        );
+      },
+    );
+  }
+
+  Widget buildPlaceListTab(BuildContext context) {
+    return PlaceList(
+      provinceCode: provinceCode!,
+      type: PlaceType.place,
+      basePlacesApi: PlacesApi(),
+      onTap: (place) {
+        Navigator.of(context).pushNamed(
+          RouteConfig.PLACEDETAIL,
+          arguments: place,
+        );
+      },
     );
   }
 

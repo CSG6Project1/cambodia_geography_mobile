@@ -239,7 +239,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
     }
   }
 
-  Future<Prediction?> openPlacesAutocomplete({String? initialKeyword}) async {
+  Future<void> openPlacesAutocomplete({String? initialKeyword}) async {
     Prediction? prediction = await PlacesAutocomplete.show(
       context: context,
       apiKey: ApiConstant.googleMapApiKey,
@@ -249,7 +249,11 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
       components: [],
       startText: initialKeyword ?? "",
     );
-    return prediction;
+    LatLng? latLng = await getLatLng(prediction);
+    if (latLng != null) {
+      setMarker(latLng);
+      moveCameraTo(latLng);
+    }
   }
 
   MorphingAppBar buildAppBar() {
@@ -265,12 +269,7 @@ class _MapScreenState extends State<MapScreen> with CgThemeMixin, CgMediaQueryMi
                 border: InputBorder.none,
               ),
               onTap: () async {
-                Prediction? prediction = await openPlacesAutocomplete();
-                LatLng? latLng = await getLatLng(prediction);
-                if (latLng != null) {
-                  setMarker(latLng);
-                  moveCameraTo(latLng);
-                }
+                await openPlacesAutocomplete();
               },
             )
           : CgAppBarTitle(

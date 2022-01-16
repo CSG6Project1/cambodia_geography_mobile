@@ -196,13 +196,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
         automaticallyImplyLeading: false,
         leading: CloseButton(color: colorScheme.primary),
         actions: [
-          CgButton(
-            heroTag: Key("SkipAuthButton"),
-            labelText: tr('button.skip'),
-            backgroundColor: Colors.transparent,
-            foregroundColor: colorScheme.primary,
-            onPressed: () => checkIsVerify(skip: true),
-          ),
+          buildSkipButton(),
         ],
       ),
       body: CgListViewSpacer(
@@ -249,6 +243,16 @@ class _ConfirmationScreenState extends State<ConfirmationScreen>
           );
         },
       ),
+    );
+  }
+
+  Widget buildSkipButton() {
+    return CgButton(
+      heroTag: Key("SkipAuthButton"),
+      labelText: tr('button.skip'),
+      backgroundColor: Colors.transparent,
+      foregroundColor: colorScheme.primary,
+      onPressed: () => checkIsVerify(skip: true),
     );
   }
 

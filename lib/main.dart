@@ -33,11 +33,19 @@ class TranslationWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return buildWrapper(
+      context: context,
+      child: SplashScreen(),
+    );
+  }
+
+  Widget buildWrapper({required BuildContext context, required Widget child}) {
+    // not main MaterialApp.
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      home: SplashScreen(),
+      home: child,
       theme: ThemeData.light().copyWith(colorScheme: ThemeConstant.lightScheme),
     );
   }

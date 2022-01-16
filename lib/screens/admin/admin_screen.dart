@@ -42,16 +42,7 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return CgScaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).pushNamed(RouteConfig.EDIT_PLACE).then((value) {
-            if (value is PlaceModel) {
-              Fluttertoast.showToast(msg: tr('msg.create_place.successfully'));
-            }
-          });
-        },
-      ),
+      floatingActionButton: buildCreatePlaceFabButton(context),
       appBar: buildAppbar(),
       body: TabBarView(
         controller: controller,
@@ -73,6 +64,19 @@ class _AdminScreenState extends State<AdminScreen> with SingleTickerProviderStat
           },
         ),
       ),
+    );
+  }
+
+  Widget buildCreatePlaceFabButton(BuildContext context) {
+    return FloatingActionButton(
+      child: Icon(Icons.add),
+      onPressed: () {
+        Navigator.of(context).pushNamed(RouteConfig.EDIT_PLACE).then((value) {
+          if (value is PlaceModel) {
+            Fluttertoast.showToast(msg: tr('msg.create_place.successfully'));
+          }
+        });
+      },
     );
   }
 

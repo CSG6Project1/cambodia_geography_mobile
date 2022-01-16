@@ -59,50 +59,62 @@ class _BodyEditorScreenState extends State<BodyEditorScreen> with CgThemeMixin, 
       },
       child: Scaffold(
         backgroundColor: colorScheme.surface,
-        appBar: MorphingAppBar(
-          title: Text(tr('title.body')),
-          actions: [
-            CgButton(
-              labelText: tr('button.save'),
-              foregroundColor: colorScheme.onPrimary,
-              onPressed: () {
-                var json = jsonEncode(controller.document.toDelta().toJson());
-                Navigator.of(context).pop(deltaToMarkdown(json));
-              },
-            ),
-          ],
+        appBar: buildAppBar(context),
+        body: buildMarkdownEditor(),
+        bottomNavigationBar: buildToolbar(),
+      ),
+    );
+  }
+
+  MorphingAppBar buildAppBar(BuildContext context) {
+    return MorphingAppBar(
+      title: Text(tr('title.body')),
+      actions: [
+        CgButton(
+          labelText: tr('button.save'),
+          foregroundColor: colorScheme.onPrimary,
+          onPressed: () {
+            var json = jsonEncode(controller.document.toDelta().toJson());
+            Navigator.of(context).pop(deltaToMarkdown(json));
+          },
         ),
-        body: quill.QuillEditor(
+      ],
+    );
+  }
+
+  Widget buildMarkdownEditor() {
+    return quill.QuillEditor(
+      controller: controller,
+      focusNode: focusNode,
+      scrollController: scrollController,
+      scrollable: true,
+      padding: const EdgeInsets.all(ConfigConstant.margin2),
+      autoFocus: true,
+      readOnly: false,
+      expands: true,
+    );
+  }
+
+  Widget buildToolbar() {
+    return Container(
+      height: kToolbarHeight + mediaQueryData.viewInsets.bottom + 8 + mediaQueryData.padding.bottom,
+      padding: EdgeInsets.only(bottom: mediaQueryData.viewInsets.bottom),
+      color: colorScheme.background,
+      child: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: ConfigConstant.margin2).copyWith(top: 8),
+        scrollDirection: Axis.horizontal,
+        child: quill.QuillToolbar.basic(
           controller: controller,
-          focusNode: focusNode,
-          scrollController: scrollController,
-          scrollable: true,
-          padding: const EdgeInsets.all(ConfigConstant.margin2),
-          autoFocus: true,
-          readOnly: false,
-          expands: true,
-        ),
-        bottomNavigationBar: Container(
-          height: kToolbarHeight + mediaQueryData.viewInsets.bottom + 8 + mediaQueryData.padding.bottom,
-          padding: EdgeInsets.only(bottom: mediaQueryData.viewInsets.bottom),
-          color: colorScheme.background,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: ConfigConstant.margin2).copyWith(top: 8),
-            scrollDirection: Axis.horizontal,
-            child: quill.QuillToolbar.basic(
-              controller: controller,
-              toolbarIconSize: ConfigConstant.iconSize2,
-              showBackgroundColorButton: false,
-              showColorButton: false,
-              showCodeBlock: false,
-              showIndent: false,
-              showUnderLineButton: false,
-              showHorizontalRule: false,
-              showStrikeThrough: false,
-              showVideoButton: false,
-              showImageButton: false,
-            ),
-          ),
+          toolbarIconSize: ConfigConstant.iconSize2,
+          showBackgroundColorButton: false,
+          showColorButton: false,
+          showCodeBlock: false,
+          showIndent: false,
+          showUnderLineButton: false,
+          showHorizontalRule: false,
+          showStrikeThrough: false,
+          showVideoButton: false,
+          showImageButton: false,
         ),
       ),
     );

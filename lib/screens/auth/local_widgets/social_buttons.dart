@@ -35,48 +35,56 @@ class SocialButtons extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Consumer<RemoteConfig>(
-            builder: (context, provider, child) {
-              if (!provider.getBool('enable_facebook_auth')) return const SizedBox();
-              return Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    child: SignInButton(
-                      Buttons.Facebook,
-                      text: isSignUp ? tr('button.signup_with_facebook') : tr('button.login_with_facebook'),
-                      onPressed: () {
-                        socialAuthService.getFacebookIdToken().then((value) {
-                          if (value != null) onFetched(value, SocialProviderType.facebook);
-                        });
-                      },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: ConfigConstant.circlarRadius1,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: ConfigConstant.margin1),
-                ],
-              );
-            },
-          ),
-          Container(
-            width: double.infinity,
-            child: SignInButton(
-              Buttons.Google,
-              text: isSignUp ? tr('button.signup_with_google') : tr('button.login_with_google'),
-              onPressed: () {
-                socialAuthService.getGoogleIdToken().then((value) {
-                  if (value != null) onFetched(value, SocialProviderType.google);
-                });
-              },
-              shape: RoundedRectangleBorder(
-                borderRadius: ConfigConstant.circlarRadius1,
-              ),
-            ),
-          ),
+          buildFacebookAuthButton(socialAuthService),
+          buildGoogleAuthButton(socialAuthService),
         ],
       ),
+    );
+  }
+
+  Widget buildGoogleAuthButton(SocialAuthService socialAuthService) {
+    return Container(
+      width: double.infinity,
+      child: SignInButton(
+        Buttons.Google,
+        text: isSignUp ? tr('button.signup_with_google') : tr('button.login_with_google'),
+        onPressed: () {
+          socialAuthService.getGoogleIdToken().then((value) {
+            if (value != null) onFetched(value, SocialProviderType.google);
+          });
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: ConfigConstant.circlarRadius1,
+        ),
+      ),
+    );
+  }
+
+  Widget buildFacebookAuthButton(SocialAuthService socialAuthService) {
+    return Consumer<RemoteConfig>(
+      builder: (context, provider, child) {
+        if (!provider.getBool('enable_facebook_auth')) return const SizedBox();
+        return Column(
+          children: [
+            Container(
+              width: double.infinity,
+              child: SignInButton(
+                Buttons.Facebook,
+                text: isSignUp ? tr('button.signup_with_facebook') : tr('button.login_with_facebook'),
+                onPressed: () {
+                  socialAuthService.getFacebookIdToken().then((value) {
+                    if (value != null) onFetched(value, SocialProviderType.facebook);
+                  });
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: ConfigConstant.circlarRadius1,
+                ),
+              ),
+            ),
+            const SizedBox(height: ConfigConstant.margin1),
+          ],
+        );
+      },
     );
   }
 }
